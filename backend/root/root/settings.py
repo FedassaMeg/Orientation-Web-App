@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'db0x%_4qvlx(iu*lb$lwg63&k5yvl^!@4p4n1i^e8dhnb79dh6'
+SECRET_KEY = 'to74ucp6@c_azau4ypz16#u=pr6p^7yy=d32$&x#@jbxu*to%s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'graphene_django',
+    'rest_framework',
     'corsheaders',
     'users',
     'quiz',
@@ -114,19 +114,11 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = "users.CustomUser"
 
-GRAPHENE = {
-    'SCHEMA': 'root.schema.schema',
-    'MIDDLEWARE': [
-        'graphql_jwt.middleware.JSONWebTokenMiddleware',
-    ]
+CORS_ORIGIN_ALLOW_ALL = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
-
-AUTHENTICATION_BACKENDS = [
-    'graphql_jwt.backends.JSONWebTokenBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
-
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-]
