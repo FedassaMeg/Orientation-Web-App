@@ -2,8 +2,8 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Quiz, Question, Score, Slide
-from .serializers import QuizSerializer, QuestionSerializer, ScoreSerializer, SlideSerializer
+from .models import Quiz, Question, QuizScore, Slide, LookUpTableSlideUser
+from .serializers import QuizSerializer, QuestionSerializer, QuizScoreSerializer, SlideSerializer, LookUpTableSlideUserSerializer
 
 
 class SlideViewSet(viewsets.ModelViewSet):
@@ -21,9 +21,14 @@ class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
 
 
-class ScoreViewSet(viewsets.ModelViewSet):
-    serializer_class = ScoreSerializer
-    queryset = Score.objects.all()
+class QuizScoreViewSet(viewsets.ModelViewSet):
+    serializer_class = QuizScoreSerializer
+    queryset = QuizScore.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(signed_by=self.request.user)
+
+
+class LookUpTableSlideUserViewSet(viewsets.ModelViewSet):
+    serializer_class = LookUpTableSlideUserSerializer
+    queryset = LookUpTableSlideUser.objects.all()
