@@ -6,10 +6,6 @@ const cardheader = css`
   font: 32px "Open Sans", san-serif;
 `;
 
-export default function CardHeader() {
-  return (
-    <div>
-      <h4>Card Qheader</h4>
-    </div>
-  );
+export default function CardHeader(props) {
+  return <div>{props.header}</div>;
 }

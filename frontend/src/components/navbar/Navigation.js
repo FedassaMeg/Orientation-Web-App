@@ -6,19 +6,6 @@ import Navbar from "./Navbar";
 import NavItem from "./NavItem";
 import SignoutButton from "../components/SignoutButton";
 
-//emotion styles
-// logo
-const logo = css`
-  width: 185px;
-  padding-left: 12px;
-`;
-
-const signoutBtnItem = css`
-  margin-left: 48px;
-  margin-top: 8px;
-  margin-right: 8px;
-`;
-
 export default function Navigation(props) {
   return (
     <Navbar>
@@ -34,7 +21,7 @@ export default function Navigation(props) {
             <NavLink href="/slides">Slides</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/quizzes">Quizzes</NavLink>
+            <NavLink href="/quizs">Quizzes</NavLink>
           </NavItem>
           <div css={signoutBtnItem}>
             <SignoutButton type="signOut">Sign Out</SignoutButton>
@@ -44,3 +31,16 @@ export default function Navigation(props) {
     </Navbar>
   );
 }
+
+//emotion styles
+// logo
+const logo = css`
+  width: 185px;
+  padding-left: 12px;
+`;
+
+const signoutBtnItem = css`
+  margin-left: 48px;
+  margin-top: 8px;
+  margin-right: 8px;
+`;

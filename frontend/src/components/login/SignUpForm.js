@@ -1,123 +1,77 @@
 /**@jsx jsx */
-import { useState } from "react";
+import { Component } from "react";
 import { css, jsx } from "@emotion/core";
 import { Link } from "react-router-dom";
-import { useForm } from "../utils/useForm";
 
-export default function SignUpForm(props) {
-  const stateSchema = {
-    firstName: { value: "", error: "" },
-    lastName: { value: "", error: "" },
-    password: { value: "", error: "" },
-    confirmPassword: { value: "", error: "" }
-  };
-
-  const validationStateSchema = {
-    firstName: {
-      required: true,
-      validator: {
-        regEx: /^[a-zA-Z]+$/,
-        error: "Invalid first name format."
-      }
-    },
-    lastName: {
-      required: true,
-      validator: {
-        regEx: /^[a-zA-Z]+$/,
-        error: "Invalid last name format."
-      }
-    },
-    password: {
-      required: true,
-      validator: {
-        regEx: /^(,?\w{3,})+$/,
-        error: "Invalid password format."
-      }
-    },
-    confirmPassword: {
-      required: true,
-      validator: {
-        regEx: /^(,?\w{3,})+$/,
-        error: "Invalid password format."
-      }
-    }
-  };
-
-  const onSubmitForm = state => {
-    props.signUp({
-      variables: { ...state, [name]: name.value }
-    });
-  };
-
-  const { state, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    validationStateSchema,
-    onSubmitForm
-  );
-
-  return (
-    <div css={mainContainer}>
-      <div css={loginCard}>
-        <div css={header}>Create an Account</div>
-        <form onSubmit={handleOnSubmit} css={bodyContainer}>
-          <div>
-            <input
-              value={state.firstName.value}
-              name="firstName"
-              type="text"
-              onChange={handleOnChange}
-              css={nameStyle}
-              placeholder="First Name"
-            />
-          </div>
-          {state.firstName.error && <p>{state.firstName.error}</p>}
-          <div>
-            <input
-              value={state.lastName.value}
-              name="lastName"
-              type="text"
-              onChange={handleOnChange}
-              css={nameStyle}
-              placeholder="Last Name"
-            />
-          </div>
-          {state.lastName.error && <p>{state.lastName.error}</p>}
-          <div>
-            <input
-              value={state.password.value}
-              name="password"
-              type="password"
-              onChange={handleOnChange}
-              css={passwordStyle}
-              placeholder="Password"
-            />
-          </div>
-          {state.password.error && <p>{state.password.error}</p>}
-          <div>
-            <input
-              value={state.confirmPassword.value}
-              name="confirmPassword"
-              type="password"
-              onChange={handleOnChange}
-              css={passwordStyle}
-              placeholder="Confirm Password"
-            />
-          </div>
-          {state.confirmPassword.error && <p>{state.confirmPassword.error}</p>}
-          <Link to="/home">
-            <button css={button} type="submit" onClick={handleOnSubmit}>
+export default class SignUpForm extends Component {
+  render() {
+    return (
+      <div css={mainContainer}>
+        <div css={loginCard}>
+          <div css={header}>Create an Account</div>
+          <form css={bodyContainer} onSubmit={this.props.handleOnSubmit}>
+            <div>
+              <input
+                value={this.props.state.firstName}
+                name="firstName"
+                type="text"
+                onChange={this.props.handleOnChange}
+                css={nameStyle}
+                placeholder="First Name"
+              />
+            </div>
+            <div>
+              <input
+                value={this.props.state.lastName}
+                name="lastName"
+                type="text"
+                onChange={this.props.handleOnChange}
+                css={nameStyle}
+                placeholder="Last Name"
+              />
+            </div>
+            <div>
+              <input
+                value={this.props.state.role}
+                name="role"
+                type="text"
+                css={nameStyle}
+                placeholder="Role"
+              />
+            </div>
+            <div>
+              <input
+                value={this.props.state.password}
+                name="password"
+                type="password"
+                onChange={this.props.handleOnChange}
+                css={passwordStyle}
+                placeholder="Password"
+              />
+            </div>
+            <div>
+              <input
+                value={this.props.state.confirmPassword}
+                name="confirmPassword"
+                type="password"
+                onChange={this.props.handleOnChange}
+                css={passwordStyle}
+                placeholder="Confirm Password"
+              />
+            </div>
+            <button css={button} type="submit">
               Create Account
             </button>
-          </Link>
-          <div css={altLinks}>
-            <Link to="/login">
-              <span>Already have an accout?</span>
-            </Link>
-          </div>
-        </form>
+            <div css={altLinks}>
+              <Link to="/login">
+                <span>Already have an accout?</span>
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 // emotion Styles

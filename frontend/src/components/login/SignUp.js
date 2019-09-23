@@ -1,31 +1,48 @@
-import React from "react";
-import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import React, { useState } from "react";
+import axios from "axios";
 
 import SignUpForm from "./SignUpForm";
 
-const SIGNUP_MUTATION = gql`
-  mutation SignupMutation(
-    $password: String!
-    $firstName: String!
-    $lastName: String!
-  ) {
-    createUser(
-      password: $password
-      firstName: $firstName
-      lastName: $lastName
-      siteAdmin: false
-    ) {
-      user {
-        username
-      }
-    }
-  }
-`;
-
 export default function SignUp() {
-  const [signUp, { loading, error }] = useMutation(SIGNUP_MUTATION);
-  if (loading) return <p>...Loading</p>;
-  if (error) return <p>An Error Occurred</p>;
-  return <SignUpForm signUp={signUp} />;
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPass: "",
+    role: "OS"
+  };
+
+  const [state, setState] = useState(initialState);
+
+  const handleOnChange = event => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  const handleOnSubmit = event => {
+    event.preventDefault();
+
+    axios
+      .post("http://localhost:8000/api/users/", {
+        first_name: state.firstName,
+        last_name: state.lastName,
+        username: state.username,
+        password: state.password,
+        role: state.role
+      })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch(console.log("Catch!"));
+  };
+  return (
+    <SignUpForm
+      handleOnChange={handleOnChange}
+      handleOnSubmit={handleOnSubmit}
+      state={state}
+    />
+  );
 }

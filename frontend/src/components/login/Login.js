@@ -1,26 +1,48 @@
-import React from "react";
-import { useApolloClient, useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import React, { useState } from "react";
+import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 import LoginForm from "./LoginForm";
 
-const LOGIN_MUTATION = gql`
-  mutation LoginMutation($username: String!, $password: String!) {
-    tokenAuth(username: $username, password: $password) {
-      token
-    }
-  }
-`;
+function Login(props) {
+  const initialState = {
+    username: "",
+    password: ""
+  };
 
-export default function Login() {
-  const client = useApolloClient();
-  const [tokenAuth, { loading, error }] = useMutation(LOGIN_MUTATION, {
-    onCompleted({ tokenAuth }) {
-      localStorage.setItem("token", tokenAuth.token);
-      client.writeData({ data: { isLoggedIn: true } });
-    }
-  });
-  if (loading) return <p>...Loading</p>;
-  if (error) return <p>An Error Occurred</p>;
-  return <LoginForm tokenAuth={tokenAuth} />;
+  const [state, setState] = useState(initialState);
+
+  const handleOnChange = event => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  const handleOnSubmit = event => {
+    event.preventDefault();
+
+    axios
+      .post("http://localhost:8000/api/token/", {
+        username: state.username,
+        password: state.password
+      })
+      .then(res => {
+        localStorage.setItem("token", res.data.access);
+        props.history.push("/home");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  return (
+    <LoginForm
+      handleOnChange={handleOnChange}
+      handleOnSubmit={handleOnSubmit}
+      state={state}
+    />
+  );
 }
+
+export default withRouter(Login);

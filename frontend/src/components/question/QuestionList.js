@@ -1,28 +1,39 @@
 import React, { Fragment } from "react";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import axios from "axios";
 
 import Question from "./Question";
 
-const GET_ALL_QUESTIONS_QUERY = gql`
-  {
-    getAllQuestions {
-      id
-      question
-      answer
-    }
-  }
-`;
+const ROOT_URL = "http://localhost:8000/api";
+const quizId = "1";
 
-export default function QuestionList() {
-  const { data, loading, error } = useQuery(GET_ALL_QUESTIONS_QUERY);
-  if (loading) return <p>...loading</p>;
-  if (error) return <p>Error</p>;
-  return (
-    <Fragment>
-      {data.getAllQuestions.map(question => (
-        <Question key={question.id} question={question} />
-      ))}
-    </Fragment>
-  );
+export default class QuestionList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      questions: []
+    };
+  }
+
+  getQuestionsByQuizId = async () => {
+    try {
+      const { data } = await axios.get(`${ROOT_URL}/quizs/${quizId}/questions`);
+      return data;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  async componentDidMount() {
+    const quizData = await this.getQuestionsByQuizId();
+    this.setState({ questions: quizData });
+  }
+  render() {
+    return (
+      <Fragment>
+        {this.state.questions.map(question => (
+          <Question key={question.id} question={question} />
+        ))}
+      </Fragment>
+    );
+  }
 }

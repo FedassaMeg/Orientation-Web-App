@@ -15,7 +15,7 @@ urlpatterns = [
     path('api/users/', CreateUserAPIView.as_view()),
     path('api/quizs/',
          QuizScoreViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('api/quizs/<int:pk>/questions/',
+    path('api/quizs/<int:pk>/questions',
          QuestionViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/scores/',
          QuizScoreViewSet.as_view({'get': 'list', 'post': 'create'})),

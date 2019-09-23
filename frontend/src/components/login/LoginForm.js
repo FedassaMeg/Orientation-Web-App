@@ -1,57 +1,37 @@
 /**@jsx jsx */
-import { useState } from "react";
 import { css, jsx } from "@emotion/core";
 import { Link } from "react-router-dom";
 
 export default function LoginForm(props) {
-  const initialState = {
-    username: "",
-    password: ""
-  };
-
-  const [values, setValues] = useState(initialState);
-
-  const onChange = event => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-  };
-
-  const onSubmit = event => {
-    event.preventDefault();
-    props.tokenAuth({
-      variables: { username: values.username, password: values.password }
-    });
-  };
-
   return (
     <div css={mainContainer}>
       <div css={loginCard}>
         <div css={header}>First Call Hospice Orientation</div>
-        <form css={bodyContainer}>
+        <form css={bodyContainer} onSubmit={props.handleOnSubmit}>
           <div>
             <input
-              value={values.username}
+              value={props.state.username}
               name="username"
               type="text"
-              onChange={onChange}
+              onChange={props.handleOnChange}
               css={usernameStyle}
               placeholder="Username"
             />
           </div>
           <div>
             <input
-              value={values.password}
+              value={props.state.password}
               name="password"
               type="password"
-              onChange={onChange}
+              onChange={props.handleOnChange}
               css={passwordStyle}
               placeholder="Password"
             />
           </div>
-          <Link to="/home">
-            <button css={button} type="submit" onClick={onSubmit}>
-              Login
-            </button>
-          </Link>
+          <button css={button} type="submit">
+            Login
+          </button>
+
           <div css={altLinks}>
             <Link to="/signup">
               <span>Register a new account</span>

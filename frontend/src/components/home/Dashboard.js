@@ -4,6 +4,20 @@ import { css, jsx } from "@emotion/core";
 import Container from "../components/Container";
 import Card from "../components/Card";
 
+export default function Dashboard() {
+  return (
+    <div css={maincontainer}>
+      <Container>
+        <div css={pageheader}>My Dashboard</div>
+        <div css={cardscontainer}>
+          <Card />
+          <Card />
+        </div>
+      </Container>
+    </div>
+  );
+}
+
 const maincontainer = css`
   display: flex;
   flex-direction: column;
@@ -22,17 +36,3 @@ const cardscontainer = css`
   flex-direction: row;
   justify-content: center;
 `;
-
-export default function Dashboard() {
-  return (
-    <div css={maincontainer}>
-      <Container>
-        <div css={pageheader}>My Dashboard</div>
-        <div css={cardscontainer}>
-          <Card />
-          <Card />
-        </div>
-      </Container>
-    </div>
-  );
-}
