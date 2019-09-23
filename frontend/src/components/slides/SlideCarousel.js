@@ -3,9 +3,8 @@
 import { css, jsx } from "@emotion/core";
 import { Carousel, CarouselItem } from "reactstrap";
 
-let array = Array.from({ lenght: 83 }, (v, k) => k + 1);
 export default function SlideCarousel(props) {
-  let images = array.map((image, index) => {
+  let images = props.array.map((image, index) => {
     return (
       <CarouselItem
         onExiting={props.onExiting}
@@ -15,6 +14,7 @@ export default function SlideCarousel(props) {
         <img
           src={require(`../../imgs/slides/slide1/Slide${image}.PNG`)}
           alt=""
+          css={slide}
         />
       </CarouselItem>
     );
@@ -36,4 +36,9 @@ export default function SlideCarousel(props) {
 const body = css`
   width: 900px;
   min-width: 700px;
+`;
+
+const slide = css`
+  width: 100%;
+  height: auto;
 `;

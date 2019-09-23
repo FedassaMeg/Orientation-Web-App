@@ -2,8 +2,7 @@ import React, { Component } from "react";
 
 import Slide from "./Slide";
 
-let array = Array.from({ lenght: 83 }, (v, k) => k + 1);
-console.log(props.array);
+let array = Array.from({ length: 83 }, (v, k) => k + 1);
 export default class SlideContainer extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +25,7 @@ export default class SlideContainer extends Component {
   next() {
     if (this.animating) return;
     const nextIndex =
-      this.state.activeIndex === items.length - 1
+      this.state.activeIndex === array.length - 1
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
@@ -36,7 +35,7 @@ export default class SlideContainer extends Component {
     if (this.animating) return;
     const nextIndex =
       this.state.activeIndex === 0
-        ? items.length - 1
+        ? array.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
   }

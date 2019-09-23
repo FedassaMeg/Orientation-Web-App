@@ -8,7 +8,7 @@ export default function Slide(props) {
     return (
       <div key={index}>
         <h6># {slide}</h6>
-        <button onClick={props.goToIndex} css={button}>
+        <button onClick={() => props.goToIndex(index)} css={button}>
           <Card>
             <CardImg
               top
