@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import Slide from "./Slide";
 
-let array = Array.from({ length: 83 }, (v, k) => k + 1);
 export default class SlideContainer extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,7 @@ export default class SlideContainer extends Component {
   next() {
     if (this.animating) return;
     const nextIndex =
-      this.state.activeIndex === array.length - 1
+      this.state.activeIndex === this.props.slide.length - 1
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
@@ -35,7 +34,7 @@ export default class SlideContainer extends Component {
     if (this.animating) return;
     const nextIndex =
       this.state.activeIndex === 0
-        ? array.length - 1
+        ? this.props.slide - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
   }
@@ -45,8 +44,13 @@ export default class SlideContainer extends Component {
     this.setState({ activeIndex: newIndex });
   }
   render() {
+    let array = Array.from(
+      { length: this.props.slide.length },
+      (v, k) => k + 1
+    );
     return (
       <Slide
+        title={this.props.slide.title}
         activeIndex={this.state.activeIndex}
         array={array}
         onExited={this.onExited}

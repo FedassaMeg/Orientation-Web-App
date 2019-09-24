@@ -21,7 +21,7 @@ export default function Routes() {
         <PrivateRoute path="/quiz" component={QuizPage} />
         <PrivateRoute path="/quizs" component={QuizzesPage} />
         <PrivateRoute path="/home" component={HomePage} />
-        <PrivateRoute path="/slide" component={SlidePage} />
+        <PrivateRoute path="/slide/:id" component={SlidePage} />
         <PrivateRoute path="/slides" component={SlidesPage} />
       </Switch>
     </Router>

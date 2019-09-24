@@ -1,6 +1,8 @@
 /** @jsx jsx */
 
 import { css, jsx } from "@emotion/core";
+import { Link } from "react-router-dom";
+
 import Container from "../components/Container";
 import Card from "../components/Card";
 
@@ -11,7 +13,9 @@ export default function Slides() {
         <div css={pageheader}>ALL SLIDES</div>
         <hr />
         <div css={cardscontainer}>
-          <Card />
+          <Link to="slide/introduction-to-first-call-hospice">
+            <Card>Intro to First Call</Card>
+          </Link>
           <Card />
         </div>
       </Container>

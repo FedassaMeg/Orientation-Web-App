@@ -25,10 +25,7 @@ export default class Slide extends Component {
   render() {
     return (
       <div>
-        <PageHeader
-          header="MODULE 1:"
-          title="Introduction to First Call Hospice"
-        />
+        <PageHeader header="MODULE 1:" title={this.props.title} />
         <hr css={divider} />
         <div css={body}>
           <SlideSidebar
