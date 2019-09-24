@@ -29,12 +29,20 @@ export default class Slide extends Component {
         <hr css={divider} />
         <div css={body}>
           <SlideSidebar
+            id={this.props.id}
+            array={this.props.array}
             activeIndex={this.props.activeIndex}
             goToIndex={this.props.goToIndex}
           />
           <div css={mainSection}>
-            <SlideModal buttonLabel="Open Slide" size="xl" />
+            <SlideModal
+              id={this.props.id}
+              array={this.props.array}
+              buttonLabel="Open Slide"
+              size="xl"
+            />
             <SlideCarousel
+              id={this.props.id}
               activeIndex={this.props.activeIndex}
               array={this.props.array}
               onExited={this.props.onExited}

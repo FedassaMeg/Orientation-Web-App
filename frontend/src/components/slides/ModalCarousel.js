@@ -7,8 +7,6 @@ import {
   CarouselCaption
 } from "reactstrap";
 
-let array = Array.from({ length: 83 }, (v, k) => k + 1);
-
 export default class ModalCarousel extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +29,7 @@ export default class ModalCarousel extends Component {
   next() {
     if (this.animating) return;
     const nextIndex =
-      this.state.activeIndex === array.length - 1
+      this.state.activeIndex === this.props.array.length - 1
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
@@ -41,7 +39,7 @@ export default class ModalCarousel extends Component {
     if (this.animating) return;
     const nextIndex =
       this.state.activeIndex === 0
-        ? array.length - 1
+        ? this.props.array.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
   }
@@ -54,7 +52,7 @@ export default class ModalCarousel extends Component {
 
   render() {
     const { activeIndex } = this.state;
-    let images = array.map(image => {
+    let images = this.props.array.map(image => {
       return (
         <CarouselItem
           onExiting={this.onExiting}
@@ -62,14 +60,13 @@ export default class ModalCarousel extends Component {
           key={image}
         >
           <img
-            src={require(`../../imgs/slides/slide1/Slide${image}.PNG`)}
+            src={require(`../../imgs/slides/slide${this.props.id}/Slide${image}.PNG`)}
             alt=""
             className="modal-slide-img"
           />
         </CarouselItem>
       );
     });
-    console.log(this.state);
     return (
       <Carousel
         activeIndex={activeIndex}

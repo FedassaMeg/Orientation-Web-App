@@ -33,7 +33,7 @@ export default class SlideModal extends Component {
         >
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody css={body}>
-            <ModalCarousel />
+            <ModalCarousel id={this.props.id} array={this.props.array} />
           </ModalBody>
           <ModalFooter>
             <div css={footer}>

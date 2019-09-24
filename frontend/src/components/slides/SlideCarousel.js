@@ -12,7 +12,7 @@ export default function SlideCarousel(props) {
         key={index}
       >
         <img
-          src={require(`../../imgs/slides/slide1/Slide${image}.PNG`)}
+          src={require(`../../imgs/slides/slide${props.id}/Slide${image}.PNG`)}
           alt=""
           css={slide}
         />

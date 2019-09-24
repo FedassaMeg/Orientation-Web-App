@@ -50,6 +50,7 @@ export default class SlideContainer extends Component {
     );
     return (
       <Slide
+        id={this.props.slide.key}
         title={this.props.slide.title}
         activeIndex={this.state.activeIndex}
         array={array}

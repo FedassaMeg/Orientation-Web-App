@@ -3,8 +3,7 @@ import { jsx, css } from "@emotion/core";
 import { Card, CardImg } from "reactstrap";
 
 export default function Slide(props) {
-  let array = Array.from({ length: 83 }, (v, k) => k + 1);
-  let slides = array.map((slide, index) => {
+  let slides = props.array.map((slide, index) => {
     return (
       <div key={index}>
         <h6># {slide}</h6>
@@ -13,7 +12,7 @@ export default function Slide(props) {
             <CardImg
               top
               width="100%"
-              src={require(`../../imgs/slides/slide1/Slide${slide}.PNG`)}
+              src={require(`../../imgs/slides/slide${props.id}/Slide${slide}.PNG`)}
               alt="slides"
             />
           </Card>
