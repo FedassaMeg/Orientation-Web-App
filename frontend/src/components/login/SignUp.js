@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 import SignUpForm from "./SignUpForm";
 
-export default function SignUp() {
+function SignUp(props) {
   const initialState = {
     firstName: "",
     lastName: "",
@@ -35,6 +36,7 @@ export default function SignUp() {
       .then(res => {
         console.log(res);
         console.log(res.data);
+        props.history.push("/login");
       })
       .catch(console.log("Catch!"));
   };
@@ -46,3 +48,5 @@ export default function SignUp() {
     />
   );
 }
+
+export default withRouter(SignUp);
