@@ -19,7 +19,7 @@ function SignoutButton(props) {
 export default withRouter(SignoutButton);
 
 const signoutBtn = css`
-  padding: 5px;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   background-color: #289086;

@@ -30,8 +30,8 @@ export default class QuestionList extends React.Component {
   render() {
     return (
       <Fragment>
-        {this.state.questions.map(question => (
-          <Question key={question.id} question={question} />
+        {this.state.questions.map((question, index) => (
+          <Question key={index} question={question} number={index + 1} />
         ))}
       </Fragment>
     );

@@ -150,7 +150,6 @@ const maincontainer = css`
   margin: auto;
   max-width: 120vmin;
   width: 100%;
-  margin-top: 46px;
 `;
 
 const pageheader = css`

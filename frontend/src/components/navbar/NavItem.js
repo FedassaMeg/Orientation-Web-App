@@ -8,6 +8,10 @@ const navitem = css`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 export default function NavItem(props) {

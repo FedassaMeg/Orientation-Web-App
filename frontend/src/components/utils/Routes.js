@@ -18,7 +18,7 @@ export default function Routes() {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <PrivateRoute path="/quiz" component={QuizPage} />
+        <PrivateRoute path="/quiz/:id" component={QuizPage} />
         <PrivateRoute path="/quizs" component={QuizzesPage} />
         <PrivateRoute path="/home" component={HomePage} />
         <PrivateRoute path="/slide/:id" component={SlidePage} />
