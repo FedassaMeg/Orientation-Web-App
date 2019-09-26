@@ -14,7 +14,7 @@ export default function Card(props) {
   );
 }
 const card = css`
-  margin: 20px;
+  margin: 40px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);

@@ -1,19 +1,59 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { MdCheckCircle } from "react-icons/md";
+import { MdCheckCircle, MdCancel } from "react-icons/md";
 
 import Container from "../components/Container";
 import Card from "../components/Card";
 
 export default function Dashboard(props) {
+  const quizCompleted = props.compltArray;
   const quizProgress = props.quizArray.map(quiz => {
+    let isCompleted = false;
     return (
       <div css={listSection}>
         <div css={listRight}>
-          <div css={check}>
-            <MdCheckCircle />
-          </div>
+          {quizCompleted.map(score => {
+            quiz.id === score.related_quiz
+              ? (isCompleted = true)
+              : (isCompleted = isCompleted);
+          })}
+          {isCompleted ? (
+            <div css={check}>
+              <MdCheckCircle />
+            </div>
+          ) : (
+            <div css={cancel}>
+              <MdCancel />
+            </div>
+          )}
+
           <div css={list}>{quiz.title}</div>
+        </div>
+      </div>
+    );
+  });
+  const slideCompleted = props.comArray;
+  const slideProgress = props.slideArray.map(slide => {
+    let isCompleted = false;
+    return (
+      <div css={listSection}>
+        <div css={listRight}>
+          {slideCompleted.map(score => {
+            slide.id === score.slide
+              ? (isCompleted = true)
+              : (isCompleted = isCompleted);
+          })}
+          {isCompleted ? (
+            <div css={check}>
+              <MdCheckCircle />
+            </div>
+          ) : (
+            <div css={cancel}>
+              <MdCancel />
+            </div>
+          )}
+
+          <div css={list}>{slide.title}</div>
         </div>
       </div>
     );
@@ -23,7 +63,7 @@ export default function Dashboard(props) {
       <div css={pageheader}>My Dashboard</div>
       <hr css={divider} />
       <div css={cardscontainer}>
-        <Card header="Slides" />
+        <Card header="Slides">{slideProgress}</Card>
         <Card header="Quizzes">{quizProgress}</Card>
       </div>
     </div>
@@ -74,6 +114,11 @@ const check = css`
   margin-right: 16px;
   padding-bottom: 4px;
   color: green;
+`;
+const cancel = css`
+  margin-right: 16px;
+  padding-bottom: 4px;
+  color: red;
 `;
 const list = css`
   padding: 0;

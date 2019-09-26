@@ -33,7 +33,20 @@ class QuizScoreViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(signed_by=self.request.user)
 
+    def list(self, request, pk):
+        queryset = QuizScore.objects.filter(signed_by=pk)
+        serializer = QuizScoreSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class LookUpTableSlideUserViewSet(viewsets.ModelViewSet):
     serializer_class = LookUpTableSlideUserSerializer
     queryset = LookUpTableSlideUser.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(signed_by=self.request.user)
+
+    def list(self, request, pk):
+        queryset = LookUpTableSlideUser.objects.filter(user=pk)
+        serializer = LookUpTableSlideUserSerializer(queryset, many=True)
+        return Response(serializer.data)

@@ -21,7 +21,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 
 class QuizScoreSerializer(serializers.ModelSerializer):
-    signed_by = serializers.ReadOnlyField(source='signed_by.username')
+    signed_by = serializers.ReadOnlyField(source='signed_by.id')
 
     class Meta:
         model = QuizScore
@@ -30,6 +30,8 @@ class QuizScoreSerializer(serializers.ModelSerializer):
 
 
 class LookUpTableSlideUserSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='signed_by.id')
+
     class Meta:
         model = LookUpTableSlideUser
-        fields = ('id', 'slide', 'user')
+        fields = ('id', 'slide', 'user', 'completed', 'time')
