@@ -17,7 +17,7 @@ export default function Navigation(props) {
         <div>
           <Nav>
             <NavItem>
-              <NavLink href="/">Home</NavLink>
+              <NavLink href="/home">Home</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/slides">Slides</NavLink>
@@ -63,8 +63,9 @@ const loginBtn = css`
   border: none;
   border-radius: 5px;
   background-color: #f6cb14;
-  color: black;
+  color: white;
   font: 16px "Open Sans", sans-serif;
+  font-weight: 600;
   transition-duration: 0.4s;
 
   &:hover {

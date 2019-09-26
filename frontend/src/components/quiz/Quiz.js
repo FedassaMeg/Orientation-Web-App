@@ -6,7 +6,7 @@ import QuestionList from "../question/QuestionList";
 
 export default function Quiz(props) {
   return (
-    <div>
+    <div css={container}>
       <div
         css={css`
           font-family: "Noto Sans JP", sans-serif;
@@ -21,10 +21,31 @@ export default function Quiz(props) {
         {props.quiz.title}
       </div>
 
-      <hr />
-      <div>
+      <hr css={divider} />
+      <div css={body}>
         <QuestionList quizId={props.quiz.key} />
       </div>
     </div>
   );
 }
+
+const container = css`
+  flex-grow: 1;
+  align-self: center;
+  max-width: 120vmin;
+  width: 100%;
+`;
+
+const divider = css`
+  margin: 0;
+  border: 0.5px solid lightgrey;
+`;
+
+const body = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+`;

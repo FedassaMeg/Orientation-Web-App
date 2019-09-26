@@ -1,4 +1,5 @@
-import React from "react";
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
 import get from "lodash/get";
 
 import Quiz from "../components/quiz/Quiz";
@@ -42,9 +43,16 @@ const quizzesLookup = {
 export default function QuizPage({ match }) {
   const quiz = get(quizzesLookup, match.params.id);
   return (
-    <div>
+    <div css={container}>
       <Navigation />
       <Quiz quiz={quiz} />
     </div>
   );
 }
+
+const container = css`
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;

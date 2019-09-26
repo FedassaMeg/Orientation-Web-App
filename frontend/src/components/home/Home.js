@@ -1,13 +1,20 @@
-import React from "react";
-
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
 import HeaderBar from "./HeaderBar";
-import Dashboard from "./Dashboard";
+import DashboardContainer from "./DashboardContainer";
 
 export default function Home() {
   return (
-    <div>
+    <div css={container}>
       <HeaderBar />
-      <Dashboard />
+      <DashboardContainer />
     </div>
   );
 }
+
+const container = css`
+  flex-grow: 1;
+  margin: auto;
+  max-width: 120vmin;
+  width: 100%;
+`;
