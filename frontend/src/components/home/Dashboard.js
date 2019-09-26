@@ -1,5 +1,6 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
+import { MdCheckCircle } from "react-icons/md";
 
 import Container from "../components/Container";
 import Card from "../components/Card";
@@ -7,10 +8,12 @@ import Card from "../components/Card";
 export default function Dashboard(props) {
   const quizProgress = props.quizArray.map(quiz => {
     return (
-      <div>
-        <div>
-          <div></div>
-          <div>{quiz.title}</div>
+      <div css={listSection}>
+        <div css={listRight}>
+          <div css={check}>
+            <MdCheckCircle />
+          </div>
+          <div css={list}>{quiz.title}</div>
         </div>
       </div>
     );
@@ -20,12 +23,8 @@ export default function Dashboard(props) {
       <div css={pageheader}>My Dashboard</div>
       <hr css={divider} />
       <div css={cardscontainer}>
-        <div>
-          <div>Quizzes</div>
-          <hr />
-          <div>{quizProgress}</div>
-        </div>
-        <Card />
+        <Card header="Slides" />
+        <Card header="Quizzes">{quizProgress}</Card>
       </div>
     </div>
   );
@@ -53,4 +52,29 @@ const cardscontainer = css`
   flex-direction: row;
   justify-content: center;
   flex-wrap: 1;
+`;
+
+const listSection = css`
+  font-size: 16px;
+  font-weight: 400;
+  padding-top: 8px;
+  padding-left: 36px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+const listRight = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
+const check = css`
+  margin-right: 16px;
+  padding-bottom: 4px;
+  color: green;
+`;
+const list = css`
+  padding: 0;
 `;

@@ -2,10 +2,13 @@
 
 import { css, jsx } from "@emotion/core";
 
-const cardheader = css`
-  font: 32px "Open Sans", san-serif;
+const cardHeader = css`
+  font-size: 24px;
+  font-weight: 600;
+  padding: 8px;
+  margin-left: 8px;
 `;
 
 export default function CardHeader(props) {
-  return <div>{props.header}</div>;
+  return <div css={cardHeader}>{props.header}</div>;
 }
