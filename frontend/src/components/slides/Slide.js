@@ -24,7 +24,7 @@ export default class Slide extends Component {
 
   render() {
     return (
-      <div>
+      <div css={container}>
         <PageHeader header="MODULE 1:" title={this.props.title} />
         <hr css={divider} />
         <div css={body}>
@@ -56,6 +56,13 @@ export default class Slide extends Component {
     );
   }
 }
+
+const container = css`
+  flex-grow: 1;
+  align-self: center;
+  max-width: 120vmin;
+  width: 100%;
+`;
 
 const divider = css`
   margin: 0;

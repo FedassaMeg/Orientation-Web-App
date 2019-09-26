@@ -30,6 +30,7 @@ export default class SlideModal extends Component {
           isOpen={this.state.modal}
           toggle={this.toggle}
           size={this.props.size}
+          css={modalSize}
         >
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody css={body}>
@@ -65,4 +66,8 @@ const footer = css`
   font-family: "Noto Sans JP", sans-serif;
   font-style: italic;
   color: orangered;
+`;
+
+const modalSize = css`
+  width: 962px;
 `;

@@ -4,7 +4,7 @@ import { css, jsx } from "@emotion/core";
 
 import QuestionList from "../question/QuestionList";
 
-export default function QuizPage() {
+export default function Quiz(props) {
   return (
     <div>
       <div
@@ -18,12 +18,12 @@ export default function QuizPage() {
           background-color: rgb(252, 252, 252);
         `}
       >
-        HIPPA
+        {props.quiz.title}
       </div>
 
       <hr />
       <div>
-        <QuestionList />
+        <QuestionList quizId={props.quiz.key} />
       </div>
     </div>
   );

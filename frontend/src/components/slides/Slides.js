@@ -49,10 +49,9 @@ export default function Slides() {
                 "Communication Scenarios",
                 "Role of the IDG",
                 "IDG Experience Model",
-                "Hospice Aide - Role and Responsibility",
+                "Duties of the Hospice Aide",
                 "Self Care and Care Assignment",
-                "Discharges, Revocations, Transfers",
-                "Hospice Aide Supervisory Visits"
+                "Discharges, Revocations, Transfers"
               ]}
               key="introductiontohospice"
               type="slide"
@@ -80,7 +79,7 @@ export default function Slides() {
               subtitle="Documenting Decline"
               list={[
                 "Determining Hospice Eligibility",
-                "Measuring Decline - Scales",
+                "Measuring Decline Scales",
                 "Nutrition Documentation Decline"
               ]}
               key="documentingdecline"

@@ -1,4 +1,5 @@
-import React from "react";
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
 import get from "lodash/get";
 
 import SlideContainer from "../components/slides/SlideContainer";
@@ -81,9 +82,16 @@ export default function SlidePage({ match }) {
   const slide = get(slidesLookup, match.params.id);
 
   return (
-    <div>
+    <div css={container}>
       <Navigation />
       <SlideContainer slide={slide} />
     </div>
   );
 }
+
+const container = css`
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;

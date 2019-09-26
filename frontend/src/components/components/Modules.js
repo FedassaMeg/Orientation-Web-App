@@ -22,12 +22,17 @@ export default class Module extends Component {
       modal: !prevState.modal
     }));
   }
-
+  kebabCase = str =>
+    str
+      .match(/[A-Z]{2,}(?=[A-Z][a-z0-9]*|\b)|[A-Z]?[a-z0-9]*|[A-Z]|[0-9]+/g)
+      .filter(Boolean)
+      .map(x => x.toLowerCase())
+      .join("-");
   render() {
     let array = this.props.list;
     let moduleList = array.map(list => {
       return (
-        <Link to="/home" css={link}>
+        <Link to={`/${this.props.type}/${this.kebabCase(list)}`} css={link}>
           <ListGroupItem>{list}</ListGroupItem>
         </Link>
       );
@@ -116,6 +121,11 @@ const buttonCard = css`
 
 const cardContent = css`
   height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 const cardBody = css`

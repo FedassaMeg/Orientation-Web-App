@@ -4,7 +4,6 @@ import axios from "axios";
 import Question from "./Question";
 
 const ROOT_URL = "http://localhost:8000/api";
-const quizId = "1";
 
 export default class QuestionList extends React.Component {
   constructor(props) {
@@ -16,7 +15,9 @@ export default class QuestionList extends React.Component {
 
   getQuestionsByQuizId = async () => {
     try {
-      const { data } = await axios.get(`${ROOT_URL}/quizs/${quizId}/questions`);
+      const { data } = await axios.get(
+        `${ROOT_URL}/quizs/${this.props.quizId}/questions`
+      );
       return data;
     } catch (err) {
       console.log(err.message);

@@ -20,7 +20,7 @@ export default function SlideCarousel(props) {
     );
   });
   return (
-    <div css={body}>
+    <div>
       <Carousel
         activeIndex={props.activeIndex}
         next={props.next}
@@ -29,16 +29,35 @@ export default function SlideCarousel(props) {
       >
         {images}
       </Carousel>
+      <div css={controlGroup}>
+        <button css={button} onClick={props.previous}>
+          Prev.
+        </button>
+        <button css={button} onClick={props.next}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }
 
-const body = css`
-  width: 900px;
-  min-width: 700px;
-`;
-
 const slide = css`
   width: 100%;
   height: auto;
+`;
+
+const controlGroup = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const button = css`
+  background: teal;
+  color: white;
+  border: none;
+  font-size: 1em;
+  font-family: "Noto Sans JP", sans-serif;
+  padding: 7px;
+  width: 50px;
 `;
