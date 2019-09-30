@@ -22,9 +22,14 @@ export default function Quiz(props) {
       </div>
 
       <hr css={divider} />
-      <div css={body}>
-        <QuestionList quizId={props.quiz.key} />
-      </div>
+      <form css={body} onSubmit={props.handleSubmit}>
+        <QuestionList
+          quizId={props.quiz.key}
+          questions={props.questions}
+          onChange={props.handleChange}
+        />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }

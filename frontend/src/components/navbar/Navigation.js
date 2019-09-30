@@ -25,6 +25,9 @@ export default function Navigation(props) {
             <NavItem>
               <NavLink href="/quizs">Quizzes</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/admin">Admin</NavLink>
+            </NavItem>
             <div css={signoutBtnItem}>
               <SignoutButton type="signOut">Sign Out</SignoutButton>
             </div>
@@ -69,6 +72,6 @@ const loginBtn = css`
   transition-duration: 0.4s;
 
   &:hover {
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box- shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   }
 `;

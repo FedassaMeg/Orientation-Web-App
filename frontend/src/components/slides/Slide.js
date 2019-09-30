@@ -49,6 +49,8 @@ export default class Slide extends Component {
               onExiting={this.props.onExiting}
               next={this.props.next}
               previous={this.props.previous}
+              completed={this.props.completed}
+              slideCompleted={this.props.slideCompleted}
             />
           </div>
         </div>

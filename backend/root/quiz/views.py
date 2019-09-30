@@ -44,7 +44,7 @@ class LookUpTableSlideUserViewSet(viewsets.ModelViewSet):
     queryset = LookUpTableSlideUser.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(signed_by=self.request.user)
+        serializer.save(user=self.request.user)
 
     def list(self, request, pk):
         queryset = LookUpTableSlideUser.objects.filter(user=pk)

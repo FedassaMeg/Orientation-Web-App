@@ -3,36 +3,21 @@ import axios from "axios";
 
 import Question from "./Question";
 
-const ROOT_URL = "http://localhost:8000/api";
-
 export default class QuestionList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      questions: []
-    };
   }
 
-  getQuestionsByQuizId = async () => {
-    try {
-      const { data } = await axios.get(
-        `${ROOT_URL}/quizs/${this.props.quizId}/questions`
-      );
-      return data;
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
-  async componentDidMount() {
-    const quizData = await this.getQuestionsByQuizId();
-    this.setState({ questions: quizData });
-  }
   render() {
     return (
       <Fragment>
-        {this.state.questions.map((question, index) => (
-          <Question key={index} question={question} number={index + 1} />
+        {this.props.questions.map((question, index) => (
+          <Question
+            key={index}
+            question={question}
+            number={index + 1}
+            onChange={this.props.onChange}
+          />
         ))}
       </Fragment>
     );

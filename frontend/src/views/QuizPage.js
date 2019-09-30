@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/core";
 import get from "lodash/get";
 
-import Quiz from "../components/quiz/Quiz";
+import QuizContainer from "../components/quiz/QuizContainer";
 import Navigation from "../components/navbar/Navigation";
 
 const quizzesLookup = {
@@ -45,7 +45,7 @@ export default function QuizPage({ match }) {
   return (
     <div css={container}>
       <Navigation />
-      <Quiz quiz={quiz} />
+      <QuizContainer quiz={quiz} />
     </div>
   );
 }

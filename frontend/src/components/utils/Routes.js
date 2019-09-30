@@ -10,6 +10,7 @@ import SlidePage from "../../views/SlidePage";
 import SlidesPage from "../../views/SlidesPage";
 import Login from "../login/Login";
 import SignUp from "../login/SignUp";
+import AdminPage from "../../views/AdminPage";
 
 export default function Routes() {
   return (
@@ -23,6 +24,7 @@ export default function Routes() {
         <PrivateRoute path="/home" component={HomePage} />
         <PrivateRoute path="/slide/:id" component={SlidePage} />
         <PrivateRoute path="/slides" component={SlidesPage} />
+        <PrivateRoute path="/admin" component={AdminPage} />
       </Switch>
     </Router>
   );

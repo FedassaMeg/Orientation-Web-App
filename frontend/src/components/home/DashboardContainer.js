@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import jwt from "jsonwebtoken";
 
 import Dashboard from "./Dashboard";
 
 const ROOT_URL = "http://localhost:8000/api";
-const user_id = 2;
+
 export default function DashboardContainer() {
   const [quizArray, setQuizArray] = useState([]);
   const [compltArray, setCompltArray] = useState([]);
@@ -66,6 +67,12 @@ export default function DashboardContainer() {
       });
   };
 
+  const getUserIdfromToken = () => {
+    const token = localStorage.getItem("token");
+    const decode = jwt.decode(token);
+    return decode.user_id;
+  };
+  const user_id = getUserIdfromToken();
   return (
     <Dashboard
       quizArray={quizArray}
