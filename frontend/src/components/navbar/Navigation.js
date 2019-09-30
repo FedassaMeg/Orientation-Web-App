@@ -10,9 +10,13 @@ export default function Navigation(props) {
   const authToken = localStorage.getItem("token");
   return (
     <Navbar>
-      <div>
-        <img src={require("../../imgs/logo.png")} alt="logo" css={logo} />
-      </div>
+      {!props.admin ? (
+        <div>
+          <img src={require("../../imgs/logo.png")} alt="logo" css={logo} />
+        </div>
+      ) : (
+        <div css={nologo}></div>
+      )}
       {authToken ? (
         <div>
           <Nav>
@@ -54,6 +58,9 @@ const logo = css`
   width: 185px;
   padding-left: 12px;
 `;
+const nologo = css`
+  height: 48.5px;
+`;
 
 const signoutBtnItem = css`
   margin-left: 48px;
@@ -72,6 +79,6 @@ const loginBtn = css`
   transition-duration: 0.4s;
 
   &:hover {
-    box- shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   }
 `;
