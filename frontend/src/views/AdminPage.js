@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/core";
 
 import Admin from "../components/admin/Admin";
 
-export default function AdminPage() {
+export default function AdminPage({ match }) {
   return (
     <div css={container}>
       <Admin />

@@ -1,15 +1,24 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
+import { Switch, Route } from "react-router-dom";
 import Navigation from "../navbar/Navigation";
-export default function Admin() {
+import AdminSidebar from "./AdminSidebar";
+export default function Admin(props) {
   return (
     <div css={container}>
       <div css={sidebar}>
-        <div css={adminHeader}>Site Administration</div>
+        <div css={adminHeader}>ADMIN PANEL</div>
+        <AdminSidebar />
       </div>
       <div css={main}>
         <Navigation admin />
-        <div>dashboard</div>
+
+        <Route path="/admin/dashboard" render={() => <h3>Dashboard</h3>} />
+        <Route
+          path="/admin/review-scores"
+          render={() => <h3>Review Scores</h3>}
+        />
+        <Route path="/admin/reports" render={() => <h3>Reports</h3>} />
       </div>
     </div>
   );
@@ -27,7 +36,7 @@ const sidebar = css`
 `;
 
 const adminHeader = css`
-  height: 48.5px;
+  height: 50px;
   padding: 10px;
   font: 20px "Open Sans", san-serif;
   color: white;
