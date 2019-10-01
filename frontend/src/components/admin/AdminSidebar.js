@@ -45,12 +45,16 @@ const AdminSidebar = () => {
           <div css={linkRow}>
             <MdGroup />
             {"  "}
-            <Link>Administer Users</Link>
+            <Link to="/admin/administer-users" css={link}>
+              Administer Users
+            </Link>
           </div>
           <div css={linkRow}>
             <MdDescription />
             {"  "}
-            <Link>Edit Content</Link>
+            <Link to="/admin/edit-content" css={link}>
+              Edit Content
+            </Link>
           </div>
         </div>
       </div>

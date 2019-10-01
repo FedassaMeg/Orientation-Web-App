@@ -2,7 +2,6 @@
 import { css, jsx } from "@emotion/core";
 import { MdCheckCircle, MdCancel } from "react-icons/md";
 
-import Container from "../components/Container";
 import Card from "../components/Card";
 
 export default function Dashboard(props) {
