@@ -13,58 +13,37 @@ export default function DashboardContainer() {
   const [comArray, setComArray] = useState([]);
 
   useEffect(() => {
-    getQuizzes();
-    getCompletedQuizzes();
-    getSlides();
-    getCompletedSlides();
+    axios
+      .all([
+        getQuizzes(),
+        getCompletedQuizzes(),
+        getSlides(),
+        getCompletedSlides()
+      ])
+      .then(
+        axios.spread((qzs, comQzs, slds, comSlds) => {
+          setQuizArray(qzs.data);
+          setCompltArray(comQzs.data);
+          setSlideArray(slds.data);
+          setComArray(comSlds.data);
+        })
+      );
   }, []);
 
   const getQuizzes = () => {
-    axios
-      .get(`${ROOT_URL}/quizs/`)
-      .then(res => {
-        setQuizArray(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    return axios.get(`${ROOT_URL}/quizs/`);
   };
 
   const getCompletedQuizzes = () => {
-    axios
-      .get(`${ROOT_URL}/users/${user_id}/scores/`)
-      .then(res => {
-        setCompltArray(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    return axios.get(`${ROOT_URL}/users/${user_id}/scores/`);
   };
 
   const getSlides = () => {
-    axios
-      .get(`${ROOT_URL}/slides/`)
-      .then(res => {
-        setSlideArray(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    return axios.get(`${ROOT_URL}/slides/`);
   };
 
   const getCompletedSlides = () => {
-    axios
-      .get(`${ROOT_URL}/users/${user_id}/lookuptableslideusers/`)
-      .then(res => {
-        setComArray(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    return axios.get(`${ROOT_URL}/users/${user_id}/lookuptableslideusers/`);
   };
 
   const getUserIdfromToken = () => {
