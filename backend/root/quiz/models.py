@@ -11,7 +11,17 @@ class Slide(models.Model):
 
 
 class Quiz(models.Model):
+    TYPE_CHOICES = [
+        ('VD', 'Video'),
+        ('HD', 'Handout'),
+        ('SL', 'Slides'),
+    ]
     title = models.CharField(max_length=100)
+    type = models.CharField(
+        max_length=2,
+        choices=TYPE_CHOICES,
+        default='VD'
+    )
 
     def __str__(self):
         return self.title
