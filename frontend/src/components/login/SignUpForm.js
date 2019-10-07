@@ -51,8 +51,8 @@ export default class SignUpForm extends Component {
             </div>
             <div>
               <input
-                value={this.props.state.confirmPassword}
-                name="confirmPassword"
+                value={this.props.state.confirmPass}
+                name="confirmPass"
                 type="password"
                 onChange={this.props.handleOnChange}
                 css={passwordStyle}
@@ -64,7 +64,7 @@ export default class SignUpForm extends Component {
             </button>
             <div css={altLinks}>
               <Link to="/login">
-                <span>Already have an accout?</span>
+                <span>Already have an account?</span>
               </Link>
             </div>
           </form>

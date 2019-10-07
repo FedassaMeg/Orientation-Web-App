@@ -15,7 +15,7 @@ export default function LandingPage() {
         </div>
 
         <div css={buttonGroup}>
-          <Link to="/login">
+          <Link to="/signup">
             <button css={button}>Get Started</button>
           </Link>
         </div>

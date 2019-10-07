@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt import views as jwt_views
 
 from quiz.views import QuizViewSet, QuestionViewSet, SlideViewSet, QuizScoreViewSet, LookUpTableSlideUserViewSet
-from users.views import UserViewSet, CreateUserAPIView
+from users.views import UserViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,8 +15,7 @@ urlpatterns = [
     path('api/token/verify/',
          jwt_views.TokenVerifyView.as_view(), name='token-verify'),
     path('api/users/<int:pk>', UserViewSet.as_view({'get': 'retrieve'})),
-    #     path('api/users/', CreateUserAPIView.as_view()),
-    path('api/users/', UserViewSet.as_view({'get': 'list'})),
+    path('api/users/', UserViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/quizs/',
          QuizViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/slides/',
