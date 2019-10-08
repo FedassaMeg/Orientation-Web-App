@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { parseInt } from "lodash";
 
 import Quiz from "./Quiz";
 
@@ -29,14 +30,14 @@ export default class QuizPost extends Component {
     this.setState({ questions: quizData });
     this.state.questions.map((question, index) => {
       this.setState({ ansArray: [...this.state.ansArray, question.answer] });
-      this.setState({ answers: this.state.answers.set(`${index - 1}`, false) });
+      this.setState({ answers: this.state.answers.set(index + 1, false) });
     });
 
     console.log(this.state);
     console.log(this.props.quiz.key);
   }
   handleChange = event => {
-    const key = event.target.id;
+    const key = parseInt(event.target.id, 10);
     const checked = event.target.checked;
     const added = this.state.answers.set(key, checked);
     if (checked) {
@@ -44,6 +45,7 @@ export default class QuizPost extends Component {
         added
       });
     }
+    console.log(key);
     console.log(this.state.answers);
   };
 
@@ -58,7 +60,7 @@ export default class QuizPost extends Component {
     const quizId = this.props.quiz.key;
     this.state.answers.forEach(this.compareAnsToScr);
     console.log(this.state.answers);
-
+    console.log(scr);
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`

@@ -2,6 +2,7 @@
 import { Component } from "react";
 import { jsx, css } from "@emotion/core";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+
 import ModalCarousel from "./ModalCarousel";
 
 export default class SlideModal extends Component {

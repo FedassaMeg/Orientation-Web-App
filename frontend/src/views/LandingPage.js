@@ -7,7 +7,6 @@ export default function LandingPage() {
   return (
     <div css={mainContainer}>
       <Navigation />
-
       <div css={pageContent}>
         <div css={spanGroup}>
           <span css={headerTop}>Welcome to</span>

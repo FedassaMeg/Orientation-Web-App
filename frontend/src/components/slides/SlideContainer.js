@@ -1,55 +1,50 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import axios from "axios";
-import jwt from "jsonwebtoken";
 
 import Slide from "./Slide";
 
-export default class SlideContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeIndex: 0, completed: false };
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-    this.goToIndex = this.goToIndex.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
-    this.slideCompleted = this.slideCompleted.bind(this);
-  }
+export default function SlideContainer(props) {
+  const initialState = {
+    activeIndex: 0,
+    animating: false,
+    completed: false
+  };
 
-  onExiting() {
-    this.animating = true;
-  }
+  const [state, setState] = useState(initialState);
 
-  onExited() {
-    this.animating = false;
-  }
+  const onExiting = () => {
+    state.animating = true;
+  };
 
-  next() {
-    if (this.animating) return;
-    if (this.state.activeIndex === this.props.slide.length - 1) {
-      const nextIndex = this.props.slide.length - 1;
-      this.slideCompleted(this.props.slide.key);
-      this.setState({ activeIndex: nextIndex, completed: true });
+  const onExited = () => {
+    state.animating = false;
+  };
+
+  const next = () => {
+    if (state.animating) return;
+    if (state.activeIndex === props.slide.length - 1) {
+      const nextIndex = props.slide.length - 1;
+      slideCompleted(props.slide.key);
+      setState({ activeIndex: nextIndex, completed: true });
       alert("You have completed the Slide!");
     } else {
-      const nextIndex = this.state.activeIndex + 1;
-      this.setState({ activeIndex: nextIndex });
+      const nextIndex = state.activeIndex + 1;
+      setState({ activeIndex: nextIndex });
     }
-  }
+  };
 
-  previous() {
-    if (this.animating) return;
-    const nextIndex =
-      this.state.activeIndex === 0 ? 0 : this.state.activeIndex - 1;
-    this.setState({ activeIndex: nextIndex });
-  }
+  const previous = () => {
+    if (state.animating) return;
+    const nextIndex = state.activeIndex === 0 ? 0 : state.activeIndex - 1;
+    setState({ activeIndex: nextIndex });
+  };
 
-  goToIndex(newIndex) {
-    if (this.animating) return;
-    this.setState({ activeIndex: newIndex });
-  }
+  const goToIndex = newIndex => {
+    if (state.animating) return;
+    setState({ activeIndex: newIndex });
+  };
 
-  slideCompleted(slideId) {
+  const slideCompleted = slideId => {
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -60,7 +55,7 @@ export default class SlideContainer extends Component {
         "http://localhost:8000/api/lookuptableslideusers/",
         {
           slide: slideId,
-          completed: this.state.completed
+          completed: state.completed
         },
         config
       )
@@ -70,28 +65,23 @@ export default class SlideContainer extends Component {
       .catch(err => {
         console.log(err);
       });
-  }
+  };
 
-  render() {
-    let array = Array.from(
-      { length: this.props.slide.length },
-      (v, k) => k + 1
-    );
+  let array = Array.from({ length: props.slide.length }, (v, k) => k + 1);
 
-    return (
-      <Slide
-        id={this.props.slide.key}
-        title={this.props.slide.title}
-        activeIndex={this.state.activeIndex}
-        array={array}
-        onExited={this.onExited}
-        onExiting={this.onExiting}
-        next={this.next}
-        previous={this.previous}
-        goToIndex={this.goToIndex}
-        completed={this.state.completed}
-        slideCompleted={this.slideCompleted}
-      />
-    );
-  }
+  return (
+    <Slide
+      id={props.slide.key}
+      title={props.slide.title}
+      activeIndex={state.activeIndex}
+      array={array}
+      onExited={onExited}
+      onExiting={onExiting}
+      next={next}
+      previous={previous}
+      goToIndex={goToIndex}
+      completed={state.completed}
+      slideCompleted={slideCompleted}
+    />
+  );
 }
