@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { Component } from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 
@@ -8,56 +7,50 @@ import SlideSidebar from "./SlideSidebar";
 import SlideCarousel from "./SlideCarousel";
 import SlideModal from "./SlideModal";
 
-export default class Slide extends Component {
-  static propTypes = {
-    activeIndex: PropTypes.number,
-    array: PropTypes.array,
-    onExited: PropTypes.func,
-    onExiting: PropTypes.func,
-    next: PropTypes.func,
-    previous: PropTypes.func
-  };
-
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div css={container}>
-        <PageHeader header="MODULE 1:" title={this.props.title} />
-        <hr css={divider} />
-        <div css={body}>
-          <SlideSidebar
-            id={this.props.id}
-            array={this.props.array}
-            activeIndex={this.props.activeIndex}
-            goToIndex={this.props.goToIndex}
+export default function Slide(props) {
+  return (
+    <div css={container}>
+      <PageHeader header="MODULE 1:" title={props.title} />
+      <hr css={divider} />
+      <div css={body}>
+        <SlideSidebar
+          id={props.id}
+          array={props.array}
+          activeIndex={props.activeIndex}
+          goToIndex={props.goToIndex}
+        />
+        <div css={mainSection}>
+          <SlideModal
+            id={props.id}
+            array={props.array}
+            buttonLabel="Open Slide"
+            size="xl"
           />
-          <div css={mainSection}>
-            <SlideModal
-              id={this.props.id}
-              array={this.props.array}
-              buttonLabel="Open Slide"
-              size="xl"
-            />
-            <SlideCarousel
-              id={this.props.id}
-              activeIndex={this.props.activeIndex}
-              array={this.props.array}
-              onExited={this.props.onExited}
-              onExiting={this.props.onExiting}
-              next={this.props.next}
-              previous={this.props.previous}
-              completed={this.props.completed}
-              slideCompleted={this.props.slideCompleted}
-            />
-          </div>
+          <SlideCarousel
+            id={props.id}
+            activeIndex={props.activeIndex}
+            array={props.array}
+            onExited={props.onExited}
+            onExiting={props.onExiting}
+            next={props.next}
+            previous={props.previous}
+            completed={props.completed}
+            slideCompleted={props.slideCompleted}
+          />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+Slide.propTypes = {
+  activeIndex: PropTypes.number,
+  array: PropTypes.array,
+  onExited: PropTypes.func,
+  onExiting: PropTypes.func,
+  next: PropTypes.func,
+  previous: PropTypes.func
+};
 
 const container = css`
   flex-grow: 1;
