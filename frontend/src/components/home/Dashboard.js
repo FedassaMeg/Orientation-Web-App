@@ -3,6 +3,7 @@ import { css, jsx } from "@emotion/core";
 import { MdCheckCircle, MdCancel } from "react-icons/md";
 
 import Card from "../components/Card";
+import Accordion from "../components/Accordion";
 
 export default function Dashboard(props) {
   const quizCompleted = props.compltArray;
@@ -62,8 +63,21 @@ export default function Dashboard(props) {
       <div css={pageheader}>My Dashboard</div>
       <hr css={divider} />
       <div css={cardscontainer}>
-        <Card header="Slides">{slideProgress}</Card>
-        <Card header="Quizzes">{quizProgress}</Card>
+        <Card header="Slides">
+          <Accordion>
+            <div label="Module 1">{slideProgress}</div>
+            <div label="Module 2">{slideProgress}</div>
+            <div label="Module 3">{slideProgress}</div>
+            <div label="Module 4">{slideProgress}</div>
+          </Accordion>
+        </Card>
+        <Card header="Quizzes">
+          <Accordion>
+            <div label="Videos">{quizProgress}</div>
+            <div label="Slides">{quizProgress}</div>
+            <div label="Handouts">{quizProgress}</div>
+          </Accordion>
+        </Card>
       </div>
     </div>
   );

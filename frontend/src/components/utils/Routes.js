@@ -11,6 +11,7 @@ import SlidesPage from "../../views/SlidesPage";
 import Login from "../login/Login";
 import SignUp from "../login/SignUp";
 import AdminPage from "../../views/AdminPage";
+import PdfViewer from "../slides/PdfViewer";
 
 export default function Routes() {
   return (
@@ -19,6 +20,7 @@ export default function Routes() {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/pdf" component={PdfViewer} />
         <PrivateRoute path="/quiz/:id" component={QuizPage} />
         <PrivateRoute path="/quizs" component={QuizzesPage} />
         <PrivateRoute path="/home" component={HomePage} />

@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Navigation from "../navbar/Navigation";
 import AdminSidebar from "./AdminSidebar";
 import AdminReviewScores from "./AdminReviewScores";
+import AdminEditContent from "./AdminEditContent";
 export default function Admin(props) {
   return (
     <div css={container}>
@@ -17,6 +18,7 @@ export default function Admin(props) {
         <Route path="/admin/dashboard" render={() => <h3>Dashboard</h3>} />
         <Route path="/admin/review-scores" component={AdminReviewScores} />
         <Route path="/admin/reports" render={() => <h3>Reports</h3>} />
+        <Route path="/admin/edit-content" component={AdminEditContent} />
       </div>
     </div>
   );
