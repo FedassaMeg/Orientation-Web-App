@@ -1,6 +1,7 @@
-/**@jsx jsx */
+/** @jsx jsx */
 import { Link } from "react-router-dom";
 import { css, jsx } from "@emotion/core";
+
 import Navigation from "../components/navbar/Navigation";
 
 export default function LandingPage() {
@@ -12,7 +13,6 @@ export default function LandingPage() {
           <span css={headerTop}>Welcome to</span>
           <span css={headerBottom}>First Call Orientation</span>
         </div>
-
         <div css={buttonGroup}>
           <Link to="/signup">
             <button css={button}>Get Started</button>
@@ -25,6 +25,8 @@ export default function LandingPage() {
 }
 
 // emotion styles
+// Refactor css using composition
+
 // container bgcolor and shadow
 const mainContainer = css`
   display: flex;

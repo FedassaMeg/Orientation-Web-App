@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { CustomInput } from "reactstrap";
+import { Form, FormGroup, CustomInput } from "reactstrap";
 
 export default function Question(props) {
   return (
@@ -10,11 +10,22 @@ export default function Question(props) {
         <div css={question}> {props.question.question}</div>
       </div>
       <div css={checkbox}>
-        <CustomInput
-          id={props.number}
-          type="checkbox"
-          onChange={props.onChange}
-        />
+        <Form>
+          <FormGroup>
+            <CustomInput
+              id={props.number}
+              type="radio"
+              onChange={props.onChange}
+              label="True"
+            />
+            <CustomInput
+              id={props.number}
+              type="radio"
+              onChange={props.onChange}
+              label="False"
+            />
+          </FormGroup>
+        </Form>
       </div>
     </div>
   );

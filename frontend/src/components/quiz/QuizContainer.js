@@ -3,6 +3,7 @@ import axios from "axios";
 import { parseInt } from "lodash";
 
 import Quiz from "./Quiz";
+import { ROOT_URL } from "../utils/constants";
 
 let scr = 0;
 export default class QuizPost extends Component {
@@ -14,20 +15,20 @@ export default class QuizPost extends Component {
       ansArray: []
     };
   }
-  getQuestionsByQuizId = async () => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:8000/api/quizs/${this.props.quiz.key}/questions`
-      );
-      return data;
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
+  // getQuestionsByQuizId = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `http://localhost:8000/api/quizs/${this.props.quiz.key}/questions`
+  //     );
+  //     return data;
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
 
   async componentDidMount() {
-    const quizData = await this.getQuestionsByQuizId();
-    this.setState({ questions: quizData });
+    // const quizData = await this.getQuestionsByQuizId();
+    // this.setState({ questions: quizData });
     this.state.questions.map((question, index) => {
       this.setState({ ansArray: [...this.state.ansArray, question.answer] });
       this.setState({ answers: this.state.answers.set(index + 1, false) });
@@ -69,7 +70,7 @@ export default class QuizPost extends Component {
 
     axios
       .post(
-        "http://localhost:8000/api/scores/",
+        `${ROOT_URL}scores/`,
         {
           score: scr,
           related_quiz: quizId
@@ -89,7 +90,7 @@ export default class QuizPost extends Component {
     return (
       <Quiz
         quiz={this.props.quiz}
-        questions={this.state.questions}
+        // questions={this.state.questions}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
       />

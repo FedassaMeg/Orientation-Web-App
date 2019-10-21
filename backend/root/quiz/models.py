@@ -40,7 +40,8 @@ class QuizScore(models.Model):
     score = models.IntegerField()
     signed_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     signed_date = models.DateTimeField(auto_now=True)
-    related_quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    related_quiz = models.ForeignKey(
+        Quiz, on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class LookUpTableSlideUser(models.Model):

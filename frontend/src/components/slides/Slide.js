@@ -34,7 +34,7 @@ export default function Slide(props) {
             onExiting={props.onExiting}
             next={props.next}
             previous={props.previous}
-            completed={props.completed}
+            completed={props.IsComplete}
             slideCompleted={props.slideCompleted}
           />
         </div>

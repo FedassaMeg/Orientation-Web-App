@@ -12,6 +12,7 @@ import Login from "../login/Login";
 import SignUp from "../login/SignUp";
 import AdminPage from "../../views/AdminPage";
 import PdfViewer from "../slides/PdfViewer";
+import Carousel from "../muitest/Carousel";
 
 export default function Routes() {
   return (
@@ -26,7 +27,8 @@ export default function Routes() {
         <PrivateRoute path="/home" component={HomePage} />
         <PrivateRoute path="/slide/:id" component={SlidePage} />
         <PrivateRoute path="/slides" component={SlidesPage} />
-        <PrivateRoute path="/admin" component={AdminPage} />
+        <Route path="/admin" component={AdminPage} />
+        <Route path="/test" component={Carousel} />
       </Switch>
     </Router>
   );
