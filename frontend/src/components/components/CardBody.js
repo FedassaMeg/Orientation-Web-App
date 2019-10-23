@@ -8,4 +8,5 @@ const container = css`
   padding-top: 8px;
   padding-bottom: 20px;
   padding-right: 32px;
+  padding-left: 32px;
 `;

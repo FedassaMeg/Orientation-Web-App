@@ -8,7 +8,7 @@ export default function Card(props) {
   return (
     <div css={card}>
       <CardHeader header={props.header} />
-      <hr css={divider} />
+      {props.line && <hr css={divider} />}
       <CardBody>{props.children}</CardBody>
     </div>
   );
