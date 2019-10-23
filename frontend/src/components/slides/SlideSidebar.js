@@ -36,7 +36,7 @@ const button = css`
 const container = css`
   min-width: 200px;
   max-width: 300px;
-  height: 790px;
+  height: 820px;
   overflow-y: scroll;
   padding-top: 32px;
   padding-left: 20px;

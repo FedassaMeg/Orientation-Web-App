@@ -13,7 +13,7 @@ export default function SlideModal(props) {
   };
 
   return (
-    <div>
+    <div css={container}>
       <button css={button} onClick={toggle}>
         {props.buttonLabel}
       </button>
@@ -31,6 +31,10 @@ export default function SlideModal(props) {
     </div>
   );
 }
+
+const container = css`
+  margin-bottom: 8px;
+`;
 
 const button = css`
   background: teal;

@@ -11,16 +11,18 @@ export default function SlideCarousel(props) {
         onExited={props.onExited}
         key={index}
       >
-        <img
-          src={require(`../../imgs/slides/slide${props.id}/Slide${image}.PNG`)}
-          alt=""
-          css={slide}
-        />
+        <div css={slideContainer}>
+          <img
+            src={require(`../../imgs/slides/slide${props.id}/Slide${image}.PNG`)}
+            alt=""
+            css={slide}
+          />
+        </div>
       </CarouselItem>
     );
   });
   return (
-    <div>
+    <div css={carouselContainer}>
       <Carousel
         activeIndex={props.activeIndex}
         next={props.next}
@@ -43,7 +45,12 @@ export default function SlideCarousel(props) {
 
 const slide = css`
   width: 100%;
-  height: auto;
+  // height: auto;
+`;
+
+const slideContainer = css`
+  width: 800px;
+  // height: auto;
 `;
 
 const controlGroup = css`
@@ -60,4 +67,8 @@ const button = css`
   font-family: "Noto Sans JP", sans-serif;
   padding: 7px;
   width: 50px;
+`;
+
+const carouselContainer = css`
+  width: 800px;
 `;

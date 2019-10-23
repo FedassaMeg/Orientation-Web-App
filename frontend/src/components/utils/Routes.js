@@ -29,6 +29,7 @@ export default function Routes() {
         <PrivateRoute path="/slides" component={SlidesPage} />
         <Route path="/admin" component={AdminPage} />
         <Route path="/test" component={Carousel} />
+        <Route path="/p df" component={PdfViewer} />
       </Switch>
     </Router>
   );

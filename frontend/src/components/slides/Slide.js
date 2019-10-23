@@ -26,17 +26,19 @@ export default function Slide(props) {
             buttonLabel="Open Slide"
             size="xl"
           />
-          <SlideCarousel
-            id={props.id}
-            activeIndex={props.activeIndex}
-            array={props.array}
-            onExited={props.onExited}
-            onExiting={props.onExiting}
-            next={props.next}
-            previous={props.previous}
-            completed={props.IsComplete}
-            slideCompleted={props.slideCompleted}
-          />
+          <div css={slideCarousel}>
+            <SlideCarousel
+              id={props.id}
+              activeIndex={props.activeIndex}
+              array={props.array}
+              onExited={props.onExited}
+              onExiting={props.onExiting}
+              next={props.next}
+              previous={props.previous}
+              completed={props.IsComplete}
+              slideCompleted={props.slideCompleted}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -55,7 +57,7 @@ Slide.propTypes = {
 const container = css`
   flex-grow: 1;
   align-self: center;
-  max-width: 120vmin;
+  max-width: 140vmin;
   width: 100%;
 `;
 
@@ -67,7 +69,7 @@ const divider = css`
 const body = css`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
   margin: auto;
   width: 100%;
   height: 100%;
@@ -78,4 +80,8 @@ const mainSection = css`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+`;
+
+const slideCarousel = css`
+  align-self: center;
 `;

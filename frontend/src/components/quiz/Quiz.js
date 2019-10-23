@@ -21,7 +21,7 @@ export default function Quiz(props) {
         </button>
       </form>
       <a
-        href="plex:32400/web/index.html#!/server/44670e1affc1bd075edff1ea245341d5b490b28b/details?key=%2Flibrary%2Fmetadata%2F54"
+        href="http://plex:32400/web/index.html#!/server/44670e1affc1bd075edff1ea245341d5b490b28b/details?key=%2Flibrary%2Fmetadata%2F54"
         target="_blank"
       >
         Watch Video

@@ -7,7 +7,7 @@ import { ROOT_URL } from "../utils/constants";
 export default function QuestionList(props) {
   return (
     <Resource
-      url={`${ROOT_URL}quizs/${this.props.quizId}/questions`}
+      url={`${ROOT_URL}quizs/${props.quizId}/questions`}
       render={({ isLoading, error, data }) => (
         <>
           {isLoading ? (
@@ -19,7 +19,7 @@ export default function QuestionList(props) {
                   key={index}
                   question={question}
                   number={index + 1}
-                  onChange={this.props.onChange}
+                  onChange={props.onChange}
                 />
               ))}
             </>

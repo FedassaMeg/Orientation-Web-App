@@ -1,63 +1,65 @@
 /**@jsx jsx */
+import { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
 import { MdCheckCircle, MdCancel } from "react-icons/md";
 
 import Card from "../components/Card";
 import Accordion from "../components/Accordion";
+import ListItem from "./ListItem";
 
 export default function Dashboard(props) {
-  const quizCompleted = props.compltArray;
-  const quizProgress = props.quizArray.map(quiz => {
-    let isCompleted = false;
-    return (
-      <div css={listSection}>
-        <div css={listRight}>
-          {quizCompleted.map(score => {
-            quiz.id === score.related_quiz
-              ? (isCompleted = true)
-              : (isCompleted = isCompleted);
-          })}
-          {isCompleted ? (
-            <div css={check}>
-              <MdCheckCircle />
-            </div>
-          ) : (
-            <div css={cancel}>
-              <MdCancel />
-            </div>
-          )}
+  const initialState = {
+    md1: [],
+    md3: [],
+    md4: [],
+    md5: []
+  };
+  const [state, setstate] = useState(initialState);
 
-          <div css={list}>{quiz.title}</div>
-        </div>
-      </div>
-    );
-  });
-  const slideCompleted = props.comArray;
-  const slideProgress = props.slideArray.map(slide => {
-    let isCompleted = false;
-    return (
-      <div css={listSection}>
-        <div css={listRight}>
-          {slideCompleted.map(score => {
-            slide.id === score.slide
-              ? (isCompleted = true)
-              : (isCompleted = isCompleted);
-          })}
-          {isCompleted ? (
-            <div css={check}>
-              <MdCheckCircle />
-            </div>
-          ) : (
-            <div css={cancel}>
-              <MdCancel />
-            </div>
-          )}
+  useEffect(() => {
+    setstate({ md1: md1Arr, md3: md3Arr, md4: md4Arr, md5: md5Arr });
+  }, [props.slideArray]);
 
-          <div css={list}>{slide.title}</div>
-        </div>
-      </div>
-    );
+  const md1Arr = props.slideArray.filter(slide => {
+    return slide.module === 1;
   });
+  const md3Arr = props.slideArray.filter(slide => {
+    return slide.module === 3;
+  });
+  const md4Arr = props.slideArray.filter(slide => {
+    return slide.module === 4;
+  });
+  const md5Arr = props.slideArray.filter(slide => {
+    return slide.module === 5;
+  });
+
+  // const quizCompleted = props.compltArray;
+  // const quizProgress = props.quizArray.map(quiz => {
+  //   let isCompleted = false;
+  //   return (
+  //     <div css={listSection}>
+  //       <div css={listRight}>
+  //         {quizCompleted.map(score => {
+  //           quiz.id === score.related_quiz
+  //             ? (isCompleted = true)
+  //             : (isCompleted = isCompleted);
+  //         })}
+  //         {isCompleted ? (
+  //           <div css={check}>
+  //             <MdCheckCircle />
+  //           </div>
+  //         ) : (
+  //           <div css={cancel}>
+  //             <MdCancel />
+  //           </div>
+  //         )}
+
+  //         <div css={list}>{quiz.title}</div>
+  //       </div>
+  //     </div>
+  //   );
+  // });
+  console.log(state);
   return (
     <div>
       <div css={pageheader}>My Dashboard</div>
@@ -65,18 +67,26 @@ export default function Dashboard(props) {
       <div css={cardscontainer}>
         <Card header="Slides">
           <Accordion>
-            <div label="Module 1">{slideProgress}</div>
-            <div label="Module 2">{slideProgress}</div>
-            <div label="Module 3">{slideProgress}</div>
-            <div label="Module 4">{slideProgress}</div>
+            <div label="Module 1">
+              <ListItem arr={state.md1} comArray={props.comArray} />
+            </div>
+            <div label="Module 3">
+              <ListItem arr={state.md3} comArray={props.comArray} />
+            </div>
+            <div label="Module 4" css={accList}>
+              <ListItem arr={state.md4} comArray={props.comArray} />
+            </div>
+            <div label="Module 5" css={accList}>
+              <ListItem arr={state.md5} comArray={props.comArray} />
+            </div>
           </Accordion>
         </Card>
         <Card header="Quizzes">
-          <Accordion>
+          {/* <Accordion>
             <div label="Videos">{quizProgress}</div>
             <div label="Slides">{quizProgress}</div>
             <div label="Handouts">{quizProgress}</div>
-          </Accordion>
+          </Accordion> */}
         </Card>
       </div>
     </div>
@@ -102,9 +112,13 @@ const cardscontainer = css`
   width: 100%;
   padding: 50px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   flex-wrap: 1;
+`;
+
+const accList = css`
+  display: flex;
 `;
 
 const listSection = css`
