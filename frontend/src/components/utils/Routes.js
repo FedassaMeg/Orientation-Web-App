@@ -11,9 +11,14 @@ import SlidesPage from "../../views/SlidesPage";
 import Login from "../login/Login";
 import SignUp from "../login/SignUp";
 import AdminPage from "../../views/AdminPage";
+
+//Test Pages
 import Carousel from "../muitest/Carousel";
 import PdfComponent from "../slides/PdfComponent";
 import EmbeddedSlide from "../slides/EmbeddedSlide";
+import Choices from "../question/Choices";
+import QuestionContent from "../question/QuestionContent";
+import Question from "../question/Question";
 
 export default function Routes() {
   return (
@@ -29,7 +34,9 @@ export default function Routes() {
         <PrivateRoute path="/slide/:id" component={SlidePage} />
         <PrivateRoute path="/slides" component={SlidesPage} />
         <Route path="/admin" component={AdminPage} />
-        <Route path="/test" component={Carousel} />
+
+        {/* Test Pages */}
+        <Route path="/test" component={Question} />
         <Route path="/ebd" component={EmbeddedSlide} />
       </Switch>
     </Router>
