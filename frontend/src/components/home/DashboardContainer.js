@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import Dashboard from "./Dashboard";
 
-const ROOT_URL = "http://localhost:8000/api";
+import { ROOT_URL } from "../utils/constants";
 
 export default function DashboardContainer() {
   const [quizArray, setQuizArray] = useState([]);

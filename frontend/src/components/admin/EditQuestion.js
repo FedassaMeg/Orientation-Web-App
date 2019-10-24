@@ -2,14 +2,13 @@
 import { css, jsx } from "@emotion/core";
 
 export default function EditQuestion(props) {
-  console.log(props.value);
   return (
     <div css={edtQstn}>
       <form>
         <span css={span}>Set Question {props.id}:</span>
         <input
           type="text"
-          key={props.question.key}
+          id={props.question.id}
           value={props.value}
           css={input}
           onChange={props.handleChange}
@@ -17,7 +16,7 @@ export default function EditQuestion(props) {
         <span css={span}>Set Answer:</span>
         <div>
           <input
-            key={props.question.id}
+            id={props.question.id}
             type="radio"
             onChange={props.handleChange}
             name="true"
@@ -26,7 +25,7 @@ export default function EditQuestion(props) {
         </div>
         <div>
           <input
-            key={props.question.id}
+            id={props.question.id}
             type="radio"
             onChange={props.handleChange}
             name="false"

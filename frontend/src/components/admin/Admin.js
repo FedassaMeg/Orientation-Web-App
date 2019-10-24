@@ -31,7 +31,7 @@ const container = css`
 
 const sidebar = css`
   width: 350px;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #404045;
 `;
 

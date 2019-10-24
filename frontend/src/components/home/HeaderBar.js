@@ -25,7 +25,7 @@ export default function HeaderBar() {
     };
     const userId = getUserIdfromToken();
     axios
-      .get(`http://localhost:8000/api/users/${userId}`, config)
+      .get(`http://10.2.7.66:8000/api/users/${userId}`, config)
       .then(res => {
         setUser({
           first_name: res.data.first_name,

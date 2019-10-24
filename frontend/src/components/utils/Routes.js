@@ -11,8 +11,9 @@ import SlidesPage from "../../views/SlidesPage";
 import Login from "../login/Login";
 import SignUp from "../login/SignUp";
 import AdminPage from "../../views/AdminPage";
-import PdfViewer from "../slides/PdfViewer";
 import Carousel from "../muitest/Carousel";
+import PdfComponent from "../slides/PdfComponent";
+import EmbeddedSlide from "../slides/EmbeddedSlide";
 
 export default function Routes() {
   return (
@@ -21,7 +22,7 @@ export default function Routes() {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/pdf" component={PdfViewer} />
+        <Route path="/pdf" component={PdfComponent} />
         <PrivateRoute path="/quiz/:id" component={QuizPage} />
         <PrivateRoute path="/quizs" component={QuizzesPage} />
         <PrivateRoute path="/home" component={HomePage} />
@@ -29,7 +30,7 @@ export default function Routes() {
         <PrivateRoute path="/slides" component={SlidesPage} />
         <Route path="/admin" component={AdminPage} />
         <Route path="/test" component={Carousel} />
-        <Route path="/p df" component={PdfViewer} />
+        <Route path="/ebd" component={EmbeddedSlide} />
       </Switch>
     </Router>
   );

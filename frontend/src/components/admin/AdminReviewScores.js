@@ -4,7 +4,7 @@ import axios from "axios";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
 
-const ROOT_URL = "http://localhost:8000/api";
+import { ROOT_URL } from "../utils/constants";
 
 export default function AdminReviewScores(props) {
   const [userArray, setUserArray] = useState([]);

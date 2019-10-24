@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-
+import { ROOT_URL } from "../utils/constants";
 import LoginForm from "./LoginForm";
 
 function Login(props) {
@@ -23,7 +23,7 @@ function Login(props) {
     event.preventDefault();
 
     axios
-      .post("http://localhost:8000/api/token/", {
+      .post(`${ROOT_URL}/token/`, {
         username: state.username,
         password: state.password
       })

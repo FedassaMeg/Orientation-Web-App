@@ -4,6 +4,9 @@ import { css, jsx } from "@emotion/core";
 export default function EditQuestionList(props) {
   return (
     <div css={container}>
+      <button onClick={props.handleOnClick} css={btn}>
+        Back to List
+      </button>
       {props.qstArr[props.index]}
       <button onClick={props.next} css={btn}>
         next

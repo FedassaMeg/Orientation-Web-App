@@ -19,7 +19,6 @@ export default function Resource(props) {
       .then(res => {
         setData(res.data);
         setIsLoading(false);
-        console.log(data);
       })
       .catch(error => {
         setError(error);

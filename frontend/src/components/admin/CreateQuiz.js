@@ -5,8 +5,8 @@ import { MdAdd } from "react-icons/md";
 
 import QuestionForm from "./QuestionForm";
 export default function CreateQuiz() {
-  const clicked = true;
   const [formCount, setFormCount] = useState(0);
+  const [clicked, setClicked] = useState(false);
 
   const add = () => {
     const frmCount = formCount;
@@ -21,12 +21,15 @@ export default function CreateQuiz() {
   for (let i = 0; i < formCount; i++) {
     questionList.push(<QuestionForm remove={remove} key={i} />);
   }
+  const handleOnClick = e => {
+    setClicked(!clicked);
+  };
   return (
     <div>
       {!clicked ? (
-        <button css={btn}>
+        <button css={btn} onClick={handleOnClick}>
           <div css={btnContent}>
-            <div css={add}>
+            <div css={addIcon}>
               <MdAdd />
             </div>
             <div css={btnText}>Create Quiz</div>
@@ -34,12 +37,20 @@ export default function CreateQuiz() {
         </button>
       ) : (
         <div css={inputSection}>
-          <div>
+          <button onClick={handleOnClick} css={backBtn} name="button">
+            Back
+          </button>
+          {/* <form> */}
+          <div css={createQuiz}>
             <span css={span}>Enter Quiz Title:</span>
             <input type="text"></input>
           </div>
           <div css={listContainer}>{questionList}</div>
-          <button onClick={add}>add question</button>
+          <button onClick={add} css={addQuestion}>
+            add question
+          </button>
+          <button css={submitQuiz}>Create</button>
+          {/* </form> */}
         </div>
       )}
     </div>
@@ -47,13 +58,27 @@ export default function CreateQuiz() {
 }
 
 const btn = css`
-  border: 2px dashed #656565;
+  border: 2px dashed;
+  border-color: gray;
   background-color: #ffffff;
   padding: 4px 12px;
   &:focus {
     outline: none;
   }
 `;
+
+const backBtn = css`
+margin-bottom: 12px;
+border: none;
+  border-radius: 2px
+  background-color: #f4f4f4;
+  padding: 4px 12px;
+  font: 16px "Roboto", san-serif;
+  color: #303030;
+  font-weight: 500;
+  &:focus {
+    outline: none;
+  }`;
 
 const btnContent = css`
   display: flex;
@@ -62,7 +87,7 @@ const btnContent = css`
   align-items: center;
 `;
 
-const add = css`
+const addIcon = css`
   padding-bottom: 4px;
 `;
 
@@ -84,10 +109,44 @@ const inputSection = css`
 `;
 
 const span = css`
+  color: #303030;
+  font-weight: 500;
   margin-right: 8px;
 `;
 
 const listContainer = css`
   display: flex;
   flex-direction: column;
+`;
+
+const addQuestion = css`
+  margin-top: 12px;
+  border: 2px dashed;
+  border-color: gray;
+  background-color: #ffffff;
+  padding: 4px 12px;
+  font: 14px "Roboto", san-serif;
+  color: gray;
+  font-weight: 500;
+  font-style: italic;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const submitQuiz = css`
+  margin-top: 16px;
+  border: none;
+  background-color: green;
+  padding: 4px 12px;
+  font: 16px "Roboto", san-serif;
+  color: white;
+  font-weight: 500;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const createQuiz = css`
+  margin-bottom: 16px;
 `;

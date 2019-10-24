@@ -1,4 +1,5 @@
 /**@jsx jsx */
+import { useState } from "react";
 import { css, jsx } from "@emotion/core";
 import { MdEdit } from "react-icons/md";
 import Card from "../components/Card";
@@ -6,13 +7,22 @@ import CreateQuizContainer from "./CreateQuizContainer";
 import EditQuiz from "./EditQuiz";
 
 export default function EditContent(props) {
-  let clicked = true;
+  const [isClicked, setIsClicked] = useState(false);
+  const [quizId, setQuizId] = useState(1);
+  const handleOnClick = e => {
+    if (e.target.name === "button") {
+      setQuizId(e.target.id);
+    }
+    setIsClicked(!isClicked);
+  };
   const quizzes = props.qzArr.map(quiz => {
     return (
       <div>
         <div>
           {quiz.title}
-          <MdEdit />
+          <button id={quiz.id} onClick={handleOnClick} name="button">
+            <MdEdit />
+          </button>
         </div>
       </div>
     );
@@ -21,7 +31,11 @@ export default function EditContent(props) {
     <div>
       <div>
         <Card header="Edit Quizzes" line>
-          {!clicked ? <ul>{quizzes}</ul> : <EditQuiz quizId={1} />}
+          {!isClicked ? (
+            <ul>{quizzes}</ul>
+          ) : (
+            <EditQuiz quizId={quizId} handleOnClick={handleOnClick} />
+          )}
         </Card>
       </div>
       <Card header="">

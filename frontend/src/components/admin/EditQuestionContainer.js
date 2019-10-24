@@ -6,31 +6,32 @@ export default function EditQuestionContainer(props) {
   const [qstArr, setQstArr] = useState([]);
   const [index, setIndex] = useState(0);
   const [input, setInput] = useState(new Map());
-  const [ans, setAns] = useState([]);
-  const [qtsInput, setQtsInput] = useState({});
+  const [ansInput, setAnsInput] = useState([]);
+  const [qtsInput, setQtsInput] = useState([]);
 
   useEffect(() => {
-    const arrTemp = [];
-    const vlsArr = [];
+    let added = [];
     props.data.map((question, index) => {
-      // const value = values[index];
+      added.push({
+        id: question.id,
+        question: question.question
+      });
+    });
+    setQtsInput(added);
+    const arrTemp = [];
+    props.data.map((question, index) => {
       arrTemp.push(
         <EditQuestion
           key={index}
           id={index + 1}
-          value={qtsInput}
+          value={question.question}
           question={question}
           handleChange={handleChange}
         />
       );
     });
-    props.data.map(question => {
-      setInput(
-        input.set(question.id, { question: question.question, answer: false })
-      );
-    });
     setQstArr(arrTemp);
-    console.log(input);
+    console.log(qtsInput);
   }, []);
 
   const next = () => {
@@ -40,27 +41,40 @@ export default function EditQuestionContainer(props) {
       alert("end");
     }
   };
-
   const handleChange = event => {
-    if (event.target.type === "text") {
-      setQtsInput({ ...qtsInput, [event.target.key]: event.target.value });
-      console.log(qtsInput);
+    const newMap = input;
+    const key = parseInt(event.target.id, 10);
+    let elm = input.get(key);
+    let qst;
+    let isOn;
+    if (event.target.name) {
+      isOn = true;
+    } else {
+      isOn = false;
     }
-
-    // const key = parseInt(event.target.id, 10);
-    // const qst = event.target.value;
-    // let isOn;
-    // if (event.target.name) {
-    //   isOn = true;
-    // } else {
-    //   isOn = false;
-    // }
-    // const newMap = input.set(key, { question: qst, answer: isOn });
-    // setInput(newMap);
-    // console.log(newMap);
-    // const elm = input.set(key, {answer: true});
-    // setValue({ value: event.target.value });
+    if (event.target.type === "text") {
+      elm.question = event.target.value;
+      elm.answer = isOn;
+      // newMap.set(key, elm);
+      newMap.set(key, elm);
+      setInput(newMap);
+      console.log(newMap);
+    } else if (event.target.type === "radio");
+    {
+      // elm.question = qst;
+      elm.answer = isOn;
+      // newMap.set(key, elm);
+      // setInput(newMap);
+      console.log(elm);
+    }
   };
 
-  return <EditQuestionList index={index} qstArr={qstArr} next={next} />;
+  return (
+    <EditQuestionList
+      index={index}
+      qstArr={qstArr}
+      next={next}
+      handleOnClick={props.handleOnClick}
+    />
+  );
 }

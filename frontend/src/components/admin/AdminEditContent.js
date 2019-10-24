@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditContent from "./EditContent";
 
-const ROOT_URL = "http://localhost:8000/api";
+import { ROOT_URL } from "../utils/constants";
 
 export default function AdminEditContent(props) {
   const [quizArray, setQuizArray] = useState([]);
