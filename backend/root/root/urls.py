@@ -18,6 +18,8 @@ urlpatterns = [
     path('api/users/', UserViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/quizs/',
          QuizViewSet.as_view({'get': 'list', 'post': 'create', 'put': 'update'})),
+    path('api/quizs/<int:pk>',
+         QuizViewSet.as_view({'get': 'retrieve', 'post': 'create'})),
     path('api/slides/',
          SlideViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/lookuptableslideusers/',

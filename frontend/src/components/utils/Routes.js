@@ -19,6 +19,9 @@ import EmbeddedSlide from "../slides/EmbeddedSlide";
 import Choices from "../question/Choices";
 import QuestionContent from "../question/QuestionContent";
 import Question from "../question/Question";
+import Quiz from "../quiz/Quiz";
+import QuizContainer from "../quiz/QuizContainer";
+import ReviewAnswers from "../quiz/ReviewAnswers";
 
 export default function Routes() {
   return (
@@ -36,7 +39,7 @@ export default function Routes() {
         <Route path="/admin" component={AdminPage} />
 
         {/* Test Pages */}
-        <Route path="/test" component={Question} />
+        <Route path="/test" component={ReviewAnswers} />
         <Route path="/ebd" component={EmbeddedSlide} />
       </Switch>
     </Router>

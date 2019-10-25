@@ -1,77 +1,39 @@
 //Consume logic from container component to "Route" different types of quizzes to the appropriate presentation components
 
-// /** @jsx jsx */
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
 
-// import { css, jsx } from "@emotion/core";
+//Local Components
+import Question from "../question/Question";
+import QuizContent from "./QuizContent";
+import ReviewAnswers from "./ReviewAnswers";
 
-// import QuestionList from "../question/QuestionList";
+export default function Quiz(props) {
+  return (
+    <div css={container}>
+      <QuizContent
+        quiz={props.quiz}
+        data={props.data}
+        totCount={props.totCount}
+        question={props.question}
+        activeIndex={props.activeIndex}
+        next={props.next}
+        prev={props.prev}
+        radioValue={props.radioValue}
+        handleOnChange={props.handleOnChange}
+        isCompleted={props.isCompleted}
+      />
+    </div>
+  );
+}
 
-// export default function Quiz(props) {
-//   return (
-//     <div css={container}>
-//       <div css={title}>{props.quiz.title}</div>
+// Emotion Css-in-Js Styling
 
-//       <hr css={divider} />
-//       <form css={body} onSubmit={props.handleSubmit}>
-//         <QuestionList
-//           quizId={props.quiz.key}
-//           questions={props.questions}
-//           onChange={props.handleChange}
-//         />
-//         <button type="submit" css={submit}>
-//           Submit
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// const container = css`
-//   flex-grow: 1;
-//   align-self: center;
-//   max-width: 120vmin;
-//   width: 100%;
-//   padding-bottom: 64px;
-// `;
-
-// const title = css`
-//   font-family: "Noto Sans JP", sans-serif;
-//   font-size: 45px;
-//   padding-left: 90px;
-//   color: rgb(78, 78, 78);
-//   width: 100%;
-//   padding-bottom: 10px;
-//   padding-top: 10px;
-//   background-color: rgb(252, 252, 252);
-// `;
-
-// const divider = css`
-//   margin: 0;
-//   border: 0.5px solid lightgrey;
-// `;
-
-// const body = css`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: flex-start;
-//   padding-top: 24px;
-// `;
-
-// const submit = css`
-//   margin-top: 36px;
-//   margin-right: 40px;
-//   width: 80px;
-//   align-self: flex-end;
-//   padding: 5px 10px;
-//   border: none;
-//   border-radius: 5px;
-//   background-color: coral;
-//   color: white;
-//   font: 16px "Open Sans", sans-serif;
-//   font-weight: 600;
-//   transition-duration: 0.4s;
-
-//   &:hover {
-//     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-//   }
-// `;
+// Main [div]
+const container = css`
+  background-color: #f4f4f4;
+  align-self: center;
+  max-width: 120vmin;
+  width: 1500px;
+  padding-bottom: 24px;
+`;

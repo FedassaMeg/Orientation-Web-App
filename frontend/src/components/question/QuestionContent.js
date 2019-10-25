@@ -6,15 +6,12 @@ import { css, jsx } from "@emotion/core";
 //Material UI Components
 import Box from "@material-ui/core/Box";
 
-export default function QuestionContent() {
+export default function QuestionContent(props) {
   return (
     <div css={container}>
       <Box display="flex" fontSize={16} fontWeight={500} color="text.primary">
-        <div css={number}>1.</div>
-        <div css={question}>
-          When including tools, they should be placed directly above or below
-          the table.
-        </div>
+        <div css={number}>{props.activeIndex + 1}.</div>
+        <div css={question}>{props.question} </div>
       </Box>
     </div>
   );

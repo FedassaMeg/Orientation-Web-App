@@ -12,22 +12,14 @@ import FormControl from "@material-ui/core/FormControl";
 //React-Icons Components
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
-export default function Choices() {
-  // Temp. move to Quiz Container or a possible Question Container ??
-  const [value, setValue] = React.useState("female");
-
-  // Temp. move to Quiz Container or a possible Question Container ??
-  const handleChange = event => {
-    setValue(event.target.value);
-  };
-
+export default function Choices(props) {
   return (
     <FormControl component="fieldset">
       <RadioGroup
         aria-label="answer"
         name="answer"
-        value={value}
-        onChange={handleChange}
+        onChange={props.handleOnChange}
+        value={props.radioValue}
         row
       >
         <FormControlLabel

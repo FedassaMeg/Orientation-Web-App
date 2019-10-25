@@ -4,73 +4,51 @@ import React from "react";
 
 // Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import Box from "@material-ui/core/Box";
-
-//React-Icons Components
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
 
 // Local Components
 import QuestionContent from "./QuestionContent";
 import Choices from "./Choices";
-import { lightGreen } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(),
-    "&:focus": { outline: 0 }
-  },
   card: {
-    paddingLeft: 16,
-    paddingRight: 16,
-    maxWidth: 900
-  },
-  root: {
-    backgroundColor: lightGreen
+    maxWidth: 800,
+    padding: 16
   }
 }));
 
-export default function Question() {
+export default function Question(props) {
   const classes = useStyles();
   return (
     <div>
       <Card className={classes.card}>
         <CardContent>
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            pr={8}
-            pl={8}
-          >
-            <QuestionContent />
-            <Choices />
+          <Box pr={8} pl={8} width={750} height={80}>
+            {props.question === undefined ? (
+              <h3>Loading</h3>
+            ) : (
+              <QuestionContent
+                activeIndex={props.activeIndex}
+                question={props.question.question}
+              />
+            )}
           </Box>
         </CardContent>
         <CardActions>
           <Box
             display="flex"
             flexDirection="row"
-            justifyContent="space-between"
+            justifyContent="flex-start"
             width="100%"
+            pl={13}
           >
-            <Button
-              size="small"
-              className={classes.button}
-              startIcon={<MdNavigateBefore />}
-            >
-              prev.
-            </Button>
-            <Button
-              size="small"
-              className={classes.button}
-              endIcon={<MdNavigateNext />}
-            >
-              next
-            </Button>
+            <Choices
+              radioValue={props.radioValue}
+              handleOnChange={props.handleOnChange}
+            />
           </Box>
         </CardActions>
       </Card>
