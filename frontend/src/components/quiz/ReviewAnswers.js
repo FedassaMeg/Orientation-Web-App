@@ -12,12 +12,18 @@ import React from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import Paper from "@material-ui/core/Paper";
+
+//React-Icon component
+import { MdEdit } from "react-icons/md";
 
 const data = [
   {
@@ -92,12 +98,17 @@ const data = [
   }
 ];
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   paper: {
     padding: 12,
     width: "85%"
+  },
+  root: {
+    width: "100%",
+    maxWidth: 850,
+    backgroundColor: theme.palette.background.paper
   }
-});
+}));
 export default function ReviewAnswers(props) {
   const classes = useStyles();
   const answers = new Map([
@@ -114,19 +125,34 @@ export default function ReviewAnswers(props) {
   ]);
   const questions = data.map((question, index) => (
     <ListItem key={index}>
-      <ListItemText>
-        {index + 1}.{question.question} you answered: {answers.get(index + 1)}
-      </ListItemText>
+      <div>{index + 1}.</div>
+      <div>{question.question} you answered:</div>
+      <div>{answers.get(index + 1)}</div>
+      <div>
+        <IconButton>
+          <MdEdit size={18} />
+        </IconButton>
+      </div>
     </ListItem>
   ));
 
   return (
-    <div>
+    <Box
+      display="flex"
+      flexDirection="row"
+      justifyContent="center"
+      mt={8}
+      mb={8}
+    >
       <Paper className={classes.paper}>
-        <h3>Review Answers</h3>
-
-        <List>{questions}</List>
+        <List dense className={classes.root}>
+          <ListSubheader>HIPPA</ListSubheader>
+          {questions}
+        </List>
+        <Button variant="contained" color="primary">
+          Submit
+        </Button>
       </Paper>
-    </div>
+    </Box>
   );
 }
