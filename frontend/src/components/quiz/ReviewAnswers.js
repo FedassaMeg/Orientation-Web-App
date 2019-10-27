@@ -8,7 +8,9 @@
     - Displays warning for questions that aren't answered
 */
 
-import React from "react";
+/**@jsx jsx */
+
+import { css, jsx } from "@emotion/core";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -107,6 +109,9 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     maxWidth: 850,
     backgroundColor: theme.palette.background.paper
+  },
+  button: {
+    "&:focus": { outline: 0 }
   }
 }));
 export default function ReviewAnswers(props) {
@@ -124,35 +129,94 @@ export default function ReviewAnswers(props) {
     [10, "false"]
   ]);
   const questions = data.map((question, index) => (
-    <ListItem key={index}>
-      <div>{index + 1}.</div>
-      <div>{question.question} you answered:</div>
-      <div>{answers.get(index + 1)}</div>
-      <div>
-        <IconButton>
+    <div key={index} css={container}>
+      <div css={list}>
+        <div css={number}>{index + 1}.</div>
+        <div css={qst}>{question.question}</div>
+      </div>
+      <div css={answer}>you answered: {answers.get(index + 1)}</div>
+      <div css={editBtn}>
+        <IconButton className={classes.button}>
           <MdEdit size={18} />
         </IconButton>
       </div>
-    </ListItem>
+    </div>
   ));
 
   return (
     <Box
       display="flex"
-      flexDirection="row"
-      justifyContent="center"
+      flexDirection="column"
+      justifyContent="flex-start"
+      alignItems="center"
       mt={8}
       mb={8}
     >
       <Paper className={classes.paper}>
-        <List dense className={classes.root}>
-          <ListSubheader>HIPPA</ListSubheader>
-          {questions}
-        </List>
-        <Button variant="contained" color="primary">
+        <div css={title}>HIPPA</div>
+        <div css={main}>{questions}</div>
+      </Paper>
+      <div css={submitBtn}>
+        <Button variant="contained" color="primary" className={classes.button}>
           Submit
         </Button>
-      </Paper>
+      </div>
     </Box>
   );
 }
+const container = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  transition-duration: 0.5s;
+  &:hover {
+    background-color: #f4f4f4;
+    box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const main = css`
+  padding: 24px;
+`;
+const list = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 900px;
+`;
+const number = css`
+  margin-right: 32px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #505050;
+`;
+const qst = css`
+  width: 600px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #505050;
+`;
+const answer = css`
+  margin-left: 16px;
+  margin-right: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: italic;
+  color: #505050;
+  padding: 8px;
+`;
+const title = css`
+  margin-left: 32px;
+  margin-top: 8px;
+`;
+
+const editBtn = css``;
+
+const submitBtn = css`
+  align-self: flex-end;
+  margin-right: 88px;
+  margin-top: 32px;
+`;
