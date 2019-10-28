@@ -44,22 +44,28 @@ const useStyles = makeStyles(theme => ({
 
 export default function ReviewAnswers(props) {
   const classes = useStyles();
-  const qstArr = props.questions.map((question, index) => (
-    <div key={index} css={container}>
-      <div css={list}>
-        <div css={number}>{index + 1}.</div>
-        <div css={qst}>{question.question}</div>
+  const qstArr = props.questions.map((question, index) => {
+    const userAnswer = props.answers.get(question.id) + "";
+    return (
+      <div key={index} css={container}>
+        <div css={list}>
+          <div css={number}>{index + 1}.</div>
+          <div css={qst}>{question.question}</div>
+        </div>
+        <div css={answer}>
+          {/* {!userAnswer == undefined
+            ? "You answered:" + { userAnswer }
+            : "Please provide answer"} */}
+          You answered: {userAnswer}
+        </div>
+        <div css={editBtn}>
+          <IconButton className={classes.button}>
+            <MdEdit size={18} />
+          </IconButton>
+        </div>
       </div>
-      <div css={answer}>
-        you answered: {props.answers.get(question.id) + ""}
-      </div>
-      <div css={editBtn}>
-        <IconButton className={classes.button}>
-          <MdEdit size={18} />
-        </IconButton>
-      </div>
-    </div>
-  ));
+    );
+  });
 
   return (
     <Box
