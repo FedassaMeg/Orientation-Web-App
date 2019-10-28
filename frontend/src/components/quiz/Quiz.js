@@ -21,6 +21,7 @@ export default function Quiz(props) {
         prev={props.prev}
         radioValue={props.radioValue}
         handleOnChange={props.handleOnChange}
+        handleSubmit={props.handleSubmit}
         isCompleted={props.isCompleted}
         answers={props.answers}
       />

@@ -37,7 +37,6 @@ export default function QuizContainer(props) {
   const [inputMap, setInputMap] = useState(new Map());
   const [radioValue, setRadioValue] = useState("none");
   const [ansArr, setAnsArr] = useState([]);
-  const [scr, setScr] = useState(0);
   const [quiz, setQuiz] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
   // const [transtion, setTransition] = useState(false);
@@ -49,10 +48,8 @@ export default function QuizContainer(props) {
         setQuiz(qz.data);
       })
     );
-
-    createAnsArr(dataArr);
   }, []);
-
+  let score = 0;
   const getQuiz = () => {
     return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}`);
   };
@@ -67,6 +64,7 @@ export default function QuizContainer(props) {
       setRadioValue("none");
     } else if (activeIndex + 1 === dataArr.length) {
       setIsCompleted(true);
+      createAnsArr(dataArr);
     } else {
       return;
     }
@@ -82,12 +80,12 @@ export default function QuizContainer(props) {
 
   const handleOnChange = event => {
     const key = dataArr[activeIndex].id;
-    const isSelected = event.target.value;
+    const isSelected = event.target.value === "true";
     const added = inputMap.set(key, isSelected);
-    setRadioValue(isSelected);
-    if (isSelected) {
-      setInputMap(added);
-    }
+    setRadioValue(isSelected + "");
+
+    setInputMap(added);
+    console.log(inputMap);
   };
 
   // const onEnter = () => {
@@ -103,17 +101,48 @@ export default function QuizContainer(props) {
     arr.map(question => {
       newArr.push({
         id: question.id,
-        question: question.question
+        answer: question.answer
       });
     });
     setAnsArr(newArr);
   };
 
-  // Use in handleSubmit func
-  const compareAnsToScr = (value, key) => {
-    if (value === ansArr[key - 1]) {
-      setScr(scr + 1);
+  const compareAnsToInput = (value, key) => {
+    let ansValue = ansArr.find(elm => {
+      return elm.id === key;
+    });
+
+    if (value == ansValue.answer) {
+      score = score + 1;
     }
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const quizId = quiz.id;
+    inputMap.forEach(compareAnsToInput);
+    console.log(score);
+    let config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    };
+
+    axios
+      .post(
+        `${ROOT_URL}/scores/`,
+        {
+          score: score,
+          related_quiz: quizId
+        },
+        config
+      )
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
@@ -127,6 +156,7 @@ export default function QuizContainer(props) {
       prev={prev}
       radioValue={radioValue}
       handleOnChange={handleOnChange}
+      handleSubmit={handleSubmit}
       isCompleted={isCompleted}
       answers={inputMap}
     />
@@ -191,35 +221,35 @@ export default function QuizContainer(props) {
 //   }
 // };
 
-//   handleSubmit = event => {
-//     event.preventDefault();
-//     const quizId = this.props.quiz.key;
-//     this.state.answers.forEach(this.compareAnsToScr);
-//     console.log(this.state.answers);
-//     console.log(scr);
-//     let config = {
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem("token")}`
-//       }
-//     };
-
-//     axios
-//       .post(
-//         `${ROOT_URL}scores/`,
-//         {
-//           score: scr,
-//           related_quiz: quizId
-//         },
-//         config
-//       )
-//       .then(res => {
-//         console.log(res);
-//         console.log(res.data);
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
+// handleSubmit = event => {
+//   event.preventDefault();
+//   const quizId = this.props.quiz.key;
+//   this.state.answers.forEach(this.compareAnsToScr);
+//   console.log(this.state.answers);
+//   console.log(scr);
+//   let config = {
+//     headers: {
+//       Authorization: `Bearer ${localStorage.getItem("token")}`
+//     }
 //   };
+
+//   axios
+//     .post(
+//       `${ROOT_URL}scores/`,
+//       {
+//         score: scr,
+//         related_quiz: quizId
+//       },
+//       config
+//     )
+//     .then(res => {
+//       console.log(res);
+//       console.log(res.data);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// };
 
 //   render() {
 //     return (

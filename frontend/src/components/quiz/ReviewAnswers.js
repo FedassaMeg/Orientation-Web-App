@@ -50,7 +50,9 @@ export default function ReviewAnswers(props) {
         <div css={number}>{index + 1}.</div>
         <div css={qst}>{question.question}</div>
       </div>
-      <div css={answer}>you answered: {props.answers.get(question.id)}</div>
+      <div css={answer}>
+        you answered: {props.answers.get(question.id) + ""}
+      </div>
       <div css={editBtn}>
         <IconButton className={classes.button}>
           <MdEdit size={18} />
@@ -73,7 +75,12 @@ export default function ReviewAnswers(props) {
         <div css={main}>{qstArr}</div>
       </Paper>
       <div css={submitBtn}>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={props.handleSubmit}
+        >
           Submit
         </Button>
       </div>
