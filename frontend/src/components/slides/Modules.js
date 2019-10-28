@@ -1,7 +1,10 @@
 /**@jsx jsx */
 
-import { Component } from "react";
+import React, { Component } from "react";
 import { css, jsx } from "@emotion/core";
+
+import { Link } from "react-router-dom";
+
 import {
   ListGroup,
   ListGroupItem,
@@ -9,7 +12,6 @@ import {
   ModalHeader,
   ModalBody
 } from "reactstrap";
-import { Link } from "react-router-dom";
 
 export default class Module extends Component {
   constructor(props) {
@@ -30,13 +32,19 @@ export default class Module extends Component {
       .join("-");
   render() {
     let array = this.props.list;
-    let moduleList = array.map(list => {
-      return (
-        <a href={list.url} target="blank" css={link}>
-          <ListGroupItem>{list.title}</ListGroupItem>
-        </a>
-      );
-    });
+    let moduleList = array.map(item => (
+      <>
+        {this.props.type == "slide" ? (
+          <a href={item.url} target="blank" css={link}>
+            <ListGroupItem>{item.title}</ListGroupItem>
+          </a>
+        ) : (
+          <Link to={`${this.props.type}/${this.kebabCase(item)}`} css={link}>
+            <ListGroupItem>{item}</ListGroupItem>
+          </Link>
+        )}
+      </>
+    ));
     return (
       <div css={shell}>
         <div css={topBar} />

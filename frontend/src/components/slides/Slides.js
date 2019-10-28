@@ -1,9 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import { Link } from "react-router-dom";
-
-import Modules from "../components/Modules";
+import Modules from "./Modules";
 
 export default function Slides() {
   return (
