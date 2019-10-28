@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import Modules from "./Modules";
+import Modules from "../components/Modules";
 
 export default function Slides() {
   return (

@@ -2,7 +2,7 @@
 
 import { css, jsx } from "@emotion/core";
 
-import Modules from "../slides/Modules";
+import Modules from "../components/Modules";
 
 export default function Quizzes() {
   return (
