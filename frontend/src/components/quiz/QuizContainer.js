@@ -3,33 +3,22 @@
     - Get Quiz info along with related questions [axios.get(`${ROOT_URL}/quizs/${quiz.key}/questions`)] ***DONE***
     - Get Quiz info [axios.get(`${ROOT_URL}/quizs/${quiz.key}`)] ***DONE***
     - Pass quiz data to children [use props to pass response data or sanitized version of the response data] ***DONE***
-    - Provide logic to determine score [  maintain score in state, update after each question is answered;
-        compareAnsToScr = (value, key) => {
-          if (value === state.ansArray[key - 1]) {
-            scr = scr + 1;
-          }
-        };
-        Store array with all the question answers from response data
-
-        ] ***DONE*** 
-
+    - Provide logic to determine score [  maintain score; Store array with all the question answers from response data ] ***DONE*** 
     - Maintain state of user input [ Store answers to each question ] ***DONE***
     - Provide logic to handle next and previous ***DONE***
     - Handle Question card transitions
     - Hide prev button on first slide
     - Update page numeration ***DONE***
-    - Handles post request to submit completed quiz to backend
+    - Handles post request to submit completed quiz to backend ***DONE***
 */
 
 import React, { useEffect, useState } from "react";
-import { Route } from "react-router-dom";
 
 import axios from "axios";
 
 //Local Components
 import { ROOT_URL } from "../utils/constants";
 import Quiz from "./Quiz";
-import ReviewAnswers from "./ReviewAnswers";
 
 export default function QuizContainer(props) {
   const [dataArr, setDataArr] = useState([]);

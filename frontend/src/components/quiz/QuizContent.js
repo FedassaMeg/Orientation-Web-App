@@ -61,14 +61,25 @@ export default function QuizContent(props) {
               width="85%"
               mt={4}
             >
-              <Button
-                size="small"
-                className={classes.button}
-                startIcon={<MdNavigateBefore />}
-                onClick={props.prev}
-              >
-                prev.
-              </Button>
+              {!props.activeIndex == 0 ? (
+                <Button
+                  size="small"
+                  className={classes.button}
+                  startIcon={<MdNavigateBefore />}
+                  onClick={props.prev}
+                >
+                  prev.
+                </Button>
+              ) : (
+                <Button
+                  size="small"
+                  className={classes.button}
+                  startIcon={<MdNavigateBefore />}
+                  disabled
+                >
+                  prev.
+                </Button>
+              )}
               <Button
                 size="small"
                 className={classes.button}
