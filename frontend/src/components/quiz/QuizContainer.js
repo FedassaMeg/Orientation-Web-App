@@ -70,9 +70,6 @@ export default function QuizContainer(props) {
     } else {
       return;
     }
-
-    console.log(activeIndex);
-    console.log(isCompleted);
   };
 
   const prev = () => {
@@ -131,6 +128,7 @@ export default function QuizContainer(props) {
       radioValue={radioValue}
       handleOnChange={handleOnChange}
       isCompleted={isCompleted}
+      answers={inputMap}
     />
   );
 }

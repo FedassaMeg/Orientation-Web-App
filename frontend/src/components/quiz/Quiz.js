@@ -22,6 +22,7 @@ export default function Quiz(props) {
         radioValue={props.radioValue}
         handleOnChange={props.handleOnChange}
         isCompleted={props.isCompleted}
+        answers={props.answers}
       />
     </div>
   );

@@ -84,7 +84,7 @@ export default function QuizContent(props) {
         <>
           <div css={title}>Review Answers</div>
           <hr css={divider} />
-          <ReviewAnswers questions={props.data} />
+          <ReviewAnswers questions={props.data} answers={props.answers} />
         </>
       )}
     </>
