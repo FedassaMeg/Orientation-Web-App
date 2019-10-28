@@ -32,9 +32,9 @@ export default class Module extends Component {
     let array = this.props.list;
     let moduleList = array.map(list => {
       return (
-        <Link to={`/${this.props.type}/${this.kebabCase(list)}`} css={link}>
-          <ListGroupItem>{list}</ListGroupItem>
-        </Link>
+        <a href={list.url} target="blank" css={link}>
+          <ListGroupItem>{list.title}</ListGroupItem>
+        </a>
       );
     });
     return (
