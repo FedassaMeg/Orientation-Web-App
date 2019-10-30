@@ -16,12 +16,7 @@ import { css, jsx } from "@emotion/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import Paper from "@material-ui/core/Paper";
 
 //React-Icon component
@@ -53,8 +48,8 @@ export default function ReviewAnswers(props) {
           <div css={qst}>{question.question}</div>
         </div>
         <div css={answer}>
-          {/* {!userAnswer == undefined
-            ? "You answered:" + { userAnswer }
+          {/* {userAnswer !== undefined
+            ? console.log(userAnswer)
             : "Please provide answer"} */}
           You answered: {userAnswer}
         </div>
@@ -77,9 +72,19 @@ export default function ReviewAnswers(props) {
       mb={8}
     >
       <Paper className={classes.paper}>
-        <div css={title}>HIPPA</div>
+        <div css={title}>{props.quiz.title.toUpperCase()}</div>
         <div css={main}>{qstArr}</div>
       </Paper>
+      <div css={backBtn}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          onClick={props.prev}
+        >
+          Back
+        </Button>
+      </div>
       <div css={submitBtn}>
         <Button
           variant="contained"
@@ -139,13 +144,20 @@ const answer = css`
 `;
 const title = css`
   margin-left: 32px;
-  margin-top: 8px;
+  margin-top: 4px;
+  color: #7a7a7a;
+  font-weight: 400;
 `;
 
 const editBtn = css``;
 
 const submitBtn = css`
   align-self: flex-end;
+  margin-right: 88px;
+  margin-top: 32px;
+`;
+const backBtn = css`
+  align-self: flex-start;
   margin-right: 88px;
   margin-top: 32px;
 `;

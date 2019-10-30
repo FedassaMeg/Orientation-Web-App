@@ -96,6 +96,7 @@ export default function QuizContent(props) {
           <div css={title}>Review Answers</div>
           <hr css={divider} />
           <ReviewAnswers
+            quiz={props.quiz}
             questions={props.data}
             answers={props.answers}
             handleSubmit={props.handleSubmit}

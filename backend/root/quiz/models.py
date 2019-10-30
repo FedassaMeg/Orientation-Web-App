@@ -28,8 +28,18 @@ class Quiz(models.Model):
 
 
 class Question(models.Model):
+    TYPE_CHOICES = [
+        ('TF', 'TrueFalse'),
+        ('SA', 'ShortAnswer'),
+        ('MC', 'MultipleChoice'),
+    ]
     question = models.TextField()
     answer = models.BooleanField()
+    type = models.CharField(
+        max_length=2,
+        choices=TYPE_CHOICES,
+        default='TF'
+    )
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
     def __str__(self):
