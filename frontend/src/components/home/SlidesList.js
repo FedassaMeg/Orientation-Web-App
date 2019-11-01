@@ -16,7 +16,7 @@ import HomeListItem from "./HomeListItem";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%"
+    width: "80%"
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -54,9 +54,7 @@ export default function SlidesList(props) {
           id="panel1bh-header"
         >
           <Typography className={classes.heading}>MODULE 1</Typography>
-          <div className={classes.progress}>
-            <LinearProgress variant="determinate" value={100} />
-          </div>
+          <div className={classes.progress}></div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -80,9 +78,7 @@ export default function SlidesList(props) {
           id="panel2bh-header"
         >
           <Typography className={classes.heading}>MODULE 3</Typography>
-          <div className={classes.progress}>
-            <LinearProgress variant="determinate" value={100} />
-          </div>
+          <div className={classes.progress}></div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -106,9 +102,7 @@ export default function SlidesList(props) {
           id="panel3bh-header"
         >
           <Typography className={classes.heading}>MODULE 4</Typography>
-          <div className={classes.progress}>
-            <LinearProgress variant="determinate" value={30} />
-          </div>
+          <div className={classes.progress}></div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -132,9 +126,7 @@ export default function SlidesList(props) {
           id="panel4bh-header"
         >
           <Typography className={classes.heading}>MODULE 5</Typography>
-          <div className={classes.progress}>
-            <LinearProgress variant="determinate" value={45} />
-          </div>
+          <div className={classes.progress}></div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List

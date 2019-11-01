@@ -123,7 +123,8 @@ const cardscontainer = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-wrap: 1;
+  background-color: whitesmoke;
+  box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
 `;
 
 const accList = css`

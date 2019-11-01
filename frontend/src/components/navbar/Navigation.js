@@ -30,6 +30,9 @@ export default function Navigation(props) {
               <NavLink href="/quizs">Quizzes</NavLink>
             </NavItem>
             <NavItem>
+              <NavLink href="/videos">Videos</NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink href="/admin">Admin</NavLink>
             </NavItem>
             <div css={signoutBtnItem}>
