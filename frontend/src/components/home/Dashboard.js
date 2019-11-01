@@ -1,11 +1,13 @@
 /**@jsx jsx */
 import { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
+
 import { MdCheckCircle, MdCancel } from "react-icons/md";
 
+import SlidesList from "./SlidesList";
 import Card from "../components/Card";
 import Accordion from "../components/Accordion";
-import ListItem from "./ListItem";
+import ListItem from "./HomeListItem";
 
 export default function Dashboard(props) {
   const initialState = {
@@ -59,13 +61,20 @@ export default function Dashboard(props) {
   //     </div>
   //   );
   // });
-  console.log(state);
   return (
     <div>
       <div css={pageheader}>My Dashboard</div>
       <hr css={divider} />
       <div css={cardscontainer}>
-        <Card header="Slides">
+        <SlidesList
+          md1={state.md1}
+          md3={state.md3}
+          md4={state.md4}
+          md5={state.md5}
+          comArray={props.comArray}
+        />
+
+        {/* <Card header="Slides">
           <Accordion>
             <div label="Module 1">
               <ListItem arr={state.md1} comArray={props.comArray} />
@@ -80,7 +89,7 @@ export default function Dashboard(props) {
               <ListItem arr={state.md5} comArray={props.comArray} />
             </div>
           </Accordion>
-        </Card>
+        </Card> */}
         <Card header="Quizzes">
           {/* <Accordion>
             <div label="Videos">{quizProgress}</div>

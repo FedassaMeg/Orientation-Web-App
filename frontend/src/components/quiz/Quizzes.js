@@ -75,7 +75,8 @@ const pageheader = css`
   color: rgb(78, 78, 78);
   width: 100%;
   padding-bottom: 10px;
-  background-color: rgb(252, 252, 252);
+  padding-top: 10px;
+  background-color: #fdfdfd;
 `;
 
 const divider = css`
@@ -91,6 +92,7 @@ const cardscontainer = css`
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+  box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
 `;
 
 const moduleCard = css`

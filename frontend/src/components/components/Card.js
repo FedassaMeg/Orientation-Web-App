@@ -17,7 +17,7 @@ const card = css`
   margin: 40px;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
 `;
 const divider = css`
   margin: 0;

@@ -12,7 +12,7 @@ export default function Navigation(props) {
     <Navbar>
       {!props.admin ? (
         <div>
-          <img src={require("../../imgs/logo.png")} alt="logo" css={logo} />
+          <img src={require("../../images/logo.png")} alt="logo" css={logo} />
         </div>
       ) : (
         <div css={nologo}></div>

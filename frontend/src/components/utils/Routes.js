@@ -10,6 +10,7 @@ import SlidesPage from "../../views/SlidesPage";
 import Login from "../login/Login";
 import SignUp from "../login/SignUp";
 import AdminPage from "../../views/AdminPage";
+import VideosPage from "../../views/VideosPage";
 
 export default function Routes() {
   return (
@@ -22,6 +23,7 @@ export default function Routes() {
         <PrivateRoute path="/quizs" component={QuizzesPage} />
         <PrivateRoute path="/home" component={HomePage} />
         <PrivateRoute path="/slides" component={SlidesPage} />
+        <PrivateRoute path="/videos" component={VideosPage} />
         <Route path="/admin" component={AdminPage} />
       </Switch>
     </Router>

@@ -30,14 +30,16 @@ const container = css`
 `;
 
 const sidebar = css`
-  width: 350px;
+  width: 240px;
   min-height: 100vh;
   background-color: #404045;
 `;
 
 const adminHeader = css`
   height: 50px;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 24px;
   font: 20px "Open Sans", san-serif;
   color: white;
   background-color: #353538;

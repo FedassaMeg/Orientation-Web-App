@@ -4,7 +4,9 @@ import { css, jsx } from "@emotion/core";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import { capitalize } from "lodash";
-import accountImage from "../../imgs/badge.jpg";
+
+import { ROOT_URL } from "../utils/constants";
+// import accountImage from "../../imgs/badge.jpg";
 
 export default function HeaderBar() {
   const initialState = {
@@ -25,7 +27,7 @@ export default function HeaderBar() {
     };
     const userId = getUserIdfromToken();
     axios
-      .get(`http://10.2.7.66:8000/api/users/${userId}`, config)
+      .get(`${ROOT_URL}/users/${userId}`, config)
       .then(res => {
         setUser({
           first_name: res.data.first_name,
@@ -49,7 +51,7 @@ export default function HeaderBar() {
   return (
     <div css={headerbar}>
       <div>
-        <img src={accountImage} css={image} alt="account-img" />
+        {/* <img src={accountImage} css={image} alt="account-img" /> */}
       </div>
       <div css={infoContainer}>
         <div css={name}>
