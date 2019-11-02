@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { capitalize } from "lodash";
 
 import { ROOT_URL } from "../utils/constants";
-// import accountImage from "../../imgs/badge.jpg";
+import accountImage from "../../images/badge.jpg";
 
 export default function HeaderBar() {
   const initialState = {
@@ -51,7 +51,7 @@ export default function HeaderBar() {
   return (
     <div css={headerbar}>
       <div>
-        {/* <img src={accountImage} css={image} alt="account-img" /> */}
+        <img src={accountImage} css={image} alt="account-img" />
       </div>
       <div css={infoContainer}>
         <div css={name}>

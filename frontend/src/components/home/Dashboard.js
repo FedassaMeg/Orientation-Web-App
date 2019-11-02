@@ -2,12 +2,8 @@
 import { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
 
-import { MdCheckCircle, MdCancel } from "react-icons/md";
-
-import SlidesList from "./SlidesList";
-import Card from "../components/Card";
-import Accordion from "../components/Accordion";
-import ListItem from "./HomeListItem";
+import QuizList from "./QuizList";
+import SlideList from "./SlideList";
 
 export default function Dashboard(props) {
   const initialState = {
@@ -35,68 +31,22 @@ export default function Dashboard(props) {
     return slide.module === 5;
   });
 
-  // const quizCompleted = props.compltArray;
-  // const quizProgress = props.quizArray.map(quiz => {
-  //   let isCompleted = false;
-  //   return (
-  //     <div css={listSection}>
-  //       <div css={listRight}>
-  //         {quizCompleted.map(score => {
-  //           quiz.id === score.related_quiz
-  //             ? (isCompleted = true)
-  //             : (isCompleted = isCompleted);
-  //         })}
-  //         {isCompleted ? (
-  //           <div css={check}>
-  //             <MdCheckCircle />
-  //           </div>
-  //         ) : (
-  //           <div css={cancel}>
-  //             <MdCancel />
-  //           </div>
-  //         )}
-
-  //         <div css={list}>{quiz.title}</div>
-  //       </div>
-  //     </div>
-  //   );
-  // });
   return (
     <div>
       <div css={pageheader}>My Dashboard</div>
       <hr css={divider} />
       <div css={cardscontainer}>
-        <SlidesList
+        <div>Slides</div>
+        <SlideList
           md1={state.md1}
           md3={state.md3}
           md4={state.md4}
           md5={state.md5}
           comArray={props.comArray}
         />
-
-        {/* <Card header="Slides">
-          <Accordion>
-            <div label="Module 1">
-              <ListItem arr={state.md1} comArray={props.comArray} />
-            </div>
-            <div label="Module 3">
-              <ListItem arr={state.md3} comArray={props.comArray} />
-            </div>
-            <div label="Module 4" css={accList}>
-              <ListItem arr={state.md4} comArray={props.comArray} />
-            </div>
-            <div label="Module 5" css={accList}>
-              <ListItem arr={state.md5} comArray={props.comArray} />
-            </div>
-          </Accordion>
-        </Card> */}
-        <Card header="Quizzes">
-          {/* <Accordion>
-            <div label="Videos">{quizProgress}</div>
-            <div label="Slides">{quizProgress}</div>
-            <div label="Handouts">{quizProgress}</div>
-          </Accordion> */}
-        </Card>
+        <br />
+        <div>Quizzes</div>
+        <QuizList quizArray={props.quizArray} compltArray={props.compltArray} />
       </div>
     </div>
   );
@@ -106,6 +56,7 @@ const pageheader = css`
   font-family: "Noto Sans JP", sans-serif;
   font-size: 45px;
   padding-left: 90px;
+  padding-top: 10px;
   color: rgb(78, 78, 78);
   width: 100%;
   padding-bottom: 10px;
@@ -122,7 +73,8 @@ const cardscontainer = css`
   padding: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
   background-color: whitesmoke;
   box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
 `;
