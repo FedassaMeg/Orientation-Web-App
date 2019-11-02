@@ -30,6 +30,7 @@ export default function HomeListItem(props) {
       </div>
     );
   });
+
   return (
     <div>
       <div>{lists}</div>

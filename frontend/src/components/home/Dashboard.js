@@ -18,15 +18,14 @@ export default function Dashboard(props) {
     qz3: [],
     qz4: []
   };
+
   const [state, setstate] = useState(initialState);
   const [quizzes, setQuizzes] = useState(initialQuiz);
-  useEffect(() => {
-    setstate({ md1: md1Arr, md3: md3Arr, md4: md4Arr, md5: md5Arr });
-  }, [props.slideArray]);
 
   useEffect(() => {
+    setstate({ md1: md1Arr, md3: md3Arr, md4: md4Arr, md5: md5Arr });
     setQuizzes({ qz1: qz1Arr, qz3: qz3Arr, qz4: qz4Arr });
-  }, [props.quizArray]);
+  }, [props.slideArray, props.quizArray]);
 
   const md1Arr = props.slideArray.filter(slide => {
     return slide.module === 1;
@@ -50,9 +49,6 @@ export default function Dashboard(props) {
   const qz4Arr = props.quizArray.filter(quiz => {
     return quiz.type == "HD";
   });
-
-  console.log(quizzes);
-  console.log(props.quizArray);
 
   return (
     <div>

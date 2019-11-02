@@ -88,7 +88,7 @@ export default function QuizList(props) {
             }
             className={classes.root}
           >
-            <HomeListItem arr={props.qz3Arr} comArray={props.compltArray} />
+            <HomeListItem arr={props.qzs3Arr} comArray={props.compltArray} />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
