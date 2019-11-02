@@ -36,7 +36,7 @@ export default function Dashboard(props) {
       <div css={pageheader}>My Dashboard</div>
       <hr css={divider} />
       <div css={cardscontainer}>
-        <div>Slides</div>
+        <div css={cardTitle}>SLIDES</div>
         <SlideList
           md1={state.md1}
           md3={state.md3}
@@ -45,7 +45,7 @@ export default function Dashboard(props) {
           comArray={props.comArray}
         />
         <br />
-        <div>Quizzes</div>
+        <div css={cardTitle}>QUIZZES</div>
         <QuizList quizArray={props.quizArray} compltArray={props.compltArray} />
       </div>
     </div>
@@ -77,6 +77,16 @@ const cardscontainer = css`
   align-items: center;
   background-color: whitesmoke;
   box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
+`;
+
+const cardTitle = css`
+  align-self: flex-start;
+  color: "#252525";
+  font: 20px "Open Sans", san-serif;
+  font-weight: 300;
+  margin-left: 80px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 const accList = css`
