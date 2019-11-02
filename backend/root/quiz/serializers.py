@@ -11,13 +11,13 @@ class SlideSerializer(serializers.ModelSerializer):
 class QuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
-        fields = ('id', 'title')
+        fields = ('id', 'title', 'type')
 
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'question', 'answer', 'quiz')
+        fields = ('id', 'question', 'answer', 'quiz', 'type')
 
 
 class QuizScoreSerializer(serializers.ModelSerializer):

@@ -53,7 +53,6 @@ export default function DashboardContainer() {
   };
 
   const user_id = getUserIdfromToken();
-
   return (
     <Dashboard
       quizArray={quizArray}

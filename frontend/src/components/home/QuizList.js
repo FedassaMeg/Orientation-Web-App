@@ -64,7 +64,7 @@ export default function QuizList(props) {
             }
             className={classes.root}
           >
-            <HomeListItem arr={props.quizArray} comArray={props.compltArray} />
+            <HomeListItem arr={props.qzs1Arr} comArray={props.compltArray} />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -88,7 +88,7 @@ export default function QuizList(props) {
             }
             className={classes.root}
           >
-            {/* <HomeListItem arr={props.md3} comArray={props.comArray} /> */}
+            <HomeListItem arr={props.qz3Arr} comArray={props.compltArray} />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -112,7 +112,7 @@ export default function QuizList(props) {
             }
             className={classes.root}
           >
-            {/* <HomeListItem arr={props.md4} comArray={props.compltArray} /> */}
+            {/* <HomeListItem arr={props.qzs4Arr} comArray={props.compltArray} /> */}
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
