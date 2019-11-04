@@ -37,6 +37,42 @@ const quizzesLookup = {
   "personal-safety-for-home-health-caregivers": {
     key: 8,
     title: "Personal Safety for Home Health Caregivers"
+  },
+  "introduction-to-first-call": {
+    key: 10,
+    title: "Introduction to First Call"
+  },
+  "introduction-to-hospice": {
+    key: 11,
+    title: "Introduction to Hospice"
+  },
+  "visit-frequencies-and-types": {
+    key: 12,
+    title: "Visit Frequencies and Types"
+  },
+  "determining-hospice-eligibility": {
+    key: 13,
+    title: "Determining Hospice Eligibility"
+  },
+  "measuring-decline": {
+    key: 14,
+    title: "Measuring Decline"
+  },
+  "managing-secretions": {
+    key: 15,
+    title: "Managing Secretions"
+  },
+  "managing-nausea": {
+    key: 16,
+    title: "Managing Nasuea"
+  },
+  misconceptions: {
+    key: 17,
+    title: "Misconceptions"
+  },
+  "death-anxiety": {
+    key: 18,
+    title: "Death Anxiety"
   }
 };
 
