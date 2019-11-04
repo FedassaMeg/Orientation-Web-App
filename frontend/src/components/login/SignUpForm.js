@@ -142,11 +142,10 @@ export default function SignUpForm(props) {
             </FormHelperText>
           </FormControl>
           <div css={actionBar}>
-            <div>
-              <Link to="/login">
-                <span css={altLinks}>Already have an account?</span>
-              </Link>
-            </div>
+            <Link to="/login">
+              <span css={altLinks}>Already have an account?</span>
+            </Link>
+
             <Button
               variant="contained"
               type="submit"
@@ -336,6 +335,7 @@ const actionBar = css`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 30px;
   margin-top: 20px;
 `;
