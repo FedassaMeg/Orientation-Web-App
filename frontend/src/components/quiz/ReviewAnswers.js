@@ -75,25 +75,27 @@ export default function ReviewAnswers(props) {
         <div css={title}>{props.quiz.title.toUpperCase()}</div>
         <div css={main}>{qstArr}</div>
       </Paper>
-      <div css={backBtn}>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-          onClick={props.prev}
-        >
-          Back
-        </Button>
-      </div>
-      <div css={submitBtn}>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={props.handleSubmit}
-        >
-          Submit
-        </Button>
+      <div css={actionBar}>
+        <div css={backBtn}>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            onClick={props.prev}
+          >
+            Back
+          </Button>
+        </div>
+        <div css={submitBtn}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={props.handleSubmit}
+          >
+            Submit
+          </Button>
+        </div>
       </div>
     </Box>
   );
@@ -151,13 +153,18 @@ const title = css`
 
 const editBtn = css``;
 
+const actionBar = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+`;
+
 const submitBtn = css`
-  align-self: flex-end;
   margin-right: 88px;
   margin-top: 32px;
 `;
 const backBtn = css`
-  align-self: flex-start;
-  margin-right: 88px;
+  margin-left: 88px;
   margin-top: 32px;
 `;
