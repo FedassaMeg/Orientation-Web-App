@@ -59,3 +59,24 @@ class LookUpTableSlideUser(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     time = models.DateTimeField(auto_now=True)
+
+class TFAnswer(models.Model):
+    answer: models.BooleanField();
+
+class MCAnswer(models.Model):
+    TYPE_CHOICES = [
+        ('a', 'First choice'),
+        ('b', 'Second choice'),
+        ('c', 'Third choice'),
+        ('d', 'Fourth choice'),
+        ('e', 'None')
+
+    ]
+    answer: models.CharField(
+        max_length=1,
+        choices=TYPE_CHOICES,
+        default='e'
+    )
+
+class SAAnswer(models.Model):
+    answer: models.TextField()
