@@ -5,6 +5,8 @@ import Navigation from "../navbar/Navigation";
 import AdminSidebar from "./AdminSidebar";
 import AdminReviewScores from "./AdminReviewScores";
 import AdminEditContent from "./AdminEditContent";
+import AdminReports from "./AdminReports";
+
 export default function Admin(props) {
   return (
     <div css={container}>
@@ -17,7 +19,7 @@ export default function Admin(props) {
 
         <Route path="/admin/dashboard" render={() => <h3>Dashboard</h3>} />
         <Route path="/admin/review-scores" component={AdminReviewScores} />
-        <Route path="/admin/reports" render={() => <h3>Reports</h3>} />
+        <Route path="/admin/reports" component={AdminReports} />
         <Route path="/admin/edit-content" component={AdminEditContent} />
       </div>
     </div>

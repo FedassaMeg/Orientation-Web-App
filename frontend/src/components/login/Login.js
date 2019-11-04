@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import API from "../utils/API";
 import { ROOT_URL } from "../utils/constants";
+
 import LoginForm from "./LoginForm";
 
 function Login(props) {
@@ -22,11 +24,10 @@ function Login(props) {
   const handleOnSubmit = event => {
     event.preventDefault();
 
-    axios
-      .post(`${ROOT_URL}/token/`, {
-        username: state.username,
-        password: state.password
-      })
+    API.post(`${ROOT_URL}/token/`, {
+      username: state.username,
+      password: state.password
+    })
       .then(res => {
         localStorage.setItem("token", res.data.access);
         props.history.push("/home");
