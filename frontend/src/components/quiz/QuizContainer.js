@@ -67,6 +67,15 @@ export default function QuizContainer(props) {
     }
   };
 
+  const back = () => {
+    if (activeIndex > 0) {
+      setActiveIndex(0);
+      setIsCompleted(false);
+    } else {
+      return;
+    }
+  };
+
   const handleOnChange = event => {
     const key = dataArr[activeIndex].id;
     const isSelected = event.target.value === "true";
@@ -143,6 +152,7 @@ export default function QuizContainer(props) {
       activeIndex={activeIndex}
       next={next}
       prev={prev}
+      back={back}
       radioValue={radioValue}
       handleOnChange={handleOnChange}
       handleSubmit={handleSubmit}

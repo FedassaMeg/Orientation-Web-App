@@ -19,6 +19,7 @@ export default function Quiz(props) {
         activeIndex={props.activeIndex}
         next={props.next}
         prev={props.prev}
+        back={props.back}
         radioValue={props.radioValue}
         handleOnChange={props.handleOnChange}
         handleSubmit={props.handleSubmit}

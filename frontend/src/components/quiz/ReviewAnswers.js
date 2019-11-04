@@ -81,9 +81,9 @@ export default function ReviewAnswers(props) {
             variant="contained"
             color="secondary"
             className={classes.button}
-            onClick={props.prev}
+            onClick={props.back}
           >
-            Back
+            Back to Quiz
           </Button>
         </div>
         <div css={submitBtn}>
