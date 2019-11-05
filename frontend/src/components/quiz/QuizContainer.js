@@ -13,26 +13,31 @@
 */
 
 import React, { useEffect, useState } from "react";
+
+// React Router DOM history hook
 import { useHistory } from "react-router-dom";
 
+// Axios
 import axios from "axios";
 
-//Local Components
+// Local Components
 import { ROOT_URL } from "../utils/constants";
 import Quiz from "./Quiz";
 
 export default function QuizContainer(props) {
   let history = useHistory();
 
+  // Component state
   const [dataArr, setDataArr] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [inputMap, setInputMap] = useState(new Map());
-  const [radioValue, setRadioValue] = useState("none");
+  const [radioValue, setRadioValue] = useState("none"); // Future fix: assign value to radio buttons from inputMap
   const [ansArr, setAnsArr] = useState([]);
   const [quiz, setQuiz] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
   // const [transtion, setTransition] = useState(false);
 
+  // Runs on component mount
   useEffect(() => {
     axios.all([getQuiz(), getQuestionsByQuizId()]).then(
       axios.spread((qz, qts) => {
@@ -44,14 +49,17 @@ export default function QuizContainer(props) {
 
   let score = 0;
 
+  // Request for Quiz data given an id
   const getQuiz = () => {
     return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}`);
   };
 
+  // Request for Question data given a Quiz id
   const getQuestionsByQuizId = () => {
     return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}/questions`);
   };
 
+  // This funtion is used to iterate forward through questions
   const next = () => {
     if (activeIndex < dataArr.length - 1) {
       setActiveIndex(activeIndex + 1);
@@ -64,6 +72,7 @@ export default function QuizContainer(props) {
     }
   };
 
+  // This funtion is used to iterate backward through questions
   const prev = () => {
     if (activeIndex > 0) {
       setActiveIndex(activeIndex - 1);
@@ -72,6 +81,7 @@ export default function QuizContainer(props) {
     }
   };
 
+  // This funtion is used to navigate back from the Review Answers Page to the quiz questions
   const back = () => {
     if (activeIndex > 0) {
       setActiveIndex(0);
@@ -81,6 +91,7 @@ export default function QuizContainer(props) {
     }
   };
 
+  // Handles user interaction with radio buttons
   const handleOnChange = event => {
     const key = dataArr[activeIndex].id;
     const isSelected = event.target.value === "true";
@@ -99,6 +110,7 @@ export default function QuizContainer(props) {
   //   setTransition(false);
   // };
 
+  // Helper function to create an array with the answers to the questions
   const createAnsArr = arr => {
     let newArr = [];
     arr.map(question => {
@@ -110,6 +122,7 @@ export default function QuizContainer(props) {
     setAnsArr(newArr);
   };
 
+  // Helper function to invaluate the user input against the answers and determine a score
   const compareAnsToInput = (value, key) => {
     let ansValue = ansArr.find(elm => {
       return elm.id === key;
@@ -120,6 +133,7 @@ export default function QuizContainer(props) {
     }
   };
 
+  // Handles submission of quiz; posts score to the backend
   const handleSubmit = event => {
     event.preventDefault();
     const quizId = quiz.id;
