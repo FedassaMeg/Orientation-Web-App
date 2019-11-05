@@ -22,7 +22,7 @@ export default function HeaderBar() {
   const getCurrentUser = () => {
     let config = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }
     };
     const userId = getUserIdfromToken();
@@ -42,7 +42,7 @@ export default function HeaderBar() {
       });
   };
   const getUserIdfromToken = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access_token");
     const decode = jwt.decode(token);
     return decode.user_id;
   };
