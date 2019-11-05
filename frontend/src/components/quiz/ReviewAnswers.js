@@ -47,12 +47,7 @@ export default function ReviewAnswers(props) {
           <div css={number}>{index + 1}.</div>
           <div css={qst}>{question.question}</div>
         </div>
-        <div css={answer}>
-          {/* {userAnswer !== undefined
-            ? console.log(userAnswer)
-            : "Please provide answer"} */}
-          You answered: {userAnswer}
-        </div>
+        <div css={answer}>You answered: {userAnswer}</div>
         <div css={editBtn}>
           <IconButton className={classes.button}>
             <MdEdit size={18} />
