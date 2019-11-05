@@ -7,7 +7,7 @@
     - Maintain state of user input [ Store answers to each question ] ***DONE***
     - Provide logic to handle next and previous ***DONE***
     - Handle Question card transitions
-    - Hide prev button on first slide
+    - Hide prev button on first slide ***DONE***
     - Update page numeration ***DONE***
     - Handles post request to submit completed quiz to backend ***DONE***
 */
@@ -41,7 +41,9 @@ export default function QuizContainer(props) {
       })
     );
   }, []);
+
   let score = 0;
+
   const getQuiz = () => {
     return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}`);
   };
