@@ -96,36 +96,23 @@ function SignUp(props) {
   };
 
   const handleOnSubmit = event => {
-    // event.preventDefault();
-    // schema
-    //   .validate([
-    //     state.firstName,
-    //     state.lastName,
-    //     state.role,
-    //     state.password,
-    //     state.confirmPass
-    //   ])
-    //   .then(value => {
-    //     console.log(value);
-    // if (valid) {
-    //   axios
-    //     .post("http://localhost:8000/api/users/", {
-    //       first_name: state.firstName,
-    //       last_name: state.lastName,
-    //       password: state.password,
-    //       role: state.role
-    //     })
-    //     .then(res => {
-    //       console.log(res);
-    //       console.log(res.data);
-    //       props.history.push("/login");
-    //     })
-    //     .catch(console.log("Catch!"));
-    // }
-    // })
-    // .catch(err => {
-    //   console.log(err.message);
-    // });
+    event.preventDefault();
+    validateForm();
+    if (formValid) {
+      axios
+        .post("http://localhost:8000/api/users/", {
+          first_name: state.firstName,
+          last_name: state.lastName,
+          password: state.password,
+          role: state.role
+        })
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          props.history.push("/login");
+        })
+        .catch(console.log("Catch!"));
+    }
   };
   return (
     <SignUpForm
