@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status #, permissions
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -29,7 +29,6 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class QuizScoreViewSet(viewsets.ModelViewSet):
     serializer_class = QuizScoreSerializer
     queryset = QuizScore.objects.all()
-    # permission_classes = [permissions.IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(signed_by=self.request.user)
