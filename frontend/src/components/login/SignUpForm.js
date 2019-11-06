@@ -95,7 +95,7 @@ export default function SignUpForm(props) {
               onChange={props.handleOnChange}
             >
               <MenuItem value="RN">Nurse - RN</MenuItem>
-              <MenuItem value="LVN">Nurse - LVN</MenuItem>
+              <MenuItem value="LV">Nurse - LVN</MenuItem>
               <MenuItem value="HA">Hospice Aide</MenuItem>
               <MenuItem value="SP">Spiritual Care Provider</MenuItem>
               <MenuItem value="SW">Social Worker</MenuItem>
@@ -150,6 +150,7 @@ export default function SignUpForm(props) {
               variant="contained"
               type="submit"
               className={classes.button}
+              onClick={props.handleOnSubmit}
             >
               Create Account
             </Button>
