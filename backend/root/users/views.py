@@ -4,10 +4,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import CustomUser
-from .serializers import UserSerializer, CreateUserSerializer
+from .serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = CustomUser.objects.all()
+
+    
     
