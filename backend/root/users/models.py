@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     ROLE_CHOICES = [
         ('RN', 'Nurse (RN)'),
-        ('LVN', 'Nurse (LVN)'),
+        ('LV', 'Nurse (LVN)'),
         ('HA', 'Hospice Aide'),
         ('SP', 'Spiritual Care Provider'),
         ('SW', 'Social Worker'),
