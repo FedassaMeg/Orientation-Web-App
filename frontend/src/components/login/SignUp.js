@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import axios from "axios";
 
+import { ROOT_URL } from "../utils/constants";
 import SignUpForm from "./SignUpForm";
 
 function SignUp(props) {
@@ -29,7 +30,6 @@ function SignUp(props) {
   const [roleValid, setRoleValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
-  const [formValid, setFormValid] = useState(false);
 
   const validateField = (field, value) => {
     let fieldValidationErrors = formErrors;
@@ -75,16 +75,6 @@ function SignUp(props) {
     setRoleValid(isRoleValid);
   };
 
-  const validateForm = () => {
-    setFormValid(
-      firstNameValid &&
-        lastNameValid &&
-        passwordValid &&
-        confirmPasswordValid &&
-        roleValid
-    );
-  };
-
   const handleOnChange = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -97,13 +87,20 @@ function SignUp(props) {
 
   const handleOnSubmit = event => {
     event.preventDefault();
-    validateForm();
-    if (formValid) {
+    const isFormValid =
+      firstNameValid &&
+      lastNameValid &&
+      passwordValid &&
+      confirmPasswordValid &&
+      roleValid;
+
+    console.log(state);
+    if (isFormValid) {
       axios
-        .post("http://localhost:8000/api/users/", {
+        .post(`${ROOT_URL}/users/`, {
+          password: state.password,
           first_name: state.firstName,
           last_name: state.lastName,
-          password: state.password,
           role: state.role
         })
         .then(res => {
