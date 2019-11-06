@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SlidesList(props) {
+export default function QuizList(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -53,7 +53,7 @@ export default function SlidesList(props) {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography className={classes.heading}>MODULE 1</Typography>
+          <Typography className={classes.heading}>VIDEOS</Typography>
           <div className={classes.progress}></div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
@@ -64,7 +64,7 @@ export default function SlidesList(props) {
             }
             className={classes.root}
           >
-            <HomeListItem arr={props.md1} comArray={props.comArray} />
+            <HomeListItem arr={props.qzs1Arr} comArray={props.compltArray} />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -77,7 +77,7 @@ export default function SlidesList(props) {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Typography className={classes.heading}>MODULE 3</Typography>
+          <Typography className={classes.heading}>SLIDES</Typography>
           <div className={classes.progress}></div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
@@ -88,7 +88,7 @@ export default function SlidesList(props) {
             }
             className={classes.root}
           >
-            <HomeListItem arr={props.md3} comArray={props.comArray} />
+            <HomeListItem arr={props.qzs3Arr} comArray={props.compltArray} />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -101,7 +101,7 @@ export default function SlidesList(props) {
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography className={classes.heading}>MODULE 4</Typography>
+          <Typography className={classes.heading}>HANDOUTS</Typography>
           <div className={classes.progress}></div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
@@ -112,31 +112,7 @@ export default function SlidesList(props) {
             }
             className={classes.root}
           >
-            <HomeListItem arr={props.md4} comArray={props.comArray} />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography className={classes.heading}>MODULE 5</Typography>
-          <div className={classes.progress}></div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={
-              <ListSubheader component="div">100% Completed</ListSubheader>
-            }
-            className={classes.root}
-          >
-            <HomeListItem arr={props.md5} comArray={props.comArray} />
+            {/* <HomeListItem arr={props.qzs4Arr} comArray={props.compltArray} /> */}
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>

@@ -3,7 +3,7 @@ import axios from "axios";
 export default () => {
   axios.interceptors.response.use(
     response => {
-      return response;
+      console.log(response);
     },
     error => {
       if (error.response.status != 401) {

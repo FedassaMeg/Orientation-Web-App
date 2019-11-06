@@ -45,10 +45,15 @@ export default function Question(props) {
             width="100%"
             pl={13}
           >
-            <Choices
-              radioValue={props.radioValue}
-              handleOnChange={props.handleOnChange}
-            />
+            {props.question === undefined ? (
+              <></>
+            ) : (
+              <Choices
+                handleOnChange={props.handleOnChange}
+                key={props.question.id}
+                answers={props.answers}
+              />
+            )}
           </Box>
         </CardActions>
       </Card>

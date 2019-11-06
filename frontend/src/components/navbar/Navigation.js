@@ -7,7 +7,7 @@ import NavItem from "./NavItem";
 import SignoutButton from "../components/SignoutButton";
 
 export default function Navigation(props) {
-  const authToken = localStorage.getItem("token");
+  const authToken = localStorage.getItem("access_token");
   return (
     <Navbar>
       {!props.admin ? (

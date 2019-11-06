@@ -4,14 +4,14 @@ import { css, jsx } from "@emotion/core";
 import { MdCheckCircle, MdCancel } from "react-icons/md";
 
 export default function HomeListItem(props) {
-  const slideCompleted = props.comArray;
-  const lists = props.arr.map(slide => {
+  const arrCompleted = props.comArray;
+  const lists = props.arr.map(item => {
     let isCompleted = false;
     return (
       <div css={listSection}>
         <div css={listRight}>
-          {slideCompleted.map(score => {
-            slide.id === score.slide
+          {arrCompleted.map(score => {
+            item.id === score.slide || item.id === score.related_quiz
               ? (isCompleted = true)
               : (isCompleted = isCompleted);
           })}
@@ -25,11 +25,12 @@ export default function HomeListItem(props) {
             </div>
           )}
 
-          <div css={list}>{slide.title}</div>
+          <div css={list}>{item.title}</div>
         </div>
       </div>
     );
   });
+
   return (
     <div>
       <div>{lists}</div>

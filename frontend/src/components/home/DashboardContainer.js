@@ -47,13 +47,12 @@ export default function DashboardContainer() {
   };
 
   const getUserIdfromToken = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access_token");
     const decode = jwt.decode(token);
     return decode.user_id;
   };
 
   const user_id = getUserIdfromToken();
-
   return (
     <Dashboard
       quizArray={quizArray}

@@ -2,12 +2,8 @@
 import { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
 
-import { MdCheckCircle, MdCancel } from "react-icons/md";
-
-import SlidesList from "./SlidesList";
-import Card from "../components/Card";
-import Accordion from "../components/Accordion";
-import ListItem from "./HomeListItem";
+import QuizList from "./QuizList";
+import SlideList from "./SlideList";
 
 export default function Dashboard(props) {
   const initialState = {
@@ -16,11 +12,20 @@ export default function Dashboard(props) {
     md4: [],
     md5: []
   };
+
+  const initialQuiz = {
+    qz1: [],
+    qz3: [],
+    qz4: []
+  };
+
   const [state, setstate] = useState(initialState);
+  const [quizzes, setQuizzes] = useState(initialQuiz);
 
   useEffect(() => {
     setstate({ md1: md1Arr, md3: md3Arr, md4: md4Arr, md5: md5Arr });
-  }, [props.slideArray]);
+    setQuizzes({ qz1: qz1Arr, qz3: qz3Arr, qz4: qz4Arr });
+  }, [props.slideArray, props.quizArray]);
 
   const md1Arr = props.slideArray.filter(slide => {
     return slide.module === 1;
@@ -35,68 +40,37 @@ export default function Dashboard(props) {
     return slide.module === 5;
   });
 
-  // const quizCompleted = props.compltArray;
-  // const quizProgress = props.quizArray.map(quiz => {
-  //   let isCompleted = false;
-  //   return (
-  //     <div css={listSection}>
-  //       <div css={listRight}>
-  //         {quizCompleted.map(score => {
-  //           quiz.id === score.related_quiz
-  //             ? (isCompleted = true)
-  //             : (isCompleted = isCompleted);
-  //         })}
-  //         {isCompleted ? (
-  //           <div css={check}>
-  //             <MdCheckCircle />
-  //           </div>
-  //         ) : (
-  //           <div css={cancel}>
-  //             <MdCancel />
-  //           </div>
-  //         )}
+  const qz1Arr = props.quizArray.filter(quiz => {
+    return quiz.type == "VD";
+  });
+  const qz3Arr = props.quizArray.filter(quiz => {
+    return quiz.type == "SL";
+  });
+  const qz4Arr = props.quizArray.filter(quiz => {
+    return quiz.type == "HD";
+  });
 
-  //         <div css={list}>{quiz.title}</div>
-  //       </div>
-  //     </div>
-  //   );
-  // });
   return (
     <div>
       <div css={pageheader}>My Dashboard</div>
       <hr css={divider} />
       <div css={cardscontainer}>
-        <SlidesList
+        <div css={cardTitle}>SLIDES</div>
+        <SlideList
           md1={state.md1}
           md3={state.md3}
           md4={state.md4}
           md5={state.md5}
           comArray={props.comArray}
         />
-
-        {/* <Card header="Slides">
-          <Accordion>
-            <div label="Module 1">
-              <ListItem arr={state.md1} comArray={props.comArray} />
-            </div>
-            <div label="Module 3">
-              <ListItem arr={state.md3} comArray={props.comArray} />
-            </div>
-            <div label="Module 4" css={accList}>
-              <ListItem arr={state.md4} comArray={props.comArray} />
-            </div>
-            <div label="Module 5" css={accList}>
-              <ListItem arr={state.md5} comArray={props.comArray} />
-            </div>
-          </Accordion>
-        </Card> */}
-        <Card header="Quizzes">
-          {/* <Accordion>
-            <div label="Videos">{quizProgress}</div>
-            <div label="Slides">{quizProgress}</div>
-            <div label="Handouts">{quizProgress}</div>
-          </Accordion> */}
-        </Card>
+        <br />
+        <div css={cardTitle}>QUIZZES</div>
+        <QuizList
+          qzs1Arr={quizzes.qz1}
+          qzs3Arr={quizzes.qz3}
+          qzs4Arr={quizzes.qz4}
+          compltArray={props.compltArray}
+        />
       </div>
     </div>
   );
@@ -106,6 +80,7 @@ const pageheader = css`
   font-family: "Noto Sans JP", sans-serif;
   font-size: 45px;
   padding-left: 90px;
+  padding-top: 10px;
   color: rgb(78, 78, 78);
   width: 100%;
   padding-bottom: 10px;
@@ -122,9 +97,20 @@ const cardscontainer = css`
   padding: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
   background-color: whitesmoke;
   box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
+`;
+
+const cardTitle = css`
+  align-self: flex-start;
+  color: "#252525";
+  font: 20px "Open Sans", san-serif;
+  font-weight: 300;
+  margin-left: 80px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 const accList = css`

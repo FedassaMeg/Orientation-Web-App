@@ -2,42 +2,87 @@
 import { css, jsx } from "@emotion/core";
 import { Link } from "react-router-dom";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex"
+  },
+  formControl: {
+    margin: theme.spacing(0),
+    width: 320
+  },
+  button: {
+    backgroundColor: "#289086",
+    color: "#ffffff",
+    "&:hover": {
+      backgroundColor: "#289086"
+    },
+    marginTop: 20
+  }
+}));
+
 export default function LoginForm(props) {
+  const classes = useStyles();
   return (
     <div css={mainContainer}>
       <div css={loginCard}>
         <div css={header}>First Call Hospice Orientation</div>
-        <form css={bodyContainer} onSubmit={props.handleOnSubmit}>
-          <div>
-            <input
+        <div css={bodyContainer}>
+          <FormControl
+            required
+            component="fieldset"
+            className={classes.formControl}
+          >
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <Input
+              id="username"
               value={props.state.username}
               name="username"
-              type="text"
               onChange={props.handleOnChange}
-              css={usernameStyle}
-              placeholder="Username"
             />
-          </div>
-          <div>
-            <input
+            <FormHelperText id="username-text">
+              First intial and last name
+            </FormHelperText>
+          </FormControl>
+          <FormControl
+            required
+            component="fieldset"
+            className={classes.formControl}
+          >
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input
+              id="password"
               value={props.state.password}
               name="password"
-              type="password"
               onChange={props.handleOnChange}
-              css={passwordStyle}
-              placeholder="Password"
+              type="password"
             />
-          </div>
-          <button css={button} type="submit">
+            <FormHelperText id="password-error-text"></FormHelperText>
+          </FormControl>
+          <Button
+            className={classes.button}
+            variant="contained"
+            onClick={props.handleOnSubmit}
+          >
             Login
-          </button>
+          </Button>
 
-          <div css={altLinks}>
+          <div>
             <Link to="/signup">
-              <span>Register a new account</span>
+              <span css={altLinks}>Register a new account</span>
             </Link>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
@@ -145,7 +190,7 @@ const altLinks = css`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 20px;
-  color: #128f82;
+  color: #5a5a5a;
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
 `;

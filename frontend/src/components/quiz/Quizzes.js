@@ -34,9 +34,15 @@ export default function Quizzes() {
               title="Quiz Set 2"
               subtitle="Quizzes on Slides"
               list={[
-                "Foley Catheter Handouts",
-                "Oximetry Handout",
-                "Venipuncture Handout"
+                "Introduction to First Call",
+                "Introduction to Hospice",
+                "Visit Frequencies and Types",
+                "Determining Hospice Eligibility",
+                "Measuring Decline",
+                "Managing Secretions",
+                "Managing Nausea",
+                "Misconceptions",
+                "Death Anxiety"
               ]}
               key="slidequizzes"
               type="quiz"

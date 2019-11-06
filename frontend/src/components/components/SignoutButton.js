@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 function SignoutButton(props) {
   const handleOnClick = event => {
     event.preventDefault();
-    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
     props.history.push("/");
   };
 
