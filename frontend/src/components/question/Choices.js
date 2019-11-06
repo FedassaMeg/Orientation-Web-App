@@ -1,7 +1,7 @@
 // Presentation to display ui for user input/answer [ 'Routes' based on question type(t/f, multiple choice, general)]
 // Consumes contain state to handle ui interaction
 
-import React from "react";
+import React, { useEffect } from "react";
 
 // Material UI Components
 import Radio from "@material-ui/core/Radio";
@@ -13,13 +13,19 @@ import FormControl from "@material-ui/core/FormControl";
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
 export default function Choices(props) {
+  useEffect(() => {
+    newValue = props.answers.get(props.key);
+  }, [props.key]);
+
+  let newValue;
+
   return (
     <FormControl component="fieldset">
       <RadioGroup
         aria-label="answer"
         name="answer"
         onChange={props.handleOnChange}
-        value={props.radioValue}
+        value={newValue}
         row
       >
         <FormControlLabel

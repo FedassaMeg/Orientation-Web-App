@@ -51,7 +51,7 @@ export default function QuizContent(props) {
             <Question
               activeIndex={props.activeIndex}
               question={props.question}
-              radioValue={props.radioValue}
+              answers={props.answers}
               handleOnChange={props.handleOnChange}
             />
             <Box

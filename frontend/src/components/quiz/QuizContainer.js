@@ -10,6 +10,7 @@
     - Hide prev button on first slide ***DONE***
     - Update page numeration ***DONE***
     - Handles post request to submit completed quiz to backend ***DONE***
+    - [11/05/19] assign value to radio buttons from inputMap
 */
 
 import React, { useEffect, useState } from "react";
@@ -31,7 +32,6 @@ export default function QuizContainer(props) {
   const [dataArr, setDataArr] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [inputMap, setInputMap] = useState(new Map());
-  const [radioValue, setRadioValue] = useState("none"); // Future fix: assign value to radio buttons from inputMap
   const [ansArr, setAnsArr] = useState([]);
   const [quiz, setQuiz] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
@@ -63,7 +63,6 @@ export default function QuizContainer(props) {
   const next = () => {
     if (activeIndex < dataArr.length - 1) {
       setActiveIndex(activeIndex + 1);
-      setRadioValue("none");
     } else if (activeIndex + 1 === dataArr.length) {
       setIsCompleted(true);
       createAnsArr(dataArr);
@@ -96,7 +95,6 @@ export default function QuizContainer(props) {
     const key = dataArr[activeIndex].id;
     const isSelected = event.target.value === "true";
     const added = inputMap.set(key, isSelected);
-    setRadioValue(isSelected + "");
 
     setInputMap(added);
     console.log(inputMap);
@@ -173,7 +171,6 @@ export default function QuizContainer(props) {
       next={next}
       prev={prev}
       back={back}
-      radioValue={radioValue}
       handleOnChange={handleOnChange}
       handleSubmit={handleSubmit}
       isCompleted={isCompleted}
