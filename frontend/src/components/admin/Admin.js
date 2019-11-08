@@ -1,7 +1,9 @@
 /**@jsx jsx */
+
 import { css, jsx } from "@emotion/core";
 import { Switch, Route } from "react-router-dom";
-import Navigation from "../navbar/Navigation";
+
+import NavbarContainer from "../navbar/NavbarContainer";
 import AdminSidebar from "./AdminSidebar";
 import AdminReviewScores from "./AdminReviewScores";
 import AdminEditContent from "./AdminEditContent";
@@ -15,7 +17,7 @@ export default function Admin(props) {
         <AdminSidebar />
       </div>
       <div css={main}>
-        <Navigation admin />
+        <NavbarContainer admin />
 
         <Route path="/admin/dashboard" render={() => <h3>Dashboard</h3>} />
         <Route path="/admin/review-scores" component={AdminReviewScores} />

@@ -59,9 +59,7 @@ export default function QuizList(props) {
         <ExpansionPanelDetails>
           <List
             component="nav"
-            subheader={
-              <ListSubheader component="div">100% Completed</ListSubheader>
-            }
+            subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
             <HomeListItem arr={props.qzs1Arr} comArray={props.compltArray} />
@@ -83,9 +81,7 @@ export default function QuizList(props) {
         <ExpansionPanelDetails>
           <List
             component="nav"
-            subheader={
-              <ListSubheader component="div">100% Completed</ListSubheader>
-            }
+            subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
             <HomeListItem arr={props.qzs3Arr} comArray={props.compltArray} />
@@ -107,9 +103,7 @@ export default function QuizList(props) {
         <ExpansionPanelDetails>
           <List
             component="nav"
-            subheader={
-              <ListSubheader component="div">100% Completed</ListSubheader>
-            }
+            subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
             {/* <HomeListItem arr={props.qzs4Arr} comArray={props.compltArray} /> */}

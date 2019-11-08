@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id', 'username', 'password',
-                  'first_name', 'last_name', 'role', 'site_admin')
+                  'first_name', 'last_name', 'role', 'site_admin', 'is_staff')
 
     def get_validation_exclusion(self):
         exclusions = super(UserSerializer, self).get_validation_exclusion()

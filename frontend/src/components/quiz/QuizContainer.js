@@ -100,6 +100,16 @@ export default function QuizContainer(props) {
     console.log(inputMap);
   };
 
+  const handleOnClick = event => {
+    // const key = id;
+    // const isSelected = value;
+    // const added = inputMap.set(key, isSelected);
+
+    // setInputMap(added);
+    console.log(event.target);
+    // console.log(id);
+    // console.log(inputMap);
+  };
   // const onEnter = () => {
   //   setTransition(true);
   // };
@@ -172,6 +182,7 @@ export default function QuizContainer(props) {
       prev={prev}
       back={back}
       handleOnChange={handleOnChange}
+      handleOnClick={handleOnClick}
       handleSubmit={handleSubmit}
       isCompleted={isCompleted}
       answers={inputMap}

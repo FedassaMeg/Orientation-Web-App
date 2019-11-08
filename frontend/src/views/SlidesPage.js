@@ -1,12 +1,12 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 import Slides from "../components/slides/Slides";
-import Navigation from "../components/navbar/Navigation";
+import NavbarContainer from "../components/navbar/NavbarContainer";
 
 export default function SlidesPage() {
   return (
     <div css={container}>
-      <Navigation />
+      <NavbarContainer />
       <Slides />
     </div>
   );

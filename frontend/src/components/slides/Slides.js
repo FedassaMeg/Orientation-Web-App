@@ -24,7 +24,7 @@ export default function Slides() {
               type="slide"
             />
           </div>
-          <div css={moduleCard}>
+          {/* <div css={moduleCard}>
             <Modules
               title="Module 2"
               subtitle="Competencies"
@@ -35,7 +35,7 @@ export default function Slides() {
               ]}
               type="slide"
             />
-          </div>
+          </div> */}
           <div css={moduleCard}>
             <Modules
               title="Module 3"

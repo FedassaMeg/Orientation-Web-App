@@ -59,9 +59,7 @@ export default function SlideList(props) {
         <ExpansionPanelDetails>
           <List
             component="nav"
-            subheader={
-              <ListSubheader component="div">100% Completed</ListSubheader>
-            }
+            subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
             <HomeListItem arr={props.md1} comArray={props.comArray} />
@@ -83,9 +81,7 @@ export default function SlideList(props) {
         <ExpansionPanelDetails>
           <List
             component="nav"
-            subheader={
-              <ListSubheader component="div">100% Completed</ListSubheader>
-            }
+            subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
             <HomeListItem arr={props.md3} comArray={props.comArray} />
@@ -107,9 +103,7 @@ export default function SlideList(props) {
         <ExpansionPanelDetails>
           <List
             component="nav"
-            subheader={
-              <ListSubheader component="div">100% Completed</ListSubheader>
-            }
+            subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
             <HomeListItem arr={props.md4} comArray={props.comArray} />
@@ -131,9 +125,7 @@ export default function SlideList(props) {
         <ExpansionPanelDetails>
           <List
             component="nav"
-            subheader={
-              <ListSubheader component="div">100% Completed</ListSubheader>
-            }
+            subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
             <HomeListItem arr={props.md5} comArray={props.comArray} />

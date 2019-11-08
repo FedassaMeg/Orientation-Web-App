@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/core";
 import get from "lodash/get";
 
 import QuizContainer from "../components/quiz/QuizContainer";
-import Navigation from "../components/navbar/Navigation";
+import NavbarContainer from "../components/navbar/NavbarContainer";
 
 const quizzesLookup = {
   hippa: {
@@ -97,7 +97,7 @@ export default function QuizPage({ match }) {
   const quiz = get(quizzesLookup, match.params.id);
   return (
     <div css={container}>
-      <Navigation />
+      <NavbarContainer />
       <QuizContainer quiz={quiz} />
     </div>
   );

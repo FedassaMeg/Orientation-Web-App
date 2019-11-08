@@ -2,12 +2,12 @@
 import { Link } from "react-router-dom";
 import { css, jsx } from "@emotion/core";
 
-import Navigation from "../components/navbar/Navigation";
+import NavbarContainer from "../components/navbar/NavbarContainer";
 
 export default function LandingPage() {
   return (
     <div css={mainContainer}>
-      <Navigation />
+      <NavbarContainer />
       <div css={pageContent}>
         <div css={spanGroup}>
           <span css={headerTop}>Welcome to</span>

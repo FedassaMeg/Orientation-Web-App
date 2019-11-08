@@ -6,6 +6,8 @@ function SignoutButton(props) {
   const handleOnClick = event => {
     event.preventDefault();
     localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("userIsStaff");
     props.history.push("/");
   };
 

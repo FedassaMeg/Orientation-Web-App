@@ -58,7 +58,7 @@ function SignUp(props) {
           : " Password needs to be at least 6 characters long";
         break;
       case "confirmPassword":
-        isConfirmPasswordValid = value === state.password;
+        isConfirmPasswordValid = value == state.password;
         fieldValidationErrors.confirmPassword = isConfirmPasswordValid
           ? ""
           : " Passwords don't match";
@@ -121,7 +121,7 @@ function SignUp(props) {
       lastNameValid={lastNameValid}
       roleValid={roleValid}
       passwordValid={passwordValid}
-      confirmPassword={confirmPasswordValid}
+      confirmPasswordValid={confirmPasswordValid}
     />
   );
 }

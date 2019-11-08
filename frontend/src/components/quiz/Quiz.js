@@ -21,6 +21,7 @@ export default function Quiz(props) {
         prev={props.prev}
         back={props.back}
         handleOnChange={props.handleOnChange}
+        handleOnClick={props.handleOnClick}
         handleSubmit={props.handleSubmit}
         isCompleted={props.isCompleted}
         answers={props.answers}

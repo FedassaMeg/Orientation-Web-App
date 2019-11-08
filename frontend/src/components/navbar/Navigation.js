@@ -1,4 +1,5 @@
 /**@jsx jsx */
+
 import { css, jsx } from "@emotion/core";
 import NavLink from "./NavLink";
 import Nav from "./Nav";
@@ -7,7 +8,6 @@ import NavItem from "./NavItem";
 import SignoutButton from "../components/SignoutButton";
 
 export default function Navigation(props) {
-  const authToken = localStorage.getItem("access_token");
   return (
     <Navbar>
       {!props.admin ? (
@@ -17,7 +17,7 @@ export default function Navigation(props) {
       ) : (
         <div css={nologo}></div>
       )}
-      {authToken ? (
+      {props.authToken ? (
         <div>
           <Nav>
             <NavItem>
@@ -32,9 +32,12 @@ export default function Navigation(props) {
             <NavItem>
               <NavLink href="/videos">Videos</NavLink>
             </NavItem>
+            {/* {props.adminUser && ( */}
             <NavItem>
               <NavLink href="/admin">Admin</NavLink>
             </NavItem>
+            {/* )} */}
+
             <div css={signoutBtnItem}>
               <SignoutButton type="signOut">Sign Out</SignoutButton>
             </div>

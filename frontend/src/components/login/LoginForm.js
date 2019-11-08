@@ -31,14 +31,51 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function LoginForm(props) {
+export default function LoginForm({ onSubmit }) {
   const classes = useStyles();
+
+  function handleOnSubmit(event) {
+    event.preventDefault();
+    const { username, password } = event.target.elements;
+    run(
+      onSubmit({
+        username: username.value,
+        password: password.value
+      })
+    );
+  }
+
   return (
     <div css={mainContainer}>
       <div css={loginCard}>
         <div css={header}>First Call Hospice Orientation</div>
         <div css={bodyContainer}>
-          <FormControl
+          <form
+            onSubmit={handleOnSubmit}
+            css={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "stretch",
+              "> div": {
+                margin: "10px auto",
+                width: "100%",
+                maxWidth: "300px"
+              }
+            }}
+          >
+            <div>
+              <label htmlFor="username">Username</label>
+              <input id="username" />
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
+              <input id="password" type="password" />
+            </div>
+            <div>
+              <button type="submit">Login</button>
+            </div>
+          </form>
+          {/* <FormControl
             required
             component="fieldset"
             className={classes.formControl}
@@ -81,7 +118,7 @@ export default function LoginForm(props) {
             <Link to="/signup">
               <span css={altLinks}>Register a new account</span>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

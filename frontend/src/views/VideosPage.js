@@ -1,13 +1,13 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import Navigation from "../components/navbar/Navigation";
+import NavbarContainer from "../components/navbar/NavbarContainer";
 import VideosContainer from "../components/video/VideosContainer";
 
 export default function VideosPage() {
   return (
     <div css={container}>
-      <Navigation />
+      <NavbarContainer />
       <VideosContainer />
     </div>
   );

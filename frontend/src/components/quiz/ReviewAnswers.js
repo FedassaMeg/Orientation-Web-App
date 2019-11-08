@@ -12,12 +12,17 @@
 
 import { css, jsx } from "@emotion/core";
 
+import { useState } from "react";
+
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import Fade from "@material-ui/core/Fade";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
 
 //React-Icon component
 import { MdEdit } from "react-icons/md";
@@ -38,9 +43,28 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ReviewAnswers(props) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState([]);
   const classes = useStyles();
+
+  const handleOnMouseEnter = event => {
+    setAnchorEl(event.currentTarget);
+    const newArr = open.push({ [event.target.id]: true });
+    setOpen(newArr);
+  };
+
+  const handleOnMouseLeave = event => {
+    const newArr = open.push({ [event.target.id]: false });
+    setOpen(newArr);
+  };
+
+  const testLog = event => {
+    console.log(event.target.id);
+  };
+
   const qstArr = props.questions.map((question, index) => {
     const userAnswer = props.answers.get(question.id) + "";
+    console.log(open);
     return (
       <div key={index} css={container}>
         <div css={list}>
@@ -48,11 +72,21 @@ export default function ReviewAnswers(props) {
           <div css={qst}>{question.question}</div>
         </div>
         <div css={answer}>You answered: {userAnswer}</div>
-        <div css={editBtn}>
-          <IconButton className={classes.button}>
+        {/* <div css={editBtn}>
+          <button
+            id={index}
+            className={classes.button}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          >
             <MdEdit size={18} />
-          </IconButton>
+          </button>
         </div>
+        {open.index && (
+          <div id={index} onClick={testLog} id={question.id}>
+            test
+          </div>
+        )} */}
       </div>
     );
   });
@@ -104,7 +138,7 @@ const container = css`
   transition-duration: 0.5s;
   &:hover {
     background-color: #f4f4f4;
-    box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.15);
+    // box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.15);
   }
 `;
 

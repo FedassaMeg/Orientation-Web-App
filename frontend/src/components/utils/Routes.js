@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { PrivateRoute } from "./PrivateRoute";
+import { AdminRoute } from "./AdminRoute";
 import QuizPage from "../../views/QuizPage";
 import QuizzesPage from "../../views/QuizzesPage";
 import LandingPage from "../../views/LandingPage";
@@ -24,7 +25,7 @@ export default function Routes() {
         <PrivateRoute path="/home" component={HomePage} />
         <PrivateRoute path="/slides" component={SlidesPage} />
         <PrivateRoute path="/videos" component={VideosPage} />
-        <Route path="/admin" component={AdminPage} />
+        <AdminRoute path="/admin" component={AdminPage} />
       </Switch>
     </Router>
   );

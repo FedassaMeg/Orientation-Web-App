@@ -99,6 +99,7 @@ export default function QuizContent(props) {
             quiz={props.quiz}
             questions={props.data}
             answers={props.answers}
+            handleOnClick={props.handleOnClick}
             handleSubmit={props.handleSubmit}
             back={props.back}
           />
