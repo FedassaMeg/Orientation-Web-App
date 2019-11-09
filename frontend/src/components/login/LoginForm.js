@@ -31,19 +31,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function LoginForm({ onSubmit }) {
+export default function LoginForm({
+  handleOnSubmit,
+  isPending,
+  isRejected,
+  error
+}) {
   const classes = useStyles();
-
-  function handleOnSubmit(event) {
-    event.preventDefault();
-    const { username, password } = event.target.elements;
-    run(
-      onSubmit({
-        username: username.value,
-        password: password.value
-      })
-    );
-  }
 
   return (
     <div css={mainContainer}>
@@ -71,8 +65,15 @@ export default function LoginForm({ onSubmit }) {
               <label htmlFor="password">Password</label>
               <input id="password" type="password" />
             </div>
+            {isRejected ? (
+              <div css={{ color: "red" }}>{error ? error.message : null}</div>
+            ) : (
+              <div> </div>
+            )}
             <div>
-              <button type="submit">Login</button>
+              <button type="submit">
+                {isPending ? "...loading" : "Login"}
+              </button>
             </div>
           </form>
           {/* <FormControl

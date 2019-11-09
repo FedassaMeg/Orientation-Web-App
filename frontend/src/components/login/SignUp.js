@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import axios from "axios";
 
-import { ROOT_URL } from "../utils/constants";
+import { useAuth } from "../utils/context/AuthContext";
 import SignUpForm from "./SignUpForm";
 
 function SignUp(props) {
@@ -85,8 +85,11 @@ function SignUp(props) {
     validateField(name, value);
   };
 
+  const { register } = useAuth();
+
   const handleOnSubmit = event => {
     event.preventDefault();
+
     const isFormValid =
       firstNameValid &&
       lastNameValid &&
@@ -94,23 +97,16 @@ function SignUp(props) {
       confirmPasswordValid &&
       roleValid;
 
-    console.log(state);
     if (isFormValid) {
-      axios
-        .post(`${ROOT_URL}/users/`, {
-          password: state.password,
-          first_name: state.firstName,
-          last_name: state.lastName,
-          role: state.role
-        })
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-          props.history.push("/login");
-        })
-        .catch(console.log("Catch!"));
+      register({
+        first_name: state.firstName,
+        last_name: state.lastName,
+        password: state.password,
+        role: state.role
+      });
     }
   };
+
   return (
     <SignUpForm
       handleOnChange={handleOnChange}

@@ -9,7 +9,7 @@ function client(endpoint, { data, ...customConfig } = {}) {
     headers.Authorization = `Bearer ${token}`;
   }
   const config = {
-    url: endpoint,
+    url: `${ROOT_URL}${endpoint}`,
     method: data ? "POST" : "GET",
     baseUrl: ROOT_URL,
     responseType: "json",
@@ -23,7 +23,7 @@ function client(endpoint, { data, ...customConfig } = {}) {
     config.data = JSON.stringify(data);
   }
 
-  return axios(config).then(r => r.json());
+  return axios(config);
 }
 
 export default client;

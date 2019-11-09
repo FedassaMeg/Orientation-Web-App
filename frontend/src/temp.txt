@@ -1,0 +1,10 @@
++ "<b>Email: </b>" + c.email //line 3923 intake.js
+$('#email').val(c.email); //line 4778 intake.js
+contact.addProperty("email", email); //line 503 PatientContact.java
+db.setString(33, contact.get("email").getAsString() ); //line 426 PatientContact.java
+, pfmd_email = ? //line 362 add to the end of the query string PatientContact.java
+db.setString(31, contact.get("email").getAsString()); // line 320 PatientContact.java
+c.addProperty("email", rs.getString("pfmd_email")); //line 196 PatientContact.java
+email = rs.getString("pfmd_email"); //line 100 PatientContact.java
+<span>Email </span><input id="email" type="text" maxlength="100" class="formTextInput contactInput"><br> //line 2327 intake.jsp
+private String email; //line 30 PatientContact.java

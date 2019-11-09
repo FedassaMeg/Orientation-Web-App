@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAsync } from "react-async";
 
 import * as authClient from "../auth-client";
@@ -6,7 +6,7 @@ import { bootstrapData } from "../bootstrap-data";
 
 const AuthContext = React.createContext();
 
-function AuthProvider() {
+function AuthProvider(props) {
   const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
 
   const {

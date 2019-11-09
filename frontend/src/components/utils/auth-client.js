@@ -4,7 +4,7 @@ import client from "./api-client";
 import { AUTH_TOKEN } from "./constants";
 
 function getUserIdfromToken() {
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem(AUTH_TOKEN);
   const decode = jwt.decode(token);
   return decode.user_id;
 }
@@ -24,20 +24,21 @@ function getUser() {
     return Promise.resolve(null);
   }
   const userId = getUserIdfromToken();
-  return client(`/api/users/${userId}`).catch(error => {
+  return client(`/users/${userId}`).catch(error => {
     logout();
     return Promise.reject(error);
   });
 }
 
 function login({ username, password }) {
-  return client("/api/token/", { data: { username, password } }).then(
-    handleUserResponse
-  );
+  return client("/token/", { data: { username, password } }).then(res => {
+    console.log(res);
+    handleUserResponse({ user: { token: res.data.access } });
+  });
 }
 
 function register({ first_name, last_name, role, password }) {
-  return client("/api/token/", {
+  return client("/token/", {
     data: { first_name, last_name, role, password }
   }).then(handleUserResponse);
 }

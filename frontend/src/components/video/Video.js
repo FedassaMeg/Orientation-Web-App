@@ -74,7 +74,7 @@ export default function Video(props) {
             // poster={require("../../images/videoLoad.png")}
           >
             <source
-              src={require(`../../videos/videos/English/${props.name}.mkv`)}
+            // src={require(`../../videos/videos/English/${props.name}.mkv`)}
             />
           </video>
         </DialogContent>
