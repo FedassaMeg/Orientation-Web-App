@@ -47,4 +47,12 @@ function logout() {
   return Promise.resolve();
 }
 
-export { login, register, logout, getToken, getUser };
+function authenticated() {
+  const token = getToken();
+  if (!token) {
+    return Promise.resolve(null);
+  }
+  return client(`/token/verify/`, { data: { token: token } });
+}
+
+export { login, register, logout, getToken, getUser, authenticated };

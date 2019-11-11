@@ -40,6 +40,7 @@ function AuthProvider(props) {
   const login = form => authClient.login(form).then(reload);
   const register = form => authClient.register(form).then(reload);
   const logout = () => authClient.logout().then(reload);
+
   return (
     <AuthContext.Provider
       value={{ data, login, logout, register }}

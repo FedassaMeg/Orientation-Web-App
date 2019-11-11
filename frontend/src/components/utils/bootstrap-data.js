@@ -1,4 +1,4 @@
-import { getUser } from "./auth-client";
+import { getUser, authenticated } from "./auth-client";
 
 async function bootstrapData() {
   const res = await getUser();
@@ -6,7 +6,15 @@ async function bootstrapData() {
     return { user: null };
   }
   const user = res.data;
-  return user;
+
+  const tokenRes = await authenticated();
+  let isAuthenticated;
+  if (tokenRes.status === 200) {
+    isAuthenticated = true;
+  } else {
+    isAuthenticated = false;
+  }
+  return { user, isAuthenticated };
 }
 
 export { bootstrapData };
