@@ -1,7 +1,5 @@
-//**@jsx jsx */
+/**@jsx jsx */
 import { css, jsx } from "@emotion/core";
-
-import React from "react";
 
 import Routes from "./utils/Routes";
 
@@ -19,5 +17,4 @@ const body = css`
   background-color: #f8f8f8;
   min-height: 100vh;
   height: 100%;
-  overflow-y: visible;
 `;

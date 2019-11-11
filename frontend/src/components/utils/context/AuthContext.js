@@ -1,26 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useLayoutEffect,
+  useState
+} from "react";
 import { useAsync } from "react-async";
 
 import * as authClient from "../auth-client";
 import { bootstrapData } from "../bootstrap-data";
 
-const AuthContext = React.createContext();
+const AuthContext = createContext();
 
 function AuthProvider(props) {
   const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
 
-  const {
-    data = { user: null },
-    error,
-    isRejected,
-    isPending,
-    isSettled,
-    reload
-  } = useAsync({
+  const { data, error, isRejected, isPending, isSettled, reload } = useAsync({
     promiseFn: bootstrapData
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isSettled) {
       setFirstAttemptFinished(true);
     }
@@ -42,7 +40,6 @@ function AuthProvider(props) {
   const login = form => authClient.login(form).then(reload);
   const register = form => authClient.register(form).then(reload);
   const logout = () => authClient.logout().then(reload);
-
   return (
     <AuthContext.Provider
       value={{ data, login, logout, register }}
