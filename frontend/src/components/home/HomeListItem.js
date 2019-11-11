@@ -5,10 +5,10 @@ import { MdCheckCircle, MdCancel } from "react-icons/md";
 
 export default function HomeListItem(props) {
   const arrCompleted = props.comArray;
-  const lists = props.arr.map(item => {
+  const lists = props.arr.map((item, index) => {
     let isCompleted = false;
     return (
-      <div css={listSection}>
+      <div key={index} css={listSection}>
         <div css={listRight}>
           {arrCompleted.map(score => {
             item.id === score.slide || item.id === score.related_quiz
