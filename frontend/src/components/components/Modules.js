@@ -1,6 +1,6 @@
 /**@jsx jsx */
 
-import React, { Component } from "react";
+import { Component, Fragment } from "react";
 import { css, jsx } from "@emotion/core";
 
 import { Link } from "react-router-dom";
@@ -32,8 +32,8 @@ export default class Module extends Component {
       .join("-");
   render() {
     let array = this.props.list;
-    let moduleList = array.map(item => (
-      <>
+    let moduleList = array.map((item, index) => (
+      <Fragment key={index}>
         {this.props.type == "slide" ? (
           <a href={item.url} target="blank" css={link}>
             <ListGroupItem>{item.title}</ListGroupItem>
@@ -43,7 +43,7 @@ export default class Module extends Component {
             <ListGroupItem>{item}</ListGroupItem>
           </Link>
         )}
-      </>
+      </Fragment>
     ));
     return (
       <div css={shell}>

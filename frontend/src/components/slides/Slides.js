@@ -12,6 +12,7 @@ export default function Slides() {
         <div css={cardscontainer}>
           <div css={moduleCard}>
             <Modules
+              key="1"
               title="Module 1"
               subtitle="Introduction to First Call"
               list={[
@@ -26,6 +27,7 @@ export default function Slides() {
           </div>
           {/* <div css={moduleCard}>
             <Modules
+              key=""
               title="Module 2"
               subtitle="Competencies"
               list={[
@@ -38,6 +40,7 @@ export default function Slides() {
           </div> */}
           <div css={moduleCard}>
             <Modules
+              key="2"
               title="Module 3"
               subtitle="Electronic Medical Record"
               list={[
@@ -53,6 +56,7 @@ export default function Slides() {
 
           <div css={moduleCard}>
             <Modules
+              key="3"
               title="Module 4"
               subtitle="Introduction to Hospice"
               list={[
@@ -123,6 +127,7 @@ export default function Slides() {
           </div>
           <div css={moduleCard}>
             <Modules
+              key="4"
               title="Module 5"
               subtitle="Documentation"
               list={[
@@ -163,6 +168,7 @@ export default function Slides() {
           </div>
           <div css={moduleCard}>
             <Modules
+              key="5"
               title="Module 6"
               subtitle="Documenting Decline"
               list={[
@@ -188,6 +194,7 @@ export default function Slides() {
           </div>
           <div css={moduleCard}>
             <Modules
+              key="6"
               title="Module 7"
               subtitle="Symptom Management"
               list={[
@@ -280,6 +287,7 @@ export default function Slides() {
           </div>
           <div css={moduleCard}>
             <Modules
+              key="7"
               title="Module 8"
               subtitle="Plan of Care"
               list={[
@@ -300,6 +308,7 @@ export default function Slides() {
           </div>
           <div css={moduleCard}>
             <Modules
+              key="8"
               title="Module 9"
               subtitle="On Call is a Partnership"
               list={[
