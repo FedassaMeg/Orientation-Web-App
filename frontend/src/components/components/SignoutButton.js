@@ -1,11 +1,13 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { withRouter } from "react-router-dom";
+import { useAuth } from "../utils/context/AuthContext";
 
 function SignoutButton(props) {
+  const { logout } = useAuth();
   const handleOnClick = event => {
     event.preventDefault();
-    localStorage.removeItem("access_token");
+    logout();
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("userIsStaff");
     props.history.push("/");
