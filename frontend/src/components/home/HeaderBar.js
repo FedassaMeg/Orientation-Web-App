@@ -1,53 +1,31 @@
 /**@jsx jsx */
 import { useEffect, useState } from "react";
 import { css, jsx } from "@emotion/core";
-import axios from "axios";
-import jwt from "jsonwebtoken";
+
 import { capitalize } from "lodash";
 
-import { ROOT_URL } from "../utils/constants";
+import { useAuth } from "../utils/context/AuthContext";
 import accountImage from "../../images/badge.jpg";
 
 export default function HeaderBar() {
+  const { data } = useAuth();
+
   const initialState = {
     first_name: "",
     last_name: "",
     role: ""
   };
+
   const [user, setUser] = useState(initialState);
+
   useEffect(() => {
-    getCurrentUser();
+    setUser({
+      first_name: data.first_name,
+      last_name: data.last_name,
+      role: data.role
+    });
   }, []);
 
-  const getCurrentUser = () => {
-    let config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`
-      }
-    };
-    const userId = getUserIdfromToken();
-    axios
-      .get(`${ROOT_URL}/users/${userId}`, config)
-      .then(res => {
-        setUser({
-          first_name: res.data.first_name,
-          last_name: res.data.last_name,
-          role: res.data.role
-        });
-
-        return res.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  const getUserIdfromToken = () => {
-    const token = localStorage.getItem("access_token");
-    const decode = jwt.decode(token);
-    return decode.user_id;
-  };
-  const firstName = capitalize(user.first_name);
-  const lastName = capitalize(user.last_name);
   return (
     <div css={headerbar}>
       <div>
@@ -55,7 +33,7 @@ export default function HeaderBar() {
       </div>
       <div css={infoContainer}>
         <div css={name}>
-          {firstName} {lastName}
+          {user.first_name} {user.last_name}
         </div>
         <div css={role}>{user.role}</div>
       </div>
@@ -88,6 +66,7 @@ const infoContainer = css`
 const name = css`
   font: 24px "Ubuntu", sans-serif;
   color: whitesmoke;
+  text-transform: capitalize;
 `;
 
 const role = css`
