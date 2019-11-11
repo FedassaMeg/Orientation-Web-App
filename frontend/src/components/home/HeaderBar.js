@@ -2,29 +2,11 @@
 import { useEffect, useState } from "react";
 import { css, jsx } from "@emotion/core";
 
-import { capitalize } from "lodash";
-
-import { useAuth } from "../utils/context/AuthContext";
+import { useUser } from "../utils/context/UserContext";
 import accountImage from "../../images/badge.jpg";
 
 export default function HeaderBar() {
-  const { data } = useAuth();
-
-  const initialState = {
-    first_name: "",
-    last_name: "",
-    role: ""
-  };
-
-  const [user, setUser] = useState(initialState);
-
-  useEffect(() => {
-    setUser({
-      first_name: data.first_name,
-      last_name: data.last_name,
-      role: data.role
-    });
-  }, []);
+  const user = useUser();
 
   return (
     <div css={headerbar}>
