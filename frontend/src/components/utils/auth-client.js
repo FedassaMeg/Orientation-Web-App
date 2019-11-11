@@ -32,7 +32,6 @@ function getUser() {
 
 function login({ username, password }) {
   return client("/token/", { data: { username, password } }).then(res => {
-    console.log(res);
     handleUserResponse({ user: { token: res.data.access } });
   });
 }
