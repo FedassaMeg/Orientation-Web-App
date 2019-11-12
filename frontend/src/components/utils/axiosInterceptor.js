@@ -1,12 +1,26 @@
 import axios from "axios";
 
+import { ROOT_URL } from "./constants";
+
+let isRefreshing = false;
+
 export default () => {
   axios.interceptors.response.use(
     response => {
-      console.log(response);
+      return response;
     },
     error => {
-      if (error.response.status != 401) {
+      const {
+        config,
+        response: { status }
+      } = error;
+      const originalRequest = config;
+
+      if (status != 401) {
+        if (!isRefreshing) {
+          isRefreshing = true;
+          axios.post(`${ROOT_URL}/token/refresh/`);
+        }
         return new Promise((resolve, reject) => {
           reject(error);
         });

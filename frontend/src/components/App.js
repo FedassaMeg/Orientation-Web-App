@@ -1,20 +1,24 @@
-/**@jsx jsx */
-import { css, jsx } from "@emotion/core";
+import React, { useEffect, Suspense } from "react";
 
-import Routes from "./utils/Routes";
+import { useUser } from "./utils/context/UserContext";
+import AuthenticatedApp from "./Authenticated";
+import UnauthenticatedApp from "./Unauthenticated";
+
+// const loadAuthenticatedApp = () => import("./Authenticated");
+// const AuthenticatedApp = React.lazy(loadAuthenticatedApp);
+// const UnauthenticatedApp = React.lazy(() => import("./Unauthenticated"));
 
 export default function App() {
+  const user = useUser();
+
+  // useEffect(() => {
+  //   loadAuthenticatedApp();
+  // }, []);
+
   return (
-    <div className="App" css={body}>
-      <Routes />
-    </div>
+    // <Suspense fallback={<div>Loading...</div>}>
+    //   {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    // </Suspense>
+    <>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</>
   );
 }
-
-const body = css`
-  margin: 0;
-  padding: 0;
-  background-color: #f8f8f8;
-  min-height: 100vh;
-  height: 100%;
-`;

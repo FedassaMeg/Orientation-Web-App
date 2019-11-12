@@ -141,6 +141,9 @@ export default function SignUpForm(props) {
               {props.formErrors.confirmPassword}
             </FormHelperText>
           </FormControl>
+          <div css={{ color: "red" }}>
+            {props.error ? props.error.message : null}
+          </div>
           <div css={actionBar}>
             <Link to="/login">
               <span css={altLinks}>Already have an account?</span>

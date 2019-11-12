@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 import { useAuth } from "../utils/context/AuthContext";
+import useCallbackStatus from "../utils/use-callback-status";
 import SignUpForm from "./SignUpForm";
 
 function SignUp(props) {
@@ -87,6 +88,8 @@ function SignUp(props) {
 
   const { register } = useAuth();
 
+  const { isPending, isRejected, error, run } = useCallbackStatus();
+
   const handleOnSubmit = event => {
     event.preventDefault();
 
@@ -96,14 +99,15 @@ function SignUp(props) {
       passwordValid &&
       confirmPasswordValid &&
       roleValid;
-
     if (isFormValid) {
-      register({
-        first_name: state.firstName,
-        last_name: state.lastName,
-        password: state.password,
-        role: state.role
-      });
+      run(
+        register({
+          first_name: state.firstName,
+          last_name: state.lastName,
+          password: state.password,
+          role: state.role
+        })
+      );
     }
   };
 
@@ -118,6 +122,7 @@ function SignUp(props) {
       roleValid={roleValid}
       passwordValid={passwordValid}
       confirmPasswordValid={confirmPasswordValid}
+      error={error}
     />
   );
 }

@@ -114,12 +114,12 @@ export default function LoginForm({
           >
             Login
           </Button>
-
+*/}
           <div>
             <Link to="/signup">
               <span css={altLinks}>Register a new account</span>
             </Link>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

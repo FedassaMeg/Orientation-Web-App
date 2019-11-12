@@ -6,7 +6,7 @@ import { useUser } from "../utils/context/UserContext";
 import accountImage from "../../images/badge.jpg";
 
 export default function HeaderBar() {
-  const user = useUser();
+  const { user } = useUser();
 
   return (
     <div css={headerbar}>

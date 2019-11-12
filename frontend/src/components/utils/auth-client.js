@@ -37,9 +37,9 @@ function login({ username, password }) {
 }
 
 function register({ first_name, last_name, role, password }) {
-  return client("/token/", {
-    data: { first_name, last_name, role, password }
-  }).then(handleUserResponse);
+  return client("/users/", {
+    data: { first_name, last_name, password, role }
+  }).catch(error => console.log(error));
 }
 
 function logout() {
