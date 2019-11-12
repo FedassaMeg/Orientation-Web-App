@@ -5,11 +5,10 @@ import Navigation from "./Navigation";
 
 export default function NavbarContainer(props) {
   const user = useUser();
-
   return (
     <Navigation
       isAuthenticated={user.isAuthenticated}
-      isAdmin={user.is_staff}
+      isAdmin={user.user.is_staff}
       admin={props.admin}
     />
   );
