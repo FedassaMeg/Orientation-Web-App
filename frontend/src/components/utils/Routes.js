@@ -1,6 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import { useUser } from "./context/UserContext";
 import { PrivateRoute } from "./PrivateRoute";
 import { AdminRoute } from "./AdminRoute";
 import QuizPage from "../../views/QuizPage";
@@ -14,11 +19,15 @@ import AdminPage from "../../views/AdminPage";
 import VideosPage from "../../views/VideosPage";
 
 export default function Routes() {
+  const user = useUser();
+  const loggedIn = user.isAuthenticated;
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={LandingPage} />
-        <Route path="/login" component={Login} />
+        <Route path="/login">
+          {loggedIn ? <Redirect to="/home" /> : <Login />}
+        </Route>
         <Route path="/signup" component={SignUp} />
         <PrivateRoute path="/quiz/:id" component={QuizPage} />
         <PrivateRoute path="/quizs" component={QuizzesPage} />
