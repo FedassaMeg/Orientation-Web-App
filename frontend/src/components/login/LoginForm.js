@@ -1,46 +1,19 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { useEffect } from "react";
+
 import { Link } from "react-router-dom";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
-  },
-  formControl: {
-    margin: theme.spacing(0),
-    width: 320
-  },
-  button: {
-    backgroundColor: "#289086",
-    color: "#ffffff",
-    "&:hover": {
-      backgroundColor: "#289086"
-    },
-    marginTop: 20
-  }
-}));
-
-export default function LoginForm({
-  handleOnSubmit,
-  handleOnChange,
-  disable,
-  isPending,
-  isRejected,
-  error
-}) {
-  const classes = useStyles();
+export default function LoginForm(props) {
+  const {
+    formErrors,
+    isSubmitted,
+    handleOnChange,
+    handleOnSubmit,
+    isPending,
+    isRejected
+  } = props;
 
   return (
     <div css={mainContainer}>
@@ -62,7 +35,17 @@ export default function LoginForm({
           >
             <div>
               <label htmlFor="username">Username</label>
-              <input id="username" name="username" onChange={handleOnChange} />
+              <input
+                id="username"
+                name="username"
+                onChange={handleOnChange}
+                css={usernameStyle}
+              />
+              {isSubmitted ? (
+                <div css={{ color: "red" }}>{formErrors.username}</div>
+              ) : (
+                <div> </div>
+              )}
             </div>
             <div>
               <label htmlFor="password">Password</label>
@@ -71,59 +54,33 @@ export default function LoginForm({
                 name="password"
                 type="password"
                 onChange={handleOnChange}
+                css={passwordStyle}
               />
+              {isSubmitted ? (
+                <div css={{ color: "red" }}>{formErrors.password}</div>
+              ) : (
+                <div> </div>
+              )}
             </div>
             {isRejected ? (
-              <div css={{ color: "red" }}>{error ? error.message : null}</div>
+              <div css={{ color: "red" }}>
+                Incorrect username password combination!
+              </div>
             ) : (
               <div> </div>
             )}
             <div>
-              <button type="submit" disabled={disable}>
-                {isPending ? "...loading" : "Login"}
+              <button type="submit" css={button}>
+                {isPending ? (
+                  <CircularProgress color="inherit" size={20} />
+                ) : (
+                  "Login"
+                )}
               </button>
             </div>
           </form>
-          {/* <FormControl
-            required
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <InputLabel htmlFor="username">Username</InputLabel>
-            <Input
-              id="username"
-              value={props.state.username}
-              name="username"
-              onChange={props.handleOnChange}
-            />
-            <FormHelperText id="username-text">
-              First intial and last name
-            </FormHelperText>
-          </FormControl>
-          <FormControl
-            required
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              id="password"
-              value={props.state.password}
-              name="password"
-              onChange={props.handleOnChange}
-              type="password"
-            />
-            <FormHelperText id="password-error-text"></FormHelperText>
-          </FormControl>
-          <Button
-            className={classes.button}
-            variant="contained"
-            onClick={props.handleOnSubmit}
-          >
-            Login
-          </Button>
-*/}
-          <div>
+
+          <div css={link}>
             <Link to="/signup">
               <span css={altLinks}>Register a new account</span>
             </Link>
@@ -218,9 +175,11 @@ const link = css`
 // login button styles
 const button = css`
   padding: 5px 45px;
+  width: 150px;
   border: none;
-  border-radius: 25px;
+  border-radius: 5px;
   background-color: #128f82;
+  text-align: center;
   color: white;
   font: 18px "Open Sans", sans-serif;
   transition-duration: 0.4s;
