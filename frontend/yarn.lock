@@ -8886,6 +8886,11 @@ react-async@^9.0.0:
   resolved "https://registry.yarnpkg.com/react-async/-/react-async-9.0.0.tgz#60e8282278fc642429229a33ce1dbd427d6470e3"
   integrity sha512-J1o8clttyaQ12+G2GiRTgsvkD+QZJS9A9GTh3nDWX6gvoskmUwMPXFDntOcUvP032xUAf6F75M2sT3FW095HeA==
 
+react-circular-progressbar@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-circular-progressbar/-/react-circular-progressbar-2.0.3.tgz#fa8eb59f8db168d2904bae4590641792c80f5991"
+  integrity sha512-YKN+xAShXA3gYihevbQZbavfiJxo83Dt1cUxqg/cltj4VVsRQpDr7Fg1mvjDG3x1KHGtd9NmYKvJ2mMrPwbKyw==
+
 react-dev-utils@^9.0.3:
   version "9.0.3"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.0.3.tgz#7607455587abb84599451460eb37cef0b684131a"

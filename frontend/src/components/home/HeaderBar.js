@@ -1,8 +1,7 @@
 /**@jsx jsx */
-import { useEffect, useState } from "react";
 import { css, jsx } from "@emotion/core";
 
-import { useUser } from "../utils/context/UserContext";
+import { useUser } from "../context/UserContext";
 import accountImage from "../../images/badge.jpg";
 
 export default function HeaderBar() {

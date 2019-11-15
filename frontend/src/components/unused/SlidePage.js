@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/core";
 import get from "lodash/get";
 
 import SlideContainer from "../components/slides/SlideContainer";
-import Navigation from "../components/navbar/Navigation";
+import Navigation from "../navbar/Navigation";
 
 const slidesLookup = {
   "introduction-to-first-call-hospice": {

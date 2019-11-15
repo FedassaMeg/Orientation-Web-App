@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { ROOT_URL } from "./constants";
+import { ROOT_URL } from "../utils/constants";
 
 let isRefreshing = false;
 

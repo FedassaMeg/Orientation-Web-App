@@ -1,19 +1,12 @@
-/**@jsx jsx */
-import { css, jsx } from "@emotion/core";
+import React from "react";
+
 import Slides from "../components/slides/Slides";
-import NavbarContainer from "../components/navbar/NavbarContainer";
+import ViewWrapper from "./ViewWrapper";
 
 export default function SlidesPage() {
   return (
-    <div css={container}>
-      <NavbarContainer />
+    <ViewWrapper>
       <Slides />
-    </div>
+    </ViewWrapper>
   );
 }
-const container = css`
-  margin: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;

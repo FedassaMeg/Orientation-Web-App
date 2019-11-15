@@ -1,20 +1,12 @@
-/**@jsx jsx */
-import { css, jsx } from "@emotion/core";
+import React from "react";
 
 import Home from "../components/home/Home";
-import NavbarContainer from "../components/navbar/NavbarContainer";
+import ViewWrapper from "./ViewWrapper";
 
 export default function HomePage() {
   return (
-    <div css={container}>
-      <NavbarContainer />
+    <ViewWrapper>
       <Home />
-    </div>
+    </ViewWrapper>
   );
 }
-
-const container = css`
-  display: flex;
-  flex-direction: column;
-  overflow-y: visible;
-`;

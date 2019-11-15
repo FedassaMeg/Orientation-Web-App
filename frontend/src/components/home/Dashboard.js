@@ -50,6 +50,10 @@ export default function Dashboard(props) {
     return quiz.type == "HD";
   });
 
+  // const onSubmit = event => {
+  //   percentage = event.target.value;
+  // };
+
   return (
     <div>
       <div css={pageheader}>My Dashboard</div>
@@ -72,6 +76,8 @@ export default function Dashboard(props) {
           compltArray={props.compltArray}
         />
       </div>
+
+      {/* <input onSubmit={onSubmit} /> */}
     </div>
   );
 }
@@ -145,4 +151,8 @@ const cancel = css`
 `;
 const list = css`
   padding: 0;
+`;
+const tempCard = css`
+  width: 100px;
+  height: 100px;
 `;

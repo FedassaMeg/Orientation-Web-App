@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/**@jsx jsx */
+import { useState } from "react";
+import { css, jsx } from "@emotion/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -8,6 +10,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 import Typography from "@material-ui/core/Typography";
 
@@ -41,7 +44,10 @@ export default function SlideList(props) {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-
+  let percentage1 = 50;
+  let percentage2 = 70;
+  let percentage3 = 25;
+  let percentage4 = 90;
   return (
     <div className={classes.root}>
       <ExpansionPanel
@@ -53,8 +59,22 @@ export default function SlideList(props) {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography className={classes.heading}>MODULE 1</Typography>
-          <div className={classes.progress}></div>
+          <div>
+            <Typography className={classes.heading}>MODULE 1</Typography>
+            <div css={tempCard}>
+              <CircularProgressbar
+                value={percentage1}
+                strokeWidth={16}
+                styles={buildStyles({
+                  pathColor: `rgba(62, 152, 199, ${percentage1 / 100})`,
+                  strokeLinecap: "butt"
+                })}
+              />
+            </div>
+            <Typography
+              className={classes.heading}
+            >{`${percentage1}%`}</Typography>
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -75,8 +95,22 @@ export default function SlideList(props) {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Typography className={classes.heading}>MODULE 3</Typography>
-          <div className={classes.progress}></div>
+          <div>
+            <Typography className={classes.heading}>MODULE 3</Typography>
+            <div css={tempCard}>
+              <CircularProgressbar
+                value={percentage2}
+                strokeWidth={16}
+                styles={buildStyles({
+                  pathColor: `rgba(62, 152, 199, ${percentage2 / 100})`,
+                  strokeLinecap: "butt"
+                })}
+              />
+            </div>
+            <Typography
+              className={classes.heading}
+            >{`${percentage2}%`}</Typography>
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -135,3 +169,8 @@ export default function SlideList(props) {
     </div>
   );
 }
+const tempCard = css`
+  width: 40px;
+  height: 40px;
+  // background-color: #f4f4f4;
+`;

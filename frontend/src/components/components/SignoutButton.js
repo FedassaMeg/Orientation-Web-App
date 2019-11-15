@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { withRouter } from "react-router-dom";
-import { useAuth } from "../utils/context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 function SignoutButton(props) {
   const { logout } = useAuth();

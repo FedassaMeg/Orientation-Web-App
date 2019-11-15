@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 
-import axios from "axios";
-
-import { useAuth } from "../utils/context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import useCallbackStatus from "../utils/use-callback-status";
 import SignUpForm from "./SignUpForm";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useAuth } from "../utils/context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import useCallbackStatus from "../utils/use-callback-status";
 import LoginForm from "./LoginForm";
 

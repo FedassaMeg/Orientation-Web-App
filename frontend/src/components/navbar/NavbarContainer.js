@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { useUser } from "../utils/context/UserContext";
+import { useUser } from "../context/UserContext";
 import Navigation from "./Navigation";
-import { truncateSync } from "fs";
 
 export default function NavbarContainer(props) {
   const user = useUser();
