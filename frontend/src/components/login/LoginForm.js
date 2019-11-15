@@ -34,6 +34,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function LoginForm({
   handleOnSubmit,
+  handleOnChange,
+  disable,
   isPending,
   isRejected,
   error
@@ -60,11 +62,16 @@ export default function LoginForm({
           >
             <div>
               <label htmlFor="username">Username</label>
-              <input id="username" />
+              <input id="username" name="username" onChange={handleOnChange} />
             </div>
             <div>
               <label htmlFor="password">Password</label>
-              <input id="password" type="password" />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                onChange={handleOnChange}
+              />
             </div>
             {isRejected ? (
               <div css={{ color: "red" }}>{error ? error.message : null}</div>
@@ -72,7 +79,7 @@ export default function LoginForm({
               <div> </div>
             )}
             <div>
-              <button type="submit">
+              <button type="submit" disabled={disable}>
                 {isPending ? "...loading" : "Login"}
               </button>
             </div>
