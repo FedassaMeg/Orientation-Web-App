@@ -59,9 +59,8 @@ export default function SlideList(props) {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <div>
-            <Typography className={classes.heading}>MODULE 1</Typography>
-            <div css={tempCard}>
+          <div css={tempCard}>
+            <div css={progressCir}>
               <CircularProgressbar
                 value={percentage1}
                 strokeWidth={16}
@@ -71,9 +70,12 @@ export default function SlideList(props) {
                 })}
               />
             </div>
-            <Typography
-              className={classes.heading}
-            >{`${percentage1}%`}</Typography>
+            <div css={progressText}>
+              <Typography className={classes.heading}>MODULE 1</Typography>
+              <Typography
+                className={classes.heading}
+              >{`${percentage1}%`}</Typography>
+            </div>
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
@@ -169,8 +171,18 @@ export default function SlideList(props) {
     </div>
   );
 }
-const tempCard = css`
+
+const progressCir = css`
   width: 40px;
   height: 40px;
+`;
+
+const tempCard = css`
+  display: flex;
+  flex-direction: row;
   // background-color: #f4f4f4;
+`;
+
+const progressText = css`
+  margin-left: 12px;
 `;
