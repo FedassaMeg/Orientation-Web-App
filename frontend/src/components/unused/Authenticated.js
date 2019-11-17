@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import Routes from "./utils/Routes";
+import Routes from "../routes/Routes";
 
 export default function App() {
   return (

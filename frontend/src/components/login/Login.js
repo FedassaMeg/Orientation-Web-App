@@ -1,35 +1,52 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
-import { useAuth } from "../utils/context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import useForm from "../utils/useForm";
 import useCallbackStatus from "../utils/use-callback-status";
 import LoginForm from "./LoginForm";
 
 export default function Login() {
-  let history = useHistory();
+  const stateSchema = {
+    username: "",
+    password: ""
+  };
+
+  const validationSchema = {
+    username: {
+      required: true
+    },
+    password: {
+      required: true
+    }
+  };
 
   const { login } = useAuth();
 
-  const { isPending, isRejected, error, run } = useCallbackStatus();
+  const { isPending, isRejected, run } = useCallbackStatus();
 
-  function handleOnSubmit(event) {
-    event.preventDefault();
-    const { username, password } = event.target.elements;
+  const { formErrors, isSubmitted, handleOnChange, handleOnSubmit } = useForm(
+    stateSchema,
+    validationSchema,
+    onSubmitForm
+  );
 
+  function onSubmitForm(state) {
     run(
       login({
-        username: username.value,
-        password: password.value
+        username: state.username,
+        password: state.password
       })
     );
   }
 
   return (
     <LoginForm
+      formErrors={formErrors}
+      isSubmitted={isSubmitted}
       handleOnSubmit={handleOnSubmit}
+      handleOnChange={handleOnChange}
       isPending={isPending}
       isRejected={isRejected}
-      error={error}
     />
   );
 }

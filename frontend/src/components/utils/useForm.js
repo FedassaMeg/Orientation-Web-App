@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 
-export const useForm = (stateSchema, validationSchema = {}, callback) => {
+const useForm = (stateSchema, validationSchema = {}, callback) => {
   const [state, setState] = useState(stateSchema);
-  const [disable, setDisable] = useState(true);
+  const [formErrors, setFormErrors] = useState(stateSchema);
   const [isDirty, setIsDirty] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     setDisable(true);
@@ -18,9 +20,9 @@ export const useForm = (stateSchema, validationSchema = {}, callback) => {
   const validateState = useCallback(() => {
     const hasErrorInState = Object.keys(validationSchema).some(key => {
       const isInputFieldRequired = validationSchema[key].required;
-      const stateValue = state[key].value;
-      const stateError = state[key].error;
-      return (isInputFieldRequired && !stateValue) || stateError;
+      const stateValue = state[key];
+      const inputError = formErrors[key];
+      return (isInputFieldRequired && !stateValue) || inputError;
     });
     return hasErrorInState;
   }, [state, validationSchema]);
@@ -40,13 +42,24 @@ export const useForm = (stateSchema, validationSchema = {}, callback) => {
         validationSchema[name].validator !== null &&
         typeof validationSchema[name].validator === "object"
       ) {
-        if (value && !validationSchema[name].validator.regEx.test(value)) {
+        if (value && validationSchema[name].validator.regEx === "") {
+          if (value.length < 6) {
+            error = validationSchema[name].validator.error;
+          }
+        } else if (
+          value &&
+          !validationSchema[name].validator.regEx.test(value)
+        ) {
           error = validationSchema[name].validator.error;
         }
       }
       setState(prevState => ({
         ...prevState,
-        [name]: { value, error }
+        [name]: value
+      }));
+      setFormErrors(prevState => ({
+        ...prevState,
+        [name]: error
       }));
     },
     [validationSchema]
@@ -58,6 +71,7 @@ export const useForm = (stateSchema, validationSchema = {}, callback) => {
       if (!validateState()) {
         callback(state);
       }
+      setIsSubmitted(true);
     },
     [state]
   );
@@ -65,7 +79,10 @@ export const useForm = (stateSchema, validationSchema = {}, callback) => {
   return {
     state,
     disable,
+    formErrors,
+    isSubmitted,
     handleOnChange,
     handleOnSubmit
   };
 };
+export default useForm;

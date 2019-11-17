@@ -5,13 +5,13 @@ from .models import Quiz, Question, QuizScore, Slide, LookUpTableSlideUser
 class SlideSerializer(serializers.ModelSerializer):
     class Meta:
         model = Slide
-        fields = ('id', 'title', 'module')
+        fields = ('id', 'title', 'module', 'user_role')
 
 
 class QuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
-        fields = ('id', 'title', 'type')
+        fields = ('id', 'title', 'type', 'user_role')
 
 
 class QuestionSerializer(serializers.ModelSerializer):

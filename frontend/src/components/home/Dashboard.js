@@ -4,6 +4,16 @@ import { css, jsx } from "@emotion/core";
 
 import QuizList from "./QuizList";
 import SlideList from "./SlideList";
+const viewheader = css`
+  font-family: "Raleway", sans-serif;
+  font-size: 45px;
+  padding-left: 90px;
+  padding-top: 10px;
+  color: rgb(78, 78, 78);
+  width: 100%;
+  padding-bottom: 10px;
+  background-color: rgb(252, 252, 252);
+`;
 
 export default function Dashboard(props) {
   const initialState = {
@@ -50,6 +60,10 @@ export default function Dashboard(props) {
     return quiz.type == "HD";
   });
 
+  // const onSubmit = event => {
+  //   percentage = event.target.value;
+  // };
+
   return (
     <div>
       <div css={pageheader}>My Dashboard</div>
@@ -72,19 +86,14 @@ export default function Dashboard(props) {
           compltArray={props.compltArray}
         />
       </div>
+
+      {/* <input onSubmit={onSubmit} /> */}
     </div>
   );
 }
 
 const pageheader = css`
-  font-family: "Noto Sans JP", sans-serif;
-  font-size: 45px;
-  padding-left: 90px;
-  padding-top: 10px;
-  color: rgb(78, 78, 78);
-  width: 100%;
-  padding-bottom: 10px;
-  background-color: rgb(252, 252, 252);
+  ${viewheader};
 `;
 
 const divider = css`
@@ -106,7 +115,7 @@ const cardscontainer = css`
 const cardTitle = css`
   align-self: flex-start;
   color: "#252525";
-  font: 20px "Open Sans", san-serif;
+  font: 20px "Raleway", san-serif;
   font-weight: 300;
   margin-left: 80px;
   margin-bottom: 20px;
@@ -145,4 +154,8 @@ const cancel = css`
 `;
 const list = css`
   padding: 0;
+`;
+const tempCard = css`
+  width: 100px;
+  height: 100px;
 `;

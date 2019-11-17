@@ -2,68 +2,67 @@
 
 import { css, jsx } from "@emotion/core";
 
+import Container from "../components/Container";
 import Modules from "../components/Modules";
 
 export default function Quizzes() {
   return (
-    <div>
-      <div css={maincontainer}>
-        <div css={pageheader}>ALL QUIZZES</div>
-        <hr css={divider} />
-        <div css={cardscontainer}>
-          <div css={moduleCard}>
-            <Modules
-              title="Quiz Set 1"
-              subtitle="Quizzes on Videos"
-              list={[
-                "HIPPA",
-                "Sexual Harassment in Health Care",
-                "Driving Safety",
-                "Proper Body Mechanics",
-                "Elder Abuse and Neglect",
-                "Infection Control Bag Technique",
-                "Blood Borne Pathogens",
-                "Personal Safety for Home Health Caregivers"
-              ]}
-              key="videoquizzes"
-              type="quiz"
-            />
-          </div>
-          <div css={moduleCard}>
-            <Modules
-              title="Quiz Set 2"
-              subtitle="Quizzes on Slides"
-              list={[
-                "Introduction to First Call",
-                "Introduction to Hospice",
-                "Visit Frequencies and Types",
-                "Determining Hospice Eligibility",
-                "Measuring Decline",
-                "Managing Secretions",
-                "Managing Nausea",
-                "Misconceptions",
-                "Death Anxiety"
-              ]}
-              key="slidequizzes"
-              type="quiz"
-            />
-          </div>
-          <div css={moduleCard}>
-            <Modules
-              title="Quiz Set 3"
-              subtitle="Quizzes on Handouts"
-              list={[
-                "Foley Catheter Handouts",
-                "Oximetry Handout",
-                "Venipuncture Handout"
-              ]}
-              key="handoutquizzes"
-              type="quiz"
-            />
-          </div>
+    <Container>
+      <div css={pageheader}>ALL QUIZZES</div>
+      <hr css={divider} />
+      <div css={cardscontainer}>
+        <div css={moduleCard}>
+          <Modules
+            title="Quiz Set 1"
+            subtitle="Quizzes on Videos"
+            list={[
+              "HIPPA",
+              "Sexual Harassment in Health Care",
+              "Driving Safety",
+              "Proper Body Mechanics",
+              "Elder Abuse and Neglect",
+              "Infection Control Bag Technique",
+              "Blood Borne Pathogens",
+              "Personal Safety for Home Health Caregivers"
+            ]}
+            key="videoquizzes"
+            type="quiz"
+          />
+        </div>
+        <div css={moduleCard}>
+          <Modules
+            title="Quiz Set 2"
+            subtitle="Quizzes on Slides"
+            list={[
+              "Introduction to First Call",
+              "Introduction to Hospice",
+              "Visit Frequencies and Types",
+              "Determining Hospice Eligibility",
+              "Measuring Decline",
+              "Managing Secretions",
+              "Managing Nausea",
+              "Misconceptions",
+              "Death Anxiety"
+            ]}
+            key="slidequizzes"
+            type="quiz"
+          />
+        </div>
+        <div css={moduleCard}>
+          <Modules
+            title="Quiz Set 3"
+            subtitle="Quizzes on Handouts"
+            list={[
+              "Foley Catheter Handouts",
+              "Oximetry Handout",
+              "Venipuncture Handout"
+            ]}
+            key="handoutquizzes"
+            type="quiz"
+          />
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 

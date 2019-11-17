@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { css, jsx } from "@emotion/core";
 
+import ViewWrapper from "./ViewWrapper";
 import NavbarContainer from "../components/navbar/NavbarContainer";
 
 export default function LandingPage() {

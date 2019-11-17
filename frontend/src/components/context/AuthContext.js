@@ -6,15 +6,22 @@ import React, {
 } from "react";
 import { useAsync } from "react-async";
 
-import * as authClient from "../auth-client";
-import { bootstrapData } from "../bootstrap-data";
+import * as authClient from "../utils/auth-client";
+import { bootstrapData } from "../utils/bootstrap-data";
 
 const AuthContext = createContext();
 
 function AuthProvider(props) {
   const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
 
-  const { data, error, isRejected, isPending, isSettled, reload } = useAsync({
+  const {
+    data = { user: null },
+    error,
+    isRejected,
+    isPending,
+    isSettled,
+    reload
+  } = useAsync({
     promiseFn: bootstrapData
   });
 

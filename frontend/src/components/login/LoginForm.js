@@ -2,47 +2,25 @@
 import { css, jsx } from "@emotion/core";
 import { Link } from "react-router-dom";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
-  },
-  formControl: {
-    margin: theme.spacing(0),
-    width: 320
-  },
-  button: {
-    backgroundColor: "#289086",
-    color: "#ffffff",
-    "&:hover": {
-      backgroundColor: "#289086"
-    },
-    marginTop: 20
-  }
-}));
+import { FiArrowRightCircle } from "react-icons/fi";
 
-export default function LoginForm({
-  handleOnSubmit,
-  isPending,
-  isRejected,
-  error
-}) {
-  const classes = useStyles();
+export default function LoginForm(props) {
+  const {
+    formErrors,
+    isSubmitted,
+    handleOnChange,
+    handleOnSubmit,
+    isPending,
+    isRejected
+  } = props;
 
   return (
     <div css={mainContainer}>
       <div css={loginCard}>
-        <div css={header}>First Call Hospice Orientation</div>
+        <div css={header}>Login</div>
+        <hr css={headerDivide} />
         <div css={bodyContainer}>
           <form
             onSubmit={handleOnSubmit}
@@ -58,64 +36,57 @@ export default function LoginForm({
             }}
           >
             <div>
-              <label htmlFor="username">Username</label>
-              <input id="username" />
+              <input
+                id="username"
+                name="username"
+                placeholder="Username"
+                onChange={handleOnChange}
+                css={usernameStyle}
+              />
+              {isSubmitted ? (
+                <div css={{ color: "red" }}>
+                  {formErrors.username ? formErrors.username : null}
+                </div>
+              ) : null}
             </div>
             <div>
-              <label htmlFor="password">Password</label>
-              <input id="password" type="password" />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                onChange={handleOnChange}
+                css={passwordStyle}
+              />
+              {isSubmitted ? (
+                <div css={{ color: "red" }}>
+                  {formErrors.password ? formErrors.password : null}
+                </div>
+              ) : null}
             </div>
             {isRejected ? (
-              <div css={{ color: "red" }}>{error ? error.message : null}</div>
+              <div css={{ color: "red" }}>
+                Incorrect username password combination!
+              </div>
             ) : (
-              <div> </div>
+              <div css={{ backgroundColor: "whitesmoke" }}>
+                Error Message Area
+              </div>
             )}
             <div>
-              <button type="submit">
-                {isPending ? "...loading" : "Login"}
+              <button type="submit" css={button}>
+                {isPending ? (
+                  <CircularProgress color="inherit" size={20} />
+                ) : (
+                  <>
+                    <FiArrowRightCircle /> sign in
+                  </>
+                )}
               </button>
             </div>
           </form>
-          {/* <FormControl
-            required
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <InputLabel htmlFor="username">Username</InputLabel>
-            <Input
-              id="username"
-              value={props.state.username}
-              name="username"
-              onChange={props.handleOnChange}
-            />
-            <FormHelperText id="username-text">
-              First intial and last name
-            </FormHelperText>
-          </FormControl>
-          <FormControl
-            required
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              id="password"
-              value={props.state.password}
-              name="password"
-              onChange={props.handleOnChange}
-              type="password"
-            />
-            <FormHelperText id="password-error-text"></FormHelperText>
-          </FormControl>
-          <Button
-            className={classes.button}
-            variant="contained"
-            onClick={props.handleOnSubmit}
-          >
-            Login
-          </Button>
-*/}
-          <div>
+
+          <div css={link}>
             <Link to="/signup">
               <span css={altLinks}>Register a new account</span>
             </Link>
@@ -134,7 +105,7 @@ const mainContainer = css`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(64, 224, 197);
+  background-color: #40e0c5;
   box-shadow: inset 0 0 250px rgba(41, 139, 130, 0.45);
 `;
 
@@ -145,19 +116,26 @@ const loginCard = css`
   padding-left: 35px;
   height: 550px;
   width: 450px;
-  background-color: white;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  background-color: #f6f6f6;
+  box-shadow: 0 32px 24px -24px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 `;
 
 // login header styles
 const header = css`
-  margin-top: 25px;
-  font: 36px "Open Sans", sans-serif;
+  margin-top: 24px;
+  font: 46px "Roboto", sans-serif;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 25px;
-  color: #289086;
+  color: #393e41;
+`;
+
+const headerDivide = css`
+  margin-top: 8px;
+  width: 100px;
+  height: 4px;
+  border: none;
+  background: linear-gradient(to right, #f6cb14, #25cfb2);
 `;
 
 // login card body styles
@@ -209,17 +187,29 @@ const link = css`
 
 // login button styles
 const button = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   padding: 5px 45px;
+  width: 150px;
   border: none;
-  border-radius: 25px;
-  background-color: #128f82;
+  border-radius: 5px;
+  // background: linear-gradient(45deg, #f6cb14 30%, #25cfb2 90%);
+  text-align: center;
   color: white;
-  font: 18px "Open Sans", sans-serif;
+  font: 14px "Open Sans", sans-serif;
+  font-weight: 400;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.15);
   transition-duration: 0.4s;
 
   &:hover {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
   }
+`;
+
+const loginBtnContent = css`
+  display: flex;
+  flex-direction: row;
 `;
 
 // alternative links styles

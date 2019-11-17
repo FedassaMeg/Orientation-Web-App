@@ -1,9 +1,9 @@
-/**@jsx jsx */
-import { css, jsx } from "@emotion/core";
+import React from "react";
+
 import get from "lodash/get";
 
-import QuizContainer from "../components/quiz/QuizContainer";
-import NavbarContainer from "../components/navbar/NavbarContainer";
+import TempQuiz from "../components/quiz/TempQuiz";
+import ViewWrapper from "./ViewWrapper";
 
 const quizzesLookup = {
   hippa: {
@@ -96,16 +96,8 @@ const quizzesLookup = {
 export default function QuizPage({ match }) {
   const quiz = get(quizzesLookup, match.params.id);
   return (
-    <div css={container}>
-      <NavbarContainer />
-      <QuizContainer quiz={quiz} />
-    </div>
+    <ViewWrapper>
+      <TempQuiz quiz={quiz} />
+    </ViewWrapper>
   );
 }
-
-const container = css`
-  margin: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;

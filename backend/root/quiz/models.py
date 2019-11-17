@@ -3,8 +3,14 @@ from users.models import CustomUser
 
 
 class Slide(models.Model):
+    USER_ROLE_CHOICES = [
+        ('ALL', 'All Staff'),
+        ('CLN', 'Clinical Staff'),
+        ('NUR', 'Nurses'),
+    ]
     title = models.CharField(max_length=100)
     module = models.IntegerField()
+    user_role = models.CharField(max_length=3, choices=USER_ROLE_CHOICES, default='ALL')
 
     def __str__(self):
         return self.title
@@ -16,13 +22,18 @@ class Quiz(models.Model):
         ('HD', 'Handout'),
         ('SL', 'Slides'),
     ]
+    USER_ROLE_CHOICES = [
+        ('ALL', 'All Staff'),
+        ('CLN', 'Clinical Staff'),
+        ('NUR', 'Nurses'),
+    ]
     title = models.CharField(max_length=100)
     type = models.CharField(
         max_length=2,
         choices=TYPE_CHOICES,
         default='VD'
     )
-
+    user_role = models.CharField(max_length=3, choices=USER_ROLE_CHOICES, default='ALL')
     def __str__(self):
         return self.title
 
@@ -80,3 +91,5 @@ class MCAnswer(models.Model):
 
 class SAAnswer(models.Model):
     answer: models.TextField()
+
+

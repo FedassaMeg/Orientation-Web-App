@@ -1,17 +1,12 @@
-/**@jsx jsx */
-import { css, jsx } from "@emotion/core";
+import React from "react";
 
 import Admin from "../components/admin/Admin";
+import ViewWrapper from "./ViewWrapper";
 
-export default function AdminPage({ match }) {
+export default function AdminPage() {
   return (
-    <div css={container}>
+    <ViewWrapper>
       <Admin />
-    </div>
+    </ViewWrapper>
   );
 }
-
-const container = css`
-  display: flex;
-  flex-direction: column;
-`;
