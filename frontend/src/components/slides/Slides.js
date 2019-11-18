@@ -7,7 +7,7 @@ import Container from "../components/Container";
 export default function Slides() {
   return (
     <Container>
-      <div css={pageheader}>ALL SLIDES</div>
+      <div css={pageheader}>All Slides</div>
       <hr css={divider} />
       <div css={cardscontainer}>
         <div css={moduleCard}>
@@ -280,7 +280,7 @@ export default function Slides() {
   );
 }
 const pageheader = css`
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 45px;
   padding-left: 90px;
   color: rgb(78, 78, 78);

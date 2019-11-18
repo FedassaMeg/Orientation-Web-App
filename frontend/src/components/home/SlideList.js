@@ -1,20 +1,22 @@
 /**@jsx jsx */
-import { useState } from "react";
 import { css, jsx } from "@emotion/core";
+
+import { useState } from "react";
+
+import { intersectionWith, cloneDeep, assign } from "lodash";
 
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-
 import Typography from "@material-ui/core/Typography";
 
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+
 import { MdExpandMore } from "react-icons/md";
+
 import HomeListItem from "./HomeListItem";
 
 const useStyles = makeStyles(theme => ({
@@ -44,10 +46,54 @@ export default function SlideList(props) {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  let percentage1 = 50;
-  let percentage2 = 70;
-  let percentage3 = 25;
-  let percentage4 = 90;
+
+  let csm1 = intersectionWith(cloneDeep(props.md1), props.comArray, (i, j) => {
+    return i.id === j.slide && assign(i, { completed: j.completed });
+  });
+  let csm3 = intersectionWith(cloneDeep(props.md3), props.comArray, (i, j) => {
+    return i.id === j.slide && assign(i, { completed: j.completed });
+  });
+  let csm4 = intersectionWith(cloneDeep(props.md4), props.comArray, (i, j) => {
+    return i.id === j.slide && assign(i, { completed: j.completed });
+  });
+  let csm5 = intersectionWith(
+    cloneDeep(props.md5),
+    props.compltArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+  let cqm1 = intersectionWith(
+    cloneDeep(props.qz1),
+    props.compltArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+  let cqm2 = intersectionWith(
+    cloneDeep(props.qz3),
+    props.compltArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+  let cqm3 = intersectionWith(
+    cloneDeep(props.qz4),
+    props.compltArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+
+  let percentage1 = (csm1.length / props.md1.length) * 100;
+  console.log(percentage1);
+  let percentage3 = (csm3.length / props.md3.length) * 100;
+  console.log(percentage3);
+  let percentage4 = (csm4.length / props.md4.length) * 100;
+  console.log(percentage4);
+  let percentage5 = (csm5.length / props.md5.length) * 100;
+  console.log(percentage5);
+
   return (
     <div className={classes.root}>
       <ExpansionPanel
@@ -97,21 +143,23 @@ export default function SlideList(props) {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <div>
-            <Typography className={classes.heading}>MODULE 3</Typography>
-            <div css={tempCard}>
+          <div css={tempCard}>
+            <div css={progressCir}>
               <CircularProgressbar
-                value={percentage2}
+                value={percentage3}
                 strokeWidth={16}
                 styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage2 / 100})`,
+                  pathColor: `rgba(62, 152, 199, ${percentage3 / 100})`,
                   strokeLinecap: "butt"
                 })}
               />
             </div>
-            <Typography
-              className={classes.heading}
-            >{`${percentage2}%`}</Typography>
+            <div css={progressText}>
+              <Typography className={classes.heading}>MODULE 3</Typography>
+              <Typography
+                className={classes.heading}
+              >{`${percentage3}%`}</Typography>
+            </div>
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
@@ -133,8 +181,24 @@ export default function SlideList(props) {
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography className={classes.heading}>MODULE 4</Typography>
-          <div className={classes.progress}></div>
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <CircularProgressbar
+                value={percentage4}
+                strokeWidth={16}
+                styles={buildStyles({
+                  pathColor: `rgba(62, 152, 199, ${percentage4 / 100})`,
+                  strokeLinecap: "butt"
+                })}
+              />
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>MODULE 4</Typography>
+              <Typography
+                className={classes.heading}
+              >{`${percentage4}%`}</Typography>
+            </div>
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -155,8 +219,24 @@ export default function SlideList(props) {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography className={classes.heading}>MODULE 5</Typography>
-          <div className={classes.progress}></div>
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <CircularProgressbar
+                value={percentage5}
+                strokeWidth={16}
+                styles={buildStyles({
+                  pathColor: `rgba(62, 152, 199, ${percentage5 / 100})`,
+                  strokeLinecap: "butt"
+                })}
+              />
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>MODULE 5</Typography>
+              <Typography
+                className={classes.heading}
+              >{`${percentage5}%`}</Typography>
+            </div>
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
