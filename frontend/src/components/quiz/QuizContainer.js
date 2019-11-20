@@ -172,6 +172,7 @@ export default function QuizContainer(props) {
       )
       .then(res => {
         console.log(res.data);
+        alert("Quiz Submitted!");
         history.push("/quizs");
       })
       .catch(err => {

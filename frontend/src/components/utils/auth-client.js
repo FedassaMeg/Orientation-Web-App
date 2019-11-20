@@ -39,7 +39,12 @@ function login({ username, password }) {
 function register({ first_name, last_name, role, password }) {
   return client("/users/", {
     data: { first_name, last_name, password, role }
-  }).catch(error => console.log(error));
+  })
+    .then(res => {
+      const username = res.data.username;
+      return login({ username, password });
+    })
+    .catch(error => console.log(error));
 }
 
 function logout() {

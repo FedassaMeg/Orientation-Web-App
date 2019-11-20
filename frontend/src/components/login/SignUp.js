@@ -56,7 +56,7 @@ function SignUp(props) {
           ? ""
           : " Password needs to be at least 6 characters long";
         break;
-      case "confirmPassword":
+      case "confirmPass":
         isConfirmPasswordValid = value == state.password;
         fieldValidationErrors.confirmPassword = isConfirmPasswordValid
           ? ""
@@ -90,13 +90,19 @@ function SignUp(props) {
 
   const handleOnSubmit = event => {
     event.preventDefault();
-
     const isFormValid =
       firstNameValid &&
       lastNameValid &&
       passwordValid &&
       confirmPasswordValid &&
       roleValid;
+    console.log(
+      firstNameValid,
+      lastNameValid,
+      passwordValid,
+      confirmPasswordValid,
+      roleValid
+    );
     if (isFormValid) {
       run(
         register({
