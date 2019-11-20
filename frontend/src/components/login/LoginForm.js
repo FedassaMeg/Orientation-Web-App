@@ -18,66 +18,75 @@ export default function LoginForm(props) {
   } = props;
 
   return (
-    <div css={loginCard}>
-      <div css={header}>Login2</div>
-      <hr css={headerDivide} />
-      <div css={bodyContainer}>
-        <form onSubmit={handleOnSubmit} css={formStyle}>
-          <input
-            id="username"
-            name="username"
-            placeholder="Username"
-            onChange={handleOnChange}
-            css={inputStyle}
-          />
-          {isSubmitted ? (
-            <div css={{ color: "red" }}>
-              {formErrors.username ? formErrors.username : null}
-            </div>
-          ) : null}
-
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={handleOnChange}
-            css={inputStyle}
-          />
-          {isSubmitted ? (
-            <div css={{ color: "red" }}>
-              {formErrors.password ? formErrors.password : null}
-            </div>
-          ) : null}
-
-          {isRejected ? (
-            <div css={{ color: "red" }}>
-              Incorrect username password combination!
-            </div>
-          ) : (
-            <div></div>
-          )}
-
-          <button type="submit" css={button}>
-            {isPending ? (
-              <CircularProgress color="inherit" size={20} />
-            ) : (
-              <div css={loginBtnContent}>
-                <FiArrowRightCircle /> sign in
+    <div css={mainContainer}>
+      <div css={loginCard}>
+        <div css={header}>Login2</div>
+        <hr css={headerDivide} />
+        <div css={bodyContainer}>
+          <form onSubmit={handleOnSubmit} css={formStyle}>
+            <input
+              id="username"
+              name="username"
+              placeholder="Username"
+              onChange={handleOnChange}
+              css={inputStyle}
+            />
+            {isSubmitted ? (
+              <div css={{ color: "red" }}>
+                {formErrors.username ? formErrors.username : null}
               </div>
-            )}
-          </button>
-        </form>
+            ) : null}
 
-        <div css={link}>
-          <Link to="/signup">
-            <span css={altLinks}>Register a new account.</span>
-          </Link>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={handleOnChange}
+              css={inputStyle}
+            />
+            {isSubmitted ? (
+              <div css={{ color: "red" }}>
+                {formErrors.password ? formErrors.password : null}
+              </div>
+            ) : null}
+
+            {isRejected ? (
+              <div css={{ color: "red" }}>
+                Incorrect username password combination!
+              </div>
+            ) : (
+              <div></div>
+            )}
+
+            <button type="submit" css={button}>
+              {isPending ? (
+                <CircularProgress color="inherit" size={20} />
+              ) : (
+                <div css={loginBtnContent}>
+                  <FiArrowRightCircle /> sign in
+                </div>
+              )}
+            </button>
+          </form>
+
+          <div css={link}>
+            <Link to="/signup">
+              <span css={altLinks}>Register a new account.</span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+const mainContainer = css`
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
 
 // login card styles
 const loginCard = css`

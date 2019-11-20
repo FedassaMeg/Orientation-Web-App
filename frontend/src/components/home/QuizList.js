@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
+
+import { useState } from "react";
+
+import { intersectionWith, cloneDeep, assign } from "lodash";
 
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
-
 import Typography from "@material-ui/core/Typography";
 
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+
 import { MdExpandMore } from "react-icons/md";
+
 import HomeListItem from "./HomeListItem";
 
 const useStyles = makeStyles(theme => ({
@@ -37,10 +42,37 @@ const useStyles = makeStyles(theme => ({
 export default function QuizList(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  console.log(props.qz1);
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  let cqm1 = intersectionWith(
+    cloneDeep(props.qzs1Arr),
+    props.compltArray,
+    (i, j) => {
+      return i.id === j.related_quiz && assign(i, { completed: j.completed });
+    }
+  );
+  let cqm2 = intersectionWith(
+    cloneDeep(props.qzs3Arr),
+    props.compltArray,
+    (i, j) => {
+      return i.id === j.related_quiz && assign(i, { completed: j.completed });
+    }
+  );
+  let cqm3 = intersectionWith(
+    cloneDeep(props.qzs4Arr),
+    props.compltArray,
+    (i, j) => {
+      return i.id === j.related_quiz && assign(i, { completed: j.completed });
+    }
+  );
+
+  let percentage1 = Math.round((cqm1.length / props.qzs1Arr.length) * 100);
+  let percentage2 = Math.round((cqm2.length / props.qzs3Arr.length) * 100);
+  let percentage3 = Math.round((cqm3.length / props.qzs4Arr.length) * 100);
 
   return (
     <div className={classes.root}>
@@ -53,8 +85,24 @@ export default function QuizList(props) {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography className={classes.heading}>VIDEOS</Typography>
-          <div className={classes.progress}></div>
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <CircularProgressbar
+                value={percentage1}
+                strokeWidth={16}
+                styles={buildStyles({
+                  pathColor: `rgba(62, 152, 199, ${percentage1 / 100})`,
+                  strokeLinecap: "butt"
+                })}
+              />
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>VIDOES</Typography>
+              <Typography
+                className={classes.heading}
+              >{`${percentage1}%`}</Typography>
+            </div>
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -75,8 +123,24 @@ export default function QuizList(props) {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Typography className={classes.heading}>SLIDES</Typography>
-          <div className={classes.progress}></div>
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <CircularProgressbar
+                value={percentage2}
+                strokeWidth={16}
+                styles={buildStyles({
+                  pathColor: `rgba(62, 152, 199, ${percentage2 / 100})`,
+                  strokeLinecap: "butt"
+                })}
+              />
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>SLIDES</Typography>
+              <Typography
+                className={classes.heading}
+              >{`${percentage2}%`}</Typography>
+            </div>
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -97,8 +161,24 @@ export default function QuizList(props) {
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography className={classes.heading}>HANDOUTS</Typography>
-          <div className={classes.progress}></div>
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <CircularProgressbar
+                value={percentage3}
+                strokeWidth={16}
+                styles={buildStyles({
+                  pathColor: `rgba(62, 152, 199, ${percentage3 / 100})`,
+                  strokeLinecap: "butt"
+                })}
+              />
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>HANDOUTS</Typography>
+              <Typography
+                className={classes.heading}
+              >{`${percentage3}%`}</Typography>
+            </div>
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List
@@ -113,3 +193,18 @@ export default function QuizList(props) {
     </div>
   );
 }
+
+const progressCir = css`
+  width: 40px;
+  height: 40px;
+`;
+
+const tempCard = css`
+  display: flex;
+  flex-direction: row;
+  // background-color: #f4f4f4;
+`;
+
+const progressText = css`
+  margin-left: 12px;
+`;

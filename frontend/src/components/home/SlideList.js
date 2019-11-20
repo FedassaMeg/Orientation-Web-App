@@ -56,43 +56,14 @@ export default function SlideList(props) {
   let csm4 = intersectionWith(cloneDeep(props.md4), props.comArray, (i, j) => {
     return i.id === j.slide && assign(i, { completed: j.completed });
   });
-  let csm5 = intersectionWith(
-    cloneDeep(props.md5),
-    props.compltArray,
-    (i, j) => {
-      return i.id === j.slide && assign(i, { completed: j.completed });
-    }
-  );
-  let cqm1 = intersectionWith(
-    cloneDeep(props.qz1),
-    props.compltArray,
-    (i, j) => {
-      return i.id === j.slide && assign(i, { completed: j.completed });
-    }
-  );
-  let cqm2 = intersectionWith(
-    cloneDeep(props.qz3),
-    props.compltArray,
-    (i, j) => {
-      return i.id === j.slide && assign(i, { completed: j.completed });
-    }
-  );
-  let cqm3 = intersectionWith(
-    cloneDeep(props.qz4),
-    props.compltArray,
-    (i, j) => {
-      return i.id === j.slide && assign(i, { completed: j.completed });
-    }
-  );
+  let csm5 = intersectionWith(cloneDeep(props.md5), props.comArray, (i, j) => {
+    return i.id === j.slide && assign(i, { completed: j.completed });
+  });
 
-  let percentage1 = (csm1.length / props.md1.length) * 100;
-  console.log(percentage1);
-  let percentage3 = (csm3.length / props.md3.length) * 100;
-  console.log(percentage3);
-  let percentage4 = (csm4.length / props.md4.length) * 100;
-  console.log(percentage4);
-  let percentage5 = (csm5.length / props.md5.length) * 100;
-  console.log(percentage5);
+  let percentage1 = Math.round((csm1.length / props.md1.length) * 100);
+  let percentage3 = Math.round((csm3.length / props.md3.length) * 100);
+  let percentage4 = Math.round((csm4.length / props.md4.length) * 100);
+  let percentage5 = Math.round((csm5.length / props.md5.length) * 100);
 
   return (
     <div className={classes.root}>

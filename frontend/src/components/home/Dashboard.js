@@ -63,7 +63,6 @@ export default function Dashboard(props) {
   // const onSubmit = event => {
   //   percentage = event.target.value;
   // };
-
   return (
     <div>
       <div css={pageheader}>My Dashboard</div>
