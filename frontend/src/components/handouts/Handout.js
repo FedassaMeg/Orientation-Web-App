@@ -12,7 +12,7 @@ export default function Handout(props) {
 
 // Handout Title [div]
 const title = css`
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 45px;
   padding-left: 90px;
   color: rgb(78, 78, 78);
