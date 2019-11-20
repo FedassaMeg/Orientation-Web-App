@@ -42,7 +42,6 @@ const useStyles = makeStyles(theme => ({
 export default function QuizList(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  console.log(props.qz1);
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -111,7 +110,11 @@ export default function QuizList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem arr={props.qzs1Arr} comArray={props.compltArray} />
+            <HomeListItem
+              arr={props.qzs1Arr}
+              comArray={props.compltArray}
+              type="quiz"
+            />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -150,7 +153,11 @@ export default function QuizList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem arr={props.qzs3Arr} comArray={props.compltArray} />
+            <HomeListItem
+              arr={props.qzs3Arr}
+              comArray={props.compltArray}
+              type="quiz"
+            />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -189,7 +196,7 @@ export default function QuizList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            {/* <HomeListItem arr={props.qzs4Arr} comArray={props.compltArray} /> */}
+            {/* <HomeListItem arr={props.qzs4Arr} comArray={props.compltArray}  type="quiz" /> */}
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>

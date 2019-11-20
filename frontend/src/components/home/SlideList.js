@@ -102,7 +102,12 @@ export default function SlideList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem arr={props.md1} comArray={props.comArray} />
+            <HomeListItem
+              arr={props.md1}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -141,7 +146,12 @@ export default function SlideList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem arr={props.md3} comArray={props.comArray} />
+            <HomeListItem
+              arr={props.md3}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -180,7 +190,12 @@ export default function SlideList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem arr={props.md4} comArray={props.comArray} />
+            <HomeListItem
+              arr={props.md4}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -219,7 +234,12 @@ export default function SlideList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem arr={props.md5} comArray={props.comArray} />
+            <HomeListItem
+              arr={props.md5}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>

@@ -77,6 +77,7 @@ export default function Dashboard(props) {
           md4={state.md4}
           md5={state.md5}
           comArray={props.comArray}
+          handleOnClick={props.handleOnClick}
         />
         <br />
         <div css={cardTitle}>QUIZZES</div>

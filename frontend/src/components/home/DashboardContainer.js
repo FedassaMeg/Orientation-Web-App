@@ -52,12 +52,38 @@ export default function DashboardContainer() {
     return decode.user_id;
   };
   const user_id = getUserIdfromToken();
+
+  const handleOnClick = event => {
+    const slideId = event.target.id;
+    let config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      }
+    };
+
+    axios
+      .post(
+        `${ROOT_URL}/lookuptableslideusers/`,
+        {
+          slide: slideId,
+          completed: true
+        },
+        config
+      )
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   return (
     <Dashboard
       quizArray={quizArray}
       compltArray={compltArray}
       slideArray={slideArray}
       comArray={comArray}
+      handleOnClick={handleOnClick}
     />
   );
 }
