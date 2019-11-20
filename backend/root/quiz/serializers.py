@@ -5,7 +5,7 @@ from .models import Quiz, Question, TFAnswer, MCAnswer, SAAnswer, QuizScore, Sli
 class SlideSerializer(serializers.ModelSerializer):
     class Meta:
         model = Slide
-        fields = ('id', 'title', 'module', 'user_role')
+        fields = ('id', 'title', 'module', 'url', 'user_role')
 
 
 class QuizSerializer(serializers.ModelSerializer):

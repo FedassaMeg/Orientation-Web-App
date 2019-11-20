@@ -10,7 +10,9 @@ class Slide(models.Model):
     ]
     title = models.CharField(max_length=100)
     module = models.IntegerField()
-    user_role = models.CharField(max_length=3, choices=USER_ROLE_CHOICES, default='ALL')
+    url = models.URLField(default='')
+    user_role = models.CharField(
+        max_length=3, choices=USER_ROLE_CHOICES, default='ALL')
 
     def __str__(self):
         return self.title
@@ -34,7 +36,9 @@ class Quiz(models.Model):
         choices=TYPE_CHOICES,
         default='VD'
     )
-    user_role = models.CharField(max_length=3, choices=USER_ROLE_CHOICES, default='ALL')
+    user_role = models.CharField(
+        max_length=3, choices=USER_ROLE_CHOICES, default='ALL')
+
     def __str__(self):
         return self.title
 
@@ -52,13 +56,16 @@ class Question(models.Model):
         default='TF'
     )
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-        
+
     def __str__(self):
         return self.question
 
+
 class TFAnswer(models.Model):
     answer = models.BooleanField(default=False)
-    question = models.OneToOneField(Question, on_delete=models.CASCADE, primary_key=True)
+    question = models.OneToOneField(
+        Question, on_delete=models.CASCADE, primary_key=True)
+
 
 class MCAnswer(models.Model):
     TYPE_CHOICES = [
@@ -74,11 +81,15 @@ class MCAnswer(models.Model):
         choices=TYPE_CHOICES,
         default='e'
     )
-    question = models.OneToOneField(Question, on_delete=models.CASCADE, primary_key=True)
+    question = models.OneToOneField(
+        Question, on_delete=models.CASCADE, primary_key=True)
+
 
 class SAAnswer(models.Model):
     answer = models.TextField(default="")
-    question = models.OneToOneField(Question, on_delete=models.CASCADE, primary_key=True)
+    question = models.OneToOneField(
+        Question, on_delete=models.CASCADE, primary_key=True)
+
 
 class QuizScore(models.Model):
     score = models.IntegerField()
@@ -93,5 +104,3 @@ class LookUpTableSlideUser(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     time = models.DateTimeField(auto_now=True)
-
-
