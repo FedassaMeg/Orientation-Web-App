@@ -30,6 +30,7 @@ export default function QuizContainer(props) {
 
   // Component state
   const [dataArr, setDataArr] = useState([]);
+  const [tfaRes, setTfaRes] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [inputMap, setInputMap] = useState(new Map());
   const [ansArr, setAnsArr] = useState([]);
@@ -39,10 +40,11 @@ export default function QuizContainer(props) {
 
   // Runs on component mount
   useEffect(() => {
-    axios.all([getQuiz(), getQuestionsByQuizId()]).then(
-      axios.spread((qz, qts) => {
+    axios.all([getQuiz(), getQuestionsByQuizId(), getTFAnswersByQuizId()]).then(
+      axios.spread((qz, qts, tfa) => {
         setDataArr(qts.data);
         setQuiz(qz.data);
+        setTfaRes(tfa.data);
       })
     );
   }, []);
@@ -59,13 +61,18 @@ export default function QuizContainer(props) {
     return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}/questions`);
   };
 
+  // Request for Question answers given a Quiz id
+  const getTFAnswersByQuizId = () => {
+    return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}/tfanswers`);
+  };
+
   // This funtion is used to iterate forward through questions
   const next = () => {
     if (activeIndex < dataArr.length - 1) {
       setActiveIndex(activeIndex + 1);
     } else if (activeIndex + 1 === dataArr.length) {
       setIsCompleted(true);
-      createAnsArr(dataArr);
+      createAnsArr(tfaRes);
     } else {
       return;
     }
@@ -123,11 +130,13 @@ export default function QuizContainer(props) {
     let newArr = [];
     arr.map(question => {
       newArr.push({
-        id: question.id,
+        id: question.question,
         answer: question.answer
       });
     });
     setAnsArr(newArr);
+    console.log(arr);
+    console.log(newArr);
   };
 
   // Helper function to invaluate the user input against the answers and determine a score
@@ -146,7 +155,6 @@ export default function QuizContainer(props) {
     event.preventDefault();
     const quizId = quiz.id;
     inputMap.forEach(compareAnsToInput);
-    console.log(score);
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`

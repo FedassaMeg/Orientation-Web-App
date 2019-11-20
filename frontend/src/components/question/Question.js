@@ -50,7 +50,7 @@ export default function Question(props) {
             ) : (
               <TFChoices
                 handleOnChange={props.handleOnChange}
-                key={props.question.id}
+                qstId={props.question.id}
                 answers={props.answers}
               />
             )}

@@ -19,6 +19,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = ('id', 'question', 'quiz', 'type')
 
+
 class TFAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = TFAnswer
