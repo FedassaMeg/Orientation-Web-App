@@ -11,6 +11,7 @@ export default function DashboardContainer() {
   const [compltArray, setCompltArray] = useState([]);
   const [slideArray, setSlideArray] = useState([]);
   const [comArray, setComArray] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     axios
@@ -26,9 +27,10 @@ export default function DashboardContainer() {
           setCompltArray(comQzs.data);
           setSlideArray(slds.data);
           setComArray(comSlds.data);
+          setToggle(false);
         })
       );
-  }, []);
+  }, [toggle]);
 
   const getQuizzes = () => {
     return axios.get(`${ROOT_URL}/quizs/`);
@@ -55,6 +57,7 @@ export default function DashboardContainer() {
 
   const handleOnClick = event => {
     const slideId = event.target.id;
+    setToggle(true);
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -70,9 +73,6 @@ export default function DashboardContainer() {
         },
         config
       )
-      .then(res => {
-        console.log(res);
-      })
       .catch(err => {
         console.log(err);
       });
