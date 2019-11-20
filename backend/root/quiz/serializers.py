@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Quiz, Question, QuizScore, Slide, LookUpTableSlideUser
+from .models import Quiz, Question, TFAnswer, MCAnswer, SAAnswer, QuizScore, Slide, LookUpTableSlideUser
 
 
 class SlideSerializer(serializers.ModelSerializer):
@@ -17,7 +17,24 @@ class QuizSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'question', 'answer', 'quiz', 'type')
+        fields = ('id', 'question', 'quiz', 'type')
+
+class TFAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TFAnswer
+        fields = ('question', 'answer')
+
+
+class MCAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MCAnswer
+        fields = ('question', 'answer')
+
+
+class SAAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SAAnswer
+        fields = ('question', 'answer')
 
 
 class QuizScoreSerializer(serializers.ModelSerializer):

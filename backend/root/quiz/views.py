@@ -2,8 +2,8 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Quiz, Question, QuizScore, Slide, LookUpTableSlideUser
-from .serializers import QuizSerializer, QuestionSerializer, QuizScoreSerializer, SlideSerializer, LookUpTableSlideUserSerializer
+from .models import Quiz, Question, TFAnswer, MCAnswer, SAAnswer, QuizScore, Slide, LookUpTableSlideUser
+from .serializers import QuizSerializer, QuestionSerializer, TFAnswerSerializer, MCAnswerSerializer, SAAnswerSerializer, QuizScoreSerializer, SlideSerializer, LookUpTableSlideUserSerializer
 
 
 class SlideViewSet(viewsets.ModelViewSet):
@@ -23,6 +23,35 @@ class QuestionViewSet(viewsets.ModelViewSet):
     def list(self, request, pk):
         queryset = Question.objects.filter(quiz=pk)
         serializer = QuestionSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+class TFAnswerViewSet(viewsets.ModelViewSet):
+    serializer_class = TFAnswerSerializer
+    queryset = TFAnswer.objects.all()
+
+    def list(self, request, pk):
+        queryset = TFAnswer.objects.filter(question__quiz=pk)
+        serializer = TFAnswerSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class MCAnswerViewSet(viewsets.ModelViewSet):
+    serializer_class = MCAnswerSerializer
+    queryset = MCAnswer.objects.all()
+
+    def list(self, request, pk):
+        queryset = MCAnswer.objects.filter(question__quiz=pk)
+        serializer = MCAnswerSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class SAAnswerViewSet(viewsets.ModelViewSet):
+    serializer_class = SAAnswerSerializer
+    queryset = SAAnswer.objects.all()
+
+    def list(self, request, pk):
+        queryset = SAAnswer.objects.filter(question__quiz=pk)
+        serializer = SAAnswerSerializer(queryset, many=True)
         return Response(serializer.data)
 
 

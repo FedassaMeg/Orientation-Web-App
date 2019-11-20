@@ -37,129 +37,127 @@ const useStyles = makeStyles(theme => ({
 export default function SignUpForm(props) {
   const classes = useStyles();
   return (
-    <div css={mainContainer}>
-      <div css={loginCard}>
-        {/* <div css={header}>Create Account</div> */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="space-around"
-          alignItems="center"
-          height="100%"
+    <div css={loginCard}>
+      {/* <div css={header}>Create Account</div> */}
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-around"
+        alignItems="center"
+        height="100%"
+      >
+        <FormControl
+          required
+          error={!props.firstNameValid}
+          component="fieldset"
+          className={classes.formControl}
         >
-          <FormControl
-            required
-            error={!props.firstNameValid}
-            component="fieldset"
-            className={classes.formControl}
+          <InputLabel htmlFor="first-name">First Name</InputLabel>
+          <Input
+            id="first-name"
+            value={props.state.firstName}
+            name="firstName"
+            onChange={props.handleOnChange}
+          />
+          <FormHelperText id="first-name-error-text">
+            {props.formErrors.firstName}
+          </FormHelperText>
+        </FormControl>
+        <FormControl
+          required
+          error={!props.lastNameValid}
+          component="fieldset"
+          className={classes.formControl}
+        >
+          <InputLabel htmlFor="last-name">Last Name</InputLabel>
+          <Input
+            id="last-name"
+            value={props.state.lastName}
+            name="lastName"
+            onChange={props.handleOnChange}
+          />
+          <FormHelperText id="last-name-error-text">
+            {props.formErrors.lastName}
+          </FormHelperText>
+        </FormControl>
+        <FormControl
+          required
+          error={!props.roleValid}
+          component="fieldset"
+          className={classes.formControl}
+        >
+          <InputLabel htmlFor="role">Role</InputLabel>
+          <Select
+            id="role"
+            value={props.state.role}
+            name="role"
+            onChange={props.handleOnChange}
           >
-            <InputLabel htmlFor="first-name">First Name</InputLabel>
-            <Input
-              id="first-name"
-              value={props.state.firstName}
-              name="firstName"
-              onChange={props.handleOnChange}
-            />
-            <FormHelperText id="first-name-error-text">
-              {props.formErrors.firstName}
-            </FormHelperText>
-          </FormControl>
-          <FormControl
-            required
-            error={!props.lastNameValid}
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <InputLabel htmlFor="last-name">Last Name</InputLabel>
-            <Input
-              id="last-name"
-              value={props.state.lastName}
-              name="lastName"
-              onChange={props.handleOnChange}
-            />
-            <FormHelperText id="last-name-error-text">
-              {props.formErrors.lastName}
-            </FormHelperText>
-          </FormControl>
-          <FormControl
-            required
-            error={!props.roleValid}
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <InputLabel htmlFor="role">Role</InputLabel>
-            <Select
-              id="role"
-              value={props.state.role}
-              name="role"
-              onChange={props.handleOnChange}
-            >
-              <MenuItem value="RN">Nurse - RN</MenuItem>
-              <MenuItem value="LV">Nurse - LVN</MenuItem>
-              <MenuItem value="HA">Hospice Aide</MenuItem>
-              <MenuItem value="SP">Spiritual Care Provider</MenuItem>
-              <MenuItem value="SW">Social Worker</MenuItem>
-              <MenuItem value="OS">Office Staff</MenuItem>
-            </Select>
-            <FormHelperText id="role-error-text">
-              {props.formErrors.role}
-            </FormHelperText>
-          </FormControl>
-          <FormControl
-            required
-            error={!props.passwordValid}
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              id="password"
-              value={props.state.password}
-              name="password"
-              onChange={props.handleOnChange}
-              type="password"
-            />
-            <FormHelperText id="password-error-text">
-              {props.formErrors.password}
-            </FormHelperText>
-          </FormControl>
-          <FormControl
-            required
-            error={!props.confirmPasswordValid}
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
-            <Input
-              id="confirm-password"
-              value={props.state.confirmPassword}
-              name="confirmPassword"
-              onChange={props.handleOnChange}
-              type="password"
-            />
-            <FormHelperText id="confirm-password-error-text">
-              {props.formErrors.confirmPassword}
-            </FormHelperText>
-          </FormControl>
-          <div css={{ color: "red" }}>
-            {props.error ? props.error.message : null}
-          </div>
-          <div css={actionBar}>
-            <Link to="/login">
-              <span css={altLinks}>Already have an account?</span>
-            </Link>
+            <MenuItem value="RN">Nurse - RN</MenuItem>
+            <MenuItem value="LV">Nurse - LVN</MenuItem>
+            <MenuItem value="HA">Hospice Aide</MenuItem>
+            <MenuItem value="SP">Spiritual Care Provider</MenuItem>
+            <MenuItem value="SW">Social Worker</MenuItem>
+            <MenuItem value="OS">Office Staff</MenuItem>
+          </Select>
+          <FormHelperText id="role-error-text">
+            {props.formErrors.role}
+          </FormHelperText>
+        </FormControl>
+        <FormControl
+          required
+          error={!props.passwordValid}
+          component="fieldset"
+          className={classes.formControl}
+        >
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <Input
+            id="password"
+            value={props.state.password}
+            name="password"
+            onChange={props.handleOnChange}
+            type="password"
+          />
+          <FormHelperText id="password-error-text">
+            {props.formErrors.password}
+          </FormHelperText>
+        </FormControl>
+        <FormControl
+          required
+          error={!props.confirmPasswordValid}
+          component="fieldset"
+          className={classes.formControl}
+        >
+          <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
+          <Input
+            id="confirm-password"
+            value={props.state.confirmPassword}
+            name="confirmPassword"
+            onChange={props.handleOnChange}
+            type="password"
+          />
+          <FormHelperText id="confirm-password-error-text">
+            {props.formErrors.confirmPassword}
+          </FormHelperText>
+        </FormControl>
+        <div css={{ color: "red" }}>
+          {props.error ? props.error.message : null}
+        </div>
+        <div css={actionBar}>
+          <Link to="/login">
+            <span css={altLinks}>Already have an account?</span>
+          </Link>
 
-            <Button
-              variant="contained"
-              type="submit"
-              className={classes.button}
-              onClick={props.handleOnSubmit}
-            >
-              Create Account
-            </Button>
-          </div>
-        </Box>
-      </div>
+          <Button
+            variant="contained"
+            type="submit"
+            className={classes.button}
+            onClick={props.handleOnSubmit}
+          >
+            Create Account
+          </Button>
+        </div>
+      </Box>
     </div>
   );
 
@@ -233,28 +231,14 @@ export default function SignUpForm(props) {
   // }
 }
 
-// emotion Styles
-// container bgcolor and shadow
-const mainContainer = css`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(64, 224, 197);
-  box-shadow: inset 0 0 250px rgba(41, 139, 130, 0.45);
-`;
-
 // login card styles
 const loginCard = css`
-  padding-top: 35px;
-  padding-right: 35px;
-  padding-left: 35px;
+  padding: 35px;
   height: 550px;
   width: 450px;
   background-color: white;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  box-shadow: 0 32px 24px -24px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 `;
 
 // login header styles

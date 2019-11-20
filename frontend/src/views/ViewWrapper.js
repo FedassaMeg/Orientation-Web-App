@@ -13,7 +13,7 @@ export default function ViewWrapper({ children }) {
 
 const container = css`
   margin: 0;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 `;

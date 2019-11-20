@@ -11,7 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 
 // Local Components
 import QuestionContent from "./QuestionContent";
-import Choices from "./Choices";
+import TFChoices from "./TFChoices";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -48,7 +48,7 @@ export default function Question(props) {
             {props.question === undefined ? (
               <></>
             ) : (
-              <Choices
+              <TFChoices
                 handleOnChange={props.handleOnChange}
                 key={props.question.id}
                 answers={props.answers}

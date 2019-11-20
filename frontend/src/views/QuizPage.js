@@ -2,8 +2,8 @@ import React from "react";
 
 import get from "lodash/get";
 
-import TempQuiz from "../components/quiz/TempQuiz";
 import ViewWrapper from "./ViewWrapper";
+import QuizContainer from "../components/quiz/QuizContainer";
 
 const quizzesLookup = {
   hippa: {
@@ -97,7 +97,7 @@ export default function QuizPage({ match }) {
   const quiz = get(quizzesLookup, match.params.id);
   return (
     <ViewWrapper>
-      <TempQuiz quiz={quiz} />
+      <QuizContainer quiz={quiz} />
     </ViewWrapper>
   );
 }

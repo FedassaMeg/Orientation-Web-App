@@ -12,7 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 //React-Icons Components
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
-export default function Choices(props) {
+export default function TFChoices(props) {
   useEffect(() => {
     newValue = props.answers.get(props.key);
   }, [props.key]);

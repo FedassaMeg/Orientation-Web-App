@@ -26,6 +26,7 @@ class Quiz(models.Model):
         ('ALL', 'All Staff'),
         ('CLN', 'Clinical Staff'),
         ('NUR', 'Nurses'),
+        ('HHA', 'Hospice Aide'),
     ]
     title = models.CharField(max_length=100)
     type = models.CharField(
@@ -45,17 +46,39 @@ class Question(models.Model):
         ('MC', 'MultipleChoice'),
     ]
     question = models.TextField()
-    answer = models.BooleanField()
     type = models.CharField(
         max_length=2,
         choices=TYPE_CHOICES,
         default='TF'
     )
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-
+        
     def __str__(self):
         return self.question
 
+class TFAnswer(models.Model):
+    answer = models.BooleanField(default=False)
+    question = models.OneToOneField(Question, on_delete=models.CASCADE, primary_key=True)
+
+class MCAnswer(models.Model):
+    TYPE_CHOICES = [
+        ('a', 'First choice'),
+        ('b', 'Second choice'),
+        ('c', 'Third choice'),
+        ('d', 'Fourth choice'),
+        ('e', 'None')
+
+    ]
+    answer = models.CharField(
+        max_length=1,
+        choices=TYPE_CHOICES,
+        default='e'
+    )
+    question = models.OneToOneField(Question, on_delete=models.CASCADE, primary_key=True)
+
+class SAAnswer(models.Model):
+    answer = models.TextField(default="")
+    question = models.OneToOneField(Question, on_delete=models.CASCADE, primary_key=True)
 
 class QuizScore(models.Model):
     score = models.IntegerField()
@@ -70,26 +93,5 @@ class LookUpTableSlideUser(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     time = models.DateTimeField(auto_now=True)
-
-class TFAnswer(models.Model):
-    answer: models.BooleanField();
-
-class MCAnswer(models.Model):
-    TYPE_CHOICES = [
-        ('a', 'First choice'),
-        ('b', 'Second choice'),
-        ('c', 'Third choice'),
-        ('d', 'Fourth choice'),
-        ('e', 'None')
-
-    ]
-    answer: models.CharField(
-        max_length=1,
-        choices=TYPE_CHOICES,
-        default='e'
-    )
-
-class SAAnswer(models.Model):
-    answer: models.TextField()
 
 

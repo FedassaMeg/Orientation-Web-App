@@ -18,87 +18,73 @@ export default function LoginForm(props) {
   } = props;
 
   return (
-    <div css={mainContainer}>
-      <div css={loginCard}>
-        <div css={header}>Login</div>
-        <hr css={headerDivide} />
-        <div css={bodyContainer}>
-          <form onSubmit={handleOnSubmit} css={formStyle}>
-            <input
-              id="username"
-              name="username"
-              placeholder="Username"
-              onChange={handleOnChange}
-              css={inputStyle}
-            />
-            {isSubmitted ? (
-              <div css={{ color: "red" }}>
-                {formErrors.username ? formErrors.username : null}
-              </div>
-            ) : null}
+    <div css={loginCard}>
+      <div css={header}>Login</div>
+      <hr css={headerDivide} />
+      <div css={bodyContainer}>
+        <form onSubmit={handleOnSubmit} css={formStyle}>
+          <input
+            id="username"
+            name="username"
+            placeholder="Username"
+            onChange={handleOnChange}
+            css={inputStyle}
+          />
+          {isSubmitted ? (
+            <div css={{ color: "red" }}>
+              {formErrors.username ? formErrors.username : null}
+            </div>
+          ) : null}
 
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              onChange={handleOnChange}
-              css={inputStyle}
-            />
-            {isSubmitted ? (
-              <div css={{ color: "red" }}>
-                {formErrors.password ? formErrors.password : null}
-              </div>
-            ) : null}
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleOnChange}
+            css={inputStyle}
+          />
+          {isSubmitted ? (
+            <div css={{ color: "red" }}>
+              {formErrors.password ? formErrors.password : null}
+            </div>
+          ) : null}
 
-            {isRejected ? (
-              <div css={{ color: "red" }}>
-                Incorrect username password combination!
-              </div>
+          {isRejected ? (
+            <div css={{ color: "red" }}>
+              Incorrect username password combination!
+            </div>
+          ) : (
+            <div></div>
+          )}
+
+          <button type="submit" css={button}>
+            {isPending ? (
+              <CircularProgress color="inherit" size={20} />
             ) : (
-              <div></div>
+              <div css={loginBtnContent}>
+                <FiArrowRightCircle /> sign in
+              </div>
             )}
+          </button>
+        </form>
 
-            <button type="submit" css={button}>
-              {isPending ? (
-                <CircularProgress color="inherit" size={20} />
-              ) : (
-                <div css={loginBtnContent}>
-                  <FiArrowRightCircle /> sign in
-                </div>
-              )}
-            </button>
-          </form>
-
-          <div css={link}>
-            <Link to="/signup">
-              <span css={altLinks}>Register a new account.</span>
-            </Link>
-          </div>
+        <div css={link}>
+          <Link to="/signup">
+            <span css={altLinks}>Register a new account.</span>
+          </Link>
         </div>
       </div>
     </div>
   );
 }
 
-// emotion Styles
-// container bgcolor and shadow
-const mainContainer = css`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #40e0c5;
-  box-shadow: inset 0 0 250px rgba(41, 139, 130, 0.45);
-`;
-
 // login card styles
 const loginCard = css`
   padding: 35px;
   height: 550px;
   width: 450px;
-  background-color: #f6f6f6;
+  background-color: white;
   box-shadow: 0 32px 24px -24px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 `;
@@ -118,7 +104,7 @@ const headerDivide = css`
   width: 96px;
   height: 4px;
   border: none;
-  background: linear-gradient(to right, #f6cb14 20%, #25cfb2 90%);
+  background: linear-gradient(to right, #fcdc51 20%, #25cfb2 90%);
   // background-color: #f6cb14;
 `;
 

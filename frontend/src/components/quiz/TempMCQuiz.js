@@ -1,12 +1,12 @@
 import React from "react";
 
 import Container from "../components/Container";
-import QuizContainer from "./QuizContainer";
+import TempMCQuestion from "../question/TempMCQuestion";
 
-export default function Home() {
+export default function TempMCQuiz() {
   return (
     <Container>
-      <QuizContainer />
+      <TempMCQuestion />
     </Container>
   );
 }
