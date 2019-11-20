@@ -32,6 +32,9 @@ export default function Navigation(props) {
             <NavItem>
               <NavLink href="/videos">Videos</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/handouts">Handouts</NavLink>
+            </NavItem>
             {props.isAdmin && (
               <NavItem>
                 <NavLink href="/admin">Admin</NavLink>

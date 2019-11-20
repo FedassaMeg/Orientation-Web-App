@@ -4,6 +4,8 @@ import { css, jsx } from "@emotion/core";
 
 import QuizList from "./QuizList";
 import SlideList from "./SlideList";
+import HandoutList from "./HandoutList";
+
 const viewheader = css`
   font-family: "Raleway", sans-serif;
   font-size: 45px;
@@ -84,8 +86,10 @@ export default function Dashboard(props) {
           qzs4Arr={quizzes.qz4}
           compltArray={props.compltArray}
         />
+        <br />
+        <div css={cardTitle}>DOCUMENTS</div>
+        <HandoutList />
       </div>
-
       {/* <input onSubmit={onSubmit} /> */}
     </div>
   );

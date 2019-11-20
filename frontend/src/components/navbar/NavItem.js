@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/core";
 
 const navitem = css`
-  width: 72px;
+  width: 88px;
   height: 48px;
   display: flex;
   flex-direction: column;

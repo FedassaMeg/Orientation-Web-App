@@ -25,8 +25,9 @@ export default withRouter(SignoutButton);
 const signoutBtn = css`
   padding: 5px 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: #289086;
   color: white;
-  font: 16px "Open Sans", san-serif;
+  font: 18px "Roboto", san-serif;
+  font-style: 800;
 `;
