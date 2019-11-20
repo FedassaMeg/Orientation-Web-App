@@ -19,7 +19,7 @@ export default function LoginForm(props) {
 
   return (
     <div css={loginCard}>
-      <div css={header}>Login</div>
+      <div css={header}>Login2</div>
       <hr css={headerDivide} />
       <div css={bodyContainer}>
         <form onSubmit={handleOnSubmit} css={formStyle}>
