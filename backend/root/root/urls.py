@@ -21,7 +21,7 @@ urlpatterns = [
     path('api/quizs/<int:pk>',
          QuizViewSet.as_view({'get': 'retrieve', 'post': 'create'})),
     path('api/slides/',
-         SlideViewSet.as_view({'get': 'list', 'post': 'create'})),
+         SlideViewSet.as_view({'get': 'list', 'post': 'create', 'put': 'update'})),
     path('api/lookuptableslideusers/',
          LookUpTableSlideUserViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/quizs/<int:pk>/questions',
@@ -34,10 +34,10 @@ urlpatterns = [
          QuizScoreViewSet.as_view({'get': 'list'})),
     path('api/quizs/<int:pk>/tfanswers/',
          TFAnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
-     path('api/mcanswers/',
+    path('api/mcanswers/',
          MCAnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
-     path('api/saanswers/',
+    path('api/saanswers/',
          SAAnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
-    
+
 
 ]

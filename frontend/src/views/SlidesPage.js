@@ -1,12 +1,12 @@
 import React from "react";
 
-import Slides from "../components/slides/Slides";
+import SlidesContainer from "../components/slides/SlidesContainer";
 import ViewWrapper from "./ViewWrapper";
 
 export default function SlidesPage() {
   return (
     <ViewWrapper>
-      <Slides />
+      <SlidesContainer />
     </ViewWrapper>
   );
 }

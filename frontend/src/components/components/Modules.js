@@ -34,9 +34,15 @@ export default class Module extends Component {
     let array = this.props.list;
     let moduleList = array.map((item, index) => (
       <Fragment key={index}>
-        {this.props.type == "slide" ? (
+        {this.props.slide ? (
           <a href={item.url} target="blank" css={link}>
-            <ListGroupItem>{item.title}</ListGroupItem>
+            <ListGroupItem
+              id={item.id}
+              url={item.url}
+              onClick={this.props.handleOnClick}
+            >
+              {item.title}
+            </ListGroupItem>
           </a>
         ) : (
           <Link to={`${this.props.type}/${this.kebabCase(item)}`} css={link}>
