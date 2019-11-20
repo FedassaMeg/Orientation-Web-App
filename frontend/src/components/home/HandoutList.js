@@ -65,6 +65,7 @@ export default function HandoutList() {
                 strokeWidth={16}
                 styles={buildStyles({
                   pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                  trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
               />

@@ -92,6 +92,7 @@ export default function QuizList(props) {
                 strokeWidth={16}
                 styles={buildStyles({
                   pathColor: `rgba(62, 152, 199, ${percentage1 / 100})`,
+                  trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
               />
@@ -130,6 +131,7 @@ export default function QuizList(props) {
                 strokeWidth={16}
                 styles={buildStyles({
                   pathColor: `rgba(62, 152, 199, ${percentage2 / 100})`,
+                  trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
               />
@@ -168,6 +170,7 @@ export default function QuizList(props) {
                 strokeWidth={16}
                 styles={buildStyles({
                   pathColor: `rgba(62, 152, 199, ${percentage3 / 100})`,
+                  trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
               />

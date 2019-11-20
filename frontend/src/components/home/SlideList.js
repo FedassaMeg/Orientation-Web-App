@@ -83,6 +83,7 @@ export default function SlideList(props) {
                 strokeWidth={16}
                 styles={buildStyles({
                   pathColor: `rgba(62, 152, 199, ${percentage1 / 100})`,
+                  trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
               />
@@ -121,6 +122,7 @@ export default function SlideList(props) {
                 strokeWidth={16}
                 styles={buildStyles({
                   pathColor: `rgba(62, 152, 199, ${percentage3 / 100})`,
+                  trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
               />
@@ -159,6 +161,7 @@ export default function SlideList(props) {
                 strokeWidth={16}
                 styles={buildStyles({
                   pathColor: `rgba(62, 152, 199, ${percentage4 / 100})`,
+                  trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
               />
@@ -197,6 +200,7 @@ export default function SlideList(props) {
                 strokeWidth={16}
                 styles={buildStyles({
                   pathColor: `rgba(62, 152, 199, ${percentage5 / 100})`,
+                  trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
               />
