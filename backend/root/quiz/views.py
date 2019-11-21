@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Quiz, Question, TFAnswer, MCAnswer, SAAnswer, QuizScore, Slide, LookUpTableSlideUser
 from .serializers import QuizSerializer, QuestionSerializer, TFAnswerSerializer, MCAnswerSerializer, SAAnswerSerializer, QuizScoreSerializer, SlideSerializer, LookUpTableSlideUserSerializer
@@ -19,6 +20,8 @@ class QuizViewSet(viewsets.ModelViewSet):
 class QuestionViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
     queryset = Question.objects.all()
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ['user_role']
 
     def list(self, request, pk):
         queryset = Question.objects.filter(quiz=pk)

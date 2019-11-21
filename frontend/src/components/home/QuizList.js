@@ -97,7 +97,7 @@ export default function QuizList(props) {
               />
             </div>
             <div css={progressText}>
-              <Typography className={classes.heading}>VIDOES</Typography>
+              <Typography className={classes.heading}>VIDEOS</Typography>
               <Typography
                 className={classes.heading}
               >{`${percentage1}%`}</Typography>
