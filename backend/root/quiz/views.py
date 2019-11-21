@@ -3,18 +3,31 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Quiz, Question, TFAnswer, MCAnswer, SAAnswer, QuizScore, Slide, LookUpTableSlideUser
-from .serializers import QuizSerializer, QuestionSerializer, TFAnswerSerializer, MCAnswerSerializer, SAAnswerSerializer, QuizScoreSerializer, SlideSerializer, LookUpTableSlideUserSerializer
-
-
-class SlideViewSet(viewsets.ModelViewSet):
-    serializer_class = SlideSerializer
-    queryset = Slide.objects.all()
+from .models import Quiz, QuizType, Question, QuestionType, TFAnswer, MCAnswer, SAAnswer, QuizScore, Slide, CompletedSlides
+from .serializers import QuizSerializer, QuizTypeSerializer, QuestionSerializer, QuestionTypeSerializer, TFAnswerSerializer, MCAnswerSerializer, SAAnswerSerializer, QuizScoreSerializer, SlideSerializer, CompletedSlidesSerializer
 
 
 class QuizViewSet(viewsets.ModelViewSet):
     serializer_class = QuizSerializer
     queryset = Quiz.objects.all()
+
+
+class QuizTypeViewSet(viewsets.ModelViewSet):
+    serializer_class = QuizTypeSerializer
+    queryset = QuizType.objects.all()
+
+
+class QuizScoreViewSet(viewsets.ModelViewSet):
+    serializer_class = QuizScoreSerializer
+    queryset = QuizScore.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(signed_by=self.request.user)
+
+    def list(self, request, pk):
+        queryset = QuizScore.objects.filter(signed_by=pk)
+        serializer = QuizScoreSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
@@ -27,6 +40,12 @@ class QuestionViewSet(viewsets.ModelViewSet):
         queryset = Question.objects.filter(quiz=pk)
         serializer = QuestionSerializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class QuestionTypeViewSet(viewsets.ModelViewSet):
+    serializer_class = QuestionTypeSerializer
+    queryset = QuestionType.objects.all()
+
 
 class TFAnswerViewSet(viewsets.ModelViewSet):
     serializer_class = TFAnswerSerializer
@@ -58,27 +77,19 @@ class SAAnswerViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class QuizScoreViewSet(viewsets.ModelViewSet):
-    serializer_class = QuizScoreSerializer
-    queryset = QuizScore.objects.all()
-
-    def perform_create(self, serializer):
-        serializer.save(signed_by=self.request.user)
-
-    def list(self, request, pk):
-        queryset = QuizScore.objects.filter(signed_by=pk)
-        serializer = QuizScoreSerializer(queryset, many=True)
-        return Response(serializer.data)
+class SlideViewSet(viewsets.ModelViewSet):
+    serializer_class = SlideSerializer
+    queryset = Slide.objects.all()
 
 
-class LookUpTableSlideUserViewSet(viewsets.ModelViewSet):
-    serializer_class = LookUpTableSlideUserSerializer
-    queryset = LookUpTableSlideUser.objects.all()
+class CompletedSlidesViewSet(viewsets.ModelViewSet):
+    serializer_class = CompletedSlidesSerializer
+    queryset = CompletedSlides.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
     def list(self, request, pk):
-        queryset = LookUpTableSlideUser.objects.filter(user=pk)
-        serializer = LookUpTableSlideUserSerializer(queryset, many=True)
+        queryset = CompletedSlides.objects.filter(user=pk)
+        serializer = CompletedSlidesSerializer(queryset, many=True)
         return Response(serializer.data)

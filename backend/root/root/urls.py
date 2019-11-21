@@ -3,7 +3,7 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt import views as jwt_views
 
-from quiz.views import QuizViewSet, QuestionViewSet, SlideViewSet, QuizScoreViewSet, LookUpTableSlideUserViewSet, TFAnswerViewSet, MCAnswerViewSet, SAAnswerViewSet
+from quiz.views import QuizViewSet, QuizTypeViewSet, QuestionViewSet, QuestionTypeViewSet, SlideViewSet, QuizScoreViewSet, CompletedSlidesViewSet, TFAnswerViewSet, MCAnswerViewSet, SAAnswerViewSet
 from users.views import UserViewSet
 
 urlpatterns = [
@@ -22,14 +22,14 @@ urlpatterns = [
          QuizViewSet.as_view({'get': 'retrieve', 'post': 'create'})),
     path('api/slides/',
          SlideViewSet.as_view({'get': 'list', 'post': 'create', 'put': 'update'})),
-    path('api/lookuptableslideusers/',
-         LookUpTableSlideUserViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('api/completedslides/',
+         CompletedSlidesViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/quizs/<int:pk>/questions',
          QuestionViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/scores/',
          QuizScoreViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('api/users/<int:pk>/lookuptableslideusers/',
-         LookUpTableSlideUserViewSet.as_view({'get': 'list'})),
+    path('api/users/<int:pk>/completedslides/',
+         CompletedSlidesViewSet.as_view({'get': 'list'})),
     path('api/users/<int:pk>/scores/',
          QuizScoreViewSet.as_view({'get': 'list'})),
     path('api/quizs/<int:pk>/tfanswers/',
@@ -38,6 +38,10 @@ urlpatterns = [
          MCAnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/saanswers/',
          SAAnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('api/quiztypes/',
+         QuizTypeViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('api/questiontypes/',
+         QuestionTypeViewSet.as_view({'get': 'list', 'post': 'create'})),
 
 
 ]

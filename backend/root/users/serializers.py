@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, Role
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -26,3 +26,9 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class RoleSerializer(serializers.ModelSerializer):
+   
+    class Meta:
+        model = Role
+        fields = ('id', 'title', 'group')

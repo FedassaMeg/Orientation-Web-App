@@ -11,6 +11,7 @@
     - Update page numeration ***DONE***
     - Handles post request to submit completed quiz to backend ***DONE***
     - [11/05/19] assign value to radio buttons from inputMap
+    - Render question type based on the query results
 */
 
 import React, { useEffect, useState } from "react";
