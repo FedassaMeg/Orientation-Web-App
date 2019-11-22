@@ -45,7 +45,7 @@ export default function DashboardContainer() {
   };
 
   const getCompletedSlides = () => {
-    return axios.get(`${ROOT_URL}/users/${user_id}/lookuptableslideusers/`);
+    return axios.get(`${ROOT_URL}/users/${user_id}/completedslides/`);
   };
 
   const getUserIdfromToken = () => {
@@ -66,7 +66,7 @@ export default function DashboardContainer() {
 
     axios
       .post(
-        `${ROOT_URL}/lookuptableslideusers/`,
+        `${ROOT_URL}/completedslides/`,
         {
           slide: slideId,
           completed: true
