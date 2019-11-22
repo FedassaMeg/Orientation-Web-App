@@ -200,12 +200,12 @@ export default function SignUpForm(props) {
                 onChange={props.handleOnChange}
                 css={selectStyle}
               >
-                <option value="RN">Nurse - RN</option>
-                <option value="LV">Nurse - LVN</option>
-                <option value="HA">Hospice Aide</option>
-                <option value="SP">Spiritual Care Provider</option>
-                <option value="SW">Social Worker</option>
-                <option value="OS">Office Staff</option>
+                <option value={2}>Nurse - RN</option>
+                <option value={3}>Nurse - LVN</option>
+                <option value={4}>Hospice Aide</option>
+                <option value={5}>Spiritual Care Provider</option>
+                <option value={6}>Social Worker</option>
+                <option value={1}>Office Staff</option>
               </select>
             </div>
             <div>
@@ -356,12 +356,11 @@ const button = css`
   // background: linear-gradient(5deg, #1fab93 1%, #25cfb2 15%);
   // background: linear-gradient(5deg, #e8c015 1%, #f6cb14 15%);
   background-color: #f6cb14;
-  box-shadow: inset 0 0 3px rgba(232, 192, 21, 0.15);
-  transition-duration: 1s;
+  transition-duration: 0.25s;
 
   &:hover {
     box-shadow: 0px 0px 5px 5px rgba(204, 168, 16, 0.1);
-    background: linear-gradient(45deg, #fcdc51 20%, #25cfb2 90%);
+    background: linear-gradient(45deg, #e8c015 10%, #fcdc51 90%);
   }
 `;
 
