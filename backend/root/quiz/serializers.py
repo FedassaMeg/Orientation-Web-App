@@ -5,7 +5,7 @@ from .models import Quiz, QuizType, QuizScore, Question, QuestionType, TFAnswer,
 class QuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
-        fields = ('id', 'title', 'group')
+        fields = ('id', 'title', 'url_value', 'group')
 
 class QuizTypeSerializer(serializers.ModelSerializer):
     class Meta:

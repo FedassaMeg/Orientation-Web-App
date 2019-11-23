@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "description": "Orientation Web App for First Call Hospice",
   "private": true,
   "dependencies": {
     "@emotion/core": "^10.0.15",
@@ -45,5 +46,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest-environment-enzyme": "^7.1.2",
+    "jest-enzyme": "^7.1.2",
+    "react-test-renderer": "^16.12.0"
   }
 }

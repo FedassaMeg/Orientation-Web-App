@@ -53,6 +53,7 @@ export default function DashboardContainer() {
     const decode = jwt.decode(token);
     return decode.user_id;
   };
+
   const user_id = getUserIdfromToken();
 
   const handleOnClick = event => {

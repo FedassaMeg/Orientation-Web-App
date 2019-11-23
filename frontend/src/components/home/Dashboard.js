@@ -66,36 +66,46 @@ export default function Dashboard(props) {
   //   percentage = event.target.value;
   // };
   return (
-    <div>
+    <div css={container}>
       <div css={pageheader}>My Dashboard</div>
       <hr css={divider} />
       <div css={cardscontainer}>
-        <div css={cardTitle}>SLIDES</div>
-        <SlideList
-          md1={state.md1}
-          md3={state.md3}
-          md4={state.md4}
-          md5={state.md5}
-          comArray={props.comArray}
-          handleOnClick={props.handleOnClick}
-        />
+        <div css={cardGroup}>
+          <div css={cardTitle}>SLIDES</div>
+          <SlideList
+            md1={state.md1}
+            md3={state.md3}
+            md4={state.md4}
+            md5={state.md5}
+            comArray={props.comArray}
+            handleOnClick={props.handleOnClick}
+          />
+        </div>
+
         <br />
-        <div css={cardTitle}>QUIZZES</div>
-        <QuizList
-          qzs1Arr={quizzes.qz1}
-          qzs3Arr={quizzes.qz3}
-          qzs4Arr={quizzes.qz4}
-          compltArray={props.compltArray}
-        />
+        <div css={cardGroup}>
+          <div css={cardTitle}>QUIZZES</div>
+          <QuizList
+            qzs1Arr={quizzes.qz1}
+            qzs3Arr={quizzes.qz3}
+            qzs4Arr={quizzes.qz4}
+            compltArray={props.compltArray}
+          />
+        </div>
+
         <br />
-        <div css={cardTitle}>DOCUMENTS</div>
-        <HandoutList />
+        <div css={cardGroup}>
+          <div css={cardTitle}>DOCUMENTS</div>
+          <HandoutList />
+        </div>
       </div>
       {/* <input onSubmit={onSubmit} /> */}
     </div>
   );
 }
-
+const container = css`
+  //height: 728px;
+`;
 const pageheader = css`
   ${viewheader};
 `;
@@ -107,21 +117,32 @@ const divider = css`
 
 const cardscontainer = css`
   width: 100%;
-  padding: 50px;
+  height: 100%;
+  padding: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: 1;
+  background-color: white;
+  //box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
+`;
+
+const cardGroup = css`
+  width: 30%;
+  min-width: 300px;
+  // padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  background-color: whitesmoke;
-  box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 const cardTitle = css`
   align-self: flex-start;
-  color: "#252525";
-  font: 20px "Raleway", san-serif;
-  font-weight: 300;
-  margin-left: 80px;
+  color: rgb(78, 78, 78);
+  font: 24px "Roboto", san-serif;
+  font-weight: 500;
   margin-bottom: 20px;
   margin-top: 20px;
 `;

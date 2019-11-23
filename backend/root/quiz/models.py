@@ -5,6 +5,7 @@ from users.models import CustomUser, Role
 
 class Quiz(models.Model):
     title = models.CharField(max_length=100)
+    url_value = models.CharField(max_length=100, default='')
     group = models.ForeignKey(
         Role, on_delete=models.SET_NULL, blank=True, null=True)
 

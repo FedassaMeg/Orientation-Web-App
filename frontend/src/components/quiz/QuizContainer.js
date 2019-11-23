@@ -14,22 +14,22 @@
     - Render question type based on the query results
 */
 
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 // React Router DOM history hook
 import { useHistory } from "react-router-dom";
 
-// Axios
-import axios from "axios";
+import { useAsync } from "react-async";
 
 // Local Components
-import { ROOT_URL } from "../utils/constants";
+import Resource from "./Resource";
 import Quiz from "./Quiz";
 
 export default function QuizContainer(props) {
   let history = useHistory();
 
   // Component state
+
   const [dataArr, setDataArr] = useState([]);
   const [tfaRes, setTfaRes] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -39,163 +39,159 @@ export default function QuizContainer(props) {
   const [isCompleted, setIsCompleted] = useState(false);
   // const [transtion, setTransition] = useState(false);
 
-  // Runs on component mount
-  useEffect(() => {
-    axios.all([getQuiz(), getQuestionsByQuizId(), getTFAnswersByQuizId()]).then(
-      axios.spread((qz, qts, tfa) => {
-        setDataArr(qts.data);
-        setQuiz(qz.data);
-        setTfaRes(tfa.data);
-      })
-    );
-  }, []);
-
-  let score = 0;
-
-  // Request for Quiz data given an id
-  const getQuiz = () => {
-    return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}`);
-  };
-
-  // Request for Question data given a Quiz id
-  const getQuestionsByQuizId = () => {
-    return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}/questions`);
-  };
-
-  // Request for Question answers given a Quiz id
-  const getTFAnswersByQuizId = () => {
-    return axios.get(`${ROOT_URL}/quizs/${props.quiz.key}/tfanswers`);
-  };
-
-  // This funtion is used to iterate forward through questions
-  const next = () => {
-    if (activeIndex < dataArr.length - 1) {
-      setActiveIndex(activeIndex + 1);
-    } else if (activeIndex + 1 === dataArr.length) {
-      setIsCompleted(true);
-      createAnsArr(tfaRes);
-    } else {
-      return;
-    }
-  };
-
-  // This funtion is used to iterate backward through questions
-  const prev = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-    } else {
-      return;
-    }
-  };
-
-  // This funtion is used to navigate back from the Review Answers Page to the quiz questions
-  const back = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(0);
-      setIsCompleted(false);
-    } else {
-      return;
-    }
-  };
-
-  // Handles user interaction with radio buttons
-  const handleOnChange = event => {
-    const key = dataArr[activeIndex].id;
-    const isSelected = event.target.value === "true";
-    const added = inputMap.set(key, isSelected);
-
-    setInputMap(added);
-    console.log(inputMap);
-  };
-
-  const handleOnClick = event => {
-    // const key = id;
-    // const isSelected = value;
-    // const added = inputMap.set(key, isSelected);
-
-    // setInputMap(added);
-    console.log(event.target);
-    // console.log(id);
-    // console.log(inputMap);
-  };
-  // const onEnter = () => {
-  //   setTransition(true);
+  // // Request for Question data given a Quiz id
+  // const getQuestionsByQuizId = () => {
+  //   return axios.get(`${ROOT_URL}/quizs/${props.quiz.id}/questions`);
   // };
 
-  // const onExit = () => {
-  //   setTransition(false);
+  // // Request for Question answers given a Quiz id
+  // const getTFAnswersByQuizId = () => {
+  //   return axios.get(`${ROOT_URL}/quizs/${props.quiz.id}/tfanswers`);
   // };
 
-  // Helper function to create an array with the answers to the questions
-  const createAnsArr = arr => {
-    let newArr = [];
-    arr.map(question => {
-      newArr.push({
-        id: question.question,
-        answer: question.answer
-      });
-    });
-    setAnsArr(newArr);
-    console.log(arr);
-    console.log(newArr);
-  };
+  // // This funtion is used to iterate forward through questions
+  // const next = () => {
+  //   if (activeIndex < dataArr.length - 1) {
+  //     setActiveIndex(activeIndex + 1);
+  //   } else if (activeIndex + 1 === dataArr.length) {
+  //     setIsCompleted(true);
+  //     createAnsArr(tfaRes);
+  //   } else {
+  //     return;
+  //   }
+  // };
 
-  // Helper function to invaluate the user input against the answers and determine a score
-  const compareAnsToInput = (value, key) => {
-    let ansValue = ansArr.find(elm => {
-      return elm.id === key;
-    });
+  // // This funtion is used to iterate backward through questions
+  // const prev = () => {
+  //   if (activeIndex > 0) {
+  //     setActiveIndex(activeIndex - 1);
+  //   } else {
+  //     return;
+  //   }
+  // };
 
-    if (value == ansValue.answer) {
-      score = score + 1;
-    }
-  };
+  // // This funtion is used to navigate back from the Review Answers Page to the quiz questions
+  // const back = () => {
+  //   if (activeIndex > 0) {
+  //     setActiveIndex(0);
+  //     setIsCompleted(false);
+  //   } else {
+  //     return;
+  //   }
+  // };
 
-  // Handles submission of quiz; posts score to the backend
-  const handleSubmit = event => {
-    event.preventDefault();
-    const quizId = quiz.id;
-    inputMap.forEach(compareAnsToInput);
-    let config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`
-      }
-    };
+  // // Handles user interaction with radio buttons
+  // const handleOnChange = event => {
+  //   const key = dataArr[activeIndex].id;
+  //   const isSelected = event.target.value === "true";
+  //   const added = inputMap.set(key, isSelected);
 
-    axios
-      .post(
-        `${ROOT_URL}/scores/`,
-        {
-          score: score,
-          related_quiz: quizId
-        },
-        config
-      )
-      .then(res => {
-        console.log(res.data);
-        alert("Quiz Submitted!");
-        history.push("/quizs");
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  //   setInputMap(added);
+  //   console.log(inputMap);
+  // };
+
+  // const handleOnClick = event => {
+  //   // const key = id;
+  //   // const isSelected = value;
+  //   // const added = inputMap.set(key, isSelected);
+
+  //   // setInputMap(added);
+  //   console.log(event.target);
+  //   // console.log(id);
+  //   // console.log(inputMap);
+  // };
+  // // const onEnter = () => {
+  // //   setTransition(true);
+  // // };
+
+  // // const onExit = () => {
+  // //   setTransition(false);
+  // // };
+
+  // // Helper function to create an array with the answers to the questions
+  // const createAnsArr = arr => {
+  //   let newArr = [];
+  //   arr.map(question => {
+  //     newArr.push({
+  //       id: question.question,
+  //       answer: question.answer
+  //     });
+  //   });
+  //   setAnsArr(newArr);
+  //   console.log(arr);
+  //   console.log(newArr);
+  // };
+
+  // // Helper function to invaluate the user input against the answers and determine a score
+  // const compareAnsToInput = (value, key) => {
+  //   let ansValue = ansArr.find(elm => {
+  //     return elm.id === key;
+  //   });
+
+  //   if (value == ansValue.answer) {
+  //     score = score + 1;
+  //   }
+  // };
+
+  // // Handles submission of quiz; posts score to the backend
+  // const handleSubmit = event => {
+  //   event.preventDefault();
+  //   const quizId = quiz.id;
+  //   inputMap.forEach(compareAnsToInput);
+  //   let config = {
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("access_token")}`
+  //     }
+  //   };
+
+  //   axios
+  //     .post(
+  //       `${ROOT_URL}/scores/`,
+  //       {
+  //         score: score,
+  //         related_quiz: quizId
+  //       },
+  //       config
+  //     )
+  //     .then(res => {
+  //       console.log(res.data);
+  //       alert("Quiz Submitted!");
+  //       history.push("/quizs");
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
-    <Quiz
-      quiz={quiz}
-      totCount={dataArr.length}
-      data={dataArr}
-      question={dataArr[activeIndex]}
-      activeIndex={activeIndex}
-      next={next}
-      prev={prev}
-      back={back}
-      handleOnChange={handleOnChange}
-      handleOnClick={handleOnClick}
-      handleSubmit={handleSubmit}
-      isCompleted={isCompleted}
-      answers={inputMap}
+    <Resource
+      url={props.match.params.id}
+      render={data => {
+        if (data === undefined) {
+          return <div>error</div>;
+        } else {
+          return (
+            <div>
+              {data.quiz}, {data.user_role}
+            </div>
+          );
+        }
+      }}
     />
+    // <Quiz
+    //   quiz={quiz}
+    //   totCount={dataArr.length}
+    //   data={dataArr}
+    //   question={dataArr[activeIndex]}
+    //   activeIndex={activeIndex}
+    //   next={next}
+    //   prev={prev}
+    //   back={back}
+    //   handleOnChange={handleOnChange}
+    //   handleOnClick={handleOnClick}
+    //   handleSubmit={handleSubmit}
+    //   isCompleted={isCompleted}
+    //   answers={inputMap}
+    // />
   );
 }

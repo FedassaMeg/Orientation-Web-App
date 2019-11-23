@@ -8,6 +8,6 @@ export default function Container(props) {
 const container = css`
   flex-grow: 1;
   margin: auto;
-  max-width: 120vmin;
+  //max-width: 120vmin;
   width: 100%;
 `;
