@@ -9,13 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 //React-Icons Components
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
-export default function MCChoices() {
-  const choiceLabels = {
-    a: "Maintaining the natural curves of the spine",
-    b: "Slouching to relax",
-    c: "Not important in caregiving",
-    d: "Something that is hard to learn"
-  };
+export default function MCChoices(props) {
   const [state, setState] = useState();
 
   const handleOnChange = event => {
@@ -40,7 +34,7 @@ export default function MCChoices() {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={choiceLabels.a}
+          label={props.qstAns.choice1}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -52,7 +46,7 @@ export default function MCChoices() {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={choiceLabels.b}
+          label={props.qstAns.choice2}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -64,7 +58,7 @@ export default function MCChoices() {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={choiceLabels.c}
+          label={props.qstAns.choice3}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -76,7 +70,7 @@ export default function MCChoices() {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={choiceLabels.d}
+          label={props.qstAns.choice4}
           labelPlacement="end"
         />
       </RadioGroup>

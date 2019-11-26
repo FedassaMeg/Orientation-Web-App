@@ -1,6 +1,8 @@
 //Consume logic from container component to "Route" different types of questions to the appropriate presentation components
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import { useAsync } from "react-async";
 
 // Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,8 +12,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 
 // Local Components
+import * as apiClient from "../quiz/api-call-quiz";
 import QuestionContent from "./QuestionContent";
-import TFChoices from "../question/TFChoices";
+import Choices from "../question/Choices";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -20,18 +23,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const getQuestionType = async ({ questionId }) => {
-  let questionType;
-  try {
-    questionType = await apiClient.getQuizQuestions(quizId);
-  } catch (e) {
-    throw new Error(e);
-  }
-  return { questionType };
-};
-
 export default function Question(props) {
   const classes = useStyles();
+
   return (
     <div>
       <Card className={classes.card}>
@@ -58,9 +52,10 @@ export default function Question(props) {
             {props.question === undefined ? (
               <></>
             ) : (
-              <TFChoices
+              <Choices
                 handleOnChange={props.handleOnChange}
                 qstId={props.question.id}
+                qstType={"TF"}
                 answers={props.answers}
               />
             )}

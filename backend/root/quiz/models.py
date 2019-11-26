@@ -79,10 +79,10 @@ class MCAnswer(models.Model):
     )
     question = models.OneToOneField(
         Question, on_delete=models.CASCADE, primary_key=True)
-    choice1 = models.CharField(max_length=100, default='')
-    choice2 = models.CharField(max_length=100, default='')
-    choice3 = models.CharField(max_length=100, default='')
-    choice4 = models.CharField(max_length=100, default='')
+    choice1 = models.TextField(default='')
+    choice2 = models.TextField(default='')
+    choice3 = models.TextField(default='')
+    choice4 = models.TextField(default='')
 
 class SAAnswer(models.Model):
     answer = models.TextField(default="")

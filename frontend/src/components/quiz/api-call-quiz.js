@@ -29,11 +29,25 @@ function getQuizTFAnswers(id) {
   return client(`/quizs/${id}/tfanswers`);
 }
 
+function getTFAnswers(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/tfanswers/${id}`);
+}
+
 function getQuizMCAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
   return client(`/quizs/${id}/tfanswers`);
+}
+
+function getMCAnswers(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/mcanswers/${id}`);
 }
 
 function getQuizSAAnswers(id) {
@@ -43,6 +57,20 @@ function getQuizSAAnswers(id) {
   return client(`/quizs/${id}/tfanswers`);
 }
 
+function getSAAnswers(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/saanswers/${id}`);
+}
+
+function getQuestionType(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/questiontypes/${id}`);
+}
+
 export {
   getQuiz,
   getQuizzes,
@@ -50,5 +78,9 @@ export {
   getQuizQuestions,
   getQuizTFAnswers,
   getQuizMCAnswers,
-  getQuizSAAnswers
+  getQuizSAAnswers,
+  getQuestionType,
+  getMCAnswers,
+  getSAAnswers,
+  getTFAnswers
 };
