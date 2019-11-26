@@ -11,7 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 
 // Local Components
 import QuestionContent from "./QuestionContent";
-import TFChoices from "./TFChoices";
+import TFChoices from "../question/TFChoices";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -19,6 +19,16 @@ const useStyles = makeStyles(theme => ({
     padding: 16
   }
 }));
+
+const getQuestionType = async ({ questionId }) => {
+  let questionType;
+  try {
+    questionType = await apiClient.getQuizQuestions(quizId);
+  } catch (e) {
+    throw new Error(e);
+  }
+  return { questionType };
+};
 
 export default function Question(props) {
   const classes = useStyles();
@@ -28,7 +38,7 @@ export default function Question(props) {
         <CardContent>
           <Box pr={8} pl={8} width={750} height={80}>
             {props.question === undefined ? (
-              <h3>Loading</h3>
+              <p>Question Undefined</p>
             ) : (
               <QuestionContent
                 activeIndex={props.activeIndex}

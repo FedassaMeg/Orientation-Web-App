@@ -13,7 +13,7 @@ const AuthContext = createContext();
 
 function AuthProvider(props) {
   const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
-
+  console.log("AuthContext rendered");
   const {
     data = { user: null },
     error,
@@ -26,6 +26,7 @@ function AuthProvider(props) {
   });
 
   useLayoutEffect(() => {
+    console.log("UseLayoutEffect for AuthContext rendered");
     if (isSettled) {
       setFirstAttemptFinished(true);
     }

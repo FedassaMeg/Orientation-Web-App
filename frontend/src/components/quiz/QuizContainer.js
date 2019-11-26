@@ -1,197 +1,50 @@
-/*
-  TODO: 
-    - Get Quiz info along with related questions [axios.get(`${ROOT_URL}/quizs/${quiz.key}/questions`)] ***DONE***
-    - Get Quiz info [axios.get(`${ROOT_URL}/quizs/${quiz.key}`)] ***DONE***
-    - Pass quiz data to children [use props to pass response data or sanitized version of the response data] ***DONE***
-    - Provide logic to determine score [  maintain score; Store array with all the question answers from response data ] ***DONE*** 
-    - Maintain state of user input [ Store answers to each question ] ***DONE***
-    - Provide logic to handle next and previous ***DONE***
-    - Handle Question card transitions
-    - Hide prev button on first slide ***DONE***
-    - Update page numeration ***DONE***
-    - Handles post request to submit completed quiz to backend ***DONE***
-    - [11/05/19] assign value to radio buttons from inputMap
-    - Render question type based on the query results
-*/
-
-import React, { useLayoutEffect, useState } from "react";
-
-// React Router DOM history hook
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import { useAsync } from "react-async";
 
-// Local Components
-import Resource from "./Resource";
-import Quiz from "./Quiz";
+import * as apiClient from "./api-call-quiz";
+import { useUser } from "../context/UserContext";
+import QuizContent from "./QuizContent";
+
+const getData = async () => {
+  let quizzes;
+  try {
+    quizzes = await apiClient.getQuizzes();
+  } catch (e) {
+    throw new Error(e);
+  }
+  return { quizzes };
+};
 
 export default function QuizContainer(props) {
-  let history = useHistory();
-
-  // Component state
-
-  const [dataArr, setDataArr] = useState([]);
-  const [tfaRes, setTfaRes] = useState([]);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [inputMap, setInputMap] = useState(new Map());
-  const [ansArr, setAnsArr] = useState([]);
   const [quiz, setQuiz] = useState({});
-  const [isCompleted, setIsCompleted] = useState(false);
-  // const [transtion, setTransition] = useState(false);
 
-  // // Request for Question data given a Quiz id
-  // const getQuestionsByQuizId = () => {
-  //   return axios.get(`${ROOT_URL}/quizs/${props.quiz.id}/questions`);
-  // };
+  const { data, error, isPending, isSettled } = useAsync({
+    promiseFn: getData
+  });
 
-  // // Request for Question answers given a Quiz id
-  // const getTFAnswersByQuizId = () => {
-  //   return axios.get(`${ROOT_URL}/quizs/${props.quiz.id}/tfanswers`);
-  // };
+  const { user } = useUser();
 
-  // // This funtion is used to iterate forward through questions
-  // const next = () => {
-  //   if (activeIndex < dataArr.length - 1) {
-  //     setActiveIndex(activeIndex + 1);
-  //   } else if (activeIndex + 1 === dataArr.length) {
-  //     setIsCompleted(true);
-  //     createAnsArr(tfaRes);
-  //   } else {
-  //     return;
-  //   }
-  // };
+  const quizUrl = props.match.params.id;
 
-  // // This funtion is used to iterate backward through questions
-  // const prev = () => {
-  //   if (activeIndex > 0) {
-  //     setActiveIndex(activeIndex - 1);
-  //   } else {
-  //     return;
-  //   }
-  // };
+  useEffect(() => {
+    if (isSettled) {
+      const currQuiz = data.quizzes.data.filter(item => {
+        return item.group === user.role && item.url_value === quizUrl;
+      });
+      setQuiz(currQuiz[0]);
+    }
+  }, [isSettled]);
 
-  // // This funtion is used to navigate back from the Review Answers Page to the quiz questions
-  // const back = () => {
-  //   if (activeIndex > 0) {
-  //     setActiveIndex(0);
-  //     setIsCompleted(false);
-  //   } else {
-  //     return;
-  //   }
-  // };
+  if (isPending) return "Loading...";
+  if (error) return `Something went wrong: ${error.message}`;
+  if (data) {
+    if (quiz.id === undefined) {
+      return <div>You don't have to take this Quiz!</div>;
+    } else {
+      return <QuizContent quiz={quiz} />;
+    }
+  }
 
-  // // Handles user interaction with radio buttons
-  // const handleOnChange = event => {
-  //   const key = dataArr[activeIndex].id;
-  //   const isSelected = event.target.value === "true";
-  //   const added = inputMap.set(key, isSelected);
-
-  //   setInputMap(added);
-  //   console.log(inputMap);
-  // };
-
-  // const handleOnClick = event => {
-  //   // const key = id;
-  //   // const isSelected = value;
-  //   // const added = inputMap.set(key, isSelected);
-
-  //   // setInputMap(added);
-  //   console.log(event.target);
-  //   // console.log(id);
-  //   // console.log(inputMap);
-  // };
-  // // const onEnter = () => {
-  // //   setTransition(true);
-  // // };
-
-  // // const onExit = () => {
-  // //   setTransition(false);
-  // // };
-
-  // // Helper function to create an array with the answers to the questions
-  // const createAnsArr = arr => {
-  //   let newArr = [];
-  //   arr.map(question => {
-  //     newArr.push({
-  //       id: question.question,
-  //       answer: question.answer
-  //     });
-  //   });
-  //   setAnsArr(newArr);
-  //   console.log(arr);
-  //   console.log(newArr);
-  // };
-
-  // // Helper function to invaluate the user input against the answers and determine a score
-  // const compareAnsToInput = (value, key) => {
-  //   let ansValue = ansArr.find(elm => {
-  //     return elm.id === key;
-  //   });
-
-  //   if (value == ansValue.answer) {
-  //     score = score + 1;
-  //   }
-  // };
-
-  // // Handles submission of quiz; posts score to the backend
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   const quizId = quiz.id;
-  //   inputMap.forEach(compareAnsToInput);
-  //   let config = {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("access_token")}`
-  //     }
-  //   };
-
-  //   axios
-  //     .post(
-  //       `${ROOT_URL}/scores/`,
-  //       {
-  //         score: score,
-  //         related_quiz: quizId
-  //       },
-  //       config
-  //     )
-  //     .then(res => {
-  //       console.log(res.data);
-  //       alert("Quiz Submitted!");
-  //       history.push("/quizs");
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
-  return (
-    <Resource
-      url={props.match.params.id}
-      render={data => {
-        if (data === undefined) {
-          return <div>error</div>;
-        } else {
-          return (
-            <div>
-              {data.quiz}, {data.user_role}
-            </div>
-          );
-        }
-      }}
-    />
-    // <Quiz
-    //   quiz={quiz}
-    //   totCount={dataArr.length}
-    //   data={dataArr}
-    //   question={dataArr[activeIndex]}
-    //   activeIndex={activeIndex}
-    //   next={next}
-    //   prev={prev}
-    //   back={back}
-    //   handleOnChange={handleOnChange}
-    //   handleOnClick={handleOnClick}
-    //   handleSubmit={handleSubmit}
-    //   isCompleted={isCompleted}
-    //   answers={inputMap}
-    // />
-  );
+  return null;
 }
