@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+
+import { useAsync } from "react-async";
+
+import * as apiClient from "./api-call-home";
+
 import axios from "axios";
 import jwt from "jsonwebtoken";
 
@@ -6,47 +11,31 @@ import Dashboard from "./Dashboard";
 
 import { ROOT_URL } from "../utils/constants";
 
+const getData = async ({ user_id }) => {
+  let quizzes;
+  let quiztypes;
+  let slides;
+  let completedQuizzes;
+  let completedSlides;
+  try {
+    quizzes = await apiClient.getQuizzes(user_id);
+    quiztypes = await apiClient.getQuizTypes();
+    slides = await apiClient.getSlides(user_id);
+    completedQuizzes = await apiClient.getCompletedQuizzes(user_id);
+    completedSlides = await apiClient.getCompletedSlides(user_id);
+  } catch (e) {
+    throw new Error(e);
+  }
+  return { quizzes, quiztypes, slides, completedQuizzes, completedSlides };
+};
+
 export default function DashboardContainer() {
   const [quizArray, setQuizArray] = useState([]);
+  const [quizTypesArray, setQuizTypesArray] = useState([]);
   const [compltArray, setCompltArray] = useState([]);
   const [slideArray, setSlideArray] = useState([]);
   const [comArray, setComArray] = useState([]);
   const [toggle, setToggle] = useState(false);
-
-  useEffect(() => {
-    axios
-      .all([
-        getQuizzes(),
-        getCompletedQuizzes(),
-        getSlides(),
-        getCompletedSlides()
-      ])
-      .then(
-        axios.spread((qzs, comQzs, slds, comSlds) => {
-          setQuizArray(qzs.data);
-          setCompltArray(comQzs.data);
-          setSlideArray(slds.data);
-          setComArray(comSlds.data);
-          setToggle(false);
-        })
-      );
-  }, [toggle]);
-
-  const getQuizzes = () => {
-    return axios.get(`${ROOT_URL}/quizs/`);
-  };
-
-  const getCompletedQuizzes = () => {
-    return axios.get(`${ROOT_URL}/users/${user_id}/scores/`);
-  };
-
-  const getSlides = () => {
-    return axios.get(`${ROOT_URL}/slides/`);
-  };
-
-  const getCompletedSlides = () => {
-    return axios.get(`${ROOT_URL}/users/${user_id}/completedslides/`);
-  };
 
   const getUserIdfromToken = () => {
     const token = localStorage.getItem("access_token");
@@ -55,6 +44,21 @@ export default function DashboardContainer() {
   };
 
   const user_id = getUserIdfromToken();
+
+  const { data, error, isPending, isSettled } = useAsync({
+    promiseFn: getData,
+    user_id
+  });
+
+  useEffect(() => {
+    if (isSettled) {
+      setQuizArray(data.quizzes.data);
+      setQuizTypesArray(data.quiztypes.data);
+      setSlideArray(data.slides.data);
+      setComArray(data.completedSlides.data);
+      setCompltArray(data.completedQuizzes.data);
+    }
+  }, [isSettled, toggle]);
 
   const handleOnClick = event => {
     const slideId = event.target.id;
@@ -78,13 +82,23 @@ export default function DashboardContainer() {
         console.log(err);
       });
   };
-  return (
-    <Dashboard
-      quizArray={quizArray}
-      compltArray={compltArray}
-      slideArray={slideArray}
-      comArray={comArray}
-      handleOnClick={handleOnClick}
-    />
-  );
+
+  if (isPending) return null;
+  if (error) return null;
+  if (data) {
+    if (quizArray === undefined) {
+      return null;
+    } else {
+      return (
+        <Dashboard
+          quizArray={quizArray}
+          quizTypes={quizTypesArray}
+          compltArray={compltArray}
+          slideArray={slideArray}
+          comArray={comArray}
+          handleOnClick={handleOnClick}
+        />
+      );
+    }
+  }
 }
