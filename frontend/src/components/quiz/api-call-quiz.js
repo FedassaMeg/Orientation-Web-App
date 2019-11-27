@@ -40,7 +40,7 @@ function getQuizMCAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/tfanswers`);
+  return client(`/quizs/${id}/mcanswers`);
 }
 
 function getMCAnswers(id) {
@@ -71,6 +71,13 @@ function getQuestionType(id) {
   return client(`/questiontypes/${id}`);
 }
 
+function getQuizQuestionType(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/quizs/${id}/questiontypes`);
+}
+
 export {
   getQuiz,
   getQuizzes,
@@ -82,5 +89,6 @@ export {
   getQuestionType,
   getMCAnswers,
   getSAAnswers,
-  getTFAnswers
+  getTFAnswers,
+  getQuizQuestionType
 };

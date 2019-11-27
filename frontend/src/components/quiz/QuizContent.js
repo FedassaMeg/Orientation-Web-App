@@ -49,6 +49,10 @@ export default function QuizContent(props) {
               question={props.question}
               answers={props.answers}
               handleOnChange={props.handleOnChange}
+              qstTypeRes={props.qstTypeRes}
+              tfaRes={props.tfaRes}
+              mcaRes={props.mcaRes}
+              saaRes={props.saaRes}
             />
             <Box
               display="flex"
@@ -93,7 +97,7 @@ export default function QuizContent(props) {
           <hr css={divider} />
           <ReviewAnswers
             quiz={props.quiz}
-            questions={props.data}
+            questions={props.questions}
             answers={props.answers}
             handleOnClick={props.handleOnClick}
             //handleSubmit={props.handleSubmit}

@@ -10,20 +10,13 @@ import FormControl from "@material-ui/core/FormControl";
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
 export default function MCChoices(props) {
-  const [state, setState] = useState();
-
-  const handleOnChange = event => {
-    const choice = event.target.value;
-    setState(choice);
-  };
   return (
     <FormControl component="fieldset">
       <RadioGroup
         aria-label="answer"
         name="answer"
-        onChange={handleOnChange}
-        value={state}
-        column
+        onChange={props.handleOnChange}
+        value={null}
       >
         <FormControlLabel
           value="a"
@@ -34,7 +27,7 @@ export default function MCChoices(props) {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={props.qstAns.choice1}
+          label={props.mcaRes.choice1}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -46,7 +39,7 @@ export default function MCChoices(props) {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={props.qstAns.choice2}
+          label={props.mcaRes.choice2}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -58,7 +51,7 @@ export default function MCChoices(props) {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={props.qstAns.choice3}
+          label={props.mcaRes.choice3}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -70,7 +63,7 @@ export default function MCChoices(props) {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={props.qstAns.choice4}
+          label={props.mcaRes.choice4}
           labelPlacement="end"
         />
       </RadioGroup>

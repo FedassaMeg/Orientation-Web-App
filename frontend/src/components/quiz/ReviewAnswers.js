@@ -64,7 +64,6 @@ export default function ReviewAnswers(props) {
 
   const qstArr = props.questions.map((question, index) => {
     const userAnswer = props.answers.get(question.id) + "";
-    console.log(open);
     return (
       <div key={index} css={container}>
         <div css={list}>

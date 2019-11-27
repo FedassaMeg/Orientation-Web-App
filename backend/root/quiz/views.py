@@ -46,6 +46,11 @@ class QuestionTypeViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionTypeSerializer
     queryset = QuestionType.objects.all()
 
+    def list(self, request, pk):
+        queryset = QuestionType.objects.filter(question__quiz=pk)
+        serializer = QuestionTypeSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class TFAnswerViewSet(viewsets.ModelViewSet):
     serializer_class = TFAnswerSerializer
