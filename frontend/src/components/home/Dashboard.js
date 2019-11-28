@@ -52,14 +52,26 @@ export default function Dashboard(props) {
     return slide.module === 5;
   });
 
-  const qz1Arr = props.quizArray.filter(quiz => {
-    return quiz.type == "VD";
+  const q1Arr = props.quizTypes.filter(quiz => {
+    return quiz.type === "VD";
   });
-  const qz3Arr = props.quizArray.filter(quiz => {
-    return quiz.type == "SL";
+  const q3Arr = props.quizTypes.filter(quiz => {
+    return quiz.type === "SL";
   });
-  const qz4Arr = props.quizArray.filter(quiz => {
-    return quiz.type == "HD";
+  const q4Arr = props.quizTypes.filter(quiz => {
+    return quiz.type === "HD";
+  });
+
+  const qz1Arr = q1Arr.map(quiz => {
+    return props.quizArray.find(ele => ele.id === quiz.quiz);
+  });
+
+  const qz3Arr = q3Arr.map(quiz => {
+    return props.quizArray.find(ele => ele.id === quiz.quiz);
+  });
+
+  const qz4Arr = q4Arr.map(quiz => {
+    return props.quizArray.find(ele => ele.id === quiz.quiz);
   });
 
   // const onSubmit = event => {
