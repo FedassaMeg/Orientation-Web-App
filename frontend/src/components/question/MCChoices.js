@@ -27,7 +27,7 @@ export default function MCChoices(props) {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={props.mcaRes.choice1}
+          label={props.qstChoices[0].choice}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -39,7 +39,7 @@ export default function MCChoices(props) {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={props.mcaRes.choice2}
+          label={props.qstChoices[1].choice}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -51,7 +51,7 @@ export default function MCChoices(props) {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={props.mcaRes.choice3}
+          label={props.qstChoices[2].choice}
           labelPlacement="end"
         />
         <FormControlLabel
@@ -63,7 +63,7 @@ export default function MCChoices(props) {
               checkedIcon={<MdRadioButtonChecked fontSize="large" />}
             />
           }
-          label={props.mcaRes.choice4}
+          label={props.qstChoices[3].choice}
           labelPlacement="end"
         />
       </RadioGroup>

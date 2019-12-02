@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from "react";
 
+import axios from "axios";
+
+// React Router DOM history hook
+import { useHistory } from "react-router-dom";
+
 import { useAsync } from "react-async";
 
 import * as apiClient from "./api-call-quiz";
+import { ROOT_URL } from "../utils/constants";
 import QuizContent from "./QuizContent";
 
 const getQuizData = async ({ quizId }) => {
   let questions;
-  let questiontypes;
-  let tfanswers;
-  let mcanswers;
-  let saanswers;
+  let answers;
   try {
     questions = await apiClient.getQuizQuestions(quizId);
-    questiontypes = await apiClient.getQuizQuestionType(quizId);
-    tfanswers = await apiClient.getQuizTFAnswers(quizId);
-    mcanswers = await apiClient.getQuizMCAnswers(quizId);
-    saanswers = await apiClient.getQuizSAAnswers(quizId);
+    answers = await apiClient.getQuizAnswers(quizId);
   } catch (e) {
     throw new Error(e);
   }
-  return { questions, questiontypes, tfanswers, mcanswers, saanswers };
+  return { questions, answers };
 };
 
 export default function NQuizContent(props) {
+  let history = useHistory();
+
+  let score = 0;
+
   const [activeIndex, setActiveIndex] = useState(0);
-  const [dataArr, setDataArr] = useState([]);
-  const [qstTypeRes, setQstTypeRes] = useState([]);
-  const [tfaRes, setTfaRes] = useState([]);
-  const [mcaRes, setMcaRes] = useState([]);
-  const [saaRes, setSaaRes] = useState([]);
+  const [dataRes, setDataRes] = useState([]);
+  const [ansRes, setAnsRes] = useState([]);
   const [inputMap, setInputMap] = useState(new Map());
   const [ansArr, setAnsArr] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -44,21 +45,18 @@ export default function NQuizContent(props) {
 
   useEffect(() => {
     if (isSettled) {
-      setDataArr(data.questions.data);
-      setQstTypeRes(data.questiontypes.data);
-      setTfaRes(data.tfanswers.data);
-      setMcaRes(data.mcanswers.data);
-      setSaaRes(data.saanswers.data);
+      setDataRes(data.questions.data);
+      setAnsRes(data.answers.data);
     }
   }, [isSettled]);
 
   // This funtion is used to iterate forward through questions
   const next = () => {
-    if (activeIndex < dataArr.length - 1) {
+    if (activeIndex < dataRes.length - 1) {
       setActiveIndex(activeIndex + 1);
-    } else if (activeIndex + 1 === dataArr.length) {
+    } else if (activeIndex + 1 === dataRes.length) {
       setIsCompleted(true);
-      createAnsArr(tfaRes);
+      createAnsArr(ansRes);
     } else {
       return;
     }
@@ -86,28 +84,80 @@ export default function NQuizContent(props) {
   // Helper function to create an array with the answers to the questions
   const createAnsArr = arr => {
     let newArr = [];
-    arr.map(question => {
-      newArr.push({
-        id: question.question,
-        answer: question.answer
-      });
+    arr.map((question, index) => {
+      if (dataRes[index].type === "TF") {
+        newArr.push({
+          id: question.question,
+          answer: question.true_or_false
+        });
+      } else if (dataRes[index].type === "MC") {
+        newArr.push({
+          id: question.question,
+          answer: question.multiple_choice
+        });
+      } else if (dataRes[index].type === "SA") {
+        newArr.push({
+          id: question.question,
+          answer: question.short_answer
+        });
+      }
     });
     setAnsArr(newArr);
   };
 
   // Handles user interaction with radio buttons
   const handleOnChange = event => {
-    const key = dataArr[activeIndex].id;
+    const key = dataRes[activeIndex].id;
     let added;
-    if (qstTypeRes[activeIndex].type === "TF") {
+    if (dataRes[activeIndex].type === "TF") {
       const isSelected = event.target.value === "true";
       added = inputMap.set(key, isSelected);
     }
-    if (qstTypeRes[activeIndex].type === "MC") {
+    if (dataRes[activeIndex].type === "MC") {
       const choice = event.target.value;
       added = inputMap.set(key, choice);
     }
     setInputMap(added);
+  };
+
+  // Helper function to evaluate the user input against the answers and determine a score
+  const compareAnsToInput = (value, key) => {
+    let ansValue = ansArr.find(elm => {
+      return elm.id === key;
+    });
+    if (value == ansValue.answer) {
+      score = score + 1;
+    }
+  };
+
+  // Handles submission of quiz; posts score to the backend
+  const handleSubmit = event => {
+    event.preventDefault();
+    inputMap.forEach(compareAnsToInput);
+    console.log(score, quizId);
+    let config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      }
+    };
+
+    axios
+      .post(
+        `${ROOT_URL}/scores/`,
+        {
+          score: score,
+          related_quiz: quizId
+        },
+        config
+      )
+      .then(res => {
+        console.log(res.data);
+        alert("Quiz Submitted!");
+        history.push("/quizs");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   if (isPending) {
@@ -115,26 +165,24 @@ export default function NQuizContent(props) {
   }
   if (error) return <div>Something went wrong: {error}</div>;
   if (data) {
-    if (dataArr === undefined) {
+    if (dataRes === undefined) {
       return <div>Question data is null</div>;
     } else {
       return (
         <QuizContent
           activeIndex={activeIndex}
-          totCount={dataArr.length}
+          totCount={dataRes.length}
           quiz={props.quiz}
           isCompleted={isCompleted}
-          question={dataArr[activeIndex]}
-          questions={dataArr}
+          question={dataRes[activeIndex]}
+          questions={dataRes}
           next={next}
           prev={prev}
           back={back}
           handleOnChange={handleOnChange}
+          handleSubmit={handleSubmit}
           answers={inputMap}
-          qstTypeRes={qstTypeRes[activeIndex]}
-          tfaRes={tfaRes[activeIndex]}
-          mcaRes={mcaRes[activeIndex]}
-          saaRes={saaRes[activeIndex]}
+          ansRes={ansRes[activeIndex]}
         />
       );
     }

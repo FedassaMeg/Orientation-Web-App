@@ -16,14 +16,4 @@ function getCompletedSlides(user_id) {
   return client(`/users/${user_id}/completedslides`);
 }
 
-function getQuizTypes() {
-  return client(`/quiztypes`);
-}
-
-export {
-  getQuizzes,
-  getSlides,
-  getCompletedQuizzes,
-  getCompletedSlides,
-  getQuizTypes
-};
+export { getQuizzes, getSlides, getCompletedQuizzes, getCompletedSlides };

@@ -1,16 +1,14 @@
 from rest_framework import serializers
-from .models import Quiz, QuizType, QuizScore, Question, QuestionType, TFAnswer, MCAnswer, SAAnswer, Slide, CompletedSlides
+from .models import Quiz, QuizScore, Question, Choice, Answer, Slide, CompletedSlide
 
 
 class QuizSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.id')
+
     class Meta:
         model = Quiz
-        fields = ('id', 'title', 'url_value', 'group')
+        fields = ('id', 'type', 'title', 'url_value', 'group', 'is_active', 'created_by', 'created_at', 'updated_at')
 
-class QuizTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = QuizType
-        fields = ('quiz', 'type')
 
 class QuizScoreSerializer(serializers.ModelSerializer):
     signed_by = serializers.ReadOnlyField(source='signed_by.id')
@@ -21,33 +19,62 @@ class QuizScoreSerializer(serializers.ModelSerializer):
                   'related_quiz')
 
 
+class ChoiceSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+
+    class Meta:
+        model = Choice
+        fields = ('id', 'question', 'choice')
+        read_only_fields = ('question',)
+
+
 class QuestionSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.id')
+    choices = ChoiceSerializer(many=True)
+
     class Meta:
         model = Question
-        fields = ('id', 'question', 'quiz')
+        fields = ('id', 'type', 'question', 'choices', 'quiz', 'is_active', 'created_by', 'created_at', 'updated_at')
 
-class QuestionTypeSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        choices = validated_data.pop('choices')
+        question = Question.objects.create(**validated_data)
+        for choice in choices:
+            Choice.objects.create(**choice, question=question)
+        return question
+    
+    def update(self, instance, validated_data):
+        choices = validated_data.pop('choices')
+        instance.question = validated_data.get("question", instance.question)
+        instance.save()
+        keep_choices = []
+        existing_ids = [choice.id for choice in instance.choices]
+        for choice in choices:
+            if "id" in choice.keys():
+                if Choice.objects.filter(id=choice["id"]).exists():
+                    c = Choice.objects.get(id=choice["id"])
+                    c.choice = choice.get('choice', c.choice)
+                    c.save()
+                    keep_choices.append(c.id)
+                else:
+                    continue
+            else:
+                c = Choice.objects.create(**choice, question=question)
+                keep_choices.append(c.id)
+            
+        for choice in instance.choices:
+            if choice.id not in keep_choices:
+                choice.delete()
+
+        return instance
+
+
+
+
+class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = QuestionType
-        fields = ('question', 'type')
-
-
-class TFAnswerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TFAnswer
-        fields = ('question', 'answer')
-
-
-class MCAnswerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MCAnswer
-        fields = ('question', 'answer', 'choice1', 'choice2', 'choice3', 'choice4')
-
-
-class SAAnswerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SAAnswer
-        fields = ('question', 'answer')
+        model = Answer
+        fields = ('question', 'true_or_false', 'multiple_choice', 'short_answer')
 
 
 class SlideSerializer(serializers.ModelSerializer):
@@ -56,9 +83,9 @@ class SlideSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'module', 'url', 'group')
 
 
-class CompletedSlidesSerializer(serializers.ModelSerializer):
+class CompletedSlideSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.id')
 
     class Meta:
-        model = CompletedSlides
+        model = CompletedSlide
         fields = ('id', 'slide', 'user', 'completed', 'time')

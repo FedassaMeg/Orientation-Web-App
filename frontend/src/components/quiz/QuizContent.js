@@ -49,10 +49,7 @@ export default function QuizContent(props) {
               question={props.question}
               answers={props.answers}
               handleOnChange={props.handleOnChange}
-              qstTypeRes={props.qstTypeRes}
-              tfaRes={props.tfaRes}
-              mcaRes={props.mcaRes}
-              saaRes={props.saaRes}
+              ansRes={props.ansRes}
             />
             <Box
               display="flex"
@@ -100,7 +97,7 @@ export default function QuizContent(props) {
             questions={props.questions}
             answers={props.answers}
             handleOnClick={props.handleOnClick}
-            //handleSubmit={props.handleSubmit}
+            handleSubmit={props.handleSubmit}
             back={props.back}
           />
         </>
