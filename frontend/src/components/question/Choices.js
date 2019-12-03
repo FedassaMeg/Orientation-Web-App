@@ -8,24 +8,24 @@ import SAChoices from "./SAChoices";
 import TFChoices from "./TFChoices";
 
 export default function Choices(props) {
-  if (props.qstTypeRes.type === "TF") {
+  if (props.question.type === "TF") {
     return (
       <TFChoices
         handleOnChange={props.handleOnChange}
-        qstId={props.qstId}
+        qstId={props.question.id}
         answers={props.answers}
-        tfaRes={props.tfaRes}
+        ansRes={props.ansRes}
       />
     );
-  } else if (props.qstTypeRes.type === "MC") {
+  } else if (props.question.type === "MC") {
     return (
       <MCChoices
         handleOnChange={props.handleOnChange}
-        qstId={props.qstId}
+        qstId={props.question.id}
         answers={props.answers}
-        mcaRes={props.mcaRes}
+        qstChoices={props.question.choices}
       />
     );
-  } else if (props.qstType.type === "SA") return null;
+  } else if (props.qstType === "SA") return null;
   return null;
 }

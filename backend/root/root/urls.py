@@ -3,7 +3,7 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt import views as jwt_views
 
-from quiz.views import QuizViewSet, QuizTypeViewSet, QuestionViewSet, QuestionTypeViewSet, SlideViewSet, QuizScoreViewSet, CompletedSlidesViewSet, TFAnswerViewSet, MCAnswerViewSet, SAAnswerViewSet
+from quiz.views import QuizViewSet, QuizScoreViewSet, QuestionViewSet, ChoiceViewSet, AnswerViewSet, SlideViewSet, CompletedSlideViewSet
 from users.views import UserViewSet, RoleViewSet
 
 urlpatterns = [
@@ -23,33 +23,19 @@ urlpatterns = [
     path('api/slides/',
          SlideViewSet.as_view({'get': 'list', 'post': 'create', 'put': 'update'})),
     path('api/completedslides/',
-         CompletedSlidesViewSet.as_view({'get': 'list', 'post': 'create'})),
+         CompletedSlideViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/quizs/<int:pk>/questions',
          QuestionViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/scores/',
          QuizScoreViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/users/<int:pk>/completedslides/',
-         CompletedSlidesViewSet.as_view({'get': 'list'})),
+         CompletedSlideViewSet.as_view({'get': 'list'})),
     path('api/users/<int:pk>/scores/',
          QuizScoreViewSet.as_view({'get': 'list'})),
-    path('api/quizs/<int:pk>/tfanswers',
-         TFAnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('api/tfanswers/<int:pk>',
-         TFAnswerViewSet.as_view({'get': 'retrieve', 'post': 'create'})),
-    path('api/quizs/<int:pk>/mcanswers',
-         MCAnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('api/mcanswers/<int:pk>',
-         MCAnswerViewSet.as_view({'get': 'retrieve', 'post': 'create'})),
-    path('api/saanswers/',
-         SAAnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('api/quiztypes/',
-         QuizTypeViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('api/questiontypes/',
-         QuestionTypeViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('api/questiontypes/<int:pk>',
-         QuestionTypeViewSet.as_view({'get': 'retrieve', 'post': 'create'})),
-    path('api/quizs/<int:pk>/questiontypes',
-         QuestionTypeViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('api/quizs/<int:pk>/answers',
+         AnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('api/answers/<int:pk>',
+         AnswerViewSet.as_view({'get': 'retrieve', 'post': 'create'})),
     path('api/questions/',
          QuestionViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/roles/',

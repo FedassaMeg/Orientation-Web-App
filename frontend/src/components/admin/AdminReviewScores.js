@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import axios from "axios";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
+import MuiReviewScoresTable from "./MuiReviewScoresTable";
 
 import { ROOT_URL } from "../utils/constants";
 
@@ -15,7 +16,7 @@ export default function AdminReviewScores(props) {
     getUsers();
     getScores();
     getQuizzes();
-  }, []);
+  }, [values.id]);
 
   const getUsers = () => {
     axios
@@ -85,6 +86,12 @@ export default function AdminReviewScores(props) {
   });
   return (
     <div>
+      <div>
+        <Card header="Scores">
+          <MuiReviewScoresTable />
+        </Card>
+      </div>
+
       <div>
         <Card header="All Employees">
           <ul>{usrsArr}</ul>

@@ -13,25 +13,22 @@ import { ROOT_URL } from "../utils/constants";
 
 const getData = async ({ user_id }) => {
   let quizzes;
-  let quiztypes;
   let slides;
   let completedQuizzes;
   let completedSlides;
   try {
     quizzes = await apiClient.getQuizzes(user_id);
-    quiztypes = await apiClient.getQuizTypes();
     slides = await apiClient.getSlides(user_id);
     completedQuizzes = await apiClient.getCompletedQuizzes(user_id);
     completedSlides = await apiClient.getCompletedSlides(user_id);
   } catch (e) {
     throw new Error(e);
   }
-  return { quizzes, quiztypes, slides, completedQuizzes, completedSlides };
+  return { quizzes, slides, completedQuizzes, completedSlides };
 };
 
 export default function DashboardContainer() {
   const [quizArray, setQuizArray] = useState([]);
-  const [quizTypesArray, setQuizTypesArray] = useState([]);
   const [compltArray, setCompltArray] = useState([]);
   const [slideArray, setSlideArray] = useState([]);
   const [comArray, setComArray] = useState([]);
@@ -53,7 +50,6 @@ export default function DashboardContainer() {
   useEffect(() => {
     if (isSettled) {
       setQuizArray(data.quizzes.data);
-      setQuizTypesArray(data.quiztypes.data);
       setSlideArray(data.slides.data);
       setComArray(data.completedSlides.data);
       setCompltArray(data.completedQuizzes.data);
@@ -92,7 +88,6 @@ export default function DashboardContainer() {
       return (
         <Dashboard
           quizArray={quizArray}
-          quizTypes={quizTypesArray}
           compltArray={compltArray}
           slideArray={slideArray}
           comArray={comArray}

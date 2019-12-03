@@ -54,12 +54,9 @@ export default function Question(props) {
             ) : (
               <Choices
                 handleOnChange={props.handleOnChange}
-                qstId={props.question.id}
-                qstTypeRes={props.qstTypeRes}
+                question={props.question}
                 answers={props.answers}
-                tfaRes={props.tfaRes}
-                mcaRes={props.mcaRes}
-                saaRes={props.saaRes}
+                ansRes={props.ansRes}
               />
             )}
           </Box>

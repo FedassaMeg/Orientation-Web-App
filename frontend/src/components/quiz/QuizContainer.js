@@ -30,7 +30,8 @@ export default function QuizContainer(props) {
   useEffect(() => {
     if (isSettled) {
       const currQuiz = data.quizzes.data.filter(item => {
-        return item.group === user.role && item.url_value === quizUrl;
+        //return item.group[0] === user.role && item.url_value === quizUrl;
+        return item.url_value === quizUrl;
       });
       setQuiz(currQuiz[0]);
     }
