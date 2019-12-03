@@ -200,12 +200,14 @@ export default function SignUpForm(props) {
                 onChange={props.handleOnChange}
                 css={selectStyle}
               >
-                <option value={2}>Nurse - RN</option>
-                <option value={3}>Nurse - LVN</option>
-                <option value={4}>Hospice Aide</option>
-                <option value={5}>Spiritual Care Provider</option>
-                <option value={6}>Social Worker</option>
-                <option value={1}>Office Staff</option>
+                <option selected></option>
+                <option value={15}>Nurse - RN</option>
+                <option value={18}>Nurse - LVN</option>
+                <option value={21}>Hospice Aide</option>
+                <option value={23}>Spiritual Care Provider</option>
+                <option value={25}>Social Worker</option>
+                <option value={11}>Office Staff</option>
+                <option value={12}>Office Staff - Clinical</option>
               </select>
             </div>
             <div>
