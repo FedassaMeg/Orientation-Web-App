@@ -49,7 +49,7 @@ export default function AdminReviewScores(props) {
 
   const getScores = () => {
     axios
-      .get(`${ROOT_URL}/users/${values.id}/scores/`)
+      .get(`${ROOT_URL}/scores/`)
       .then(res => {
         setScoreArray(res.data);
         console.log(res.data);
@@ -103,7 +103,6 @@ export default function AdminReviewScores(props) {
     },
     { id: "review", label: "Admin Review" }
   ];
-
   const tableData = [
     {
       name: "First User",
@@ -148,7 +147,6 @@ export default function AdminReviewScores(props) {
       admin_review: "Not Required"
     }
   ];
-
   return (
     <div>
       <div>
