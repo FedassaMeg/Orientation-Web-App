@@ -1,8 +1,6 @@
 //Consume logic from container component to "Route" different types of questions to the appropriate presentation components
 
-import React, { useState, useEffect } from "react";
-
-import { useAsync } from "react-async";
+import React, { useEffect } from "react";
 
 // Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +10,6 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 
 // Local Components
-import * as apiClient from "../quiz/api-call-quiz";
 import QuestionContent from "./QuestionContent";
 import Choices from "../question/Choices";
 
