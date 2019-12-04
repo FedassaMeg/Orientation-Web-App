@@ -4,7 +4,7 @@ import { css, jsx } from "@emotion/core";
 export default function TableCell(props) {
   return (
     <div css={container}>
-      <div css={right}>{props.children}</div>
+      <div css={left}>{props.children}</div>
     </div>
   );
 }
