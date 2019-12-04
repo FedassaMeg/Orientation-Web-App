@@ -7,7 +7,7 @@ class QuizSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quiz
-        fields = ('id', 'type', 'title', 'url_value', 'group', 'is_active', 'created_by', 'created_at', 'updated_at')
+        fields = ('id', 'type', 'title', 'url_value', 'group', 'is_active', 'created_by', 'created_at', 'updated_at', 'is_reviewed', 'reviewed_by')
 
 
 class QuizScoreSerializer(serializers.ModelSerializer):
