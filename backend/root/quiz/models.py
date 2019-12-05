@@ -18,10 +18,13 @@ class Quiz(models.Model):
     url_value = models.CharField(max_length=100, default='')
     group = models.ManyToManyField(
         Role)
+    num_questions = models.IntegerField(default=0)
     is_active = models.BooleanField(default=False)
+    review_required = models.BooleanField(default=False)
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
     def __str__(self):
         return self.title
@@ -29,10 +32,12 @@ class Quiz(models.Model):
 
 class QuizScore(models.Model):
     score = models.IntegerField()
-    signed_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    signed_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='quiz_signed_by')
     signed_date = models.DateTimeField(auto_now=True)
     related_quiz = models.ForeignKey(
         Quiz, on_delete=models.SET_NULL, blank=True, null=True)
+    is_reviewed = models.BooleanField(default=False)
+    reviewed_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
 
 
 class Question(models.Model):
@@ -69,7 +74,6 @@ class Choice(models.Model):
         return self.choice
 
         
-
 class Answer(models.Model):
     true_or_false = models.BooleanField(blank=True, null=True)
     multiple_choice = models.CharField(max_length=1, blank=True, null=True)

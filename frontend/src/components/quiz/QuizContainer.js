@@ -17,15 +17,15 @@ const getData = async () => {
 };
 
 export default function QuizContainer(props) {
+  const quizUrl = props.match.params.id;
+
+  const { user } = useUser();
+
   const [quiz, setQuiz] = useState({});
 
   const { data, error, isPending, isSettled } = useAsync({
     promiseFn: getData
   });
-
-  const { user } = useUser();
-
-  const quizUrl = props.match.params.id;
 
   useEffect(() => {
     if (isSettled) {
@@ -36,6 +36,7 @@ export default function QuizContainer(props) {
       setQuiz(currQuiz[0]);
     }
   }, [isSettled]);
+
   if (isPending) return "Loading...";
   if (error) return `Something went wrong: ${error.message}`;
   if (data) {

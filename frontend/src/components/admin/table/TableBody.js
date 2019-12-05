@@ -1,9 +1,5 @@
 import React from "react";
 
-export default function TableBody() {
-  return (
-    <div>
-      <div></div>
-    </div>
-  );
+export default function TableBody(props) {
+  return <div>{props.children}</div>;
 }

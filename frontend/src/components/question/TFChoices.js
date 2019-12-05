@@ -1,7 +1,7 @@
 // Presentation to display ui for user input/answer [ 'Routes' based on question type(t/f, multiple choice, general)]
 // Consumes contain state to handle ui interaction
 
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 // Material UI Components
 import Radio from "@material-ui/core/Radio";
@@ -13,11 +13,7 @@ import FormControl from "@material-ui/core/FormControl";
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
 export default function TFChoices(props) {
-  // useEffect(() => {
-  //   newValue = props.answers.get(props.qstId);
-  // }, [props.qstId]);
-
-  let newValue;
+  let value;
 
   return (
     <FormControl component="fieldset">
@@ -25,7 +21,7 @@ export default function TFChoices(props) {
         aria-label="answer"
         name="answer"
         onChange={props.handleOnChange}
-        value={newValue}
+        value={value}
         row
       >
         <FormControlLabel

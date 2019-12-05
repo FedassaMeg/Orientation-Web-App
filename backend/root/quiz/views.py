@@ -21,11 +21,7 @@ class QuizScoreViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(signed_by=self.request.user)
-
-    def list(self, request, pk):
-        queryset = QuizScore.objects.filter(signed_by=pk)
-        serializer = QuizScoreSerializer(queryset, many=True)
-        return Response(serializer.data)
+   
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
