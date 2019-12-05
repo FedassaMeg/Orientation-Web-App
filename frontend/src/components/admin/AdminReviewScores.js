@@ -120,12 +120,13 @@ export default function AdminReviewScores(props) {
       doc.text(user.first_name, 10, 10);
       doc.text(user.last_name, 25, 10);
       doc.text("Employee Quiz Scores", 10, 25);
-
+      doc.save("scores.pdf");
       console.log(doc.output("datauristring"));
     }
   };
 
   const tableData = scoreArray.map(quiz => {});
+  console.log("here");
   return (
     <div>
       <div>
