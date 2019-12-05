@@ -4,7 +4,7 @@ import { useAsync } from "react-async";
 
 import * as apiClient from "./api-call-quiz";
 import { useUser } from "../context/UserContext";
-import NQuizContent from "./NQuizContent";
+import Quiz from "./Quiz";
 
 const getData = async () => {
   let quizzes;
@@ -43,7 +43,7 @@ export default function QuizContainer(props) {
     if (quiz.id === undefined) {
       return <div>You don't have to take this Quiz!</div>;
     } else {
-      return <NQuizContent quiz={quiz} />;
+      return <Quiz quiz={quiz} />;
     }
   }
 

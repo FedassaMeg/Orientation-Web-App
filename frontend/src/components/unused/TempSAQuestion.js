@@ -10,8 +10,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 
 // Local Components
-import QuestionContent from "./QuestionContent";
-import MCChoices from "./MCChoices";
+import QuestionContent from "../question/QuestionContent";
+import SAChoices from "../question/SAChoices";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -20,16 +20,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const mcquestion = "Proper posture is: ";
+const saquestion = "What does the pulse oximeter measure?";
 
-export default function TempMCQuestion() {
+export default function TempSAQuestion() {
   const classes = useStyles();
   return (
     <div>
       <Card className={classes.card}>
         <CardContent>
           <Box pr={8} pl={8} width={750} height={80}>
-            <QuestionContent activeIndex={1} question={mcquestion} />
+            <QuestionContent activeIndex={0} question={saquestion} />
           </Box>
         </CardContent>
         <CardActions>
@@ -40,7 +40,7 @@ export default function TempMCQuestion() {
             width="100%"
             pl={13}
           >
-            <MCChoices />
+            <SAChoices />
           </Box>
         </CardActions>
       </Card>
