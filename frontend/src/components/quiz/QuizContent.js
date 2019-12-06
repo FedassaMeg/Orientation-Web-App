@@ -1,7 +1,6 @@
 /**@jsx jsx */
 import React from "react";
 import { css, jsx } from "@emotion/core";
-import { Route } from "react-router-dom";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -99,6 +98,9 @@ export default function QuizContent(props) {
             handleOnClick={props.handleOnClick}
             handleSubmit={props.handleSubmit}
             back={props.back}
+            question={props.question}
+            handleOnChange={props.handleOnChange}
+            ansRes={props.ansRes}
           />
         </>
       )}
@@ -114,31 +116,11 @@ const title = css`
   width: 100%;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: rgb(252, 252, 252);
+  background-color: white;
 `;
 
 // Horizontal Divider [hr]
 const divider = css`
   margin: 0;
   border: 0.5px solid lightgrey;
-`;
-
-// Final Submit Button [button]
-const submit = css`
-  margin-top: 36px;
-  margin-right: 40px;
-  width: 80px;
-  align-self: flex-end;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: coral;
-  color: white;
-  font: 16px "Open Sans", sans-serif;
-  font-weight: 600;
-  transition-duration: 0.4s;
-
-  &:hover {
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  }
 `;

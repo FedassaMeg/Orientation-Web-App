@@ -11,7 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 
 // Local Components
 import QuestionContent from "./QuestionContent";
-import Choices from "../question/Choices";
+import Choices from "./Choices";
 
 const useStyles = makeStyles(theme => ({
   card: {

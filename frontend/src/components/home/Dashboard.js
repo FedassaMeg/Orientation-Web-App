@@ -6,17 +6,6 @@ import QuizList from "./QuizList";
 import SlideList from "./SlideList";
 import HandoutList from "./HandoutList";
 
-const viewheader = css`
-  font-family: "Raleway", sans-serif;
-  font-size: 45px;
-  padding-left: 90px;
-  padding-top: 10px;
-  color: rgb(78, 78, 78);
-  width: 100%;
-  padding-bottom: 10px;
-  background-color: rgb(252, 252, 252);
-`;
-
 export default function Dashboard(props) {
   const initialState = {
     md1: [],
@@ -103,9 +92,22 @@ export default function Dashboard(props) {
     </div>
   );
 }
+
+const viewheader = css`
+  font-family: "Raleway", sans-serif;
+  font-size: 45px;
+  padding-left: 90px;
+  padding-top: 10px;
+  color: rgb(78, 78, 78);
+  width: 100%;
+  padding-bottom: 10px;
+  background-color: white;
+`;
+
 const container = css`
   //height: 728px;
 `;
+
 const pageheader = css`
   ${viewheader};
 `;
@@ -116,22 +118,16 @@ const divider = css`
 `;
 
 const cardscontainer = css`
-  width: 100%;
-  height: 100%;
   padding: 80px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
-  flex-wrap: 1;
-  background-color: white;
-  //box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
 `;
 
 const cardGroup = css`
   width: 30%;
   min-width: 300px;
-  // padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -145,42 +141,4 @@ const cardTitle = css`
   font-weight: 500;
   margin-bottom: 20px;
   margin-top: 20px;
-`;
-
-const accList = css`
-  display: flex;
-`;
-
-const listSection = css`
-  font-size: 16px;
-  font-weight: 400;
-  padding-top: 8px;
-  padding-left: 36px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-const listRight = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`;
-const check = css`
-  margin-right: 16px;
-  padding-bottom: 4px;
-  color: green;
-`;
-const cancel = css`
-  margin-right: 16px;
-  padding-bottom: 4px;
-  color: red;
-`;
-const list = css`
-  padding: 0;
-`;
-const tempCard = css`
-  width: 100px;
-  height: 100px;
 `;

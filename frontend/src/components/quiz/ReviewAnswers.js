@@ -1,18 +1,18 @@
 /*
   TODO:
-    - Display each question with provided answers for each
+    - Display each question with provided answers for each ***Done for true false questions
     - Consumes state from container component for user answers
-    - Provides buttons to go back and edit different questions
-    - provides button to submit completed quiz
-    - Disables submit button if quiz is incomplete
+    - Provides buttons to go back and edit different questions ***DONE
+    - provides button to submit completed quiz ***DONE
+    - Disables submit button if quiz is incomplete 
     - Displays warning for questions that aren't answered
+    - Add button for each question to quick change answer 
 */
 
 /**@jsx jsx */
-
 import { css, jsx } from "@emotion/core";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,6 +26,8 @@ import Popper from "@material-ui/core/Popper";
 
 //React-Icon component
 import { MdEdit } from "react-icons/md";
+
+import Choices from "../question/Choices";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -43,35 +45,50 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ReviewAnswers(props) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState([]);
   const classes = useStyles();
+  const [sections, setSections] = useState(new Map());
+  const quizTot = props.quiz.num_questions;
+  useEffect(() => {
+    loadSections(quizTot);
+  }, [props.quiz]);
 
-  const handleOnMouseEnter = event => {
-    setAnchorEl(event.currentTarget);
-    const newArr = open.push({ [event.target.id]: true });
-    setOpen(newArr);
+  const loadSections = num => {
+    let initial;
+    for (let i = 0; i < num; i++) {
+      initial = sections.set(i, false);
+    }
+
+    setSections(initial);
+    console.log(sections);
   };
 
-  const handleOnMouseLeave = event => {
-    const newArr = open.push({ [event.target.id]: false });
-    setOpen(newArr);
-  };
-
-  const testLog = event => {
-    console.log(event.target.id);
+  const handleOnClick = event => {
+    const sectionIndex = Number(event.target.id);
+    const isOpen = !!sections.get(sectionIndex);
+    const initial = sections.set(sectionIndex, !isOpen);
+    setSections(initial);
+    console.log(sections);
+    console.log(sectionIndex);
   };
 
   const qstArr = props.questions.map((question, index) => {
     const userAnswer = props.answers.get(question.id) + "";
+    console.log(sections.get(index));
     return (
       <div key={index} css={container}>
-        <div css={list}>
-          <div css={number}>{index + 1}.</div>
-          <div css={qst}>{question.question}</div>
-        </div>
-        <div css={answer}>You answered: {userAnswer}</div>
-        {/* <div css={editBtn}>
+        <div css={contentContainer}>
+          <div css={list}>
+            <div css={number}>{index + 1}.</div>
+            <div css={qst}>{question.question}</div>
+          </div>
+          <div css={answer}>You answered: {userAnswer}</div>
+          <div css={editBtn}>
+            <button id={index} onClick={handleOnClick}>
+              Change Answer
+            </button>
+          </div>
+
+          {/* <div css={editBtn}>
           <button
             id={index}
             className={classes.button}
@@ -86,6 +103,17 @@ export default function ReviewAnswers(props) {
             test
           </div>
         )} */}
+        </div>
+        {sections.get(index) && (
+          <div id={index} css={chgAnsContainer}>
+            <Choices
+              handleOnChange={props.handleOnChange}
+              question={props.question}
+              answers={props.answers}
+              ansRes={props.ansRes}
+            />
+          </div>
+        )}
       </div>
     );
   });
@@ -109,7 +137,7 @@ export default function ReviewAnswers(props) {
             variant="contained"
             color="secondary"
             className={classes.button}
-            onClick={props.back}
+            //onClick={props.back}
           >
             Back to Quiz
           </Button>
@@ -119,7 +147,7 @@ export default function ReviewAnswers(props) {
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={props.handleSubmit}
+            //onClick={props.handleSubmit}
           >
             Submit
           </Button>
@@ -130,6 +158,12 @@ export default function ReviewAnswers(props) {
 }
 const container = css`
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+
+const contentContainer = css`
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -139,6 +173,13 @@ const container = css`
     background-color: #f4f4f4;
     // box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.15);
   }
+`;
+
+const chgAnsContainer = css`
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  margin-left: 60px;
 `;
 
 const main = css`

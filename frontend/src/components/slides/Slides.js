@@ -1,16 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
+//Local components
 import Modules from "../components/Modules";
 import Container from "../components/Container";
 
 export default function Slides(props) {
-  console.log(props.slidesArray);
   const modulesList = props.mdn.map((module, index) => {
     const moduleSlides = props.slidesArr.filter(slide => {
       return slide.module === module.id;
     });
-    console.log(module, moduleSlides);
     return (
       <div css={moduleCard}>
         <Modules
@@ -24,6 +23,7 @@ export default function Slides(props) {
       </div>
     );
   });
+
   return (
     <Container>
       <div css={pageheader}>All Slides</div>
@@ -40,7 +40,7 @@ const pageheader = css`
   width: 100%;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: #fdfdfd;
+  background-color: white;
 `;
 
 const divider = css`

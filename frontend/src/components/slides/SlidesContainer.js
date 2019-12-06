@@ -1,7 +1,10 @@
+//TODO: Add module model on the backend and get data from the database
+
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 
+//Local components
 import { ROOT_URL } from "../utils/constants";
 import Slides from "./Slides";
 
@@ -23,7 +26,6 @@ const mdn = [
 export default function SlidesContainer() {
   const [slidesArr, setSlidesArr] = useState([]);
 
-  // Runs on component mount
   useEffect(() => {
     getSlides();
   }, []);

@@ -1,11 +1,16 @@
+//TODO: Implement check on user access to quiz
+
 import React, { useEffect, useState } from "react";
 
+//Utility hook for data fetching and promise resolution
 import { useAsync } from "react-async";
 
+//Local components
 import * as apiClient from "./api-call-quiz";
 import { useUser } from "../context/UserContext";
 import Quiz from "./Quiz";
 
+// Async wrapper function for api calls
 const getData = async () => {
   let quizzes;
   try {

@@ -78,7 +78,7 @@ const title = css`
   width: 100%;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: #fdfdfd;
+  background-color: white;
 `;
 
 const divider = css`
