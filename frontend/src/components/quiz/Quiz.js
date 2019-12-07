@@ -68,6 +68,16 @@ export default function Quiz(props) {
     }
   }, [isSettled]);
 
+  let currAns;
+
+  useEffect(() => {
+    const index = activeIndex + 1;
+    console.log(index);
+    console.log(inputMap.get(index));
+    currAns = inputMap.get(index);
+    console.log(currAns);
+  }, [activeIndex]);
+
   // Handles click event on next button
   const next = () => {
     if (activeIndex < dataRes.length - 1) {
@@ -203,6 +213,7 @@ export default function Quiz(props) {
           handleOnChange={handleOnChange}
           handleSubmit={handleSubmit}
           answers={inputMap}
+          answer={currAns}
           ansRes={ansRes[activeIndex]}
         />
       );

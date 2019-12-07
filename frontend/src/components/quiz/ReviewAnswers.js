@@ -27,6 +27,8 @@ import Popper from "@material-ui/core/Popper";
 //React-Icon component
 import { MdEdit } from "react-icons/md";
 
+//Local components
+import { useQuiz } from "./QuizContext";
 import Choices from "../question/Choices";
 
 const useStyles = makeStyles(theme => ({
@@ -46,34 +48,38 @@ const useStyles = makeStyles(theme => ({
 
 export default function ReviewAnswers(props) {
   const classes = useStyles();
-  const [sections, setSections] = useState(new Map());
-  const quizTot = props.quiz.num_questions;
+
+  const { data } = useQuiz();
+
+  const [openSections, setOpenSections] = useState({});
+
+  const quizTot = data.quiz.num_questions;
+
   useEffect(() => {
     loadSections(quizTot);
-  }, [props.quiz]);
+  }, [quizTot]);
 
   const loadSections = num => {
-    let initial;
     for (let i = 0; i < num; i++) {
-      initial = sections.set(i, false);
+      setOpenSections(prevState => {
+        return { ...prevState, [i]: false };
+      });
     }
-
-    setSections(initial);
-    console.log(sections);
+    console.log(openSections);
   };
 
   const handleOnClick = event => {
     const sectionIndex = Number(event.target.id);
-    const isOpen = !!sections.get(sectionIndex);
-    const initial = sections.set(sectionIndex, !isOpen);
-    setSections(initial);
-    console.log(sections);
+    const isOpen = !!openSections[sectionIndex];
+    setOpenSections(prevState => {
+      return { ...prevState, [sectionIndex]: !isOpen };
+    });
+    console.log(openSections);
     console.log(sectionIndex);
   };
 
-  const qstArr = props.questions.map((question, index) => {
+  const qstArr = data.questions.map((question, index) => {
     const userAnswer = props.answers.get(question.id) + "";
-    console.log(sections.get(index));
     return (
       <div key={index} css={container}>
         <div css={contentContainer}>
@@ -104,16 +110,15 @@ export default function ReviewAnswers(props) {
           </div>
         )} */}
         </div>
-        {sections.get(index) && (
+        {openSections[index] ? (
           <div id={index} css={chgAnsContainer}>
             <Choices
+              activeIndex={index}
               handleOnChange={props.handleOnChange}
-              question={props.question}
               answers={props.answers}
-              ansRes={props.ansRes}
             />
           </div>
-        )}
+        ) : null}
       </div>
     );
   });
@@ -128,7 +133,7 @@ export default function ReviewAnswers(props) {
       mb={8}
     >
       <Paper className={classes.paper}>
-        <div css={title}>{props.quiz.title.toUpperCase()}</div>
+        <div css={title}>{data.quiz.title.toUpperCase()}</div>
         <div css={main}>{qstArr}</div>
       </Paper>
       <div css={actionBar}>
@@ -137,7 +142,7 @@ export default function ReviewAnswers(props) {
             variant="contained"
             color="secondary"
             className={classes.button}
-            //onClick={props.back}
+            onClick={props.back}
           >
             Back to Quiz
           </Button>

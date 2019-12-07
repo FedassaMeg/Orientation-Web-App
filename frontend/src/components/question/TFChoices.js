@@ -14,6 +14,9 @@ import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
 export default function TFChoices(props) {
   let value;
+  if (props.answer !== undefined) {
+    console.log(props.answer);
+  }
 
   return (
     <FormControl component="fieldset">

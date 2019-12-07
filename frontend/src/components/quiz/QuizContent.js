@@ -13,6 +13,7 @@ import Grow from "@material-ui/core/Grow";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
 //Local Components
+import { useQuiz } from "./QuizContext";
 import Question from "../question/Question";
 import ReviewAnswers from "./ReviewAnswers";
 
@@ -25,38 +26,27 @@ const useStyles = makeStyles(theme => ({
 
 export default function QuizContent(props) {
   const classes = useStyles();
+  const { data } = useQuiz();
   return (
     <>
       {!props.isCompleted ? (
-        <div>
-          <div css={title}>{props.quiz.title}</div>
+        <div css={container}>
+          <div css={title}>
+            <div css={titleText}>{data.quiz.title}</div>
+          </div>
           <hr css={divider} />
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            m={8}
-          >
-            <Box alignSelf="flex-start" ml={12} mb={4}>
-              <Typography color="textSecondary" variant="button">
-                {props.activeIndex + 1} of {props.totCount}
-              </Typography>
-            </Box>
+          <div css={questionContainer}>
+            <div css={qstNum}>
+              <span css={qstNumText}>
+                {props.activeIndex + 1} OF {data.questions.length}
+              </span>
+            </div>
             <Question
               activeIndex={props.activeIndex}
-              question={props.question}
-              answers={props.answers}
+              answer={props.answer}
               handleOnChange={props.handleOnChange}
-              ansRes={props.ansRes}
             />
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-              width="85%"
-              mt={4}
-            >
+            <div css={btnGroup}>
               {!props.activeIndex == 0 ? (
                 <Button
                   size="small"
@@ -84,43 +74,82 @@ export default function QuizContent(props) {
               >
                 next
               </Button>
-            </Box>
-          </Box>
+            </div>
+          </div>
         </div>
       ) : (
         <>
           <div css={title}>Review Answers</div>
           <hr css={divider} />
           <ReviewAnswers
-            quiz={props.quiz}
-            questions={props.questions}
             answers={props.answers}
             handleOnClick={props.handleOnClick}
             handleSubmit={props.handleSubmit}
             back={props.back}
-            question={props.question}
             handleOnChange={props.handleOnChange}
-            ansRes={props.ansRes}
           />
         </>
       )}
     </>
   );
 }
+
+const container = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+`;
+
 // Quiz Title [div]
 const title = css`
-  font-family: "Raleway", sans-serif;
-  font-size: 45px;
-  padding-left: 90px;
-  color: rgb(78, 78, 78);
   width: 100%;
+  background-color: white;
+`;
+
+const titleText = css`
+  max-width: 1200px;
+  margin: auto;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: white;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-family: "Raleway", sans-serif;
+  font-size: 45px;
+  color: rgb(78, 78, 78);
 `;
 
 // Horizontal Divider [hr]
 const divider = css`
   margin: 0;
   border: 0.5px solid lightgrey;
+`;
+
+const questionContainer = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  height: 480px;
+  padding: 16px;
+`;
+
+const qstNum = css`
+  align-self: flex-start;
+`;
+
+const qstNumText = css`
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  color: rgb(78, 78, 78);
+`;
+
+const btnGroup = css`
+  justify-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 `;
