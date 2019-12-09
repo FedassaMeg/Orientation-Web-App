@@ -6,12 +6,15 @@ import { css, jsx } from "@emotion/core";
 //Material UI Components
 import Box from "@material-ui/core/Box";
 
+import { useQuiz } from "../quiz/QuizContext";
+
 export default function QuestionContent(props) {
+  const { data } = useQuiz();
   return (
     <div css={container}>
       <Box display="flex" fontSize={16} fontWeight={500} color="text.primary">
         <div css={number}>{props.activeIndex + 1}.</div>
-        <div css={question}>{props.question} </div>
+        <div css={question}>{data.questions[props.activeIndex].question} </div>
       </Box>
     </div>
   );

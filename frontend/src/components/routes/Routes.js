@@ -24,8 +24,6 @@ import HandoutPage from "../../views/HandoutPage";
 import SignUp from "../login/SignUp";
 import Login from "../login/Login";
 import LoginRoute from "./LoginRoute";
-import TempMCQuiz from "../quiz/TempMCQuiz";
-import TempSAQuiz from "../quiz/TempSAQuiz";
 
 export default function Routes() {
   // Access current user [UserContext]
@@ -45,8 +43,6 @@ export default function Routes() {
         <PrivateRoute path="/handouts" component={HandoutsPage} />
         <PrivateRoute path="/handout/:id" component={HandoutPage} />
         <AdminRoute path="/admin" component={AdminPage} />
-        <Route path="/test" component={TempMCQuiz} />
-        <Route path="/satest" component={TempSAQuiz} />
       </Switch>
       <LoginRoute />
     </Router>

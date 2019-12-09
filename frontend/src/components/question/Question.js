@@ -1,24 +1,23 @@
 //Consume logic from container component to "Route" different types of questions to the appropriate presentation components
-
-import React, { useEffect } from "react";
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
 
 // Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 
 // Local Components
+import Choices from "./Choices";
 import QuestionContent from "./QuestionContent";
-import Choices from "../question/Choices";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   card: {
     maxWidth: 800,
     padding: 16
   }
-}));
+});
 
 export default function Question(props) {
   const classes = useStyles();
@@ -27,43 +26,23 @@ export default function Question(props) {
     <div>
       <Card className={classes.card}>
         <CardContent>
-          <Box pr={8} pl={8} width={750} height={80}>
-            {props.question === undefined ? (
-              <p>Question Undefined</p>
-            ) : (
-              <QuestionContent
-                activeIndex={props.activeIndex}
-                question={props.question.question}
-              />
-            )}
-          </Box>
+          <div css={question}>
+            <QuestionContent activeIndex={props.activeIndex} />
+          </div>
         </CardContent>
         <CardActions>
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="flex-start"
-            width="100%"
-            pl={13}
-          >
-            {props.question === undefined ? (
-              <></>
-            ) : (
-              <Choices
-                handleOnChange={props.handleOnChange}
-                question={props.question}
-                answers={props.answers}
-                ansRes={props.ansRes}
-              />
-            )}
-          </Box>
+          <div css={choices}>
+            <Choices
+              activeIndex={props.activeIndex}
+              handleOnChange={props.handleOnChange}
+              answer={props.answer}
+            />
+          </div>
         </CardActions>
       </Card>
     </div>
   );
 }
-
-// import { css, jsx } from "@emotion/core";
 
 // export default function Question(props) {
 //   return (
@@ -106,13 +85,15 @@ export default function Question(props) {
 //   color: rgb(78, 78, 78);
 // `;
 
-// const question = css`
-//   font-family: "Noto Sans JP", sans-serif;
-//   font-size: 16px;
-//   color: rgb(78, 78, 78);
-// `;
+const question = css`
+  min-width: 720px;
+  margin-left: 16px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: rgb(78, 78, 78);
+`;
 
-// const checkbox = css`
-//   margin: 0;
-//   align-self: center;
-// `;
+const choices = css`
+  margin-left: 56px;
+`;

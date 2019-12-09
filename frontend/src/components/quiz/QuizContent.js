@@ -1,7 +1,6 @@
 /**@jsx jsx */
 import React from "react";
 import { css, jsx } from "@emotion/core";
-import { Route } from "react-router-dom";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,6 +13,7 @@ import Grow from "@material-ui/core/Grow";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
 //Local Components
+import { useQuiz } from "./QuizContext";
 import Question from "../question/Question";
 import ReviewAnswers from "./ReviewAnswers";
 
@@ -26,38 +26,27 @@ const useStyles = makeStyles(theme => ({
 
 export default function QuizContent(props) {
   const classes = useStyles();
+  const { data } = useQuiz();
   return (
     <>
       {!props.isCompleted ? (
-        <div>
-          <div css={title}>{props.quiz.title}</div>
+        <div css={container}>
+          <div css={title}>
+            <div css={titleText}>{data.quiz.title}</div>
+          </div>
           <hr css={divider} />
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            m={8}
-          >
-            <Box alignSelf="flex-start" ml={12} mb={4}>
-              <Typography color="textSecondary" variant="button">
-                {props.activeIndex + 1} of {props.totCount}
-              </Typography>
-            </Box>
+          <div css={questionContainer}>
+            <div css={qstNum}>
+              <span css={qstNumText}>
+                {props.activeIndex + 1} OF {data.questions.length}
+              </span>
+            </div>
             <Question
               activeIndex={props.activeIndex}
-              question={props.question}
-              answers={props.answers}
+              answer={props.answer}
               handleOnChange={props.handleOnChange}
-              ansRes={props.ansRes}
             />
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-              width="85%"
-              mt={4}
-            >
+            <div css={btnGroup}>
               {!props.activeIndex == 0 ? (
                 <Button
                   size="small"
@@ -85,36 +74,50 @@ export default function QuizContent(props) {
               >
                 next
               </Button>
-            </Box>
-          </Box>
+            </div>
+          </div>
         </div>
       ) : (
         <>
           <div css={title}>Review Answers</div>
           <hr css={divider} />
           <ReviewAnswers
-            quiz={props.quiz}
-            questions={props.questions}
             answers={props.answers}
             handleOnClick={props.handleOnClick}
             handleSubmit={props.handleSubmit}
             back={props.back}
+            handleOnChange={props.handleOnChange}
           />
         </>
       )}
     </>
   );
 }
+
+const container = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+`;
+
 // Quiz Title [div]
 const title = css`
-  font-family: "Raleway", sans-serif;
-  font-size: 45px;
-  padding-left: 90px;
-  color: rgb(78, 78, 78);
   width: 100%;
+  background-color: white;
+`;
+
+const titleText = css`
+  max-width: 1200px;
+  margin: auto;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: rgb(252, 252, 252);
+  padding-left: 16px;
+  padding-right: 16px;
+  font-family: "Raleway", sans-serif;
+  font-size: 45px;
+  color: rgb(78, 78, 78);
 `;
 
 // Horizontal Divider [hr]
@@ -123,22 +126,30 @@ const divider = css`
   border: 0.5px solid lightgrey;
 `;
 
-// Final Submit Button [button]
-const submit = css`
-  margin-top: 36px;
-  margin-right: 40px;
-  width: 80px;
-  align-self: flex-end;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: coral;
-  color: white;
-  font: 16px "Open Sans", sans-serif;
-  font-weight: 600;
-  transition-duration: 0.4s;
+const questionContainer = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  height: 480px;
+  padding: 16px;
+`;
 
-  &:hover {
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  }
+const qstNum = css`
+  align-self: flex-start;
+`;
+
+const qstNumText = css`
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  color: rgb(78, 78, 78);
+`;
+
+const btnGroup = css`
+  justify-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 `;

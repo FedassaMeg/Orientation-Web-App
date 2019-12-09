@@ -16,4 +16,5 @@ const container = css`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: whitesmoke;
 `;

@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { useAsync } from "react-async";
-
-import * as apiClient from "../quiz/api-call-quiz";
+//Local components
+import { useQuiz } from "../quiz/QuizContext";
 import MCChoices from "./MCChoices";
 import SAChoices from "./SAChoices";
 import TFChoices from "./TFChoices";
 
 export default function Choices(props) {
-  if (props.question.type === "TF") {
+  const { data } = useQuiz();
+
+  const qstType = data.questions[props.activeIndex].type;
+  const qstChoices = data.questions[props.activeIndex].choices;
+
+  if (qstType === "TF") {
     return (
-      <TFChoices
-        handleOnChange={props.handleOnChange}
-        qstId={props.question.id}
-        answers={props.answers}
-        ansRes={props.ansRes}
-      />
+      <TFChoices handleOnChange={props.handleOnChange} answer={props.answer} />
     );
-  } else if (props.question.type === "MC") {
+  } else if (qstType === "MC") {
     return (
       <MCChoices
         handleOnChange={props.handleOnChange}
-        qstId={props.question.id}
-        answers={props.answers}
-        qstChoices={props.question.choices}
+        qstChoices={qstChoices}
+        answer={props.answer}
       />
     );
-  } else if (props.qstType === "SA") return null;
+  } else if (qstType === "SA") return null;
   return null;
 }

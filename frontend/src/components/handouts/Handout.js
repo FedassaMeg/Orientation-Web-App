@@ -19,7 +19,7 @@ const title = css`
   width: 100%;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: rgb(252, 252, 252);
+  background-color: white;
 `;
 
 // Horizontal Divider [hr]

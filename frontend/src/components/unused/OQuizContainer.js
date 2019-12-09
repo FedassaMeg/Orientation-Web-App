@@ -24,7 +24,7 @@ import { useHistory } from "react-router-dom";
 import { useAsync } from "react-async";
 
 // Local Components
-import * as apiClient from "./api-call-quiz";
+import * as apiClient from "../quiz/api-call-quiz";
 import { ROOT_URL } from "../utils/constants";
 import { useUser } from "../context/UserContext";
 import Quiz from "./Quiz";
