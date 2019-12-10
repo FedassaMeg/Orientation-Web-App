@@ -13,17 +13,16 @@ export default function Choices(props) {
   const qstChoices = data.questions[props.activeIndex].choices;
 
   if (qstType === "TF") {
-    return (
-      <TFChoices handleOnChange={props.handleOnChange} answer={props.answer} />
-    );
+    return <TFChoices handleOnChange={props.handleOnChange} />;
   } else if (qstType === "MC") {
     return (
       <MCChoices
         handleOnChange={props.handleOnChange}
         qstChoices={qstChoices}
-        answer={props.answer}
       />
     );
-  } else if (qstType === "SA") return null;
+  } else if (qstType === "SA") {
+    return <SAChoices handleOnChange={props.handleOnChange} />;
+  }
   return null;
 }

@@ -5,11 +5,11 @@ import { useAsync } from "react-async";
 import * as apiClient from "./api-call-home";
 
 import axios from "axios";
-import jwt from "jsonwebtoken";
 
-import Dashboard from "./Dashboard";
-
+//Local components
 import { ROOT_URL } from "../utils/constants";
+import { useUser } from "../context/UserContext";
+import Dashboard from "./Dashboard";
 
 const getData = async ({ user_id }) => {
   let quizzes;
@@ -28,19 +28,15 @@ const getData = async ({ user_id }) => {
 };
 
 export default function DashboardContainer() {
+  const { user } = useUser();
+
   const [quizArray, setQuizArray] = useState([]);
   const [compltArray, setCompltArray] = useState([]);
   const [slideArray, setSlideArray] = useState([]);
   const [comArray, setComArray] = useState([]);
   const [toggle, setToggle] = useState(false);
 
-  const getUserIdfromToken = () => {
-    const token = localStorage.getItem("access_token");
-    const decode = jwt.decode(token);
-    return decode.user_id;
-  };
-
-  const user_id = getUserIdfromToken();
+  const user_id = user.id;
 
   const { data, error, isPending, isSettled } = useAsync({
     promiseFn: getData,

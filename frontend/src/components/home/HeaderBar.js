@@ -1,4 +1,5 @@
 /**@jsx jsx */
+import { useEffect } from "react";
 import { css, jsx } from "@emotion/core";
 
 import { useUser } from "../context/UserContext";
@@ -6,7 +7,18 @@ import accountImage from "../../images/badge.jpg";
 
 export default function HeaderBar() {
   const { user } = useUser();
+  const userRole = id => {
+    let newUserRole;
+    if (id === 11 || id === 12) return (newUserRole = "Office Staff");
+    if (id === 15) return (newUserRole = "Nurse (RN)");
+    if (id === 18) return (newUserRole = "Nurse (LVN)");
+    if (id === 21) return (newUserRole = "Hospice Aide");
+    if (id === 23) return (newUserRole = "Spiritual Care Provider");
+    if (id === 25) return (newUserRole = "Medical Social Worker");
+    return newUserRole;
+  };
 
+  let usrRole = userRole(user.role);
   return (
     <div css={headerbar}>
       <div>
@@ -16,7 +28,7 @@ export default function HeaderBar() {
         <div css={name}>
           {user.first_name} {user.last_name}
         </div>
-        <div css={role}>{user.role}</div>
+        <div css={role}>{usrRole}</div>
       </div>
     </div>
   );

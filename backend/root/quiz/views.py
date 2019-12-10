@@ -1,10 +1,10 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, mixins
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Quiz, QuizScore, Question, Choice, Answer, Slide, CompletedSlide
-from .serializers import QuizSerializer, QuizScoreSerializer, QuestionSerializer, ChoiceSerializer, AnswerSerializer, SlideSerializer, CompletedSlideSerializer
+from .serializers import QuizSerializer, QuizScoreSerializer, QuizScoreUserSerializer, QuestionSerializer, ChoiceSerializer, AnswerSerializer, SlideSerializer, CompletedSlideSerializer
 
 
 class QuizViewSet(viewsets.ModelViewSet):
@@ -15,14 +15,25 @@ class QuizViewSet(viewsets.ModelViewSet):
         serializer.save(created_by=self.request.user)
 
 
-class QuizScoreViewSet(viewsets.ModelViewSet):
-    serializer_class = QuizScoreSerializer
+class QuizScoreUserViewSet(viewsets.ModelViewSet):
+    serializer_class = QuizScoreUserSerializer
     queryset = QuizScore.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(signed_by=self.request.user)
-   
 
+    def list(self, request, pk):
+        queryset = QuizScore.objects.filter(signed_by=pk)
+        serializer = QuizScoreUserSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+class QuizScoreViewSet(viewsets.ModelViewSet):
+    serializer_class = QuizScoreSerializer
+    queryset = QuizScore.objects.all()
+    
+    def perform_create(self, serializer):
+        serializer.save(signed_by=self.request.user)
+   
 
 class QuestionViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer

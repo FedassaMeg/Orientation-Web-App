@@ -59,11 +59,19 @@ export default function SlideList(props) {
   let csm5 = intersectionWith(cloneDeep(props.md5), props.comArray, (i, j) => {
     return i.id === j.slide && assign(i, { completed: j.completed });
   });
-
-  let percentage1 = Math.round((csm1.length / props.md1.length) * 100);
-  let percentage3 = Math.round((csm3.length / props.md3.length) * 100);
-  let percentage4 = Math.round((csm4.length / props.md4.length) * 100);
-  let percentage5 = Math.round((csm5.length / props.md5.length) * 100);
+  const calcPercentage = (num1, num2) => {
+    let newPercentage;
+    if (num2 === 0) {
+      newPercentage = "Not Applicable";
+    } else {
+      newPercentage = Math.round((num1 / num2) * 100);
+    }
+    return newPercentage;
+  };
+  let percentage1 = calcPercentage(csm1.length, props.md1.length);
+  let percentage3 = calcPercentage(csm3.length, props.md3.length);
+  let percentage4 = calcPercentage(csm4.length, props.md4.length);
+  let percentage5 = calcPercentage(csm5.length, props.md5.length);
 
   return (
     <div className={classes.root}>
@@ -90,9 +98,11 @@ export default function SlideList(props) {
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>MODULE 1</Typography>
-              <Typography
-                className={classes.heading}
-              >{`${percentage1}%`}</Typography>
+              <Typography className={classes.heading}>
+                {percentage1 === "Not Applicable"
+                  ? percentage1
+                  : `${percentage1}%`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>
@@ -134,9 +144,11 @@ export default function SlideList(props) {
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>MODULE 3</Typography>
-              <Typography
-                className={classes.heading}
-              >{`${percentage3}%`}</Typography>
+              <Typography className={classes.heading}>
+                {percentage3 === "Not Applicable"
+                  ? percentage3
+                  : `${percentage3}%`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>
@@ -178,9 +190,11 @@ export default function SlideList(props) {
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>MODULE 4</Typography>
-              <Typography
-                className={classes.heading}
-              >{`${percentage4}%`}</Typography>
+              <Typography className={classes.heading}>
+                {percentage4 === "Not Applicable"
+                  ? percentage4
+                  : `${percentage4}%`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>
@@ -222,9 +236,11 @@ export default function SlideList(props) {
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>MODULE 5</Typography>
-              <Typography
-                className={classes.heading}
-              >{`${percentage5}%`}</Typography>
+              <Typography className={classes.heading}>
+                {percentage5 === "Not Applicable"
+                  ? percentage5
+                  : `${percentage5}%`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>

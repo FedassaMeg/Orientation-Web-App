@@ -85,6 +85,10 @@ export default function QuizContainer(props) {
       const choice = event.target.value;
       added = inputMap.set(key, choice);
     }
+    if (data.questions[activeIndex].type === "SA") {
+      const choice = event.target.value;
+      added = inputMap.set(key, choice);
+    }
     setInputMap(added);
     console.log(inputMap);
   };
@@ -92,7 +96,10 @@ export default function QuizContainer(props) {
   // Handles submission of quiz; posts score to the backend
   const handleSubmit = event => {
     event.preventDefault();
-    inputMap.forEach(compareAnsToInput);
+    if (!data.quiz.review_required) {
+      inputMap.forEach(compareAnsToInput);
+    }
+    console.log(data.quiz.id);
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`

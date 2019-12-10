@@ -12,12 +12,20 @@ class QuizSerializer(serializers.ModelSerializer):
 
 class QuizScoreSerializer(serializers.ModelSerializer):
     signed_by = serializers.ReadOnlyField(source='signed_by.id')
+    related_quiz = QuizSerializer(read_only=True)
 
     class Meta:
         model = QuizScore
         fields = ('id', 'score', 'signed_by', 'signed_date',
                   'related_quiz', 'is_reviewed', 'reviewed_by')
-        depth = 1
+
+class QuizScoreUserSerializer(serializers.ModelSerializer):
+    signed_by = serializers.ReadOnlyField(source='signed_by.id')
+    
+    class Meta:
+        model = QuizScore
+        fields = ('id', 'score', 'signed_by', 'signed_date',
+                  'related_quiz', 'is_reviewed', 'reviewed_by')
 
 
 class ChoiceSerializer(serializers.ModelSerializer):
