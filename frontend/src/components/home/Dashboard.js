@@ -2,11 +2,14 @@
 import { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
 
+import { useUser } from "../context/UserContext";
 import QuizList from "./QuizList";
 import SlideList from "./SlideList";
 import HandoutList from "./HandoutList";
 
 export default function Dashboard(props) {
+  const { user } = useUser();
+
   const initialState = {
     md1: [],
     md3: [],
@@ -28,32 +31,37 @@ export default function Dashboard(props) {
     setQuizzes({ qz1: qz1Arr, qz3: qz3Arr, qz4: qz4Arr });
   }, [props.slideArray, props.quizArray]);
 
-  const md1Arr = props.slideArray.filter(slide => {
+  const sldArr = props.slideArray.filter(slide => {
+    return slide.group.indexOf(user.role) !== -1;
+  });
+
+  const qzArr = props.quizArray.filter(quiz => {
+    return quiz.group.indexOf(user.role) !== -1;
+  });
+
+  const md1Arr = sldArr.filter(slide => {
     return slide.module === 1;
   });
-  const md3Arr = props.slideArray.filter(slide => {
+  const md3Arr = sldArr.filter(slide => {
     return slide.module === 3;
   });
-  const md4Arr = props.slideArray.filter(slide => {
+  const md4Arr = sldArr.filter(slide => {
     return slide.module === 4;
   });
-  const md5Arr = props.slideArray.filter(slide => {
+  const md5Arr = sldArr.filter(slide => {
     return slide.module === 5;
   });
 
-  const qz1Arr = props.quizArray.filter(quiz => {
+  const qz1Arr = qzArr.filter(quiz => {
     return quiz.type === "VD";
   });
-  const qz3Arr = props.quizArray.filter(quiz => {
+  const qz3Arr = qzArr.filter(quiz => {
     return quiz.type === "SL";
   });
-  const qz4Arr = props.quizArray.filter(quiz => {
+  const qz4Arr = qzArr.filter(quiz => {
     return quiz.type === "HD";
   });
 
-  // const onSubmit = event => {
-  //   percentage = event.target.value;
-  // };
   return (
     <div css={container}>
       <div css={pageheader}>My Dashboard</div>

@@ -3,7 +3,7 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt import views as jwt_views
 
-from quiz.views import QuizViewSet, QuizScoreViewSet, QuestionViewSet, ChoiceViewSet, AnswerViewSet, SlideViewSet, CompletedSlideViewSet
+from quiz.views import QuizViewSet, QuizScoreViewSet, QuizScoreUserViewSet, QuestionViewSet, ChoiceViewSet, AnswerViewSet, SlideViewSet, CompletedSlideViewSet
 from users.views import UserViewSet, RoleViewSet
 
 urlpatterns = [
@@ -31,7 +31,7 @@ urlpatterns = [
     path('api/users/<int:pk>/completedslides/',
          CompletedSlideViewSet.as_view({'get': 'list'})),
     path('api/users/<int:pk>/scores/',
-         QuizScoreViewSet.as_view({'get': 'list'})),
+         QuizScoreUserViewSet.as_view({'get': 'list'})),
     path('api/quizs/<int:pk>/answers',
          AnswerViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/answers/<int:pk>',

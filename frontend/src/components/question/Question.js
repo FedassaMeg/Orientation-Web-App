@@ -95,5 +95,7 @@ const question = css`
 `;
 
 const choices = css`
+  width: 100%;
+  margin-right: 16px;
   margin-left: 56px;
 `;

@@ -34,7 +34,7 @@ import Choices from "../question/Choices";
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: 12,
-    width: "85%"
+    width: "65%"
   },
   root: {
     width: "100%",
@@ -51,32 +51,32 @@ export default function ReviewAnswers(props) {
 
   const { data } = useQuiz();
 
-  const [openSections, setOpenSections] = useState({});
+  //const [openSections, setOpenSections] = useState({});
 
-  const quizTot = data.quiz.num_questions;
+  // const quizTot = data.quiz.num_questions;
 
-  useEffect(() => {
-    loadSections(quizTot);
-  }, [quizTot]);
+  // useEffect(() => {
+  //   loadSections(quizTot);
+  // }, [quizTot]);
 
-  const loadSections = num => {
-    for (let i = 0; i < num; i++) {
-      setOpenSections(prevState => {
-        return { ...prevState, [i]: false };
-      });
-    }
-    console.log(openSections);
-  };
+  // const loadSections = num => {
+  //   for (let i = 0; i < num; i++) {
+  //     setOpenSections(prevState => {
+  //       return { ...prevState, [i]: false };
+  //     });
+  //   }
+  //   console.log(openSections);
+  // };
 
-  const handleOnClick = event => {
-    const sectionIndex = Number(event.target.id);
-    const isOpen = !!openSections[sectionIndex];
-    setOpenSections(prevState => {
-      return { ...prevState, [sectionIndex]: !isOpen };
-    });
-    console.log(openSections);
-    console.log(sectionIndex);
-  };
+  // const handleOnClick = event => {
+  //   const sectionIndex = Number(event.target.id);
+  //   const isOpen = !!openSections[sectionIndex];
+  //   setOpenSections(prevState => {
+  //     return { ...prevState, [sectionIndex]: !isOpen };
+  //   });
+  //   console.log(openSections);
+  //   console.log(sectionIndex);
+  // };
 
   const qstArr = data.questions.map((question, index) => {
     const userAnswer = props.answers.get(question.id) + "";
@@ -88,11 +88,11 @@ export default function ReviewAnswers(props) {
             <div css={qst}>{question.question}</div>
           </div>
           <div css={answer}>You answered: {userAnswer}</div>
-          <div css={editBtn}>
+          {/* <div css={editBtn}>
             <button id={index} onClick={handleOnClick}>
               Change Answer
             </button>
-          </div>
+          </div> */}
 
           {/* <div css={editBtn}>
           <button
@@ -110,7 +110,7 @@ export default function ReviewAnswers(props) {
           </div>
         )} */}
         </div>
-        {openSections[index] ? (
+        {/* {openSections[index] ? (
           <div id={index} css={chgAnsContainer}>
             <Choices
               activeIndex={index}
@@ -118,7 +118,7 @@ export default function ReviewAnswers(props) {
               answers={props.answers}
             />
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     );
   });
@@ -152,7 +152,7 @@ export default function ReviewAnswers(props) {
             variant="contained"
             color="primary"
             className={classes.button}
-            //onClick={props.handleSubmit}
+            onClick={props.handleSubmit}
           >
             Submit
           </Button>
@@ -180,12 +180,12 @@ const contentContainer = css`
   }
 `;
 
-const chgAnsContainer = css`
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  margin-left: 60px;
-`;
+// const chgAnsContainer = css`
+//   display: flex;
+//   flex-direction: column;
+//   padding: 16px;
+//   margin-left: 60px;
+// `;
 
 const main = css`
   padding: 24px;
@@ -225,7 +225,7 @@ const title = css`
   font-weight: 400;
 `;
 
-const editBtn = css``;
+// const editBtn = css``;
 
 const actionBar = css`
   display: flex;

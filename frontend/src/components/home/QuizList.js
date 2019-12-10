@@ -69,9 +69,18 @@ export default function QuizList(props) {
     }
   );
 
-  let percentage1 = Math.round((cqm1.length / props.qzs1Arr.length) * 100);
-  let percentage2 = Math.round((cqm2.length / props.qzs3Arr.length) * 100);
-  let percentage3 = Math.round((cqm3.length / props.qzs4Arr.length) * 100);
+  const calcPercentage = (num1, num2) => {
+    let newPercentage;
+    if (num2 === 0) {
+      newPercentage = "Not Applicable";
+    } else {
+      newPercentage = Math.round((num1 / num2) * 100);
+    }
+    return newPercentage;
+  };
+  let percentage1 = calcPercentage(cqm1.length, props.qzs1Arr.length);
+  let percentage2 = calcPercentage(cqm2.length, props.qzs3Arr.length);
+  let percentage3 = calcPercentage(cqm3.length, props.qzs4Arr.length);
 
   return (
     <div className={classes.root}>
@@ -98,9 +107,11 @@ export default function QuizList(props) {
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>VIDEOS</Typography>
-              <Typography
-                className={classes.heading}
-              >{`${percentage1}%`}</Typography>
+              <Typography className={classes.heading}>
+                {percentage1 === "Not Applicable"
+                  ? percentage1
+                  : `${percentage1}%`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>
@@ -141,9 +152,11 @@ export default function QuizList(props) {
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>SLIDES</Typography>
-              <Typography
-                className={classes.heading}
-              >{`${percentage2}%`}</Typography>
+              <Typography className={classes.heading}>
+                {percentage2 === "Not Applicable"
+                  ? percentage2
+                  : `${percentage2}%`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>
@@ -184,9 +197,11 @@ export default function QuizList(props) {
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>HANDOUTS</Typography>
-              <Typography
-                className={classes.heading}
-              >{`${percentage3}%`}</Typography>
+              <Typography className={classes.heading}>
+                {percentage3 === "Not Applicable"
+                  ? percentage3
+                  : `${percentage3}%`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>
@@ -196,7 +211,11 @@ export default function QuizList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            {/* <HomeListItem arr={props.qzs4Arr} comArray={props.compltArray}  type="quiz" /> */}
+            <HomeListItem
+              arr={props.qzs4Arr}
+              comArray={props.compltArray}
+              type="quiz"
+            />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>

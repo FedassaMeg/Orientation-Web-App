@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
+
+//Utility hook for data fetching and promise resolution
+import { useAsync } from "react-async";
 
 import { find, intersectionWith, assign, cloneDeep } from "lodash";
 
@@ -14,86 +17,55 @@ import TableRow from "./table/TableRow";
 import TableCell from "./table/TableCell";
 
 import { ROOT_URL } from "../utils/constants";
+import * as apiClient from "./api-call-admin";
 
 import * as jsPDF from "jspdf";
 
+// Async wrapper function for api calls
+const getInitialData = async () => {
+  let quizzes;
+  let users;
+  let scores;
+  try {
+    quizzes = await apiClient.getQuizzes();
+    users = await apiClient.getUsers();
+    scores = await apiClient.getScores();
+  } catch (e) {
+    throw new Error(e);
+  }
+  return { quizzes, users, scores };
+};
+
 export default function AdminReviewScores(props) {
+  const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
   const [userArray, setUserArray] = useState([]);
   const [scoreArray, setScoreArray] = useState([]);
   const [quizArray, setQuizArray] = useState([]);
-  let values = queryString.parse(props.location.search);
-  useEffect(() => {
-    getUsers();
-    getScores();
-    getQuizzes();
-  }, [values.id]);
 
-  const getUsers = () => {
-    axios
-      .get(`${ROOT_URL}/users/`)
-      .then(res => {
-        setUserArray(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const getQuizzes = () => {
-    axios
-      .get(`${ROOT_URL}/quizs/`)
-      .then(res => {
-        setQuizArray(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const getScores = () => {
-    axios
-      .get(`${ROOT_URL}/scores/`)
-      .then(res => {
-        setScoreArray(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const usrsArr = userArray.map((user, index) => {
-    return (
-      <li key={index}>
-        <Link
-          to={{
-            search: `?id=${user.id}`
-          }}
-        >
-          {user.first_name}
-          {"  "}
-          {user.last_name}
-        </Link>
-      </li>
-    );
+  const getInitialDataState = useAsync({
+    promiseFn: getInitialData
   });
 
-  const quizScores = quizArray.map((quiz, index) => {
-    let quizScore = 0;
-    return (
-      <div key={index}>
-        <div>{quiz.title}</div>
-        {scoreArray.map(score => {
-          quiz.id === score.related_quiz
-            ? (quizScore = score.score)
-            : (quizScore = quizScore);
-        })}
-        <div>{quizScore}</div>
-      </div>
-    );
-  });
+  useLayoutEffect(() => {
+    if (getInitialDataState.isSettled) {
+      setFirstAttemptFinished(true);
+      setQuizArray(getInitialDataState.data.quizzes.data);
+      setUserArray(getInitialDataState.data.users.data);
+      setScoreArray(getInitialDataState.data.scores.data);
+    }
+  }, [getInitialDataState.isSettled]);
+  if (!firstAttemptFinished) {
+    if (getInitialDataState.isPending) {
+      return <h3>Loading...</h3>;
+    }
+    if (getInitialDataState.isRejected) {
+      return (
+        <div>
+          <pre>{getInitialDataState.error.message}</pre>
+        </div>
+      );
+    }
+  }
 
   const headCells = [
     {
@@ -112,10 +84,8 @@ export default function AdminReviewScores(props) {
 
   const file = event => {
     const user_id = event.target.name;
-    console.log(user_id);
     const doc = new jsPDF();
-    const user = find(userArray, { id: 2 });
-    console.log(user);
+    const user = find(userArray, { id: Number(`${user_id}`) });
     if (user !== undefined) {
       doc.text(user.first_name, 10, 10);
       doc.text(user.last_name, 25, 10);
@@ -125,14 +95,10 @@ export default function AdminReviewScores(props) {
     }
   };
 
-  const tableData = scoreArray.map(quiz => {});
-  console.log("here");
+  console.log(getInitialDataState.data);
+
   return (
     <div>
-      <div>
-        <Card header="MUI Table"></Card>
-      </div>
-
       <div>
         <Card header="Employee Quiz Scores">
           <Table>
@@ -144,43 +110,43 @@ export default function AdminReviewScores(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {scoreArray.map((rowdata, index) => (
-                <TableRow key={index}>
-                  <TableCell align="left">{rowdata.signed_by}</TableCell>
-                  <TableCell align="left">
-                    {rowdata.related_quiz.title}
-                  </TableCell>
-                  <TableCell align="center">
-                    {rowdata.score}/{rowdata.related_quiz.num_questions}
-                  </TableCell>
-                  <TableCell align="right">
-                    {rowdata.signed_date.slice(0, 19)}
-                  </TableCell>
-                  <TableCell align="right">
-                    {rowdata.related_quiz.review_required
-                      ? "Required"
-                      : "Not Required"}
-                  </TableCell>
-                  <TableCell>
-                    <button name={rowdata.id} onClick={file}>
-                      Report
-                    </button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {scoreArray.map((rowdata, index) => {
+                return (
+                  <TableRow key={index}>
+                    {userArray.map(user => {
+                      const userFullName =
+                        user.last_name + ", " + user.first_name;
+                      return (
+                        rowdata.signed_by == user.id && (
+                          <TableCell align="left">{userFullName}</TableCell>
+                        )
+                      );
+                    })}
+
+                    <TableCell align="left">
+                      {rowdata.related_quiz.title}
+                    </TableCell>
+                    <TableCell align="center">
+                      {rowdata.score}/{rowdata.related_quiz.num_questions}
+                    </TableCell>
+                    <TableCell align="right">
+                      {rowdata.signed_date.slice(0, 19)}
+                    </TableCell>
+                    <TableCell align="right">
+                      {rowdata.related_quiz.review_required
+                        ? "Required"
+                        : "Not Required"}
+                    </TableCell>
+                    <TableCell>
+                      <button name={rowdata.id} onClick={file}>
+                        Report
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
-        </Card>
-      </div>
-
-      <div>
-        <Card header="All Employees">
-          <ul>{usrsArr}</ul>
-        </Card>
-      </div>
-      <div>
-        <Card header={values.id}>
-          <ul>{quizScores}</ul>
         </Card>
       </div>
     </div>

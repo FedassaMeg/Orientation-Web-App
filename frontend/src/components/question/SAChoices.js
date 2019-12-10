@@ -10,16 +10,10 @@ import Input from "@material-ui/core/Input";
 //React-Icons Components
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
-export default function SAChoices() {
-  const [state, setState] = useState();
-  const handleOnChange = event => {
-    const choice = event.target.value;
-    setState(choice);
-    console.log(state);
-  };
+export default function SAChoices(props) {
   return (
     <FormControl fullWidth component="fieldset">
-      <Input id="answer" onChange={handleOnChange} multiline />
+      <Input id="answer" onChange={props.handleOnChange} multiline fullWidth />
     </FormControl>
   );
 }
