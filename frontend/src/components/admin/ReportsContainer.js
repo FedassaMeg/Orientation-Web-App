@@ -18,10 +18,10 @@ const getUsersData = async () => {
 };
 
 // Async wrapper function for api calls
-const getScoreData = async () => {
+const getScoreData = async userId => {
   let scores;
   try {
-    scores = await apiClient.getScores();
+    scores = await apiClient.getUserScores(userId);
   } catch (e) {
     throw new Error(e);
   }
@@ -33,6 +33,7 @@ export default function ReportsContainer() {
   const [userArray, setUserArray] = useState([]);
   const [state, setState] = useState(0);
   const [open, setOpen] = useState(false);
+  const [scoreData, setScoreData] = useState([]);
 
   const getUserDataState = useAsync({
     promiseFn: getUsersData
@@ -47,13 +48,15 @@ export default function ReportsContainer() {
   const handleOnChange = event => {
     const name = event.target.name;
     const value = event.target.value;
-    setState(value);
+    setState(Number(value));
+    setOpen(false);
   };
 
   const handleOnSubmit = event => {
     event.preventDefault();
-    setOpen(prevState => !prevState);
-    getScoreDataState.run(state.userId);
+    const id = event.target.id;
+    setOpen(true);
+    getScoreDataState.run(id);
   };
 
   useLayoutEffect(() => {
@@ -62,6 +65,13 @@ export default function ReportsContainer() {
       setUserArray(getUserDataState.data.users.data);
     }
   }, [getUserDataState.isSettled]);
+
+  useEffect(() => {
+    if (getScoreDataState.isFulfilled) {
+      setScoreData(getScoreDataState.data.scores.data);
+    }
+  }, [getScoreDataState.isFulfilled]);
+
   if (!firstAttemptFinished) {
     if (getUserDataState.isPending) {
       return <h3>Loading...</h3>;
@@ -82,6 +92,7 @@ export default function ReportsContainer() {
         handleOnChange={handleOnChange}
         open={open}
         handleOnSubmit={handleOnSubmit}
+        scoreArray={scoreData}
       />
     </div>
   );

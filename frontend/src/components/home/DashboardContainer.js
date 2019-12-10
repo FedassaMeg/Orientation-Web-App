@@ -38,7 +38,7 @@ export default function DashboardContainer() {
 
   const user_id = user.id;
 
-  const { data, error, isPending, isSettled } = useAsync({
+  const { data, error, isPending, isSettled, isFulfilled } = useAsync({
     watch: toggle,
     promiseFn: getData,
     user_id
@@ -53,7 +53,6 @@ export default function DashboardContainer() {
   }, [isSettled]);
 
   useEffect(() => {
-    console.log("useEffect rendered");
     if (isSettled) {
       setComArray(data.completedSlides.data);
     }
@@ -84,19 +83,16 @@ export default function DashboardContainer() {
 
   if (isPending) return null;
   if (error) return null;
-  if (data) {
-    if (quizArray === undefined) {
-      return null;
-    } else {
-      return (
-        <Dashboard
-          quizArray={quizArray}
-          compltArray={compltArray}
-          slideArray={slideArray}
-          comArray={comArray}
-          handleOnClick={handleOnClick}
-        />
-      );
-    }
+  if (isFulfilled) {
+    return (
+      <Dashboard
+        quizArray={quizArray}
+        compltArray={compltArray}
+        slideArray={slideArray}
+        comArray={comArray}
+        handleOnClick={handleOnClick}
+      />
+    );
   }
+  return null;
 }

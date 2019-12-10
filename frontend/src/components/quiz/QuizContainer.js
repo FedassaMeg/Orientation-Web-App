@@ -1,5 +1,3 @@
-//TODO: Implement check on user access to quiz
-
 import React, { useEffect, useState } from "react";
 
 //Axios HTTP Client
@@ -11,22 +9,9 @@ import { useHistory } from "react-router-dom";
 //Local components
 import { useQuiz } from "./QuizContext";
 import { ROOT_URL } from "../utils/constants";
-import QuizContent from "./QuizContent";
+import Quiz from "./Quiz";
 
-// Return array of object with properties id -> key and user_input -> value
-const createUserInputArr = map => {
-  let newArr = new Array();
-  map.forEach((value, key) => {
-    newArr.push({
-      id: key,
-      user_input: value
-    });
-  });
-
-  return newArr;
-};
-
-export default function QuizContainer(props) {
+export default function QuizContainer() {
   const { data } = useQuiz();
 
   let history = useHistory();
@@ -47,8 +32,6 @@ export default function QuizContainer(props) {
     } else if (activeIndex + 1 === data.questions.length) {
       setIsCompleted(true);
       createAnsArr(data.answers);
-      const userAnsArray = createUserInputArr(inputMap);
-      console.log(userAnsArray);
     } else {
       return;
     }
@@ -82,12 +65,12 @@ export default function QuizContainer(props) {
       added = inputMap.set(key, isSelected);
     }
     if (data.questions[activeIndex].type === "MC") {
-      const choice = event.target.value;
-      added = inputMap.set(key, choice);
+      const value = event.target.value;
+      added = inputMap.set(key, value);
     }
     if (data.questions[activeIndex].type === "SA") {
-      const choice = event.target.value;
-      added = inputMap.set(key, choice);
+      const value = event.target.value;
+      added = inputMap.set(key, value);
     }
     setInputMap(added);
     console.log(inputMap);
@@ -111,7 +94,11 @@ export default function QuizContainer(props) {
         `${ROOT_URL}/scores/`,
         {
           score: score,
-          related_quiz: data.quiz.id
+          related_quiz: {
+            id: data.quiz.id,
+            title: data.quiz.title,
+            group: data.quiz.group
+          }
         },
         config
       )
@@ -160,7 +147,7 @@ export default function QuizContainer(props) {
   };
 
   return (
-    <QuizContent
+    <Quiz
       activeIndex={activeIndex}
       isCompleted={isCompleted}
       next={next}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 
 // Material UI Components
 import Radio from "@material-ui/core/Radio";
@@ -10,13 +10,19 @@ import FormControl from "@material-ui/core/FormControl";
 import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
 export default function MCChoices(props) {
+  let initialValue;
+
+  useEffect(() => {
+    let initialValue = null;
+  }, [props.activeIndex]);
+
   return (
     <FormControl component="fieldset">
       <RadioGroup
         aria-label="answer"
         name="answer"
         onChange={props.handleOnChange}
-        value={null}
+        value={initialValue}
       >
         <FormControlLabel
           value="a"

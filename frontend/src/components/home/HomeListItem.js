@@ -18,9 +18,11 @@ export default function HomeListItem(props) {
       <div key={index} css={listSection}>
         <div css={listRight}>
           {arrCompleted.map(score => {
-            item.id === score.slide || item.id === score.related_quiz
-              ? (isCompleted = true)
-              : (isCompleted = isCompleted);
+            if (score.related_quiz !== undefined) {
+              item.id === score.slide || item.id === score.related_quiz.id
+                ? (isCompleted = true)
+                : (isCompleted = isCompleted);
+            }
           })}
           {isCompleted ? (
             <div css={check}>

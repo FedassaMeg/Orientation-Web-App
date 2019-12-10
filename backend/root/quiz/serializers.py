@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from .models import Quiz, QuizScore, Question, Choice, Answer, Slide, CompletedSlide
 
 
@@ -10,18 +11,10 @@ class QuizSerializer(serializers.ModelSerializer):
         fields = ('id', 'type', 'title', 'url_value', 'group', 'num_questions', 'is_active', 'review_required', 'created_by', 'created_at', 'updated_at')
 
 
-class QuizScoreSerializer(serializers.ModelSerializer):
+class QuizScoreSerializer(WritableNestedModelSerializer):
     signed_by = serializers.ReadOnlyField(source='signed_by.id')
-    related_quiz = QuizSerializer(read_only=True)
+    related_quiz = QuizSerializer(allow_null=True)
 
-    class Meta:
-        model = QuizScore
-        fields = ('id', 'score', 'signed_by', 'signed_date',
-                  'related_quiz', 'is_reviewed', 'reviewed_by')
-
-class QuizScoreUserSerializer(serializers.ModelSerializer):
-    signed_by = serializers.ReadOnlyField(source='signed_by.id')
-    
     class Meta:
         model = QuizScore
         fields = ('id', 'score', 'signed_by', 'signed_date',

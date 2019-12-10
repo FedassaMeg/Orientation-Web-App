@@ -54,7 +54,7 @@ export default function Quizzes() {
             subtitle="Quizzes on Handouts"
             list={[
               "Foley Catheter Handouts",
-              "Oximetry Handout",
+              "Pulse Oximetry",
               "Venipuncture Handout"
             ]}
             key="handoutquizzes"

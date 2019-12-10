@@ -46,26 +46,31 @@ export default function QuizList(props) {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-
   let cqm1 = intersectionWith(
     cloneDeep(props.qzs1Arr),
     props.compltArray,
     (i, j) => {
-      return i.id === j.related_quiz && assign(i, { completed: j.completed });
+      if (j.related_quiz !== undefined) {
+        return i.id === j.related_quiz.id && assign(i, { completed: true });
+      }
     }
   );
   let cqm2 = intersectionWith(
     cloneDeep(props.qzs3Arr),
     props.compltArray,
     (i, j) => {
-      return i.id === j.related_quiz && assign(i, { completed: j.completed });
+      if (j.related_quiz !== undefined) {
+        return i.id === j.related_quiz.id && assign(i, { completed: true });
+      }
     }
   );
   let cqm3 = intersectionWith(
     cloneDeep(props.qzs4Arr),
     props.compltArray,
     (i, j) => {
-      return i.id === j.related_quiz && assign(i, { completed: j.completed });
+      if (j.related_quiz !== undefined) {
+        return i.id === j.related_quiz.id && assign(i, { completed: true });
+      }
     }
   );
 

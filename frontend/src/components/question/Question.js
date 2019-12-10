@@ -2,88 +2,38 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-// Material UI Components
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-
 // Local Components
+import Card from "../components/Card";
 import Choices from "./Choices";
 import QuestionContent from "./QuestionContent";
 
-const useStyles = makeStyles({
-  card: {
-    maxWidth: 800,
-    padding: 16
-  }
-});
-
 export default function Question(props) {
-  const classes = useStyles();
-
   return (
     <div>
-      <Card className={classes.card}>
-        <CardContent>
+      <Card>
+        <div css={content}>
           <div css={question}>
             <QuestionContent activeIndex={props.activeIndex} />
           </div>
-        </CardContent>
-        <CardActions>
-          <div css={choices}>
-            <Choices
-              activeIndex={props.activeIndex}
-              handleOnChange={props.handleOnChange}
-              answer={props.answer}
-            />
-          </div>
-        </CardActions>
+        </div>
+        <div css={actions}>
+          <Choices
+            activeIndex={props.activeIndex}
+            handleOnChange={props.handleOnChange}
+            answers={props.answers}
+          />
+        </div>
       </Card>
     </div>
   );
 }
 
-// export default function Question(props) {
-//   return (
-//     <div css={main}>
-//       <div css={container}>
-//         <div css={number}>{props.number}.</div>
-//         <div css={question}> {props.question.question}</div>
-//       </div>
-//       <div css={checkbox}>
-//         <input id={props.number} type="radio" onChange={props.onChange} />
-//         <span>True</span>
-//         <input id={props.number} type="radio" onChange={props.onChange} />
-//         <span>False</span>
-//       </div>
-//     </div>
-//   );
-// }
+const container = css``;
 
-// const main = css`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   padding: 8px;
-//   &: hover {
-//     background-color: #f0f0f0;
-//   }
-// `;
-
-// const container = css`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: baseline;
-// `;
-// const number = css`
-//   width: 28px;
-//   padding-right: 8px;
-//   text-align: right;
-//   font-size: 16px;
-//   font-weight: 600;
-//   color: rgb(78, 78, 78);
-// `;
+const content = css`
+  width: 800px;
+  padding: 16px;
+`;
 
 const question = css`
   min-width: 720px;
@@ -94,7 +44,7 @@ const question = css`
   color: rgb(78, 78, 78);
 `;
 
-const choices = css`
+const actions = css`
   width: 100%;
   margin-right: 16px;
   margin-left: 56px;

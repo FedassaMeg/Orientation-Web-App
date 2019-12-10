@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Local components
 import { useQuiz } from "../quiz/QuizContext";
@@ -13,16 +13,27 @@ export default function Choices(props) {
   const qstChoices = data.questions[props.activeIndex].choices;
 
   if (qstType === "TF") {
-    return <TFChoices handleOnChange={props.handleOnChange} />;
+    return (
+      <TFChoices
+        activeIndex={props.activeIndex}
+        handleOnChange={props.handleOnChange}
+      />
+    );
   } else if (qstType === "MC") {
     return (
       <MCChoices
+        activeIndex={props.activeIndex}
         handleOnChange={props.handleOnChange}
         qstChoices={qstChoices}
       />
     );
   } else if (qstType === "SA") {
-    return <SAChoices handleOnChange={props.handleOnChange} />;
+    return (
+      <SAChoices
+        activeIndex={props.activeIndex}
+        handleOnChange={props.handleOnChange}
+      />
+    );
   }
   return null;
 }

@@ -11,7 +11,6 @@ import { useAsync } from "react-async";
 
 //Local components
 import * as apiClient from "./api-call-quiz";
-import { useUser } from "../context/UserContext";
 import { bootstrapData } from "./bootstrap-quiz-data";
 
 // Async wrapper function for api calls
@@ -28,16 +27,18 @@ const getData = async () => {
 const QuizContext = createContext();
 
 function QuizProvider(props) {
-  console.log("QuizContext created");
   const quizUrl = props.match.params.id;
+
   let quizId;
-  const { user } = useUser();
+
+  const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
   const [quizzes, setQuizzes] = useState([]);
   const [quiz, setQuiz] = useState({});
-  const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
+
   const getQuizzesState = useAsync({
     promiseFn: getData
   });
+
   const getQuizState = useAsync({
     deferFn: bootstrapData,
     quizId
@@ -54,7 +55,6 @@ function QuizProvider(props) {
   useEffect(() => {
     if (getQuizzesState.isFulfilled) {
       const currQuiz = getQuizzesState.data.quizzes.data.filter(item => {
-        //return item.group[0] === user.role && item.url_value === quizUrl;
         return item.url_value === quizUrl;
       });
       setQuiz(currQuiz[0]);

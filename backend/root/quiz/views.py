@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Quiz, QuizScore, Question, Choice, Answer, Slide, CompletedSlide
-from .serializers import QuizSerializer, QuizScoreSerializer, QuizScoreUserSerializer, QuestionSerializer, ChoiceSerializer, AnswerSerializer, SlideSerializer, CompletedSlideSerializer
+from .serializers import QuizSerializer, QuizScoreSerializer, QuestionSerializer, ChoiceSerializer, AnswerSerializer, SlideSerializer, CompletedSlideSerializer
 
 
 class QuizViewSet(viewsets.ModelViewSet):
@@ -16,7 +16,7 @@ class QuizViewSet(viewsets.ModelViewSet):
 
 
 class QuizScoreUserViewSet(viewsets.ModelViewSet):
-    serializer_class = QuizScoreUserSerializer
+    serializer_class = QuizScoreSerializer
     queryset = QuizScore.objects.all()
 
     def perform_create(self, serializer):
@@ -24,7 +24,7 @@ class QuizScoreUserViewSet(viewsets.ModelViewSet):
 
     def list(self, request, pk):
         queryset = QuizScore.objects.filter(signed_by=pk)
-        serializer = QuizScoreUserSerializer(queryset, many=True)
+        serializer = QuizScoreSerializer(queryset, many=True)
         return Response(serializer.data)
 
 class QuizScoreViewSet(viewsets.ModelViewSet):

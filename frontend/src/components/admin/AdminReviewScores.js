@@ -94,8 +94,6 @@ export default function AdminReviewScores(props) {
     }
   };
 
-  console.log(getInitialDataState.data);
-
   return (
     <div>
       <div>
@@ -112,12 +110,14 @@ export default function AdminReviewScores(props) {
               {scoreArray.map((rowdata, index) => {
                 return (
                   <TableRow key={index}>
-                    {userArray.map(user => {
+                    {userArray.map((user, index) => {
                       const userFullName =
                         user.last_name + ", " + user.first_name;
                       return (
                         rowdata.signed_by == user.id && (
-                          <TableCell align="left">{userFullName}</TableCell>
+                          <TableCell key={index} align="left">
+                            {userFullName}
+                          </TableCell>
                         )
                       );
                     })}
