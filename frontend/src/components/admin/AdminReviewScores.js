@@ -110,30 +110,41 @@ export default function AdminReviewScores(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {scoreArray.map((rowdata, index) => (
-                <TableRow key={index}>
-                  <TableCell align="left">{rowdata.signed_by}</TableCell>
-                  <TableCell align="left">
-                    {rowdata.related_quiz.title}
-                  </TableCell>
-                  <TableCell align="center">
-                    {rowdata.score}/{rowdata.related_quiz.num_questions}
-                  </TableCell>
-                  <TableCell align="right">
-                    {rowdata.signed_date.slice(0, 19)}
-                  </TableCell>
-                  <TableCell align="right">
-                    {rowdata.related_quiz.review_required
-                      ? "Required"
-                      : "Not Required"}
-                  </TableCell>
-                  <TableCell>
-                    <button name={rowdata.id} onClick={file}>
-                      Report
-                    </button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {scoreArray.map((rowdata, index) => {
+                return (
+                  <TableRow key={index}>
+                    {userArray.map(user => {
+                      const userFullName =
+                        user.last_name + ", " + user.first_name;
+                      return (
+                        rowdata.signed_by == user.id && (
+                          <TableCell align="left">{userFullName}</TableCell>
+                        )
+                      );
+                    })}
+
+                    <TableCell align="left">
+                      {rowdata.related_quiz.title}
+                    </TableCell>
+                    <TableCell align="center">
+                      {rowdata.score}/{rowdata.related_quiz.num_questions}
+                    </TableCell>
+                    <TableCell align="right">
+                      {rowdata.signed_date.slice(0, 19)}
+                    </TableCell>
+                    <TableCell align="right">
+                      {rowdata.related_quiz.review_required
+                        ? "Required"
+                        : "Not Required"}
+                    </TableCell>
+                    <TableCell>
+                      <button name={rowdata.id} onClick={file}>
+                        Report
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </Card>
