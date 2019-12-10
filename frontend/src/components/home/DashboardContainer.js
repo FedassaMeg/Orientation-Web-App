@@ -17,8 +17,8 @@ const getData = async ({ user_id }) => {
   let completedQuizzes;
   let completedSlides;
   try {
-    quizzes = await apiClient.getQuizzes(user_id);
-    slides = await apiClient.getSlides(user_id);
+    quizzes = await apiClient.getQuizzes();
+    slides = await apiClient.getSlides();
     completedQuizzes = await apiClient.getCompletedQuizzes(user_id);
     completedSlides = await apiClient.getCompletedSlides(user_id);
   } catch (e) {
@@ -39,6 +39,7 @@ export default function DashboardContainer() {
   const user_id = user.id;
 
   const { data, error, isPending, isSettled } = useAsync({
+    watch: toggle,
     promiseFn: getData,
     user_id
   });
@@ -47,14 +48,20 @@ export default function DashboardContainer() {
     if (isSettled) {
       setQuizArray(data.quizzes.data);
       setSlideArray(data.slides.data);
-      setComArray(data.completedSlides.data);
       setCompltArray(data.completedQuizzes.data);
+    }
+  }, [isSettled]);
+
+  useEffect(() => {
+    console.log("useEffect rendered");
+    if (isSettled) {
+      setComArray(data.completedSlides.data);
     }
   }, [isSettled, toggle]);
 
   const handleOnClick = event => {
     const slideId = event.target.id;
-    setToggle(true);
+    setToggle(prevState => !prevState);
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`

@@ -78,8 +78,7 @@ export default function AdminReviewScores(props) {
       id: "submit",
       label: "Completed Date"
     },
-    { id: "review", label: "Admin Review" },
-    { id: "report", label: "Generate Report" }
+    { id: "review", label: "Admin Review" }
   ];
 
   const file = event => {
@@ -136,11 +135,6 @@ export default function AdminReviewScores(props) {
                       {rowdata.related_quiz.review_required
                         ? "Required"
                         : "Not Required"}
-                    </TableCell>
-                    <TableCell>
-                      <button name={rowdata.id} onClick={file}>
-                        Report
-                      </button>
                     </TableCell>
                   </TableRow>
                 );
