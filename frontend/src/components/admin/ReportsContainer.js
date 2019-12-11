@@ -3,7 +3,11 @@ import React, { useState, useLayoutEffect, useEffect } from "react";
 //Utility hook for data fetching and promise resolution
 import { useAsync } from "react-async";
 
+//Axios HTTP Client
+import axios from "axios";
+
 import * as apiClient from "./api-call-admin";
+import { ROOT_URL } from "../utils/constants";
 import Reports from "./Reports";
 
 // Async wrapper function for api calls
@@ -78,12 +82,39 @@ export default function ReportsContainer() {
     }
   }
 
+  const handleSubmit = event => {
+    event.preventDefault();
+    const quizScoreId = event.target.id;
+    let config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      }
+    };
+
+    axios
+      .put(
+        `${ROOT_URL}/scores/${quizScoreId}`,
+        {
+          is_completed: false
+        },
+        config
+      )
+      .then(res => {
+        console.log(res.data);
+        alert("User will be prompted to re-take test!");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <Reports
         userArray={userArray}
         open={open}
         handleOnSubmit={handleOnSubmit}
+        handleSubmit={handleSubmit}
         scoreArray={scoreData}
         userId={userId}
       />

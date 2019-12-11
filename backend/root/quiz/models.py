@@ -31,13 +31,14 @@ class Quiz(models.Model):
 
 
 class QuizScore(models.Model):
-    score = models.IntegerField()
+    score = models.IntegerField(blank=True, null=True)
     signed_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='quiz_signed_by')
     signed_date = models.DateTimeField(auto_now=True)
     related_quiz = models.ForeignKey(
         Quiz, on_delete=models.SET_NULL, blank=True, null=True)
     is_reviewed = models.BooleanField(default=False)
     reviewed_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
+    is_completed = models.BooleanField(default=False)
 
 
 class Question(models.Model):

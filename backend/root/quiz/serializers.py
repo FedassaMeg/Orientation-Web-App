@@ -13,12 +13,12 @@ class QuizSerializer(serializers.ModelSerializer):
 
 class QuizScoreSerializer(WritableNestedModelSerializer):
     signed_by = serializers.ReadOnlyField(source='signed_by.id')
-    related_quiz = QuizSerializer(allow_null=True)
+    related_quiz = QuizSerializer(allow_null=True, required=False)
 
     class Meta:
         model = QuizScore
         fields = ('id', 'score', 'signed_by', 'signed_date',
-                  'related_quiz', 'is_reviewed', 'reviewed_by')
+                  'related_quiz', 'is_reviewed', 'reviewed_by', 'is_completed')
 
 
 class ChoiceSerializer(serializers.ModelSerializer):

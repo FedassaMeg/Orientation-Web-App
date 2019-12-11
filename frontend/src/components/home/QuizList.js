@@ -51,7 +51,9 @@ export default function QuizList(props) {
     props.compltArray,
     (i, j) => {
       if (j.related_quiz !== undefined) {
-        return i.id === j.related_quiz.id && assign(i, { completed: true });
+        return (
+          i.id === j.related_quiz.id && assign(i, { completed: j.is_completed })
+        );
       }
     }
   );
@@ -60,7 +62,9 @@ export default function QuizList(props) {
     props.compltArray,
     (i, j) => {
       if (j.related_quiz !== undefined) {
-        return i.id === j.related_quiz.id && assign(i, { completed: true });
+        return (
+          i.id === j.related_quiz.id && assign(i, { completed: j.is_completed })
+        );
       }
     }
   );
@@ -69,7 +73,9 @@ export default function QuizList(props) {
     props.compltArray,
     (i, j) => {
       if (j.related_quiz !== undefined) {
-        return i.id === j.related_quiz.id && assign(i, { completed: true });
+        return (
+          i.id === j.related_quiz.id && assign(i, { completed: j.is_completed })
+        );
       }
     }
   );

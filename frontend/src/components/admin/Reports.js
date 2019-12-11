@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import * as jsPDF from "jspdf";
 
@@ -6,29 +6,6 @@ import Button from "../components/Button";
 import Card from "../components/Card";
 
 export default function Reports(props) {
-  const userList = props.userArray.map((user, index) => {
-    const userFullName = user.last_name + ", " + user.first_name;
-    return (
-      <li>
-        <Button key={index} id={user.id} onClick={props.handleOnSubmit}>
-          {userFullName}
-        </Button>
-      </li>
-    );
-  });
-
-  const scoreList = props.scoreArray.map((rowdata, index) => {
-    return (
-      <div key={index}>
-        <div>{rowdata.related_quiz.title}</div>
-        <div>
-          {rowdata.score}/{rowdata.related_quiz.num_questions}
-        </div>
-        <Button>Re-take Test</Button>
-      </div>
-    );
-  });
-
   const file = () => {
     const doc = new jsPDF();
     let newUser;
@@ -62,6 +39,33 @@ export default function Reports(props) {
     });
     doc.save("a4.pdf");
   };
+
+  const userList = props.userArray.map((user, index) => {
+    const userFullName = user.last_name + ", " + user.first_name;
+    return (
+      <li>
+        <Button key={index} id={user.id} onClick={props.handleOnSubmit}>
+          {userFullName}
+        </Button>
+      </li>
+    );
+  });
+
+  const scoreList = props.scoreArray.map((rowdata, index) => {
+    if (rowdata.is_completed) {
+      return (
+        <div key={index}>
+          <div>{rowdata.related_quiz.title}</div>
+          <div>
+            {rowdata.score}/{rowdata.related_quiz.num_questions}
+          </div>
+          <Button id={rowdata.id} onClick={props.handleSubmit}>
+            Re-take Test
+          </Button>
+        </div>
+      );
+    }
+  });
   return (
     <div>
       <Card header="User List">

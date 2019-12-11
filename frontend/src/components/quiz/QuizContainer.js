@@ -98,7 +98,8 @@ export default function QuizContainer() {
             id: data.quiz.id,
             title: data.quiz.title,
             group: data.quiz.group
-          }
+          },
+          is_completed: true
         },
         config
       )

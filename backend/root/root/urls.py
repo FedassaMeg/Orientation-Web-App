@@ -28,6 +28,8 @@ urlpatterns = [
          QuestionViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('api/scores/',
          QuizScoreViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('api/scores/<int:pk>',
+         QuizScoreViewSet.as_view({'get': 'retrieve', 'post': 'create', 'put': 'update'})),
     path('api/users/<int:pk>/completedslides/',
          CompletedSlideViewSet.as_view({'get': 'list'})),
     path('api/users/<int:pk>/scores/',
