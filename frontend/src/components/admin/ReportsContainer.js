@@ -31,7 +31,7 @@ const getScoreData = async userId => {
 export default function ReportsContainer() {
   const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
   const [userArray, setUserArray] = useState([]);
-  const [state, setState] = useState(0);
+  const [userId, setUserId] = useState(0);
   const [open, setOpen] = useState(false);
   const [scoreData, setScoreData] = useState([]);
 
@@ -39,24 +39,17 @@ export default function ReportsContainer() {
     promiseFn: getUsersData
   });
 
-  let userId = state.userId;
   const getScoreDataState = useAsync({
     deferFn: getScoreData,
     userId
   });
-
-  const handleOnChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setState(Number(value));
-    setOpen(false);
-  };
 
   const handleOnSubmit = event => {
     event.preventDefault();
     const id = event.target.id;
     setOpen(true);
     getScoreDataState.run(id);
+    setUserId(Number(id));
   };
 
   useLayoutEffect(() => {
@@ -89,10 +82,10 @@ export default function ReportsContainer() {
     <div>
       <Reports
         userArray={userArray}
-        handleOnChange={handleOnChange}
         open={open}
         handleOnSubmit={handleOnSubmit}
         scoreArray={scoreData}
+        userId={userId}
       />
     </div>
   );

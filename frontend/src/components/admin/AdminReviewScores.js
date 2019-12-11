@@ -81,19 +81,6 @@ export default function AdminReviewScores(props) {
     { id: "review", label: "Admin Review" }
   ];
 
-  const file = event => {
-    const user_id = event.target.name;
-    const doc = new jsPDF();
-    const user = find(userArray, { id: Number(`${user_id}`) });
-    if (user !== undefined) {
-      doc.text(user.first_name, 10, 10);
-      doc.text(user.last_name, 25, 10);
-      doc.text("Employee Quiz Scores", 10, 25);
-      doc.save("scores.pdf");
-      console.log(doc.output("datauristring"));
-    }
-  };
-
   return (
     <div>
       <div>
