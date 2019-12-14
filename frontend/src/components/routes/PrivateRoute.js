@@ -1,17 +1,23 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-export const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      localStorage.getItem("access_token") ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{ pathname: "/login", state: { from: props.location } }}
-        />
-      )
-    }
-  />
-);
+import { useAuth } from "../context/AuthContext";
+
+export const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { data } = useAuth();
+  console.log(data.isAuthenticated);
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        data.isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+        )
+      }
+    />
+  );
+};
