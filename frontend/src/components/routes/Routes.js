@@ -1,15 +1,10 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Util Components
-import { useUser } from "../context/UserContext";
 import { PrivateRoute } from "../routes/PrivateRoute";
 import { AdminRoute } from "../routes/AdminRoute";
+import LoginRoute from "./LoginRoute";
 
 // Route Components
 import QuizPage from "../../views/QuizPage";
@@ -21,16 +16,8 @@ import AdminPage from "../../views/AdminPage";
 import VideosPage from "../../views/VideosPage";
 import HandoutsPage from "../../views/HandoutsPage";
 import HandoutPage from "../../views/HandoutPage";
-import SignUp from "../login/SignUp";
-import Login from "../login/Login";
-import LoginRoute from "./LoginRoute";
 
 export default function Routes() {
-  // Access current user [UserContext]
-  const user = useUser();
-
-  // Is current user authenticated
-  const loggedIn = user.isAuthenticated;
   return (
     <Router>
       <Switch>
