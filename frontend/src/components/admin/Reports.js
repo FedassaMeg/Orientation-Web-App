@@ -1,3 +1,5 @@
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
 import React, { useEffect, useState } from "react";
 
 import * as jsPDF from "jspdf";
@@ -74,11 +76,18 @@ export default function Reports(props) {
       <div>
         {props.open && (
           <Card>
-            {scoreList}
-            <Button onClick={file}>Generate Report</Button>
+            <div css={scorecss}>
+              {scoreList}
+              <Button onClick={file}>Generate Report</Button>
+            </div>
           </Card>
         )}
       </div>
     </div>
   );
 }
+
+const scorecss = css`
+  display: flex;
+  flex-direction: ;
+`;
