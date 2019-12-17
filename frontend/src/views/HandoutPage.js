@@ -14,16 +14,12 @@ const handoutsLookup = {
     key: 2,
     title: "Catheter Irrigation"
   },
-  "md-order-and-visit-note": {
-    key: 3,
-    title: "MD Order and Visit Note"
-  },
   oximetry: {
-    key: 4,
+    key: 3,
     title: "Oximetry"
   },
   "routine-venipuncture-procedure": {
-    key: 5,
+    key: 4,
     title: "Routine Venipuncture Procedure"
   }
 };
