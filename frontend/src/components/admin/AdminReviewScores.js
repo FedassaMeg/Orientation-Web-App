@@ -1,25 +1,16 @@
-import React, { useState, useLayoutEffect, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 
 //Utility hook for data fetching and promise resolution
 import { useAsync } from "react-async";
 
-import { find, intersectionWith, assign, cloneDeep } from "lodash";
-
+import * as apiClient from "./api-call-admin";
 import Card from "../components/Card";
-import axios from "axios";
-import queryString from "query-string";
-import { Link } from "react-router-dom";
-import MuiReviewScoresTable from "./MuiReviewScoresTable";
+import ReviewQuiz from "./ReviewQuiz";
 import Table from "./table/Table";
 import TableHead from "./table/TableHead";
 import TableBody from "./table/TableBody";
 import TableRow from "./table/TableRow";
 import TableCell from "./table/TableCell";
-
-import { ROOT_URL } from "../utils/constants";
-import * as apiClient from "./api-call-admin";
-
-import * as jsPDF from "jspdf";
 
 // Async wrapper function for api calls
 const getInitialData = async () => {
@@ -41,6 +32,8 @@ export default function AdminReviewScores(props) {
   const [userArray, setUserArray] = useState([]);
   const [scoreArray, setScoreArray] = useState([]);
   const [quizArray, setQuizArray] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
+  const [quizId, setQuizId] = useState(0);
 
   const getInitialDataState = useAsync({
     promiseFn: getInitialData
@@ -54,6 +47,14 @@ export default function AdminReviewScores(props) {
       setScoreArray(getInitialDataState.data.scores.data);
     }
   }, [getInitialDataState.isSettled]);
+
+  const handleOnClick = e => {
+    if (e.target.name === "button") {
+      setQuizId(e.target.id);
+    }
+    setIsClicked(!isClicked);
+  };
+
   if (!firstAttemptFinished) {
     if (getInitialDataState.isPending) {
       return <h3>Loading...</h3>;
@@ -83,7 +84,7 @@ export default function AdminReviewScores(props) {
 
   return (
     <div>
-      <div>
+      {!isClicked ? (
         <Card header="Employee Quiz Scores">
           <Table>
             <TableHead>
@@ -109,19 +110,23 @@ export default function AdminReviewScores(props) {
                       );
                     })}
 
-                    <TableCell align="left">
-                      {rowdata.related_quiz.title}
-                    </TableCell>
-                    <TableCell align="center">
+                    <TableCell>{rowdata.related_quiz.title}</TableCell>
+                    <TableCell>
                       {rowdata.score}/{rowdata.related_quiz.num_questions}
                     </TableCell>
-                    <TableCell align="right">
-                      {rowdata.signed_date.slice(0, 19)}
-                    </TableCell>
-                    <TableCell align="right">
-                      {rowdata.related_quiz.review_required
-                        ? "Required"
-                        : "Not Required"}
+                    <TableCell>{rowdata.signed_date.slice(0, 10)}</TableCell>
+                    <TableCell>
+                      {rowdata.related_quiz.review_required ? (
+                        <button
+                          id={rowdata.related_quiz.id}
+                          name="button"
+                          onClick={handleOnClick}
+                        >
+                          Review Quiz
+                        </button>
+                      ) : (
+                        "Not Required"
+                      )}
                     </TableCell>
                   </TableRow>
                 );
@@ -129,7 +134,9 @@ export default function AdminReviewScores(props) {
             </TableBody>
           </Table>
         </Card>
-      </div>
+      ) : (
+        <ReviewQuiz quizId={quizId} />
+      )}
     </div>
   );
 }

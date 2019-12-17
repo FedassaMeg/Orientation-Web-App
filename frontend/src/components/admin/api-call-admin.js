@@ -4,6 +4,13 @@ function getUsers() {
   return client(`/users`);
 }
 
+function getQuiz(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/quizs/${id}`);
+}
+
 function getQuizzes() {
   return client(`/quizs`);
 }
@@ -42,6 +49,7 @@ function getAnswers(id) {
 
 export {
   getUsers,
+  getQuiz,
   getQuizzes,
   getScores,
   getUserScores,

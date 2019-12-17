@@ -2,10 +2,11 @@
 import { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
 
+//Local components
 import { useUser } from "../context/UserContext";
+import HandoutList from "./HandoutList";
 import QuizList from "./QuizList";
 import SlideList from "./SlideList";
-import HandoutList from "./HandoutList";
 
 export default function Dashboard(props) {
   const { user } = useUser();
@@ -126,11 +127,14 @@ const divider = css`
 `;
 
 const cardscontainer = css`
-  padding: 80px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
+  padding: 16px;
+  margin-left: 120px;
+  margin-right: 120px;
+  margin-top: 64px;
 `;
 
 const cardGroup = css`

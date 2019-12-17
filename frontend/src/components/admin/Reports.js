@@ -56,12 +56,12 @@ export default function Reports(props) {
   const scoreList = props.scoreArray.map((rowdata, index) => {
     if (rowdata.is_completed) {
       return (
-        <div key={index}>
-          <div>{rowdata.related_quiz.title}</div>
-          <div>
+        <div key={index} css={scorerow}>
+          <div css={title}>{rowdata.related_quiz.title}</div>
+          <div css={quizscore}>
             {rowdata.score}/{rowdata.related_quiz.num_questions}
           </div>
-          <Button id={rowdata.id} onClick={props.handleSubmit}>
+          <Button id={rowdata.id} onClick={props.handleSubmit} css={testbtn}>
             Re-take Test
           </Button>
         </div>
@@ -89,5 +89,27 @@ export default function Reports(props) {
 
 const scorecss = css`
   display: flex;
-  flex-direction: ;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const scorerow = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+`;
+
+const title = css`
+  width: 300px;
+`;
+
+const quizscore = css`
+  width: 80px;
+`;
+
+const testbtn = css`
+  margin: 0;
 `;

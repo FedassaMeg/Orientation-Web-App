@@ -18,12 +18,21 @@ export default function QuizContainer() {
 
   let score = 0;
 
+  const initialState = {
+    tf: false,
+    mc: "a",
+    sa: ""
+  };
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [inputMap, setInputMap] = useState(new Map());
   const [ansArr, setAnsArr] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [currInput, setCurrInput] = useState(null);
 
-  let currAns;
+  useEffect(() => {
+    setCurrInput(inputMap.get(activeIndex));
+  }, [activeIndex, inputMap]);
 
   // Handles click event on next button
   const next = () => {
@@ -58,21 +67,23 @@ export default function QuizContainer() {
 
   // Handles user interaction with radio buttons
   const handleOnChange = event => {
-    const key = data.questions[activeIndex].id;
+    const key = activeIndex;
+    let value;
     let added;
     if (data.questions[activeIndex].type === "TF") {
-      const isSelected = event.target.value === "true";
-      added = inputMap.set(key, isSelected);
+      value = event.target.value === "true";
+      added = inputMap.set(key, value);
     }
     if (data.questions[activeIndex].type === "MC") {
-      const value = event.target.value;
+      value = event.target.value;
       added = inputMap.set(key, value);
     }
     if (data.questions[activeIndex].type === "SA") {
-      const value = event.target.value;
+      value = event.target.value;
       added = inputMap.set(key, value);
     }
     setInputMap(added);
+    setCurrInput(value);
     console.log(inputMap);
   };
 
@@ -157,7 +168,7 @@ export default function QuizContainer() {
       handleOnChange={handleOnChange}
       handleSubmit={handleSubmit}
       answers={inputMap}
-      answer={currAns}
+      answer={currInput}
     />
   );
 }

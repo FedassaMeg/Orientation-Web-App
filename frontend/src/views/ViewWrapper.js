@@ -12,9 +12,9 @@ export default function ViewWrapper({ children }) {
 }
 
 const container = css`
-  margin: 0;
-  height: 100vh;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
   background-color: whitesmoke;
 `;
