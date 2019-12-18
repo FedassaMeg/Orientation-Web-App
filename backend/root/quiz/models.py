@@ -82,6 +82,13 @@ class Answer(models.Model):
     question = models.OneToOneField(
         Question, on_delete=models.CASCADE, primary_key=True)
 
+class UserAnswer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True, blank=True)
+    true_or_false = models.BooleanField(blank=True, null=True)
+    multiple_choice = models.CharField(max_length=1, blank=True, null=True)
+    short_answer = models.TextField(blank=True, null=True)
+    quiz_score = models.ForeignKey(QuizScore, on_delete=models.CASCADE)
+    
 
 class Slide(models.Model):
     title = models.CharField(max_length=100)

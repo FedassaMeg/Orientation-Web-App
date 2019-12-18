@@ -34,7 +34,7 @@ const container = css`
 `;
 
 const sidebar = css`
-  width: 240px;
+  width: 260px;
   min-height: 100vh;
   background-color: #404045;
 `;
@@ -43,7 +43,7 @@ const adminHeader = css`
   height: 50px;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 24px;
+  padding-left: 36px;
   font: 20px "Open Sans", san-serif;
   color: white;
   background-color: #353538;

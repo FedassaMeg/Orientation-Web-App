@@ -17,7 +17,6 @@ export default function Handouts() {
             list={[
               "Catheter Insertion and Care HO",
               "Catheter Irrigation",
-              "MD order and Visit Note",
               "Oximetry",
               "Routine Venipuncture Procedure"
             ]}

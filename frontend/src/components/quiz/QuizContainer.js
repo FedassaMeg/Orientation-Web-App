@@ -18,12 +18,21 @@ export default function QuizContainer() {
 
   let score = 0;
 
+  const initialState = {
+    tf: false,
+    mc: "a",
+    sa: ""
+  };
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [inputMap, setInputMap] = useState(new Map());
   const [ansArr, setAnsArr] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [currInput, setCurrInput] = useState(null);
 
-  let currAns;
+  useEffect(() => {
+    setCurrInput(inputMap.get(activeIndex));
+  }, [activeIndex, inputMap]);
 
   // Handles click event on next button
   const next = () => {
@@ -58,22 +67,41 @@ export default function QuizContainer() {
 
   // Handles user interaction with radio buttons
   const handleOnChange = event => {
-    const key = data.questions[activeIndex].id;
+    const key = activeIndex;
+    let value;
     let added;
     if (data.questions[activeIndex].type === "TF") {
-      const isSelected = event.target.value === "true";
-      added = inputMap.set(key, isSelected);
+      value = event.target.value === "true";
+      added = inputMap.set(key, value);
     }
     if (data.questions[activeIndex].type === "MC") {
-      const value = event.target.value;
+      value = event.target.value;
       added = inputMap.set(key, value);
     }
     if (data.questions[activeIndex].type === "SA") {
-      const value = event.target.value;
+      value = event.target.value;
       added = inputMap.set(key, value);
     }
     setInputMap(added);
+    setCurrInput(value);
     console.log(inputMap);
+  };
+
+  const sendQuestionAns = (id, config) => {
+    data.questions.map((question, index) => {
+      if (question.type === "SA") {
+        const value = inputMap.get(index);
+        axios.post(
+          `${ROOT_URL}/useranswers`,
+          {
+            quiz_score: id,
+            question: question.id,
+            short_answer: value
+          },
+          config
+        );
+      }
+    });
   };
 
   // Handles submission of quiz; posts score to the backend
@@ -82,13 +110,12 @@ export default function QuizContainer() {
     if (!data.quiz.review_required) {
       inputMap.forEach(compareAnsToInput);
     }
-    console.log(data.quiz.id);
+
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }
     };
-
     axios
       .post(
         `${ROOT_URL}/scores/`,
@@ -104,9 +131,10 @@ export default function QuizContainer() {
         config
       )
       .then(res => {
-        console.log(res.data);
         alert("Quiz Submitted!");
         history.push("/quizs");
+        console.log(res);
+        return sendQuestionAns(res.data.id, config);
       })
       .catch(err => {
         console.log(err);
@@ -135,8 +163,9 @@ export default function QuizContainer() {
       }
     });
     setAnsArr(newArr);
+    console.log(ansArr);
   };
-
+  console.log(data);
   // Helper function to evaluate the user input against the answers and determine a score
   const compareAnsToInput = (value, key) => {
     let ansValue = ansArr.find(elm => {
@@ -157,7 +186,7 @@ export default function QuizContainer() {
       handleOnChange={handleOnChange}
       handleSubmit={handleSubmit}
       answers={inputMap}
-      answer={currAns}
+      answer={currInput}
     />
   );
 }

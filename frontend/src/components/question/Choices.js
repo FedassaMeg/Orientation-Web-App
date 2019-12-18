@@ -17,6 +17,7 @@ export default function Choices(props) {
       <TFChoices
         activeIndex={props.activeIndex}
         handleOnChange={props.handleOnChange}
+        answer={props.answer}
       />
     );
   } else if (qstType === "MC") {
@@ -25,6 +26,7 @@ export default function Choices(props) {
         activeIndex={props.activeIndex}
         handleOnChange={props.handleOnChange}
         qstChoices={qstChoices}
+        answer={props.answer}
       />
     );
   } else if (qstType === "SA") {
@@ -32,6 +34,7 @@ export default function Choices(props) {
       <SAChoices
         activeIndex={props.activeIndex}
         handleOnChange={props.handleOnChange}
+        answer={props.answer}
       />
     );
   }

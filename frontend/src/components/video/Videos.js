@@ -7,6 +7,7 @@ import List from "@material-ui/core/List";
 import { makeStyles } from "@material-ui/core/styles";
 import ListSubheader from "@material-ui/core/ListSubheader";
 
+import Card from "../components/Card";
 import Video from "./Video";
 
 const useStyles = makeStyles(theme => ({
@@ -65,8 +66,8 @@ export default function Videos(props) {
 const container = css`
   background-color: #f4f4f4;
   align-self: center;
-  max-width: 120vmin;
-  width: 1500px;
+  //max-width: 120vmin;
+  width: 100%;
   padding-bottom: 24px;
 `;
 

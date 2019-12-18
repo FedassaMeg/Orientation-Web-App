@@ -13,6 +13,7 @@ import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { useQuiz } from "./QuizContext";
 import Question from "../question/Question";
 import ReviewAnswers from "./ReviewAnswers";
+import Container from "../components/Container";
 
 //Material UI JSS
 const useStyles = makeStyles(theme => ({
@@ -27,53 +28,53 @@ export default function Quiz(props) {
   return (
     <>
       {!props.isCompleted ? (
-        <div css={container}>
-          <div css={title}>
-            <div css={titleText}>{data.quiz.title}</div>
-          </div>
+        <Container>
+          <div css={title}>{data.quiz.title}</div>
           <hr css={divider} />
-          <div css={questionContainer}>
-            <div css={qstNum}>
-              <span css={qstNumText}>
-                {props.activeIndex + 1} OF {data.questions.length}
-              </span>
-            </div>
-            <Question
-              activeIndex={props.activeIndex}
-              answers={props.answers}
-              handleOnChange={props.handleOnChange}
-            />
-            <div css={btnGroup}>
-              {!props.activeIndex == 0 ? (
+          <div css={flexcontainer}>
+            <div css={questionContainer}>
+              <div css={qstNum}>
+                <span css={qstNumText}>
+                  {props.activeIndex + 1} OF {data.questions.length}
+                </span>
+              </div>
+              <Question
+                activeIndex={props.activeIndex}
+                answer={props.answer}
+                handleOnChange={props.handleOnChange}
+              />
+              <div css={btnGroup}>
+                {!props.activeIndex == 0 ? (
+                  <Button
+                    size="small"
+                    className={classes.button}
+                    startIcon={<MdNavigateBefore />}
+                    onClick={props.prev}
+                  >
+                    prev.
+                  </Button>
+                ) : (
+                  <Button
+                    size="small"
+                    className={classes.button}
+                    startIcon={<MdNavigateBefore />}
+                    disabled
+                  >
+                    prev.
+                  </Button>
+                )}
                 <Button
                   size="small"
                   className={classes.button}
-                  startIcon={<MdNavigateBefore />}
-                  onClick={props.prev}
+                  endIcon={<MdNavigateNext />}
+                  onClick={props.next}
                 >
-                  prev.
+                  next
                 </Button>
-              ) : (
-                <Button
-                  size="small"
-                  className={classes.button}
-                  startIcon={<MdNavigateBefore />}
-                  disabled
-                >
-                  prev.
-                </Button>
-              )}
-              <Button
-                size="small"
-                className={classes.button}
-                endIcon={<MdNavigateNext />}
-                onClick={props.next}
-              >
-                next
-              </Button>
+              </div>
             </div>
           </div>
-        </div>
+        </Container>
       ) : (
         <>
           <div css={title}>Review Answers</div>
@@ -91,36 +92,29 @@ export default function Quiz(props) {
   );
 }
 
-const container = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-`;
-
 // Quiz Title [div]
 const title = css`
-  width: 100%;
-  background-color: white;
-`;
-
-const titleText = css`
-  max-width: 1200px;
-  margin: auto;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  padding-left: 16px;
-  padding-right: 16px;
   font-family: "Raleway", sans-serif;
   font-size: 45px;
+  padding-left: 90px;
+  padding-top: 10px;
   color: rgb(78, 78, 78);
+  width: 100%;
+  padding-bottom: 10px;
+  background-color: white;
 `;
 
 // Horizontal Divider [hr]
 const divider = css`
   margin: 0;
   border: 0.5px solid lightgrey;
+`;
+
+const flexcontainer = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const questionContainer = css`
@@ -131,6 +125,7 @@ const questionContainer = css`
   margin-top: 24px;
   height: 480px;
   padding: 16px;
+  width: 1000px;
 `;
 
 const qstNum = css`

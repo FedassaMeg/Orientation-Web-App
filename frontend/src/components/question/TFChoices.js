@@ -1,52 +1,39 @@
 // Presentation to display ui for user input/answer [ 'Routes' based on question type(t/f, multiple choice, general)]
 // Consumes contain state to handle ui interaction
-
-import React, { useEffect, useState } from "react";
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
 
 // Material UI Components
 import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-
-//React-Icons Components
-import { MdRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons/md";
 
 export default function TFChoices(props) {
   return (
-    <FormControl component="fieldset">
-      <RadioGroup
-        aria-label="answer"
-        name="answer"
-        onChange={props.handleOnChange}
-        value={null}
-        row
-      >
-        <FormControlLabel
-          value="true"
-          control={
-            <Radio
-              color="default"
-              icon={<MdRadioButtonUnchecked fontSize="large" />}
-              checkedIcon={<MdRadioButtonChecked fontSize="large" />}
-            />
-          }
-          label="True"
-          labelPlacement="end"
-        />
-        <FormControlLabel
-          value="false"
-          control={
-            <Radio
-              color="default"
-              icon={<MdRadioButtonUnchecked fontSize="large" />}
-              checkedIcon={<MdRadioButtonChecked fontSize="large" />}
-            />
-          }
-          label="False"
-          labelPlacement="end"
-        />
-      </RadioGroup>
-    </FormControl>
+    <div css={container}>
+      <div css={choice}>
+        <Radio
+          color="default"
+          checked={props.answer === true}
+          onChange={props.handleOnChange}
+          value={true}
+        />{" "}
+        True
+      </div>
+      <div css={choice}>
+        <Radio
+          color="default"
+          checked={props.answer === false}
+          onChange={props.handleOnChange}
+          value={false}
+        />{" "}
+        False
+      </div>
+    </div>
   );
 }
+
+const container = css`
+  display: flex;
+  flex-direction: row;
+`;
+
+const choice = css``;

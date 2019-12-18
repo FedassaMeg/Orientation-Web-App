@@ -4,6 +4,13 @@ function getUsers() {
   return client(`/users`);
 }
 
+function getQuiz(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/quizs/${id}`);
+}
+
 function getQuizzes() {
   return client(`/quizs`);
 }
@@ -17,6 +24,13 @@ function getUserScores(id) {
     return Promise.resolve(null);
   }
   return client(`/users/${id}/scores`);
+}
+
+function getUserAns(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/scores/${id}/useranswers`);
 }
 
 function getQuizQuestions(id) {
@@ -42,9 +56,11 @@ function getAnswers(id) {
 
 export {
   getUsers,
+  getQuiz,
   getQuizzes,
   getScores,
   getUserScores,
+  getUserAns,
   getQuizQuestions,
   getQuizAnswers,
   getAnswers

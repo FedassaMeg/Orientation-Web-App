@@ -3,8 +3,6 @@ import { css, jsx } from "@emotion/core";
 
 import { useState } from "react";
 
-import { intersectionWith, cloneDeep, assign } from "lodash";
-
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -13,11 +11,11 @@ import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import Typography from "@material-ui/core/Typography";
 
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-
 import { MdExpandMore } from "react-icons/md";
 
-import HomeListItem from "./HomeListItem";
+//Local components
+import { useUser } from "../context/UserContext";
+import HandoutListItem from "./HandoutListItem";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,14 +37,44 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const handoutsLookup = [
+  {
+    title: "Catheter Insertion and Care HO",
+    url: "catheter-insertion-and-care-ho"
+  },
+  {
+    title: "Catheter Irrigation",
+    url: "catheter-irrigation"
+  },
+  {
+    title: "Oximetry",
+    url: "oximetry"
+  },
+  {
+    title: "Routine Venipuncture Procedure",
+    url: "routine-venipuncture-procedure"
+  }
+];
+
 export default function HandoutList() {
   const classes = useStyles();
+
+  const { user } = useUser();
+
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  let percentage = 0;
+
+  let applicable = "";
+
+  if (user.role === 15 || user.role === 18) {
+    applicable = "Please Review Handouts";
+  } else {
+    applicable = "Not Applicable";
+  }
+
   return (
     <div className={classes.root}>
       <ExpansionPanel
@@ -59,22 +87,11 @@ export default function HandoutList() {
           id="panel1bh-header"
         >
           <div css={tempCard}>
-            <div css={progressCir}>
-              <CircularProgressbar
-                value={percentage}
-                strokeWidth={16}
-                styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                  trailColor: "#e4e4e4",
-                  strokeLinecap: "butt"
-                })}
-              />
-            </div>
             <div css={progressText}>
               <Typography className={classes.heading}>ALL HANDOUTS</Typography>
-              <Typography
-                className={classes.heading}
-              >{`${percentage}%`}</Typography>
+              <Typography className={classes.heading}>
+                {`${applicable}`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>
@@ -83,7 +100,11 @@ export default function HandoutList() {
             component="nav"
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
-          ></List>
+          >
+            {applicable === "Please Review Handouts" && (
+              <HandoutListItem arr={handoutsLookup} />
+            )}
+          </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

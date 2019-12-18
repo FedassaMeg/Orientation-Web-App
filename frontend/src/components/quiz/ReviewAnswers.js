@@ -34,7 +34,7 @@ export default function ReviewAnswers(props) {
   const { data } = useQuiz();
 
   const qstArr = data.questions.map((question, index) => {
-    const userAnswer = props.answers.get(question.id) + "";
+    const userAnswer = props.answers.get(index) + "";
     return (
       <div key={index} css={container}>
         <div css={contentContainer}>
@@ -152,7 +152,7 @@ const actionBar = css`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  width: 75%;
 `;
 
 const submitBtn = css`

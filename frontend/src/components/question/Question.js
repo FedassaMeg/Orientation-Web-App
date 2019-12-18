@@ -20,7 +20,7 @@ export default function Question(props) {
           <Choices
             activeIndex={props.activeIndex}
             handleOnChange={props.handleOnChange}
-            answers={props.answers}
+            answer={props.answer}
           />
         </div>
       </Card>
