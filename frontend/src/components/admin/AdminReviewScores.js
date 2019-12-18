@@ -34,6 +34,7 @@ export default function AdminReviewScores(props) {
   const [quizArray, setQuizArray] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [quizId, setQuizId] = useState(0);
+  const [scoreId, setScoreId] = useState(0);
 
   const getInitialDataState = useAsync({
     promiseFn: getInitialData
@@ -49,10 +50,13 @@ export default function AdminReviewScores(props) {
   }, [getInitialDataState.isSettled]);
 
   const handleOnClick = e => {
-    if (e.target.name === "button") {
-      setQuizId(e.target.id);
-    }
-    setIsClicked(!isClicked);
+    setQuizId(e.target.id);
+    setScoreId(e.target.name);
+    setIsClicked(true);
+  };
+
+  const back = () => {
+    setIsClicked(false);
   };
 
   if (!firstAttemptFinished) {
@@ -96,6 +100,7 @@ export default function AdminReviewScores(props) {
             </TableHead>
             <TableBody>
               {scoreArray.map((rowdata, index) => {
+                let date = new Date(rowdata.signed_date);
                 return (
                   <TableRow key={index}>
                     {userArray.map((user, index) => {
@@ -114,12 +119,12 @@ export default function AdminReviewScores(props) {
                     <TableCell>
                       {rowdata.score}/{rowdata.related_quiz.num_questions}
                     </TableCell>
-                    <TableCell>{rowdata.signed_date.slice(0, 10)}</TableCell>
+                    <TableCell>{date.toDateString()}</TableCell>
                     <TableCell>
                       {rowdata.related_quiz.review_required ? (
                         <button
                           id={rowdata.related_quiz.id}
-                          name="button"
+                          name={rowdata.id}
                           onClick={handleOnClick}
                         >
                           Review Quiz
@@ -135,7 +140,7 @@ export default function AdminReviewScores(props) {
           </Table>
         </Card>
       ) : (
-        <ReviewQuiz quizId={quizId} />
+        <ReviewQuiz quizId={quizId} scoreId={scoreId} back={back} />
       )}
     </div>
   );

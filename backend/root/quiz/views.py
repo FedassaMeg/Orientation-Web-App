@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Quiz, QuizScore, Question, Choice, Answer, Slide, CompletedSlide
-from .serializers import QuizSerializer, QuizScoreSerializer, QuestionSerializer, ChoiceSerializer, AnswerSerializer, SlideSerializer, CompletedSlideSerializer
+from .models import Quiz, QuizScore, Question, Choice, Answer, UserAnswer, Slide, CompletedSlide
+from .serializers import QuizSerializer, QuizScoreSerializer, QuestionSerializer, ChoiceSerializer, AnswerSerializer, UserAnswerSerializer, SlideSerializer, CompletedSlideSerializer
 
 
 class QuizViewSet(viewsets.ModelViewSet):
@@ -63,6 +63,14 @@ class AnswerViewSet(viewsets.ModelViewSet):
         serializer = AnswerSerializer(queryset, many=True)
         return Response(serializer.data)
 
+class UserAnswerViewSet(viewsets.ModelViewSet):
+    serializer_class = UserAnswerSerializer
+    queryset = UserAnswer.objects.all()
+
+    def list(self, request, pk):
+        queryset = UserAnswer.objects.filter(quiz_score=pk)
+        serializer = UserAnswerSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class SlideViewSet(viewsets.ModelViewSet):
     serializer_class = SlideSerializer

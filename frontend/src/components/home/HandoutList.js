@@ -13,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 
 import { MdExpandMore } from "react-icons/md";
 
+//Local components
+import { useUser } from "../context/UserContext";
 import HandoutListItem from "./HandoutListItem";
 
 const useStyles = makeStyles(theme => ({
@@ -56,12 +58,23 @@ const handoutsLookup = [
 
 export default function HandoutList() {
   const classes = useStyles();
+
+  const { user } = useUser();
+
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  let percentage = 0;
+
+  let applicable = "";
+
+  if (user.role === 15 || user.role === 18) {
+    applicable = "Please Review Handouts";
+  } else {
+    applicable = "Not Applicable";
+  }
+
   return (
     <div className={classes.root}>
       <ExpansionPanel
@@ -76,6 +89,9 @@ export default function HandoutList() {
           <div css={tempCard}>
             <div css={progressText}>
               <Typography className={classes.heading}>ALL HANDOUTS</Typography>
+              <Typography className={classes.heading}>
+                {`${applicable}`}
+              </Typography>
             </div>
           </div>
         </ExpansionPanelSummary>
@@ -85,7 +101,9 @@ export default function HandoutList() {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HandoutListItem arr={handoutsLookup} />
+            {applicable === "Please Review Handouts" && (
+              <HandoutListItem arr={handoutsLookup} />
+            )}
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>

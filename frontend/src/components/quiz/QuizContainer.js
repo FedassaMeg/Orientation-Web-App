@@ -87,19 +87,35 @@ export default function QuizContainer() {
     console.log(inputMap);
   };
 
+  const sendQuestionAns = (id, config) => {
+    data.questions.map((question, index) => {
+      if (question.type === "SA") {
+        const value = inputMap.get(index);
+        axios.post(
+          `${ROOT_URL}/useranswers`,
+          {
+            quiz_score: id,
+            question: question.id,
+            short_answer: value
+          },
+          config
+        );
+      }
+    });
+  };
+
   // Handles submission of quiz; posts score to the backend
   const handleSubmit = event => {
     event.preventDefault();
     if (!data.quiz.review_required) {
       inputMap.forEach(compareAnsToInput);
     }
-    console.log(data.quiz.id);
+
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }
     };
-
     axios
       .post(
         `${ROOT_URL}/scores/`,
@@ -115,9 +131,10 @@ export default function QuizContainer() {
         config
       )
       .then(res => {
-        console.log(res.data);
         alert("Quiz Submitted!");
         history.push("/quizs");
+        console.log(res);
+        return sendQuestionAns(res.data.id, config);
       })
       .catch(err => {
         console.log(err);
@@ -146,8 +163,9 @@ export default function QuizContainer() {
       }
     });
     setAnsArr(newArr);
+    console.log(ansArr);
   };
-
+  console.log(data);
   // Helper function to evaluate the user input against the answers and determine a score
   const compareAnsToInput = (value, key) => {
     let ansValue = ansArr.find(elm => {

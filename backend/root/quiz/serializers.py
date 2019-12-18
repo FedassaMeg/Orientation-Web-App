@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-from .models import Quiz, QuizScore, Question, Choice, Answer, Slide, CompletedSlide
+from .models import Quiz, QuizScore, Question, Choice, Answer, UserAnswer, Slide, CompletedSlide
 
 
 class QuizSerializer(serializers.ModelSerializer):
@@ -78,6 +78,10 @@ class AnswerSerializer(serializers.ModelSerializer):
         model = Answer
         fields = ('question', 'true_or_false', 'multiple_choice', 'short_answer')
 
+class UserAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAnswer
+        fields = ('question', 'true_or_false', 'multiple_choice', 'short_answer', 'quiz_score')
 
 class SlideSerializer(serializers.ModelSerializer):
     class Meta:
