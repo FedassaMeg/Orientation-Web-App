@@ -147,30 +147,31 @@ export default function QuizContainer() {
     arr.map((question, index) => {
       if (data.questions[index].type === "TF") {
         newArr.push({
-          id: question.question,
+          id: index,
           answer: question.true_or_false
         });
       } else if (data.questions[index].type === "MC") {
         newArr.push({
-          id: question.question,
+          id: index,
           answer: question.multiple_choice
         });
       } else if (data.questions[index].type === "SA") {
         newArr.push({
-          id: question.question,
+          id: index,
           answer: question.short_answer
         });
       }
     });
     setAnsArr(newArr);
-    console.log(ansArr);
   };
   console.log(data);
+  console.log(ansArr);
   // Helper function to evaluate the user input against the answers and determine a score
   const compareAnsToInput = (value, key) => {
     let ansValue = ansArr.find(elm => {
       return elm.id === key;
     });
+    console.log(ansValue);
     if (value == ansValue.answer) {
       score = score + 1;
     }

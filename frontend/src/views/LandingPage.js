@@ -61,7 +61,7 @@ const headerTop = css`
 
 // header styles for bottom portion
 const headerBottom = css`
-  font: 10vmin "Noto Sans JP", sans-serif;
+  font: 10vmin "Open Sans", sans-serif;
   font-weight: 600;
   text-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
   color: white;
