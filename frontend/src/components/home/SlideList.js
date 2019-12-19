@@ -72,7 +72,6 @@ export default function SlideList(props) {
   let percentage3 = calcPercentage(csm3.length, props.md3.length);
   let percentage4 = calcPercentage(csm4.length, props.md4.length);
   let percentage5 = calcPercentage(csm5.length, props.md5.length);
-
   return (
     <div className={classes.root}>
       <ExpansionPanel
