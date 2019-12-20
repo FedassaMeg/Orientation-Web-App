@@ -5,11 +5,10 @@ const UserContext = createContext();
 
 function UserProvider(props) {
   const { data } = useAuth();
-  // Default value for Anonymous User [Fixes null error with Navigation Component]
+  // Default value for Anonymous User
   if (data.user === null) {
     data.user = { is_staff: false };
   }
-
   return <UserContext.Provider value={data} {...props} />;
 }
 
