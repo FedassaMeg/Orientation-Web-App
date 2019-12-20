@@ -1,19 +1,17 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-const navitem = css`
-  width: 88px;
-  height: 48px;
+export default function NavItem(props) {
+  return <div css={navItem}>{props.children}</div>;
+}
+
+//emotion styles
+//Container for navigation links
+const navItem = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  &:hover {
-    background-color: #f5f5f5;
-  }
+  width: 96px;
+  height: 50px;
 `;
-
-export default function NavItem(props) {
-  return <div css={navitem}>{props.children}</div>;
-}

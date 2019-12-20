@@ -1,15 +1,17 @@
 import React from "react";
 
+//Local components
 import { useUser } from "../context/UserContext";
-import Navigation from "./Navigation";
+import NavLinks from "./NavLinks";
 
-export default function NavbarContainer(props) {
+export default function NavbarContainer({ admin }) {
   const user = useUser();
+
   return (
-    <Navigation
+    <NavLinks
       isAuthenticated={user.isAuthenticated}
       isAdmin={user.user.is_staff}
-      admin={props.admin}
+      admin={admin}
     />
   );
 }
