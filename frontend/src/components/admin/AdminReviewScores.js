@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 
 //Utility hook for data fetching and promise resolution
 import { useAsync } from "react-async";
@@ -11,6 +11,7 @@ import TableHead from "./table/TableHead";
 import TableBody from "./table/TableBody";
 import TableRow from "./table/TableRow";
 import TableCell from "./table/TableCell";
+import MuiReviewScoresTable from "./MuiReviewScoresTable";
 
 // Async wrapper function for api calls
 const getInitialData = async () => {
@@ -27,11 +28,35 @@ const getInitialData = async () => {
   return { quizzes, users, scores };
 };
 
+const rowdata = (scoreArr, userArr) => {
+  let newTable = [];
+  scoreArr.map(score => {
+    const date = new Date(score.signed_date);
+    const quizTitle = score.related_quiz.title;
+    const quizScore = score.score + "/" + score.related_quiz.num_questions;
+    const isReviewRequired = score.related_quiz.review_required;
+    let userData;
+    userArr.map(user => {
+      userData =
+        score.signed_by == user.id && user.last_name + ", " + user.first_name;
+    });
+    newTable.push({
+      userData: userData,
+      quizTitle: quizTitle,
+      quizScore: quizScore,
+      date: date.toDateString(),
+      isReviewRequired: isReviewRequired
+    });
+  });
+  return newTable;
+};
+
 export default function AdminReviewScores(props) {
   const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
   const [userArray, setUserArray] = useState([]);
   const [scoreArray, setScoreArray] = useState([]);
   const [quizArray, setQuizArray] = useState([]);
+  const [tableData, setTableData] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [quizId, setQuizId] = useState(0);
   const [scoreId, setScoreId] = useState(0);
@@ -49,6 +74,10 @@ export default function AdminReviewScores(props) {
     }
   }, [getInitialDataState.isSettled]);
 
+  useEffect(() => {
+    setTableData(rowdata(scoreArray, userArray));
+  }, [scoreArray, userArray]);
+
   const handleOnClick = e => {
     setQuizId(e.target.id);
     setScoreId(e.target.name);
@@ -61,7 +90,7 @@ export default function AdminReviewScores(props) {
 
   if (!firstAttemptFinished) {
     if (getInitialDataState.isPending) {
-      return <h3>Loading...</h3>;
+      return null;
     }
     if (getInitialDataState.isRejected) {
       return (
@@ -145,3 +174,7 @@ export default function AdminReviewScores(props) {
     </div>
   );
 }
+
+// <Card>
+//   <MuiReviewScoresTable tableData={tableData} />
+// </Card>

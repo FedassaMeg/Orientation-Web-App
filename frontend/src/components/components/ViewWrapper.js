@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import NavbarContainer from "../components/navbar/NavbarContainer";
+import NavbarContainer from "../navbar/NavbarContainer";
 export default function ViewWrapper({ children }) {
   return (
     <div css={container}>

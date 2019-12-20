@@ -2,7 +2,7 @@ import React from "react";
 
 import get from "lodash/get";
 
-import ViewWrapper from "./ViewWrapper";
+import ViewWrapper from "../components/components/ViewWrapper";
 import HandoutContainer from "../components/handouts/HandoutContainer";
 
 const handoutsLookup = {

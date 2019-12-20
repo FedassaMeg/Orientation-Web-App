@@ -24,44 +24,6 @@ function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData(
-    "Test, User",
-    "Sexual Harassment",
-    "90%",
-    "12/02/2019",
-    "Not Required"
-  ),
-  createData("Mock, User", "HIPPA", "100%", "12/01/2019", "Not Required"),
-  createData(
-    "Test, User",
-    "Driving Safety",
-    "85%",
-    "12/02/2019",
-    "Not Required"
-  ),
-  createData(
-    "Other, User",
-    "Proper Body Mechanics",
-    "100%",
-    "11/29/2019",
-    "Not Required"
-  ),
-  createData("Other, User", "Elder Abuse", "90%", "12/01/2019", "Not Required"),
-  createData("Another, User", "HIPPA", "70%", "12/03/2019", "Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required"),
-  createData("Test, User", "HIPPA", "100%", "12/02/2019", "Not Required")
-];
-
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -95,15 +57,15 @@ const headCells = [
     disablePadding: true,
     label: "Employee Name"
   },
-  { id: "quiz", numeric: true, disablePadding: false, label: "Quiz" },
-  { id: "score", numeric: true, disablePadding: false, label: "Quiz Score" },
+  { id: "quiz", numeric: false, disablePadding: false, label: "Quiz" },
+  { id: "score", numeric: false, disablePadding: false, label: "Quiz Score" },
   {
     id: "submit",
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: "Completed Date"
   },
-  { id: "review", numeric: true, disablePadding: false, label: "Admin Review" }
+  { id: "review", numeric: false, disablePadding: false, label: "Admin Review" }
 ];
 
 function EnhancedTableHead(props) {
@@ -259,7 +221,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props) {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -267,6 +229,8 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const rows = props.tableData;
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -370,12 +334,14 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.userData}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="left">{row.quizTitle}</TableCell>
+                      <TableCell align="left">{row.quizScore}</TableCell>
+                      <TableCell align="left">{row.date}</TableCell>
+                      <TableCell align="left">
+                        {row.isReviewRequired ? "Required" : "Not Required"}
+                      </TableCell>
                     </TableRow>
                   );
                 })}

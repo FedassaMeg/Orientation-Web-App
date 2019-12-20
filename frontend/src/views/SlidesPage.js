@@ -1,7 +1,7 @@
 import React from "react";
 
 import SlidesContainer from "../components/slides/SlidesContainer";
-import ViewWrapper from "./ViewWrapper";
+import ViewWrapper from "../components/components/ViewWrapper";
 
 export default function SlidesPage() {
   return (

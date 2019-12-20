@@ -39,6 +39,7 @@ class QuizScore(models.Model):
     is_reviewed = models.BooleanField(default=False)
     reviewed_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
     is_completed = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
 
 
 class Question(models.Model):
@@ -106,3 +107,4 @@ class CompletedSlide(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     time = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=False)
