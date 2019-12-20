@@ -2,9 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 
+import { useAsync } from "react-async";
+
 import axios from "axios";
 
 //Local components
+import * as apiClient from "./api-slides";
 import { ROOT_URL } from "../utils/constants";
 import Slides from "./Slides";
 
@@ -23,23 +26,28 @@ const mdn = [
   { id: 9, title: "Module 9", subtitle: "On Call is a Partnership" }
 ];
 
+const getData = async () => {
+  let slides;
+  try {
+    slides = await apiClient.getSlides();
+  } catch (e) {
+    throw new Error(e);
+  }
+  return { slides };
+};
+
 export default function SlidesContainer() {
   const [slidesArr, setSlidesArr] = useState([]);
 
-  useEffect(() => {
-    getSlides();
-  }, []);
+  const { data, error, isPending, isSettled, isFulfilled } = useAsync({
+    promiseFn: getData
+  });
 
-  const getSlides = () => {
-    axios
-      .get(`${ROOT_URL}/slides/`)
-      .then(res => {
-        setSlidesArr(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  useEffect(() => {
+    if (isSettled) {
+      setSlidesArr(data.slides.data);
+    }
+  }, [isSettled]);
 
   const handleOnClick = event => {
     const slideId = event.target.id;
@@ -58,14 +66,17 @@ export default function SlidesContainer() {
         },
         config
       )
-      .then(res => {
-        console.log(res);
-      })
       .catch(err => {
         console.log(err);
       });
   };
-  return (
-    <Slides slidesArr={slidesArr} handleOnClick={handleOnClick} mdn={mdn} />
-  );
+
+  if (isPending) return null;
+  if (error) return null;
+  if (isFulfilled) {
+    return (
+      <Slides slidesArr={slidesArr} handleOnClick={handleOnClick} mdn={mdn} />
+    );
+  }
+  return null;
 }
