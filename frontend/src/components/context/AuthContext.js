@@ -4,8 +4,11 @@ import React, {
   useLayoutEffect,
   useState
 } from "react";
+
+//Utility hook for data fetching and promise resolution
 import { useAsync } from "react-async";
 
+//Local components
 import * as authClient from "../utils/auth-client";
 import { bootstrapData } from "../utils/bootstrap-data";
 
@@ -32,7 +35,7 @@ function AuthProvider(props) {
 
   if (!firstAttemptFinished) {
     if (isPending) {
-      return <h3>Loading...</h3>;
+      return null;
     }
     if (isRejected) {
       return (
