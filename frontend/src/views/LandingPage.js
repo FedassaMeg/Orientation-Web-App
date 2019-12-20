@@ -17,7 +17,7 @@ export default function LandingPage() {
         </div>
         <div css={btnContainer}>
           <Link to="/signup">
-            <button css={button}>Get Started</button>
+            <button css={button}>create account</button>
           </Link>
         </div>
         <div css={shape} />
@@ -77,12 +77,12 @@ const btnContainer = css`
 
 // button styles
 const button = css`
-  padding: 5px 50px;
+  padding: 5px 50px 8px;
   border: 3px solid white;
   border-radius: 25px;
   background: none;
   color: white;
-  font: 3vmin "Noto Sans JP", sans-serif;
+  font: 2.5vmin "Open Sans", sans-serif;
   font-weight: 600;
   transition-duration: 0.4s;
 
