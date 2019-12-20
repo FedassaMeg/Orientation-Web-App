@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import { useAsync } from "react-async";
 
-import * as apiClient from "./api-call-home";
-
 import axios from "axios";
 
 //Local components
+import * as apiClient from "./api-call-home";
 import { ROOT_URL } from "../utils/constants";
 import { useUser } from "../context/UserContext";
 import Dashboard from "./Dashboard";
