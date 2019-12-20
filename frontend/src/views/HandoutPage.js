@@ -2,8 +2,9 @@ import React from "react";
 
 import get from "lodash/get";
 
-import ViewWrapper from "../components/components/ViewWrapper";
+//Local components
 import HandoutContainer from "../components/handouts/HandoutContainer";
+import ViewWrapper from "../components/components/ViewWrapper";
 
 const handoutsLookup = {
   "catheter-insertion-and-care-ho": {

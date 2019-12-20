@@ -1,20 +1,21 @@
 /** @jsx jsx */
-import { Link } from "react-router-dom";
 import { css, jsx } from "@emotion/core";
 
-import ViewWrapper from "../components/components/ViewWrapper";
+import { Link } from "react-router-dom";
+
+//Local components
 import NavbarContainer from "../components/navbar/NavbarContainer";
 
 export default function LandingPage() {
   return (
-    <div css={mainContainer}>
+    <div css={container}>
       <NavbarContainer />
-      <div css={pageContent}>
-        <div css={spanGroup}>
-          <span css={headerTop}>Welcome to</span>
-          <span css={headerBottom}>First Call Orientation</span>
+      <div css={content}>
+        <div css={msgGroup}>
+          <span css={msgTop}>Welcome to</span>
+          <span css={msgBottom}>First Call Orientation</span>
         </div>
-        <div css={buttonGroup}>
+        <div css={btnContainer}>
           <Link to="/signup">
             <button css={button}>Get Started</button>
           </Link>
@@ -28,8 +29,8 @@ export default function LandingPage() {
 // emotion styles
 // Refactor css using composition
 
-// container bgcolor and shadow
-const mainContainer = css`
+//Page container
+const container = css`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -38,7 +39,8 @@ const mainContainer = css`
   box-shadow: inset 0 0 250px rgba(41, 139, 130, 0.45);
 `;
 
-const pageContent = css`
+//Container below navigation bar
+const content = css`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -46,13 +48,14 @@ const pageContent = css`
   margin-top: 12%;
 `;
 
-const spanGroup = css`
+//Container for welcome message
+const msgGroup = css`
   display: flex;
   flex-direction: column;
 `;
 
 // header styles for top portion
-const headerTop = css`
+const msgTop = css`
   font: 7vmin "Merriweather Sans", sans-serif;
   font-weight: 300;
   text-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
@@ -60,7 +63,7 @@ const headerTop = css`
 `;
 
 // header styles for bottom portion
-const headerBottom = css`
+const msgBottom = css`
   font: 10vmin "Open Sans", sans-serif;
   font-weight: 600;
   text-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
@@ -68,14 +71,14 @@ const headerBottom = css`
 `;
 
 // button group container
-const buttonGroup = css`
+const btnContainer = css`
   margin-top: 75px;
 `;
 
 // button styles
 const button = css`
   padding: 5px 50px;
-  border: 2px solid white;
+  border: 3px solid white;
   border-radius: 25px;
   background: none;
   color: white;

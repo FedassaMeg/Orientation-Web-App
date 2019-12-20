@@ -1,7 +1,9 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
+//Local components
 import NavbarContainer from "../navbar/NavbarContainer";
+
 export default function ViewWrapper({ children }) {
   return (
     <div css={container}>
@@ -11,6 +13,8 @@ export default function ViewWrapper({ children }) {
   );
 }
 
+// emotion styles
+//Page container
 const container = css`
   display: flex;
   flex-direction: column;
