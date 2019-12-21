@@ -1,12 +1,13 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
+//Material UI components
+import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import List from "@material-ui/core/List";
-
-import { makeStyles } from "@material-ui/core/styles";
 import ListSubheader from "@material-ui/core/ListSubheader";
 
+//Local components
 import Card from "../components/Card";
 import Video from "./Video";
 
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Videos(props) {
+export default function Videos() {
   const classes = useStyles();
 
   const videoArr = [
@@ -60,7 +61,7 @@ export default function Videos(props) {
   );
 }
 
-// Emotion Css-in-Js Styling
+// emotion styling
 
 // Main [div]
 const container = css`

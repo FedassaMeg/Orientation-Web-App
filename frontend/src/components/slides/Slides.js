@@ -28,10 +28,13 @@ export default function Slides(props) {
     <Container>
       <div css={pageheader}>All Slides</div>
       <hr css={divider} />
-      <div css={cardscontainer}>{modulesList}</div>
+      <div css={content}>
+        <div css={cardscontainer}>{modulesList}</div>
+      </div>
     </Container>
   );
 }
+
 const pageheader = css`
   font-family: "Raleway", sans-serif;
   font-size: 45px;
@@ -48,14 +51,21 @@ const divider = css`
   border: 0.5px solid lightgrey;
 `;
 
-const cardscontainer = css`
-  background-color: whitesmoke;
+const content = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   width: 100%;
-  padding: 20px;
+`;
+
+const cardscontainer = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+  width: 80%;
+  padding: 20px;
+  background-color: whitesmoke;
   box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);
 `;
 

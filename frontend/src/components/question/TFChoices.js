@@ -1,31 +1,29 @@
-// Presentation to display ui for user input/answer [ 'Routes' based on question type(t/f, multiple choice, general)]
-// Consumes contain state to handle ui interaction
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
 // Material UI Components
 import Radio from "@material-ui/core/Radio";
 
-export default function TFChoices(props) {
+export default function TFChoices({ answer, handleOnChange }) {
   return (
     <div css={container}>
       <div css={choice}>
         <Radio
           color="default"
-          checked={props.answer === true}
-          onChange={props.handleOnChange}
+          checked={answer === true}
+          onChange={handleOnChange}
           value={true}
-        />{" "}
-        True
+        />
+        <span>True</span>
       </div>
       <div css={choice}>
         <Radio
           color="default"
-          checked={props.answer === false}
-          onChange={props.handleOnChange}
+          checked={answer === false}
+          onChange={handleOnChange}
           value={false}
-        />{" "}
-        False
+        />
+        <span>False</span>
       </div>
     </div>
   );
@@ -36,4 +34,11 @@ const container = css`
   flex-direction: row;
 `;
 
-const choice = css``;
+const choice = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 8px;
+  margin-right: 8px;
+`;

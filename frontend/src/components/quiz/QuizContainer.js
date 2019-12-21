@@ -164,8 +164,7 @@ export default function QuizContainer() {
     });
     setAnsArr(newArr);
   };
-  console.log(data);
-  console.log(ansArr);
+
   // Helper function to evaluate the user input against the answers and determine a score
   const compareAnsToInput = (value, key) => {
     let ansValue = ansArr.find(elm => {

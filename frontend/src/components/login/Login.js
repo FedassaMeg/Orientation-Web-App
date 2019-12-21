@@ -1,8 +1,9 @@
 import React from "react";
 
+//Local components
 import { useAuth } from "../context/AuthContext";
-import useForm from "../utils/useForm";
 import useCallbackStatus from "../utils/use-callback-status";
+import useForm from "../utils/useForm";
 import LoginForm from "./LoginForm";
 
 export default function Login() {
@@ -41,12 +42,12 @@ export default function Login() {
 
   return (
     <LoginForm
-      formErrors={formErrors}
       isSubmitted={isSubmitted}
-      handleOnSubmit={handleOnSubmit}
-      handleOnChange={handleOnChange}
       isPending={isPending}
       isRejected={isRejected}
+      formErrors={formErrors}
+      handleOnChange={handleOnChange}
+      handleOnSubmit={handleOnSubmit}
     />
   );
 }

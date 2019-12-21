@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 // Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,15 +10,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SAChoices(props) {
+export default function SAChoices({ answer, handleOnChange }) {
   const classes = useStyles();
 
   return (
     <Input
       id="answer"
       className={classes.input}
-      onChange={props.handleOnChange}
-      value={props.answer === null ? "" : props.answer}
+      onChange={handleOnChange}
+      value={answer === null ? "" : answer}
       multiline
     />
   );

@@ -7,7 +7,7 @@ export default function Container(props) {
 
 const container = css`
   flex-grow: 1;
-  margin: auto;
+  //margin: auto;
   //max-width: 120vmin;
-  width: 100%;
+  //width: 100%;
 `;

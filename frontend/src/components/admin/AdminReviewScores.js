@@ -4,6 +4,7 @@ import React, { useState, useLayoutEffect, useEffect } from "react";
 import { useAsync } from "react-async";
 
 import * as apiClient from "./api-call-admin";
+import Button from "../components/Button";
 import Card from "../components/Card";
 import ReviewQuiz from "./ReviewQuiz";
 import Table from "./table/Table";
@@ -151,13 +152,13 @@ export default function AdminReviewScores(props) {
                     <TableCell>{date.toDateString()}</TableCell>
                     <TableCell>
                       {rowdata.related_quiz.review_required ? (
-                        <button
+                        <Button
                           id={rowdata.related_quiz.id}
                           name={rowdata.id}
                           onClick={handleOnClick}
                         >
                           Review Quiz
-                        </button>
+                        </Button>
                       ) : (
                         "Not Required"
                       )}

@@ -11,9 +11,11 @@ import IconButton from "@material-ui/core/IconButton";
 
 import { MdDone, MdClear } from "react-icons/md";
 
+//Local components
 import * as apiClient from "./api-call-admin";
 import { ROOT_URL } from "../utils/constants";
 import Card from "../components/Card";
+import Button from "../components/Button";
 
 // Async wrapper function for api calls
 const getUserAnsData = async ({ input }) => {
@@ -55,24 +57,16 @@ export default function ReviewQuiz(props) {
     }
   }, [isSettled]);
 
-  const handleOnChangeCorrect = event => {
-    const id = event.target.id;
-    const value = true;
-
-    const added = scoreArr.set(id, value);
-
-    setScoreArr(added);
+  const handleCorrect = () => {
+    if (score <= questions.length) {
+      setScore(score + 1);
+    }
   };
 
-  const handleOnChangeWrong = event => {
-    const id = event.target.id;
-    const value = false;
-    const added = scoreArr.set(id, value);
-
-    setScoreArr(added);
+  const handleWrong = () => {
+    //setScore(added);
   };
 
-  console.log(scoreArr);
   const handleSubmit = event => {
     event.preventDefault();
 
@@ -83,7 +77,7 @@ export default function ReviewQuiz(props) {
     };
     axios
       .put(
-        `${ROOT_URL}/scores/`,
+        `${ROOT_URL}/scores/${props.scoreId}`,
         {
           id: props.scoreId,
           score: score,
@@ -94,7 +88,6 @@ export default function ReviewQuiz(props) {
       )
       .then(res => {
         alert("Quiz Scored!");
-        console.log(res);
       })
       .catch(err => {
         console.log(err);
@@ -103,7 +96,7 @@ export default function ReviewQuiz(props) {
 
   if (!firstAttemptFinished) {
     if (isPending) {
-      return <h3>Loading...</h3>;
+      return null;
     }
     if (isRejected) {
       return (
@@ -113,20 +106,27 @@ export default function ReviewQuiz(props) {
       );
     }
   }
-  const list = questions.map(question => {
+  const list = questions.map((question, index) => {
     return userAns.map(ans => {
       if (question.id == ans.question) {
         return (
           <div css={row}>
-            <div css={question}>{question.question}</div>
-
-            <div css={action}>
-              <div css={answer}>{ans.short_answer}</div>
+            <div css={content}>
+              <div css={question}>
+                <span css={qstSpan}>Question {index + 1}: </span>
+                {question.question}
+              </div>
+              <div css={answer}>
+                <span css={ansSpan}>User Answer: </span>
+                {ans.short_answer}
+              </div>
+            </div>
+            <div>
               <IconButton
                 aria-label="right"
                 color="primary"
                 id={question.id}
-                onClick={handleOnChangeCorrect}
+                onClick={handleCorrect}
               >
                 <MdDone />
               </IconButton>
@@ -134,7 +134,7 @@ export default function ReviewQuiz(props) {
                 aria-label="wrong"
                 color="secondary"
                 id={question.id}
-                onClick={handleOnChangeWrong}
+                onClick={handleWrong}
               >
                 <MdClear />
               </IconButton>
@@ -149,17 +149,21 @@ export default function ReviewQuiz(props) {
     <Card>
       <div css={container}>
         {list}
-        <button onClick={props.back} css={backBtn}>
-          Back
-        </button>
-        <button css={doneBtn}>Done</button>
+        <div css={action}>
+          <Button onClick={props.back}>Back</Button>
+          <Button onClick={handleSubmit}>Done</Button>
+        </div>
       </div>
     </Card>
   );
 }
 
+// emotion styling
 const container = css`
   padding: 16px;
+`;
+const content = css`
+  flex-basis: 600px;
 `;
 
 const backBtn = css`
@@ -181,20 +185,30 @@ const doneBtn = css`
   background-color: dodgerblue;
   padding: 4px 12px;
   font: 16px "Roboto", san-serif;
-  color: white;
   font-weight: 500;
+  color: white;
   &:focus {
     outline: none;
   }
 `;
 
 const row = css`
-  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
 `;
 
 const question = css``;
 
+const qstSpan = css`
+  font-weight: 500;
+`;
+
 const answer = css``;
+
+const ansSpan = css`
+  font-weight: 500;
+`;
 
 const action = css`
   display: flex;

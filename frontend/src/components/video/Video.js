@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
+//Material UI components
 import { makeStyles } from "@material-ui/core/styles";
+import { ListItemText } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,13 +11,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 
+//React-icon components
 import { MdClose } from "react-icons/md";
 import { MdPlayArrow } from "react-icons/md";
-import { ListItemText } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -44,9 +45,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Video(props) {
+export default function Video({ name }) {
   const classes = useStyles();
+
   const [open, setOpen] = useState(false);
+
   function handleOpen() {
     setOpen(true);
   }
@@ -54,14 +57,15 @@ export default function Video(props) {
   function handleClose() {
     setOpen(false);
   }
+
   return (
     <ListItem button>
-      <ListItemText primary={props.name.replace(/-/g, " ").toUpperCase()} />
+      <ListItemText primary={name.replace(/-/g, " ").toUpperCase()} />
 
       <Dialog open={open} maxWidth="md" transitionDuration={400}>
         <DialogTitle className={classes.title} disableTypography>
           <Typography variant="h6">
-            {props.name.replace(/-/g, " ").toUpperCase()}
+            {name.replace(/-/g, " ").toUpperCase()}
           </Typography>
           <IconButton onClick={handleClose} className={classes.closeButton}>
             <MdClose />

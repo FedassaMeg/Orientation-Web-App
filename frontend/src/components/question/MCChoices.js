@@ -4,44 +4,44 @@ import { css, jsx } from "@emotion/core";
 // Material UI Components
 import Radio from "@material-ui/core/Radio";
 
-export default function MCChoices(props) {
+export default function MCChoices({ answer, handleOnChange, qstChoices }) {
   return (
     <div css={container}>
       <div css={choice}>
         <Radio
           color="default"
-          checked={props.answer === "a"}
-          onChange={props.handleOnChange}
+          checked={answer === "a"}
+          onChange={handleOnChange}
           value="a"
-        />{" "}
-        {props.qstChoices[0].choice}
+        />
+        <span>{qstChoices[0].choice}</span>
       </div>
       <div css={choice}>
         <Radio
           color="default"
-          checked={props.answer === "b"}
-          onChange={props.handleOnChange}
+          checked={answer === "b"}
+          onChange={handleOnChange}
           value="b"
-        />{" "}
-        {props.qstChoices[1].choice}
+        />
+        <span>{qstChoices[1].choice}</span>
       </div>
       <div css={choice}>
         <Radio
           color="default"
-          checked={props.answer === "c"}
-          onChange={props.handleOnChange}
+          checked={answer === "c"}
+          onChange={handleOnChange}
           value="c"
-        />{" "}
-        {props.qstChoices[2].choice}
+        />
+        <span>{qstChoices[2].choice}</span>
       </div>
       <div css={choice}>
         <Radio
           color="default"
-          checked={props.answer === "d"}
-          onChange={props.handleOnChange}
+          checked={answer === "d"}
+          onChange={handleOnChange}
           value="d"
-        />{" "}
-        {props.qstChoices[3].choice}
+        />
+        <span>{qstChoices[3].choice}</span>
       </div>
     </div>
   );
@@ -52,4 +52,9 @@ const container = css`
   flex-direction: column;
 `;
 
-const choice = css``;
+const choice = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;

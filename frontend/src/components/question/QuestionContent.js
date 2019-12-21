@@ -1,11 +1,10 @@
-//Presentation component to display the question text
-
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
 //Material UI Components
 import Box from "@material-ui/core/Box";
 
+//Local component
 import { useQuiz } from "../quiz/QuizContext";
 
 export default function QuestionContent(props) {

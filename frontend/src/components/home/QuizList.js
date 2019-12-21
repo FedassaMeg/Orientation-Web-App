@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { intersectionWith, cloneDeep, assign } from "lodash";
 
+//Material UI components
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -13,10 +14,11 @@ import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import Typography from "@material-ui/core/Typography";
 
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-
 import { MdExpandMore } from "react-icons/md";
 
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+
+//Local components
 import HomeListItem from "./HomeListItem";
 
 const useStyles = makeStyles(theme => ({
@@ -39,59 +41,45 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const combineObjArrs = (arr1, arr2) => {
+  const combinedArr = intersectionWith(cloneDeep(arr1), arr2, (i, j) => {
+    if (j.related_quiz !== undefined) {
+      return (
+        i.id === j.related_quiz.id && assign(i, { completed: j.is_completed })
+      );
+    }
+  });
+  return combinedArr;
+};
+
+const calcPercentage = (num1, num2) => {
+  let newPercentage;
+  if (num2 === 0) {
+    newPercentage = "Not Applicable";
+  } else {
+    newPercentage = Math.round((num1 / num2) * 100);
+  }
+  return newPercentage;
+};
+
 export default function QuizList(props) {
+  const { qzs1Arr, qzs3Arr, qzs4Arr, compltArray } = props;
+
   const classes = useStyles();
+
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  let cqm1 = intersectionWith(
-    cloneDeep(props.qzs1Arr),
-    props.compltArray,
-    (i, j) => {
-      if (j.related_quiz !== undefined) {
-        return (
-          i.id === j.related_quiz.id && assign(i, { completed: j.is_completed })
-        );
-      }
-    }
-  );
-  let cqm2 = intersectionWith(
-    cloneDeep(props.qzs3Arr),
-    props.compltArray,
-    (i, j) => {
-      if (j.related_quiz !== undefined) {
-        return (
-          i.id === j.related_quiz.id && assign(i, { completed: j.is_completed })
-        );
-      }
-    }
-  );
-  let cqm3 = intersectionWith(
-    cloneDeep(props.qzs4Arr),
-    props.compltArray,
-    (i, j) => {
-      if (j.related_quiz !== undefined) {
-        return (
-          i.id === j.related_quiz.id && assign(i, { completed: j.is_completed })
-        );
-      }
-    }
-  );
 
-  const calcPercentage = (num1, num2) => {
-    let newPercentage;
-    if (num2 === 0) {
-      newPercentage = "Not Applicable";
-    } else {
-      newPercentage = Math.round((num1 / num2) * 100);
-    }
-    return newPercentage;
-  };
-  let percentage1 = calcPercentage(cqm1.length, props.qzs1Arr.length);
-  let percentage2 = calcPercentage(cqm2.length, props.qzs3Arr.length);
-  let percentage3 = calcPercentage(cqm3.length, props.qzs4Arr.length);
+  const cqm1 = combineObjArrs(qzs1Arr, compltArray);
+  const cqm3 = combineObjArrs(qzs3Arr, compltArray);
+  const cqm4 = combineObjArrs(qzs4Arr, compltArray);
+
+  const prcnt1 = calcPercentage(cqm1.length, qzs1Arr.length);
+  const prcnt3 = calcPercentage(cqm3.length, qzs3Arr.length);
+  const prcnt4 = calcPercentage(cqm4.length, qzs4Arr.length);
 
   return (
     <div className={classes.root}>
@@ -107,10 +95,10 @@ export default function QuizList(props) {
           <div css={tempCard}>
             <div css={progressCir}>
               <CircularProgressbar
-                value={percentage1}
+                value={prcnt1}
                 strokeWidth={16}
                 styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage1 / 100})`,
+                  pathColor: `rgba(62, 152, 199, ${prcnt1 / 100})`,
                   trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
@@ -119,9 +107,7 @@ export default function QuizList(props) {
             <div css={progressText}>
               <Typography className={classes.heading}>VIDEOS</Typography>
               <Typography className={classes.heading}>
-                {percentage1 === "Not Applicable"
-                  ? percentage1
-                  : `${percentage1}%`}
+                {prcnt1 === "Not Applicable" ? prcnt1 : `${prcnt1}%`}
               </Typography>
             </div>
           </div>
@@ -132,11 +118,7 @@ export default function QuizList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem
-              arr={props.qzs1Arr}
-              comArray={props.compltArray}
-              type="quiz"
-            />
+            <HomeListItem arr={qzs1Arr} comArray={compltArray} type="quiz" />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -152,10 +134,10 @@ export default function QuizList(props) {
           <div css={tempCard}>
             <div css={progressCir}>
               <CircularProgressbar
-                value={percentage2}
+                value={prcnt3}
                 strokeWidth={16}
                 styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage2 / 100})`,
+                  pathColor: `rgba(62, 152, 199, ${prcnt3 / 100})`,
                   trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
@@ -164,9 +146,7 @@ export default function QuizList(props) {
             <div css={progressText}>
               <Typography className={classes.heading}>SLIDES</Typography>
               <Typography className={classes.heading}>
-                {percentage2 === "Not Applicable"
-                  ? percentage2
-                  : `${percentage2}%`}
+                {prcnt3 === "Not Applicable" ? prcnt3 : `${prcnt3}%`}
               </Typography>
             </div>
           </div>
@@ -177,11 +157,7 @@ export default function QuizList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem
-              arr={props.qzs3Arr}
-              comArray={props.compltArray}
-              type="quiz"
-            />
+            <HomeListItem arr={qzs3Arr} comArray={compltArray} type="quiz" />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -197,10 +173,10 @@ export default function QuizList(props) {
           <div css={tempCard}>
             <div css={progressCir}>
               <CircularProgressbar
-                value={percentage3}
+                value={prcnt4}
                 strokeWidth={16}
                 styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage3 / 100})`,
+                  pathColor: `rgba(62, 152, 199, ${prcnt4 / 100})`,
                   trailColor: "#e4e4e4",
                   strokeLinecap: "butt"
                 })}
@@ -209,9 +185,7 @@ export default function QuizList(props) {
             <div css={progressText}>
               <Typography className={classes.heading}>HANDOUTS</Typography>
               <Typography className={classes.heading}>
-                {percentage3 === "Not Applicable"
-                  ? percentage3
-                  : `${percentage3}%`}
+                {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
               </Typography>
             </div>
           </div>
@@ -222,11 +196,7 @@ export default function QuizList(props) {
             subheader={<ListSubheader component="div"></ListSubheader>}
             className={classes.root}
           >
-            <HomeListItem
-              arr={props.qzs4Arr}
-              comArray={props.compltArray}
-              type="quiz"
-            />
+            <HomeListItem arr={qzs4Arr} comArray={compltArray} type="quiz" />
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>

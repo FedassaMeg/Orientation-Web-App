@@ -5,7 +5,7 @@ import { useAsync } from "react-async";
 import axios from "axios";
 
 //Local components
-import * as apiClient from "./api-call-home";
+import * as apiClient from "./api-home";
 import { ROOT_URL } from "../utils/constants";
 import { useUser } from "../context/UserContext";
 import Dashboard from "./Dashboard";
@@ -57,10 +57,13 @@ export default function DashboardContainer() {
     }
   }, [isSettled, toggle]);
 
+  //Handle api post request for slide links that have been clicked on
   const handleOnClick = event => {
     const slideId = event.target.id;
+
     setToggle(prevState => !prevState);
-    let config = {
+
+    const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }
