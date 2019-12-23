@@ -14,24 +14,10 @@ import TableRow from "./table/TableRow";
 import TableCell from "./table/TableCell";
 import MuiReviewScoresTable from "./MuiReviewScoresTable";
 
-// Async wrapper function for api calls
-const getInitialData = async () => {
-  let quizzes;
-  let users;
-  let scores;
-  try {
-    quizzes = await apiClient.getQuizzes();
-    users = await apiClient.getUsers();
-    scores = await apiClient.getScores();
-  } catch (e) {
-    throw new Error(e);
-  }
-  return { quizzes, users, scores };
-};
-
 const rowdata = (scoreArr, userArr) => {
   let newTable = [];
-  scoreArr.map(score => {
+  const srted = scoreArr.reverse();
+  srted.map(score => {
     const date = new Date(score.signed_date);
     const quizTitle = score.related_quiz.title;
     const quizScore = score.score + "/" + score.related_quiz.num_questions;
@@ -50,6 +36,21 @@ const rowdata = (scoreArr, userArr) => {
     });
   });
   return newTable;
+};
+
+// Async wrapper function for api calls
+const getInitialData = async () => {
+  let quizzes;
+  let users;
+  let scores;
+  try {
+    quizzes = await apiClient.getQuizzes();
+    users = await apiClient.getUsers();
+    scores = await apiClient.getScores();
+  } catch (e) {
+    throw new Error(e);
+  }
+  return { quizzes, users, scores };
 };
 
 export default function AdminReviewScores(props) {
