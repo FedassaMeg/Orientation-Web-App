@@ -7,7 +7,7 @@ export default function TableCell({ children, header }) {
       {!header ? (
         <div css={left}>{children}</div>
       ) : (
-        <div css={header}>{children}</div>
+        <div css={headerStyle}>{children}</div>
       )}
     </div>
   );
@@ -18,10 +18,13 @@ const container = css`
   flex-grow: 1;
   padding-top: 16px;
   padding-bottom: 16px;
+  padding-left: 8px;
 `;
-const header = css`
+const headerStyle = css`
   text-align: left;
-  font-weight: 600;
+  font: 14px "Roboto", san-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
 `;
 
 const right = css`
@@ -29,6 +32,9 @@ const right = css`
 `;
 const left = css`
   text-align: left;
+  font: 14px "Roboto", san-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
 `;
 const center = css`
   justify-self: center;

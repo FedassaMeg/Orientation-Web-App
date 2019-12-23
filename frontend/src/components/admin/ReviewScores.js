@@ -39,7 +39,7 @@ export default function ReviewScores(props) {
   return (
     <div css={container}>
       {!isClicked ? (
-        <Card header="Employee Quiz Scores">
+        <Card header="EMPLOYEE QUIZ SCORES">
           <Table>
             <TableHead>
               <TableRow>
@@ -78,11 +78,12 @@ export default function ReviewScores(props) {
                           id={rowdata.related_quiz.id}
                           name={rowdata.id}
                           onClick={handleOnClick}
+                          css={reqBtn}
                         >
                           Review Quiz
                         </Button>
                       ) : (
-                        "Not Required"
+                        <span css={notReqSpan}>Not Required</span>
                       )}
                     </TableCell>
                   </TableRow>
@@ -100,4 +101,15 @@ export default function ReviewScores(props) {
 
 const container = css`
   padding: 16px;
+`;
+
+const reqBtn = css`
+  color: #b00020;
+`;
+
+const notReqSpan = css`
+  font: 14px "Roboto", san-serif;
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
 `;

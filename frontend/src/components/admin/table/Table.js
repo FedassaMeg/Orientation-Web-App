@@ -9,4 +9,6 @@ const container = css`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
 `;

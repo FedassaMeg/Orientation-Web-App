@@ -4,12 +4,12 @@ import { css, jsx } from "@emotion/core";
 import CardBody from "./CardBody";
 import CardHeader from "./CardHeader";
 
-export default function Card(props) {
+export default function Card({ header, line, children }) {
   return (
     <div css={card}>
-      <CardHeader header={props.header} />
-      {props.line && <hr css={divider} />}
-      <CardBody>{props.children}</CardBody>
+      {header && <CardHeader header={header} />}
+      {line && <hr css={divider} />}
+      <CardBody>{children}</CardBody>
     </div>
   );
 }

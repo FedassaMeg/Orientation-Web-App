@@ -87,10 +87,7 @@ const linkRow = css`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-
-  &:hover {
-    color: whitesmoke;
-  }
+  color: white;
 `;
 
 const link = css`
@@ -100,6 +97,7 @@ const link = css`
 
   &:hover {
     text-decoration: none;
+    color: #289086;
   }
 `;
 

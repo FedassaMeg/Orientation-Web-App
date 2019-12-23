@@ -16,21 +16,18 @@ const button = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-self: center;
-  width: 80x;
   padding-top: 8px;
   padding-bottom: 8px;
 
   border: none;
   //margin-top: 36px;
-  color: #606060;
-  font: 14px "Roboto", sans-serif;
-  font-weight: 300;
   background: none;
+  font: 14px "Roboto", sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
   transition-duration: 0.4s;
 
   &:hover {
-    color: #202020;
     background-color: whitesmoke;
   }
 `;
