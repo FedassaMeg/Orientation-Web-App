@@ -32,7 +32,7 @@ export default function LoginForm(props) {
               css={inputStyle}
             />
             {isSubmitted ? (
-              <div css={{ color: "red" }}>
+              <div css={{ color: "#B00020" }}>
                 {formErrors.username ? formErrors.username : null}
               </div>
             ) : null}
@@ -46,13 +46,13 @@ export default function LoginForm(props) {
               css={inputStyle}
             />
             {isSubmitted ? (
-              <div css={{ color: "red" }}>
+              <div css={{ color: "#B00020" }}>
                 {formErrors.password ? formErrors.password : null}
               </div>
             ) : null}
 
             {isRejected ? (
-              <div css={{ color: "red" }}>
+              <div css={{ color: "#B00020" }}>
                 Incorrect username password combination!
               </div>
             ) : (
