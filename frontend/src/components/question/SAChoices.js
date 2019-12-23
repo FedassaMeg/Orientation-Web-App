@@ -18,7 +18,7 @@ export default function SAChoices({ answer, handleOnChange }) {
       id="answer"
       className={classes.input}
       onChange={handleOnChange}
-      value={answer === null ? "" : answer}
+      value={answer === null || answer === undefined ? "" : answer}
       multiline
     />
   );
