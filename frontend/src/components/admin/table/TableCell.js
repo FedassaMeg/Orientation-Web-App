@@ -1,10 +1,14 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-export default function TableCell(props) {
+export default function TableCell({ children, header }) {
   return (
     <div css={container}>
-      <div css={left}>{props.children}</div>
+      {!header ? (
+        <div css={left}>{children}</div>
+      ) : (
+        <div css={header}>{children}</div>
+      )}
     </div>
   );
 }
@@ -14,6 +18,10 @@ const container = css`
   flex-grow: 1;
   padding-top: 16px;
   padding-bottom: 16px;
+`;
+const header = css`
+  text-align: left;
+  font-weight: 600;
 `;
 
 const right = css`

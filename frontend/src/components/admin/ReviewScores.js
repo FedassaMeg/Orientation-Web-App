@@ -44,7 +44,9 @@ export default function ReviewScores(props) {
             <TableHead>
               <TableRow>
                 {headCells.map(headCell => (
-                  <TableCell key={headCell.id}>{headCell.label}</TableCell>
+                  <TableCell key={headCell.id} header>
+                    {headCell.label}
+                  </TableCell>
                 ))}
               </TableRow>
             </TableHead>
