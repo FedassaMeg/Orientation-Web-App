@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
 import { MdAdd } from "react-icons/md";
 
-import QuestionForm from "./QuestionForm";
+import QuestionForm from "../admin/QuestionForm";
 export default function CreateQuiz() {
   const [formCount, setFormCount] = useState(0);
   const [clicked, setClicked] = useState(false);

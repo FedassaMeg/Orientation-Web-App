@@ -74,11 +74,17 @@ export default function ReviewQuiz(props) {
       <div css={container}>
         {list}
         <div css={action}>
-          <Button onClick={back}>Back</Button>
+          <Button onClick={back} css={backBtn}>
+            Back
+          </Button>
           {isSubmitted ? (
-            <Button disabled>Reviewed!</Button>
+            <Button disabled css={disabledBtn}>
+              Reviewed!
+            </Button>
           ) : (
-            <Button onClick={handleSubmit}>Done</Button>
+            <Button onClick={handleSubmit} css={doneBtn}>
+              Done
+            </Button>
           )}
         </div>
       </div>
@@ -95,29 +101,39 @@ const content = css`
 `;
 
 const backBtn = css`
+  width: 100px;
   margin: 16px;
-  border: none;
-  background-color: gold;
-  padding: 4px 12px;
-  font: 16px "Roboto", san-serif;
-  color: white;
-  font-weight: 500;
-  &:focus {
-    outline: none;
+  border: 0.5px solid;
+  border-color: #b00020;
+  border-radius: 2px;
+  color: #b00020;
+  //transition-duration: 0.4s;
+
+  &: hover {
+    border-radius: 2px;
+    background-color: #f00020;
+    color: white;
   }
 `;
 
 const doneBtn = css`
+  width: 100px;
   margin: 16px;
-  border: none;
-  background-color: dodgerblue;
-  padding: 4px 12px;
-  font: 16px "Roboto", san-serif;
-  font-weight: 500;
-  color: white;
-  &:focus {
-    outline: none;
+  border: 0.5px solid;
+  border-color: dodgerblue;
+  border-radius: 2px;
+  color: dodgerblue;
+  //transition-duration: 0.4s;
+
+  &: hover {
+    border-radius: 2px;
+    background-color: dodgerblue;
+    color: white;
   }
+`;
+const disabledBtn = css`
+  width: 100px;
+  margin: 16px;
 `;
 
 const row = css`

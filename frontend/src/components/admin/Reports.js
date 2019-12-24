@@ -1,62 +1,32 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
-import React, { useEffect, useState } from "react";
 
-import * as jsPDF from "jspdf";
-
+//Local components
 import Button from "../components/Button";
 import Card from "../components/Card";
 
 export default function Reports(props) {
-  const file = () => {
-    const doc = new jsPDF();
-    let newUser;
-    props.userArray.map(user => {
-      if (user.id == props.userId) {
-        newUser = user;
-      }
-    });
-    console.log(doc.getFontList());
-    doc.addFont("OpenSans-Regular", "Open Sans", "");
-    doc.setFont("Open Sans", "");
-    doc.setFontSize(16);
-    doc.text(
-      `${newUser.last_name.toUpperCase()}, ${newUser.first_name.toUpperCase()}`,
-      10,
-      10
-    );
-    doc.text("Quiz Scores", 10, 25);
-    props.scoreArray.map((score, index) => {
-      if (score.is_completed) {
-        doc.setFontSize(12);
-        doc.text(
-          `${score.related_quiz.title} - Score: ${score.score}/${score.related_quiz.num_questions}`,
-          10,
-          40 + index * 15
-        );
-        doc.text(
-          `Completed on: ${score.signed_date.slice(0, 10)}`,
-          150,
-          40 + index * 15
-        );
-      }
-    });
+  const {
+    userArray,
+    scoreArray,
+    open,
+    file,
+    handleOnSubmit,
+    handleResubmit
+  } = props;
 
-    doc.save("a4.pdf");
-  };
-
-  const userList = props.userArray.map((user, index) => {
+  const userList = userArray.map((user, index) => {
     const userFullName = user.last_name + ", " + user.first_name;
     return (
       <li>
-        <Button key={index} id={user.id} onClick={props.handleOnSubmit}>
+        <Button key={index} id={user.id} onClick={handleOnSubmit}>
           {userFullName}
         </Button>
       </li>
     );
   });
 
-  const scoreList = props.scoreArray.map((rowdata, index) => {
+  const scoreList = scoreArray.map((rowdata, index) => {
     if (rowdata.is_completed) {
       return (
         <div key={index} css={scorerow}>
@@ -64,34 +34,67 @@ export default function Reports(props) {
           <div css={quizscore}>
             {rowdata.score}/{rowdata.related_quiz.num_questions}
           </div>
-          <Button id={rowdata.id} onClick={props.handleSubmit} css={testbtn}>
+          <Button id={rowdata.id} onClick={handleResubmit} css={testbtn}>
             Re-take Test
           </Button>
         </div>
       );
     }
   });
+
   return (
-    <div>
-      <Card header="User List">
-        <ul>{userList}</ul>
+    <div css={container}>
+      <Card header="USER LIST">
+        <div css={usersContainer}>
+          <ul css={ulist}>{userList}</ul>
+        </div>
       </Card>
-      <div>
-        {props.open && (
-          <Card>
-            <div css={scorecss}>
-              {scoreList}
+
+      {open && (
+        <Card>
+          <div css={scoresContainer}>
+            <div css={slist}>{scoreList}</div>
+            <div css={footer}>
               <hr css={divider} />
               <Button onClick={file}>Generate Report</Button>
             </div>
-          </Card>
-        )}
-      </div>
+          </div>
+        </Card>
+      )}
     </div>
   );
 }
 
-const scorecss = css`
+// emotion styling
+const container = css`
+  display: flex;
+  flex-direction: row;
+`;
+
+const usersContainer = css`
+  padding: 16px;
+  width: 200px;
+`;
+
+const ulist = css`
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+`;
+
+const scoresContainer = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 500px;
+  height: 300px;
+`;
+
+const slist = css``;
+
+const footer = css`
+  justify-self: flex-end;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -115,7 +118,7 @@ const quizscore = css`
 `;
 
 const divider = css`
-  width: 500px;
+  width: 480px;
   margin: 16px;
   border: 0.5px solid lightgrey;
 `;

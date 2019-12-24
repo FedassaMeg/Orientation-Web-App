@@ -1,15 +1,15 @@
 /**@jsx jsx */
-
 import { css, jsx } from "@emotion/core";
-import { Switch, Route } from "react-router-dom";
 
-import NavbarContainer from "../navbar/NavbarContainer";
+import { Route } from "react-router-dom";
+
+//Local components
 import AdminSidebar from "./AdminSidebar";
-import AdminReviewScores from "./AdminReviewScores";
-import AdminEditContent from "./AdminEditContent";
-import AdminReports from "./AdminReports";
+import NavbarContainer from "../navbar/NavbarContainer";
+import ReviewScoresContainer from "./ReviewScoresContainer";
+import ReportsContainer from "./ReportsContainer";
 
-export default function Admin(props) {
+export default function Admin() {
   return (
     <div css={container}>
       <div css={sidebar}>
@@ -18,16 +18,14 @@ export default function Admin(props) {
       </div>
       <div css={main}>
         <NavbarContainer admin />
-
-        <Route path="/admin/dashboard" render={() => <h3>Dashboard</h3>} />
-        <Route path="/admin/review-scores" component={AdminReviewScores} />
-        <Route path="/admin/reports" component={AdminReports} />
-        <Route path="/admin/edit-content" component={AdminEditContent} />
+        <Route path="/admin/review-scores" component={ReviewScoresContainer} />
+        <Route path="/admin/reports" component={ReportsContainer} />
       </div>
     </div>
   );
 }
 
+// emotion styling
 const container = css`
   display: flex;
   flex-direction: row;

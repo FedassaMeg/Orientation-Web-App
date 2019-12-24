@@ -6,12 +6,11 @@ import axios from "axios";
 import { useAsync } from "react-async";
 
 //Local components
-import * as apiClient from "./api-call-admin";
+import * as apiClient from "./api-admin";
 import { ROOT_URL } from "../utils/constants";
 
 //Local components
 import ReviewScores from "./ReviewScores";
-import MuiReviewScoresTable from "./MuiReviewScoresTable";
 
 const rowdata = (scoreArr, userArr) => {
   let newTable = [];

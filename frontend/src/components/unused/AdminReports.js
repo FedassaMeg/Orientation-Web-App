@@ -1,6 +1,6 @@
 import React from "react";
 
-import ReportsContainer from "./ReportsContainer";
+import ReportsContainer from "../admin/ReportsContainer";
 export default function AdminReports() {
   return (
     <div>

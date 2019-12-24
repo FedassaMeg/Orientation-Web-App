@@ -4,7 +4,7 @@ import { css, jsx } from "@emotion/core";
 import { MdEdit } from "react-icons/md";
 import Card from "../components/Card";
 import CreateQuizContainer from "./CreateQuizContainer";
-import EditQuiz from "./EditQuiz";
+import EditQuiz from "../admin/EditQuiz";
 
 export default function EditContent(props) {
   const [isClicked, setIsClicked] = useState(false);

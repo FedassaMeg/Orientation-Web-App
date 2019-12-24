@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import EditQuestion from "./EditQuestion";
-import EditQuestionList from "./EditQuestionList";
+import EditQuestionList from "../admin/EditQuestionList";
 export default function EditQuestionContainer(props) {
   const [qstArr, setQstArr] = useState([]);
   const [index, setIndex] = useState(0);

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import Resource from "../unused/Resource";
+import Resource from "./Resource";
 import { ROOT_URL } from "../utils/constants";
 import EditQuestionContainer from "./EditQuestionContainer";
 

@@ -129,7 +129,14 @@ const container = css`
 `;
 
 const reqBtn = css`
+  border-radius: 2px;
   color: #b00020;
+  //transition-duration: 0.4s;
+
+  &: hover {
+    background-color: #f00020;
+    color: white;
+  }
 `;
 
 const notReqSpan = css`

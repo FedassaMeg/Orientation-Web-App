@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EditContent from "./EditContent";
+import EditContent from "../admin/EditContent";
 
 import { ROOT_URL } from "../utils/constants";
 

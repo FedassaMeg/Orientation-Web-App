@@ -1,6 +1,8 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { Route, Link } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+
 import {
   MdDashboard,
   MdAssignmentTurnedIn,
@@ -9,7 +11,7 @@ import {
   MdDescription
 } from "react-icons/md";
 
-const AdminSidebar = () => {
+export default function AdminSidebar() {
   return (
     <div css={sidebar}>
       <div css={sectionContainer}>
@@ -18,9 +20,10 @@ const AdminSidebar = () => {
           <div css={linkRow}>
             <MdDashboard />
             {"  "}
-            <Link to="/admin/dashboard" css={link}>
-              Dashboard
-            </Link>
+            <span css={disabledlink}>Dashboard</span>
+            {/* <Link to="/admin/dashboard" css={link}>
+            Dashboard
+            </Link> */}
           </div>
           <div css={linkRow}>
             <MdAssignmentTurnedIn />
@@ -45,24 +48,26 @@ const AdminSidebar = () => {
           <div css={linkRow}>
             <MdGroup />
             {"  "}
-            <Link to="/admin/administer-users" css={link}>
+            <span css={disabledlink}>Administer Users</span>
+            {/* <Link to="/admin/administer-users" css={link}>
               Administer Users
-            </Link>
+            </Link> */}
           </div>
           <div css={linkRow}>
             <MdDescription />
             {"  "}
-            <Link to="/admin/edit-content" css={link}>
+            <span css={disabledlink}>Edit Content</span>
+            {/* <Link to="/admin/edit-content" css={link}>
               Edit Content
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
     </div>
   );
-};
-export default AdminSidebar;
+}
 
+//emotion styling
 const sidebar = css`
   color: white;
 `;
@@ -99,6 +104,12 @@ const link = css`
     text-decoration: none;
     color: #289086;
   }
+`;
+
+const disabledlink = css`
+  font: 14px "Open Sans", san-serif;
+  margin-left: 8px;
+  color: rgba(255, 255, 255, 0.3);
 `;
 
 const divider = css`
