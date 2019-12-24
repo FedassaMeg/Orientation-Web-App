@@ -27,18 +27,21 @@ export default function Reports(props) {
     );
     doc.text("Quiz Scores", 10, 25);
     props.scoreArray.map((score, index) => {
-      doc.setFontSize(12);
-      doc.text(
-        `${score.related_quiz.title} - Score: ${score.score}/${score.related_quiz.num_questions}`,
-        10,
-        40 + index * 15
-      );
-      doc.text(
-        `Completed on: ${score.signed_date.slice(0, 10)}`,
-        150,
-        40 + index * 15
-      );
+      if (score.is_completed) {
+        doc.setFontSize(12);
+        doc.text(
+          `${score.related_quiz.title} - Score: ${score.score}/${score.related_quiz.num_questions}`,
+          10,
+          40 + index * 15
+        );
+        doc.text(
+          `Completed on: ${score.signed_date.slice(0, 10)}`,
+          150,
+          40 + index * 15
+        );
+      }
     });
+
     doc.save("a4.pdf");
   };
 

@@ -33,8 +33,20 @@ export default function ReviewScores(props) {
     quizId,
     scoreId,
     handleOnClick,
-    back
+    back,
+    questions,
+    userAns,
+    handleCorrect,
+    handleWrong,
+    handleSubmit,
+    isSubmitted,
+    isCorrect,
+    fetchState
   } = props;
+
+  const cqArr = scoreArray.filter(quiz => {
+    return quiz.is_completed;
+  });
 
   return (
     <div css={container}>
@@ -51,7 +63,7 @@ export default function ReviewScores(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {scoreArray.map((rowdata, index) => {
+              {cqArr.map((rowdata, index) => {
                 let date = new Date(rowdata.signed_date);
                 return (
                   <TableRow key={index}>
@@ -93,7 +105,20 @@ export default function ReviewScores(props) {
           </Table>
         </Card>
       ) : (
-        <ReviewQuiz quizId={quizId} scoreId={scoreId} back={back} />
+        fetchState.isSettled && (
+          <ReviewQuiz
+            quizId={quizId}
+            scoreId={scoreId}
+            back={back}
+            questions={questions}
+            userAns={userAns}
+            handleCorrect={handleCorrect}
+            handleWrong={handleWrong}
+            handleSubmit={handleSubmit}
+            isSubmitted={isSubmitted}
+            isCorrect={isCorrect}
+          />
+        )
       )}
     </div>
   );
@@ -108,7 +133,7 @@ const reqBtn = css`
 `;
 
 const notReqSpan = css`
-  font: 14px "Roboto", san-serif;
+  font: 14px "Roboto Condensed", san-serif;
   font-style: italic;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.6);

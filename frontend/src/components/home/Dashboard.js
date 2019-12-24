@@ -63,6 +63,10 @@ export default function Dashboard(props) {
     return quiz.type === "HD";
   });
 
+  const cqArr = props.compltArray.filter(quiz => {
+    return quiz.is_completed;
+  });
+
   return (
     <div css={container}>
       <div css={pageheader}>My Dashboard</div>
@@ -87,7 +91,7 @@ export default function Dashboard(props) {
             qzs1Arr={quizzes.qz1}
             qzs3Arr={quizzes.qz3}
             qzs4Arr={quizzes.qz4}
-            compltArray={props.compltArray}
+            compltArray={cqArr}
           />
         </div>
 

@@ -22,7 +22,7 @@ const container = css`
 `;
 const headerStyle = css`
   text-align: left;
-  font: 14px "Roboto", san-serif;
+  font: 14px "Roboto Condensed", san-serif;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.6);
 `;
@@ -32,7 +32,7 @@ const right = css`
 `;
 const left = css`
   text-align: left;
-  font: 14px "Roboto", san-serif;
+  font: 14px "Roboto Condensed", san-serif;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.87);
 `;

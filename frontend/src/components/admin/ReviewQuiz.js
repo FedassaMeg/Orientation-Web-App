@@ -1,114 +1,32 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
-import React, { useState, useLayoutEffect } from "react";
-
-import axios from "axios";
-
-//Utility hook for data fetching and promise resolution
-import { useAsync } from "react-async";
 
 import IconButton from "@material-ui/core/IconButton";
 
 import { MdDone, MdClear } from "react-icons/md";
 
 //Local components
-import * as apiClient from "./api-call-admin";
-import { ROOT_URL } from "../utils/constants";
 import Card from "../components/Card";
 import Button from "../components/Button";
 
-// Async wrapper function for api calls
-const getUserAnsData = async ({ input }) => {
-  let userAns;
-  let questions;
-  let quiz;
-  try {
-    userAns = await apiClient.getUserAns(input.scoreId);
-    questions = await apiClient.getQuizQuestions(input.quizId);
-    quiz = await apiClient.getQuiz(input.quizId);
-  } catch (e) {
-    throw new Error(e);
-  }
-  return { userAns, questions, quiz };
-};
-
 export default function ReviewQuiz(props) {
-  const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
-  const [userAns, setUserAns] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  const [quiz, setQuiz] = useState(null);
-  const [score, setScore] = useState(0);
-  const [scoreArr, setScoreArr] = useState(new Map());
+  const {
+    quizId,
+    scoreId,
+    back,
+    questions,
+    userAns,
+    handleCorrect,
+    handleWrong,
+    handleSubmit,
+    isSubmitted,
+    isCorrect
+  } = props;
 
-  const input = {
-    scoreId: props.scoreId,
-    quizId: props.quizId
-  };
-  const { data, isSettled, isRejected, isPending, error } = useAsync({
-    promiseFn: getUserAnsData,
-    input
-  });
-
-  useLayoutEffect(() => {
-    if (isSettled) {
-      setUserAns(data.userAns.data);
-      setQuestions(data.questions.data);
-      setQuiz(data.quiz.data);
-    }
-  }, [isSettled]);
-
-  const handleCorrect = () => {
-    if (score <= questions.length) {
-      setScore(score + 1);
-    }
-  };
-
-  const handleWrong = () => {
-    //setScore(added);
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    let config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`
-      }
-    };
-    axios
-      .put(
-        `${ROOT_URL}/scores/${props.scoreId}`,
-        {
-          id: props.scoreId,
-          score: score,
-          is_completed: true,
-          is_reviewed: true
-        },
-        config
-      )
-      .then(res => {
-        alert("Quiz Scored!");
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  if (!firstAttemptFinished) {
-    if (isPending) {
-      return null;
-    }
-    if (isRejected) {
-      return (
-        <div>
-          <pre>{error.message}</pre>
-        </div>
-      );
-    }
-  }
   const list = questions.map((question, index) => {
     return userAns.map(ans => {
       if (question.id == ans.question) {
+        const corrected = isCorrect.get(question.id);
         return (
           <div css={row}>
             <div css={content}>
@@ -118,7 +36,13 @@ export default function ReviewQuiz(props) {
               </div>
               <div css={answer}>
                 <span css={ansSpan}>User Answer: </span>
-                {ans.short_answer}
+                {question.type === "SA"
+                  ? ans.short_answer
+                  : question.type === "TF"
+                  ? ans.true_or_false.toString()
+                  : question.type === "MC"
+                  ? ans.multiple_choice
+                  : "Invalid Answer!"}
               </div>
             </div>
             <div>
@@ -150,8 +74,12 @@ export default function ReviewQuiz(props) {
       <div css={container}>
         {list}
         <div css={action}>
-          <Button onClick={props.back}>Back</Button>
-          <Button onClick={handleSubmit}>Done</Button>
+          <Button onClick={back}>Back</Button>
+          {isSubmitted ? (
+            <Button disabled>Reviewed!</Button>
+          ) : (
+            <Button onClick={handleSubmit}>Done</Button>
+          )}
         </div>
       </div>
     </Card>
@@ -199,6 +127,10 @@ const row = css`
 `;
 
 const question = css``;
+
+const wrong = css`
+  background-color: coral;
+`;
 
 const qstSpan = css`
   font-weight: 500;

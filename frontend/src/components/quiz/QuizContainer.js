@@ -100,6 +100,28 @@ export default function QuizContainer() {
           },
           config
         );
+      } else if (question.type === "TF") {
+        const value = inputMap.get(index);
+        axios.post(
+          `${ROOT_URL}/useranswers`,
+          {
+            quiz_score: id,
+            question: question.id,
+            true_or_false: value
+          },
+          config
+        );
+      } else if (question.type === "MC") {
+        const value = inputMap.get(index);
+        axios.post(
+          `${ROOT_URL}/useranswers`,
+          {
+            quiz_score: id,
+            question: question.id,
+            multiple_choice: value
+          },
+          config
+        );
       }
     });
   };
