@@ -1,11 +1,11 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Orientation App",
+  "name": "First Call Education Hub",
   "icons": [
     {
-      "src": "",
+      "src": "favicon.png",
       "sizes": "",
-      "type": "image/x-icon"
+      "type": "image/png"
     }
   ],
   "start_url": ".",

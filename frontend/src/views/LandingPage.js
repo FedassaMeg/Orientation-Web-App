@@ -13,7 +13,7 @@ export default function LandingPage() {
       <div css={content}>
         <div css={msgGroup}>
           <span css={msgTop}>Welcome to</span>
-          <span css={msgBottom}>First Call Orientation</span>
+          <span css={msgBottom}>First Call Education Hub</span>
         </div>
         <div css={btnContainer}>
           <Link to="/signup">

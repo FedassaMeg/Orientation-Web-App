@@ -86,13 +86,13 @@ const loginBtn = css`
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
-  background-color: #f6cb14;
+  background-color: #ffd700;
   color: white;
   font: 16px "Open Sans", sans-serif;
   font-weight: 600;
   transition-duration: 0.4s;
 
   &:hover {
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 5px 5px rgba(255, 215, 0, 0.1);
   }
 `;

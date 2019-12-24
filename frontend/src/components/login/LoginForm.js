@@ -18,12 +18,12 @@ export default function LoginForm(props) {
   } = props;
 
   return (
-    <div css={mainContainer}>
-      <div css={loginCard}>
+    <div css={container}>
+      <div css={card}>
         <div css={header}>Login</div>
-        <hr css={headerDivide} />
-        <div css={bodyContainer}>
-          <form onSubmit={handleOnSubmit} css={formStyle}>
+        <hr css={divider} />
+        <div css={content}>
+          <form onSubmit={handleOnSubmit} css={form}>
             <input
               id="username"
               name="username"
@@ -63,7 +63,7 @@ export default function LoginForm(props) {
               {isPending ? (
                 <CircularProgress color="inherit" size={20} />
               ) : (
-                <div css={loginBtnContent}>
+                <div css={btnLabel}>
                   <FiArrowRightCircle /> sign in
                 </div>
               )}
@@ -80,7 +80,7 @@ export default function LoginForm(props) {
     </div>
   );
 }
-const mainContainer = css`
+const container = css`
   height: 100vh;
   display: flex;
   flex-direction: row;
@@ -89,13 +89,16 @@ const mainContainer = css`
 `;
 
 // login card styles
-const loginCard = css`
-  padding: 35px;
+const card = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 32px;
   height: 550px;
-  width: 450px;
-  background-color: white;
-  box-shadow: 0 32px 24px -24px rgba(0, 0, 0, 0.1);
+  width: 400px;
   border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
 `;
 
 // login header styles
@@ -107,50 +110,53 @@ const header = css`
   color: #393e41;
 `;
 
-const headerDivide = css`
+const divider = css`
   margin-top: 8px;
   margin-bottom: 8px;
   width: 96px;
   height: 4px;
   border: none;
   background: linear-gradient(to right, #fcdc51 20%, #25cfb2 90%);
-  // background-color: #f6cb14;
 `;
 
 // login card body styles
-const bodyContainer = css`
+const content = css`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 85%;
-  padding: 25px;
+  flex-grow: 1;
+  padding: 16px;
 `;
 
-const formStyle = css`
+const form = css`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  flex-grow: 1;
+  justify-content: space-around;
   align-items: stretch;
-  padding: 25px;
+  padding: 24px;
 `;
 
 // input styles
 const inputStyle = css`
-  height: 50px;
   width: 100%;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #d5d5d5;
+  height: 48px;
+  border: 0.5px solid;
+  border-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 
   &[placeholder] {
-    font-size: 18px;
+    font-size: 16px;
     font-family: "Open Sans", sans-serif;
+    font-weight: 400;
     padding-left: 10px;
     padding-bottom: 0px;
+  }
+
+  &:focus {
+    outline: none;
+    border-width: 1px;
+    border-color: #25cfb2;
   }
 `;
 
@@ -164,35 +170,34 @@ const button = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-self: center;
-  width: 180px;
+  justify-self: flex-end;
+  width: 100%;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-right: 15px;
   border: none;
   border-radius: 5px;
-  margin-top: 36px;
   color: white;
-  // background: linear-gradient(25deg, #f6cb14 1%, #25cfb2 15%);
-  // background: linear-gradient(5deg, #1fab93 1%, #25cfb2 15%);
-  // background: linear-gradient(5deg, #e8c015 1%, #f6cb14 15%);
-  background-color: #f6cb14;
-  box-shadow: inset 0 0 3px rgba(232, 192, 21, 0.15);
+  background-color: #ffd700;
   transition-duration: 0.4s;
 
   &:hover {
-    box-shadow: 0px 0px 5px 5px rgba(204, 168, 16, 0.1);
+    box-shadow: 0px 0px 5px 5px rgba(255, 215, 0, 0.1);
+  }
+
+  &: focus {
+    outline: none;
   }
 `;
 
-const loginBtnContent = css`
-  font: 18px "Roboto", sans-serif;
-  font-weight: 600;
+const btnLabel = css`
+  font: 20px "Roboto condensed", sans-serif;
+  font-weight: 400;
 `;
 
 // alternative links styles
 const altLinks = css`
-  color: #787878;
+  color: rgba(0, 0, 0, 0.6);
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
 `;

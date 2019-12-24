@@ -16,7 +16,7 @@ import { useQuiz } from "./QuizContext";
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: 12,
-    width: "65%"
+    minWidth: 720
   },
   root: {
     width: "100%",
@@ -37,12 +37,12 @@ export default function ReviewAnswers(props) {
     const userAnswer = props.answers.get(index) + "";
     return (
       <div key={index} css={container}>
-        <div css={contentContainer}>
-          <div css={list}>
-            <div css={number}>{index + 1}.</div>
-            <div css={qst}>{question.question}</div>
-          </div>
-          <div css={answer}>You answered: {userAnswer}</div>
+        <div css={list}>
+          <div css={number}>{index + 1}.</div>
+          <div css={qst}>{question.question}</div>
+        </div>
+        <div css={answer}>
+          You answered: <span css={userAns}>{userAnswer}</span>
         </div>
       </div>
     );
@@ -86,22 +86,17 @@ export default function ReviewAnswers(props) {
     </Box>
   );
 }
+
 const container = css`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-`;
-
-const contentContainer = css`
-  display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 16px;
-  transition-duration: 0.5s;
+  transition-duration: 0.4s;
+
   &:hover {
-    background-color: #f4f4f4;
-    // box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 `;
 
@@ -110,11 +105,12 @@ const main = css`
 `;
 
 const list = css`
+  max-width: 480px;
+  width: 72%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: baseline;
-  width: 900px;
 `;
 
 const number = css`
@@ -132,13 +128,19 @@ const qst = css`
 `;
 
 const answer = css`
+  max-width: 600px;
   margin-left: 16px;
   margin-right: 8px;
+  padding: 8px;
   font-size: 16px;
   font-weight: 400;
   font-style: italic;
-  color: #505050;
-  padding: 8px;
+  color: rgba(0, 0, 0, 0.6);
+`;
+
+const userAns = css`
+  font: 16px "Roboto", san-serif;
+  font-weight: 600;
 `;
 
 const title = css`
