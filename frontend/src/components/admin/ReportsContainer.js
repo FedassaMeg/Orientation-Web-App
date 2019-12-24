@@ -84,7 +84,9 @@ export default function ReportsContainer() {
 
   const handleSubmit = event => {
     event.preventDefault();
+
     const quizScoreId = event.target.id;
+
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
