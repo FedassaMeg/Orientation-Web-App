@@ -11,4 +11,5 @@ const container = css`
   width: 100%;
   padding-left: 16px;
   padding-right: 16px;
+  padding-bottom: 16px;
 `;

@@ -71,7 +71,7 @@ export default function ReportsContainer() {
 
   if (!firstAttemptFinished) {
     if (getUserDataState.isPending) {
-      return <h3>Loading...</h3>;
+      return null;
     }
     if (getUserDataState.isRejected) {
       return (
