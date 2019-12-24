@@ -81,6 +81,7 @@ export default function Reports(props) {
           <Card>
             <div css={scorecss}>
               {scoreList}
+              <hr css={divider} />
               <Button onClick={file}>Generate Report</Button>
             </div>
           </Card>
@@ -111,6 +112,12 @@ const title = css`
 
 const quizscore = css`
   width: 80px;
+`;
+
+const divider = css`
+  width: 500px;
+  margin: 16px;
+  border: 0.5px solid lightgrey;
 `;
 
 const testbtn = css`
