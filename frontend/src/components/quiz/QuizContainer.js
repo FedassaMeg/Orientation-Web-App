@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import ReactDOM from "react-dom";
+
 //Axios HTTP Client
 import axios from "axios";
 
@@ -30,6 +32,8 @@ export default function QuizContainer() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [currInput, setCurrInput] = useState(null);
 
+  const [animate, setAnimate] = useState(false);
+
   useEffect(() => {
     setCurrInput(inputMap.get(activeIndex));
   }, [activeIndex, inputMap]);
@@ -38,6 +42,7 @@ export default function QuizContainer() {
   const next = () => {
     if (activeIndex < data.questions.length - 1) {
       setActiveIndex(activeIndex + 1);
+      setAnimate(!animate);
     } else if (activeIndex + 1 === data.questions.length) {
       setIsCompleted(true);
       createAnsArr(data.answers);
@@ -50,6 +55,7 @@ export default function QuizContainer() {
   const prev = () => {
     if (activeIndex > 0) {
       setActiveIndex(activeIndex - 1);
+      setAnimate(!animate);
     } else {
       return;
     }
@@ -209,6 +215,7 @@ export default function QuizContainer() {
       handleSubmit={handleSubmit}
       answers={inputMap}
       answer={currInput}
+      animate={animate}
     />
   );
 }

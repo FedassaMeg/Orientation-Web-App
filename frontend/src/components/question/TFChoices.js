@@ -7,16 +7,17 @@ import Radio from "@material-ui/core/Radio";
 export default function TFChoices({ answer, handleOnChange }) {
   return (
     <div css={container}>
-      <div css={choice}>
+      <label css={choice}>
         <Radio
+          key={1}
           color="default"
           checked={answer === true}
           onChange={handleOnChange}
           value={true}
         />
         <span>True</span>
-      </div>
-      <div css={choice}>
+      </label>
+      <label css={choice}>
         <Radio
           color="default"
           checked={answer === false}
@@ -24,7 +25,7 @@ export default function TFChoices({ answer, handleOnChange }) {
           value={false}
         />
         <span>False</span>
-      </div>
+      </label>
     </div>
   );
 }
@@ -41,4 +42,5 @@ const choice = css`
   align-items: center;
   margin-left: 8px;
   margin-right: 8px;
+  cursor: pointer;
 `;

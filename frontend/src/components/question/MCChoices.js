@@ -7,7 +7,7 @@ import Radio from "@material-ui/core/Radio";
 export default function MCChoices({ answer, handleOnChange, qstChoices }) {
   return (
     <div css={container}>
-      <div css={choice}>
+      <label css={choice}>
         <Radio
           color="default"
           checked={answer === "a"}
@@ -15,8 +15,8 @@ export default function MCChoices({ answer, handleOnChange, qstChoices }) {
           value="a"
         />
         <span>{qstChoices[0].choice}</span>
-      </div>
-      <div css={choice}>
+      </label>
+      <label css={choice}>
         <Radio
           color="default"
           checked={answer === "b"}
@@ -24,8 +24,8 @@ export default function MCChoices({ answer, handleOnChange, qstChoices }) {
           value="b"
         />
         <span>{qstChoices[1].choice}</span>
-      </div>
-      <div css={choice}>
+      </label>
+      <label css={choice}>
         <Radio
           color="default"
           checked={answer === "c"}
@@ -33,8 +33,8 @@ export default function MCChoices({ answer, handleOnChange, qstChoices }) {
           value="c"
         />
         <span>{qstChoices[2].choice}</span>
-      </div>
-      <div css={choice}>
+      </label>
+      <label css={choice}>
         <Radio
           color="default"
           checked={answer === "d"}
@@ -42,7 +42,7 @@ export default function MCChoices({ answer, handleOnChange, qstChoices }) {
           value="d"
         />
         <span>{qstChoices[3].choice}</span>
-      </div>
+      </label>
     </div>
   );
 }
@@ -57,4 +57,5 @@ const choice = css`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  cursor: pointer;
 `;

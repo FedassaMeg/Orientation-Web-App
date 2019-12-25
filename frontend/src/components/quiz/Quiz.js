@@ -42,6 +42,7 @@ export default function Quiz(props) {
                 activeIndex={props.activeIndex}
                 answer={props.answer}
                 handleOnChange={props.handleOnChange}
+                animate={props.animate}
               />
               <div css={btnGroup}>
                 {!props.activeIndex == 0 ? (
