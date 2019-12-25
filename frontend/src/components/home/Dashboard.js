@@ -101,7 +101,6 @@ export default function Dashboard(props) {
           <HandoutList />
         </div>
       </div>
-      {/* <input onSubmit={onSubmit} /> */}
     </div>
   );
 }
