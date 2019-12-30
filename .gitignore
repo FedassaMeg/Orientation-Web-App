@@ -1,3 +1,4 @@
 node_modules/
 *.mkv
 frontend/src/components/utils/constants.js
+build/
