@@ -11,7 +11,7 @@ function client(endpoint, { data, ...customConfig } = {}) {
   const config = {
     url: `http://10.2.7.208/api${endpoint}`,
     method: data ? "POST" : "GET",
-    baseUrl: ROOT_URL,
+    baseUrl: "http://10.2.7.208/api",
     responseType: "json",
     ...customConfig,
     headers: {

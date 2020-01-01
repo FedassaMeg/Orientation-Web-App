@@ -10,34 +10,32 @@ import Card from "../components/Card";
 import Choices from "./Choices";
 import QuestionContent from "./QuestionContent";
 
-const QuestionCard = posed.div({
-  enter: {
-    opacity: 0,
-    delay: 300
-  },
-  exit: {
-    opacity: 1
-  }
-});
+// const QuestionCard = posed.div({
+//   enter: {
+//     opacity: 0,
+//     delay: 300
+//   },
+//   exit: {
+//     opacity: 1
+//   }
+// });
 
 export default function Question(props) {
   return (
-    <QuestionCard pose={props.animate ? "enter" : "exit"}>
-      <Card>
-        <div css={content}>
-          <div css={question}>
-            <QuestionContent activeIndex={props.activeIndex} />
-          </div>
+    <Card>
+      <div css={content}>
+        <div css={question}>
+          <QuestionContent activeIndex={props.activeIndex} />
         </div>
-        <div css={actions}>
-          <Choices
-            activeIndex={props.activeIndex}
-            handleOnChange={props.handleOnChange}
-            answer={props.answer}
-          />
-        </div>
-      </Card>
-    </QuestionCard>
+      </div>
+      <div css={actions}>
+        <Choices
+          activeIndex={props.activeIndex}
+          handleOnChange={props.handleOnChange}
+          answer={props.answer}
+        />
+      </div>
+    </Card>
   );
 }
 

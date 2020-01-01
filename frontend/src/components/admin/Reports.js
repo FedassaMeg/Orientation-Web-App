@@ -51,7 +51,7 @@ export default function Reports(props) {
       </Card>
 
       {open && (
-        <Card>
+        <Card css={cardCont}>
           <div css={scoresContainer}>
             <div css={slist}>{scoreList}</div>
             <div css={footer}>
@@ -74,6 +74,10 @@ const container = css`
 const usersContainer = css`
   padding: 16px;
   width: 200px;
+`;
+
+const cardCont = css`
+  height: 100%;
 `;
 
 const ulist = css`

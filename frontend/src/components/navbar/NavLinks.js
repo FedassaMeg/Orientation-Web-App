@@ -38,7 +38,7 @@ export default function NavLinks({ admin, isAuthenticated, isAdmin }) {
             </NavItem>
             {isAdmin && (
               <NavItem>
-                <NavLink href="/admin">Admin</NavLink>
+                <NavLink href="/site-admin">Admin</NavLink>
               </NavItem>
             )}
 

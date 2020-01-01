@@ -14,7 +14,7 @@ SECRET_KEY = 'to74ucp6@c_azau4ypz16#u=pr6p^7yy=d32$&x#@jbxu*to%s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.2.7.66', 'localhost', '10.2.7.208']
+ALLOWED_HOSTS = ['10.2.7.66', 'localhost']
 
 
 # Application definition
@@ -70,8 +70,12 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'local',
+        'USER': 'postgres',
+        'PASSWORD': 'fcadmin%1',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -124,7 +128,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    
+
 }
 
 SIMPLE_JWT = {

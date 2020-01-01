@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "../routes/PrivateRoute";
 import { AdminRoute } from "../routes/AdminRoute";
 import LoginRoute from "./LoginRoute";
+import PageNotFound from "../../views/PageNotFound";
 
 // Route Components
 import QuizPage from "../../views/QuizPage";
@@ -29,9 +30,10 @@ export default function Routes() {
         <PrivateRoute path="/videos" component={VideosPage} />
         <PrivateRoute path="/handouts" component={HandoutsPage} />
         <PrivateRoute path="/handout/:id" component={HandoutPage} />
-        <AdminRoute path="/admin" component={AdminPage} />
+        <AdminRoute path="/site-admin" component={AdminPage} />
+        <LoginRoute />
+        <Route component={PageNotFound} />
       </Switch>
-      <LoginRoute />
     </Router>
   );
 }

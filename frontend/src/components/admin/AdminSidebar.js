@@ -28,14 +28,14 @@ export default function AdminSidebar() {
           <div css={linkRow}>
             <MdAssignmentTurnedIn />
             {"  "}
-            <Link to="/admin/review-scores" css={link}>
+            <Link to="/site-admin/review-scores" css={link}>
               Review Scores
             </Link>
           </div>
           <div css={linkRow}>
             <MdAssessment />
             {"  "}
-            <Link to="/admin/reports" css={link}>
+            <Link to="/site-admin/reports" css={link}>
               Reports
             </Link>
           </div>

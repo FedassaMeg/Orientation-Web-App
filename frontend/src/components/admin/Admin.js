@@ -18,8 +18,11 @@ export default function Admin() {
       </div>
       <div css={main}>
         <NavbarContainer admin />
-        <Route path="/admin/review-scores" component={ReviewScoresContainer} />
-        <Route path="/admin/reports" component={ReportsContainer} />
+        <Route
+          path="/site-admin/review-scores"
+          component={ReviewScoresContainer}
+        />
+        <Route path="/site-admin/reports" component={ReportsContainer} />
       </div>
     </div>
   );
@@ -50,6 +53,7 @@ const adminHeader = css`
 
 const main = css`
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
