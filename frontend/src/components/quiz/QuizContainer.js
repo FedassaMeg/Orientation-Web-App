@@ -20,12 +20,6 @@ export default function QuizContainer() {
 
   let score = 0;
 
-  const initialState = {
-    tf: false,
-    mc: "a",
-    sa: ""
-  };
-
   const [activeIndex, setActiveIndex] = useState(0);
   const [inputMap, setInputMap] = useState(new Map());
   const [ansArr, setAnsArr] = useState([]);
@@ -90,46 +84,47 @@ export default function QuizContainer() {
     }
     setInputMap(added);
     setCurrInput(value);
-    console.log(inputMap);
   };
 
   const sendQuestionAns = (id, config) => {
-    data.questions.map((question, index) => {
-      if (question.type === "SA") {
-        const value = inputMap.get(index);
-        axios.post(
-          `${ROOT_URL}/useranswers`,
-          {
-            quiz_score: id,
-            question: question.id,
-            short_answer: value
-          },
-          config
-        );
-      } else if (question.type === "TF") {
-        const value = inputMap.get(index);
-        axios.post(
-          `${ROOT_URL}/useranswers`,
-          {
-            quiz_score: id,
-            question: question.id,
-            true_or_false: value
-          },
-          config
-        );
-      } else if (question.type === "MC") {
-        const value = inputMap.get(index);
-        axios.post(
-          `${ROOT_URL}/useranswers`,
-          {
-            quiz_score: id,
-            question: question.id,
-            multiple_choice: value
-          },
-          config
-        );
-      }
-    });
+    if (data.quiz.review_required) {
+      data.questions.map((question, index) => {
+        if (question.type === "SA") {
+          const value = inputMap.get(index);
+          axios.post(
+            `${ROOT_URL}/useranswers`,
+            {
+              quiz_score: id,
+              question: question.id,
+              short_answer: value
+            },
+            config
+          );
+        } else if (question.type === "TF") {
+          const value = inputMap.get(index);
+          axios.post(
+            `${ROOT_URL}/useranswers`,
+            {
+              quiz_score: id,
+              question: question.id,
+              true_or_false: value
+            },
+            config
+          );
+        } else if (question.type === "MC") {
+          const value = inputMap.get(index);
+          axios.post(
+            `${ROOT_URL}/useranswers`,
+            {
+              quiz_score: id,
+              question: question.id,
+              multiple_choice: value
+            },
+            config
+          );
+        }
+      });
+    }
   };
 
   // Handles submission of quiz; posts score to the backend
@@ -160,8 +155,7 @@ export default function QuizContainer() {
       )
       .then(res => {
         alert("Quiz Submitted!");
-        history.push("/quizs");
-        console.log(res);
+        history.push("/home");
         return sendQuestionAns(res.data.id, config);
       })
       .catch(err => {
@@ -198,7 +192,6 @@ export default function QuizContainer() {
     let ansValue = ansArr.find(elm => {
       return elm.id === key;
     });
-    console.log(ansValue);
     if (value == ansValue.answer) {
       score = score + 1;
     }

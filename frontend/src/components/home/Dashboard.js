@@ -36,8 +36,12 @@ export default function Dashboard(props) {
     return slide.group.indexOf(user.role) !== -1;
   });
 
-  const qzArr = props.quizArray.filter(quiz => {
+  const temp = props.quizArray.filter(quiz => {
     return quiz.group.indexOf(user.role) !== -1;
+  });
+
+  const qzArr = temp.filter(quiz => {
+    return quiz.is_active === true;
   });
 
   const md1Arr = sldArr.filter(slide => {

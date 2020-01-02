@@ -16,7 +16,7 @@ import { useQuiz } from "./QuizContext";
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: 12,
-    minWidth: 720
+    minWidth: 920
   },
   root: {
     width: "100%",
@@ -129,7 +129,7 @@ const qst = css`
 
 const answer = css`
   max-width: 600px;
-  margin-left: 16px;
+  margin-left: 32px;
   margin-right: 8px;
   padding: 8px;
   font-size: 16px;

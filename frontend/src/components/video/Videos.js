@@ -8,7 +8,6 @@ import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 
 //Local components
-import Card from "../components/Card";
 import Video from "./Video";
 
 const useStyles = makeStyles(theme => ({
@@ -41,22 +40,24 @@ export default function Videos() {
     <div css={container}>
       <div css={title}>Videos</div>
       <hr css={divider} />
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="flex-start"
-        alignItems="center"
-      >
-        <List
-          component="nav"
-          subheader={
-            <ListSubheader component="div">PLEASE SELECT VIDEO</ListSubheader>
-          }
-          className={classes.root}
+      <div css={card}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="flex-start"
+          alignItems="center"
         >
-          {videoList}
-        </List>
-      </Box>
+          <List
+            component="nav"
+            subheader={
+              <ListSubheader component="div">PLEASE SELECT VIDEO</ListSubheader>
+            }
+            className={classes.root}
+          >
+            {videoList}
+          </List>
+        </Box>
+      </div>
     </div>
   );
 }
@@ -70,6 +71,17 @@ const container = css`
   //max-width: 120vmin;
   width: 100%;
   padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const card = css`
+  margin: 40px;
+  width: 640px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+  align-self: center;
 `;
 
 const title = css`

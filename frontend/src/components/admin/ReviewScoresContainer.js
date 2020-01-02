@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
@@ -23,7 +23,7 @@ const rowdata = (scoreArr, userArr) => {
     let userData;
     userArr.map(user => {
       userData =
-        score.signed_by == user.id && user.last_name + ", " + user.first_name;
+        score.signed_by === user.id && user.last_name + ", " + user.first_name;
     });
     newTable.push({
       userData: userData,
@@ -130,6 +130,7 @@ export default function AdminReviewScores(props) {
   const back = () => {
     setIsClicked(false);
     getInitialDataState.reload();
+    setIsSubmitted(false);
   };
 
   const handleCorrect = e => {
@@ -143,13 +144,13 @@ export default function AdminReviewScores(props) {
   };
 
   const handleWrong = e => {
-    // if (score > 0) {
-    //   setScore(score - 1);
-    //   const key = e.currentTarget.id;
-    //   const value = false;
-    //   const add = isCorrect.set(key, value);
-    //   setIsCorrect(add);
-    // }
+    if (score > 0) {
+      setScore(score - 1);
+      const key = e.currentTarget.id;
+      const value = false;
+      const add = isCorrect.set(key, value);
+      setIsCorrect(add);
+    }
   };
 
   const handleSubmit = event => {

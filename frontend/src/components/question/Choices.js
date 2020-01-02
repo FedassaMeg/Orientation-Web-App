@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 //Local components
 import { useQuiz } from "../quiz/QuizContext";

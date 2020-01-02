@@ -91,5 +91,22 @@ const cancel = css`
   color: red;
 `;
 const list = css`
-  padding: 0;
+  text-decoration: none;
+  color: grey;
+  &:link {
+    text-decoration: none;
+    color: grey;
+  }
+  &:visited {
+    text-decoration: none;
+    color: grey;
+  }
+  &:hover {
+    text-decoration: none;
+    color: black;
+  }
+  &:active {
+    text-decoration: none;
+    color: grey;
+  }
 `;

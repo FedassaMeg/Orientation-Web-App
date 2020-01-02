@@ -2,23 +2,10 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-//Pose Animation
-import posed, { PoseGroup } from "react-pose";
-
 // Local Components
 import Card from "../components/Card";
 import Choices from "./Choices";
 import QuestionContent from "./QuestionContent";
-
-// const QuestionCard = posed.div({
-//   enter: {
-//     opacity: 0,
-//     delay: 300
-//   },
-//   exit: {
-//     opacity: 1
-//   }
-// });
 
 export default function Question(props) {
   return (
@@ -38,8 +25,6 @@ export default function Question(props) {
     </Card>
   );
 }
-
-const container = css``;
 
 const content = css`
   width: 800px;

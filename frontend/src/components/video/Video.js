@@ -77,9 +77,7 @@ export default function Video({ name }) {
             autoPlay
             //poster={require("../../images/videoLoad.png")}
           >
-            <source
-            //src={require(`../../videos/videos/English/${props.name}.mkv`)}
-            />
+            <source src={require(`../../videos/videos/English/${name}.mkv`)} />
           </video>
         </DialogContent>
       </Dialog>

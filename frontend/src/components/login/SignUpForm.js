@@ -14,8 +14,7 @@ export default function SignUpForm(props) {
     state,
     handleOnChange,
     formErrors,
-    isPending,
-    isRejected
+    isPending
   } = props;
   return (
     <div css={container}>

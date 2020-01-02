@@ -105,7 +105,6 @@ export default function ReportsContainer() {
         config
       )
       .then(res => {
-        console.log(res.data);
         alert("User will be prompted to re-take test!");
       })
       .catch(err => {
@@ -125,10 +124,9 @@ export default function ReportsContainer() {
         newUser = user;
       }
     });
-    console.log(doc.getFontList());
     doc.addFont("OpenSans-Regular", "Open Sans", "");
     doc.setFont("Open Sans", "");
-    doc.setFontSize(16);
+    doc.setFontSize(14);
     doc.text(
       `${newUser.last_name.toUpperCase()}, ${newUser.first_name.toUpperCase()}`,
       10,
@@ -137,16 +135,16 @@ export default function ReportsContainer() {
     doc.text("Quiz Scores", 10, 25);
     scoreArray.map((score, index) => {
       if (score.is_completed) {
-        doc.setFontSize(12);
+        doc.setFontSize(10);
         doc.text(
           `${score.related_quiz.title} - Score: ${score.score}/${score.related_quiz.num_questions}`,
           10,
-          40 + index * 15
+          40 + index * 8
         );
         doc.text(
           `Completed on: ${score.signed_date.slice(0, 10)}`,
           150,
-          40 + index * 15
+          40 + index * 8
         );
       }
     });

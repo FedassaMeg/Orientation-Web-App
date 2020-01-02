@@ -113,7 +113,6 @@ function SignUp(props) {
     <SignUpForm
       state={state}
       isPending={isPending}
-      isRejected={isRejected}
       handleOnSubmit={handleOnSubmit}
       handleOnChange={handleOnChange}
       formErrors={formErrors}

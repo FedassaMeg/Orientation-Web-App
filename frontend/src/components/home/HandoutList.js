@@ -69,7 +69,7 @@ export default function HandoutList() {
 
   let applicable = "";
 
-  if (user.role === 15 || user.role === 18) {
+  if (user.role === 21 || user.role === 24) {
     applicable = "Please Review Handouts";
   } else {
     applicable = "Not Applicable";

@@ -16,14 +16,16 @@ export default function Reports(props) {
   } = props;
 
   const userList = userArray.map((user, index) => {
-    const userFullName = user.last_name + ", " + user.first_name;
-    return (
-      <li>
-        <Button key={index} id={user.id} onClick={handleOnSubmit}>
-          {userFullName}
-        </Button>
-      </li>
-    );
+    if (user.last_name !== "") {
+      const userFullName = user.last_name + ", " + user.first_name;
+      return (
+        <li>
+          <Button key={index} id={user.id} onClick={handleOnSubmit}>
+            {userFullName}
+          </Button>
+        </li>
+      );
+    }
   });
 
   const scoreList = scoreArray.map((rowdata, index) => {
@@ -44,32 +46,30 @@ export default function Reports(props) {
 
   return (
     <div css={container}>
-      <Card header="USER LIST">
-        <div css={usersContainer}>
-          <ul css={ulist}>{userList}</ul>
+      <Card css={cardCont} header="GENERATE REPORTS">
+        <div css={content}>
+          <div css={usersContainer}>
+            <ul css={ulist}>{userList}</ul>
+          </div>
+          {open && (
+            <div css={scoresContainer}>
+              <div css={slist}>{scoreList}</div>
+              <div css={footer}>
+                <hr css={divider} />
+                <Button onClick={file} css={generateBtn}>
+                  Generate Report
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </Card>
-
-      {open && (
-        <Card css={cardCont}>
-          <div css={scoresContainer}>
-            <div css={slist}>{scoreList}</div>
-            <div css={footer}>
-              <hr css={divider} />
-              <Button onClick={file}>Generate Report</Button>
-            </div>
-          </div>
-        </Card>
-      )}
     </div>
   );
 }
 
 // emotion styling
-const container = css`
-  display: flex;
-  flex-direction: row;
-`;
+const container = css``;
 
 const usersContainer = css`
   padding: 16px;
@@ -77,7 +77,12 @@ const usersContainer = css`
 `;
 
 const cardCont = css`
-  height: 100%;
+  width: 700px;
+`;
+
+const content = css`
+  display: flex;
+  flex-direction: row;
 `;
 
 const ulist = css`
@@ -92,7 +97,6 @@ const scoresContainer = css`
   justify-content: flex-start;
   align-items: center;
   width: 500px;
-  height: 300px;
 `;
 
 const slist = css``;
@@ -129,4 +133,19 @@ const divider = css`
 
 const testbtn = css`
   margin: 0;
+`;
+const generateBtn = css`
+  width: 120px;
+  margin: 16px;
+  border: 0.5px solid;
+  border-color: dodgerblue;
+  border-radius: 2px;
+  color: dodgerblue;
+  transition-duration: 0.4s;
+
+  &: hover {
+    border-radius: 2px;
+    background-color: dodgerblue;
+    color: white;
+  }
 `;

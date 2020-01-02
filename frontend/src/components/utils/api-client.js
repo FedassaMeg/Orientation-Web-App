@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { AUTH_TOKEN } from "./constants";
+import { AUTH_TOKEN, ROOT_URL } from "./constants";
 
 function client(endpoint, { data, ...customConfig } = {}) {
   const token = window.localStorage.getItem(AUTH_TOKEN);
@@ -9,9 +9,9 @@ function client(endpoint, { data, ...customConfig } = {}) {
     headers.Authorization = `Bearer ${token}`;
   }
   const config = {
-    url: `http://10.2.7.208/api${endpoint}`,
+    url: `${ROOT_URL}${endpoint}`,
     method: data ? "POST" : "GET",
-    baseUrl: "http://10.2.7.208/api",
+    baseUrl: ROOT_URL,
     responseType: "json",
     ...customConfig,
     headers: {

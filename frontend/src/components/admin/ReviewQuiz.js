@@ -11,8 +11,6 @@ import Button from "../components/Button";
 
 export default function ReviewQuiz(props) {
   const {
-    quizId,
-    scoreId,
     back,
     questions,
     userAns,
