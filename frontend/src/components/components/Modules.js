@@ -1,7 +1,7 @@
 /**@jsx jsx */
-
-import { Component, Fragment } from "react";
 import { css, jsx } from "@emotion/core";
+
+import { Fragment, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -13,69 +13,53 @@ import {
   ModalBody
 } from "reactstrap";
 
-export default class Module extends Component {
-  constructor(props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = { modal: false };
-  }
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
-  }
-  kebabCase = str =>
-    str
-      .match(/[A-Z]{2,}(?=[A-Z][a-z0-9]*|\b)|[A-Z]?[a-z0-9]*|[A-Z]|[0-9]+/g)
-      .filter(Boolean)
-      .map(x => x.toLowerCase())
-      .join("-");
-  render() {
-    let array = this.props.list;
-    let moduleList = array.map((item, index) => (
-      <Fragment key={index}>
-        {this.props.slide ? (
-          <a href={item.url} target="blank" css={link}>
-            <ListGroupItem
-              id={item.id}
-              url={item.url}
-              onClick={this.props.handleOnClick}
-            >
-              {item.title}
-            </ListGroupItem>
-          </a>
-        ) : (
-          <Link to={`${this.props.type}/${this.kebabCase(item)}`} css={link}>
-            <ListGroupItem>{item}</ListGroupItem>
-          </Link>
-        )}
-      </Fragment>
-    ));
-    return (
-      <div css={shell}>
-        <div css={topBar} />
-        <div css={cardContainer}>
-          <button onClick={this.toggle} css={buttonCard}>
-            <div css={cardContent}>
-              <div css={cardBody}>
-                <div css={moduleTitle}>{this.props.title}</div>
-                <br />
-                <div css={moduleSubtitle}>{this.props.subtitle}</div>
-                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                  <ModalHeader toggle={this.toggle} css={modalHeader}>
-                    <div css={modalTitle}>{this.props.title}</div>
-                  </ModalHeader>
-                  <ModalBody css={modalBody}>
-                    <ListGroup flush>{moduleList}</ListGroup>
-                  </ModalBody>
-                </Modal>
-              </div>
+export default function Module(props) {
+  const { title, subtitle, list, handleOnClick, type } = props;
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => {
+    setModal(!modal);
+  };
+
+  let moduleList = list.map((item, index) => (
+    <Fragment key={index}>
+      {type === "slide" ? (
+        <a href={item.url} target="blank" css={link}>
+          <ListGroupItem id={item.id} url={item.url} onClick={handleOnClick}>
+            {item.title}
+          </ListGroupItem>
+        </a>
+      ) : (
+        <Link to={`${type}/${item.url}`} css={link}>
+          <ListGroupItem>{item.title}</ListGroupItem>
+        </Link>
+      )}
+    </Fragment>
+  ));
+  return (
+    <div css={shell}>
+      <div css={topBar} />
+      <div css={cardContainer}>
+        <button onClick={toggle} css={buttonCard}>
+          <div css={cardContent}>
+            <div css={cardBody}>
+              <div css={moduleTitle}>{title}</div>
+              <br />
+              <div css={moduleSubtitle}>{subtitle}</div>
+              <Modal isOpen={modal} toggle={toggle}>
+                <ModalHeader toggle={toggle} css={modalHeader}>
+                  <div css={modalTitle}>{title}</div>
+                </ModalHeader>
+                <ModalBody css={modalBody}>
+                  <ListGroup flush>{moduleList}</ListGroup>
+                </ModalBody>
+              </Modal>
             </div>
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 const link = css`

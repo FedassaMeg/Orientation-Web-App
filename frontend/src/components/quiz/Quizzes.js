@@ -2,10 +2,23 @@
 import { css, jsx } from "@emotion/core";
 
 //Local components
+import { useContent } from "../context/ContentContext";
 import Container from "../components/Container";
 import Modules from "../components/Modules";
 
 export default function Quizzes() {
+  const { quizzes } = useContent();
+
+  const videoBased = quizzes.data.filter(quiz => {
+    return quiz.type === "VD";
+  });
+  const slideBased = quizzes.data.filter(quiz => {
+    return quiz.type === "SL";
+  });
+  const handoutBased = quizzes.data.filter(quiz => {
+    return quiz.type === "HD";
+  });
+
   return (
     <Container>
       <div css={pageheader}>All Quizzes</div>
@@ -13,51 +26,28 @@ export default function Quizzes() {
       <div css={cardscontainer}>
         <div css={moduleCard}>
           <Modules
+            key="videoquizzes"
             title="Quiz Set 1"
             subtitle="Quizzes on Videos"
-            list={[
-              "HIPPA",
-              "Sexual Harassment in Health Care",
-              "Driving Safety",
-              "Proper Body Mechanics",
-              "Elder Abuse and Neglect",
-              "Infection Control Bag Technique",
-              "Blood Borne Pathogens",
-              "Personal Safety for Home Health Caregivers"
-            ]}
-            key="videoquizzes"
+            list={videoBased}
             type="quiz"
           />
         </div>
         <div css={moduleCard}>
           <Modules
+            key="slidequizzes"
             title="Quiz Set 2"
             subtitle="Quizzes on Slides"
-            list={[
-              "Introduction to First Call",
-              "Introduction to Hospice",
-              "Visit Frequencies and Types",
-              "Determining Hospice Eligibility",
-              "Measuring Decline",
-              "Managing Secretions",
-              "Managing Nausea",
-              "Misconceptions",
-              "Death Anxiety"
-            ]}
-            key="slidequizzes"
+            list={slideBased}
             type="quiz"
           />
         </div>
         <div css={moduleCard}>
           <Modules
+            key="handoutquizzes"
             title="Quiz Set 3"
             subtitle="Quizzes on Handouts"
-            list={[
-              "Foley Catheter Handouts",
-              "Pulse Oximetry",
-              "Venipuncture Handout"
-            ]}
-            key="handoutquizzes"
+            list={handoutBased}
             type="quiz"
           />
         </div>

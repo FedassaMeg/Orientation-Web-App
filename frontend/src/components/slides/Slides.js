@@ -5,20 +5,37 @@ import { css, jsx } from "@emotion/core";
 import Modules from "../components/Modules";
 import Container from "../components/Container";
 
+const mdn = [
+  {
+    id: 1,
+    title: "Module 1",
+    subtitle: "Introduction to First Call"
+  },
+  { id: 3, title: "Module 3", subtitle: "Electronic Medical Record" },
+  { id: 4, title: "Module 4", subtitle: "Introduction to Hospice" },
+  { id: 5, title: "Module 5", subtitle: "Documentation" },
+  { id: 6, title: "Module 6", subtitle: "Documenting Decline" },
+  { id: 7, title: "Module 7", subtitle: "Symptom Management" },
+  { id: 8, title: "Module 8", subtitle: "Plan of Care" },
+  { id: 9, title: "Module 9", subtitle: "On Call is a Partnership" }
+];
+
 export default function Slides(props) {
-  const modulesList = props.mdn.map((module, index) => {
-    const moduleSlides = props.slidesArr.filter(slide => {
+  const { slidesArr, handleOnClick } = props;
+
+  const modulesList = mdn.map((module, index) => {
+    const moduleSlides = slidesArr.filter(slide => {
       return slide.module === module.id;
     });
     return (
-      <div css={moduleCard}>
+      <div key={index} css={moduleCard}>
         <Modules
           key={index}
-          slide
           title={module.title}
           subtitle={module.subtitle}
           list={moduleSlides}
-          handleOnClick={props.handleOnClick}
+          handleOnClick={handleOnClick}
+          type="slide"
         />
       </div>
     );

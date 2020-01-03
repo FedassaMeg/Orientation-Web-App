@@ -24,18 +24,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function Quiz(props) {
   const classes = useStyles();
-  const { data } = useQuiz();
+  const { quiz, questions } = useQuiz();
   return (
     <>
       {!props.isCompleted ? (
         <Container>
-          <div css={title}>{data.quiz.title}</div>
+          <div css={title}>{quiz.title}</div>
           <hr css={divider} />
           <div css={flexcontainer}>
             <div css={questionContainer}>
               <div css={qstNum}>
                 <span css={qstNumText}>
-                  {props.activeIndex + 1} OF {data.questions.length}
+                  {props.activeIndex + 1} OF {questions.length}
                 </span>
               </div>
               <Question

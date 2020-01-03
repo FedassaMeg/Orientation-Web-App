@@ -2,9 +2,9 @@ import React from "react";
 
 //Local components
 import { useAuth } from "../context/AuthContext";
+import LoginForm from "./LoginForm";
 import useCallbackStatus from "../utils/use-callback-status";
 import useForm from "../utils/useForm";
-import LoginForm from "./LoginForm";
 
 export default function Login() {
   const stateSchema = {

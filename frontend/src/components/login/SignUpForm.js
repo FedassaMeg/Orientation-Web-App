@@ -44,12 +44,12 @@ export default function SignUpForm(props) {
             <div>
               <select
                 id="role"
-                value={state.role}
                 name="role"
                 onChange={handleOnChange}
+                value={state.role}
                 css={selectStyle}
               >
-                <option selected></option>
+                <option>Select Role</option>
                 <option value={21}>Nurse - RN</option>
                 <option value={24}>Nurse - LVN</option>
                 <option value={27}>Hospice Aide</option>
@@ -165,6 +165,12 @@ const selectStyle = css`
   border: 0.5px solid;
   border-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+
+  &:focus {
+    outline: none;
+    border-width: 1px;
+    border-color: #25cfb2;
+  }
 `;
 
 // react-router link container style

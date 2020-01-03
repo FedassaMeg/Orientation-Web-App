@@ -14,7 +14,7 @@ import { ROOT_URL } from "../utils/constants";
 import Quiz from "./Quiz";
 
 export default function QuizContainer() {
-  const { data } = useQuiz();
+  const { quiz, questions, answers } = useQuiz();
 
   let history = useHistory();
 
@@ -34,12 +34,12 @@ export default function QuizContainer() {
 
   // Handles click event on next button
   const next = () => {
-    if (activeIndex < data.questions.length - 1) {
+    if (activeIndex < questions.length - 1) {
       setActiveIndex(activeIndex + 1);
       setAnimate(!animate);
-    } else if (activeIndex + 1 === data.questions.length) {
+    } else if (activeIndex + 1 === questions.length) {
       setIsCompleted(true);
-      createAnsArr(data.answers);
+      createAnsArr(answers);
     } else {
       return;
     }
@@ -70,15 +70,15 @@ export default function QuizContainer() {
     const key = activeIndex;
     let value;
     let added;
-    if (data.questions[activeIndex].type === "TF") {
+    if (questions[activeIndex].type === "TF") {
       value = event.target.value === "true";
       added = inputMap.set(key, value);
     }
-    if (data.questions[activeIndex].type === "MC") {
+    if (questions[activeIndex].type === "MC") {
       value = event.target.value;
       added = inputMap.set(key, value);
     }
-    if (data.questions[activeIndex].type === "SA") {
+    if (questions[activeIndex].type === "SA") {
       value = event.target.value;
       added = inputMap.set(key, value);
     }
@@ -87,8 +87,8 @@ export default function QuizContainer() {
   };
 
   const sendQuestionAns = (id, config) => {
-    if (data.quiz.review_required) {
-      data.questions.map((question, index) => {
+    if (quiz.review_required) {
+      questions.map((question, index) => {
         if (question.type === "SA") {
           const value = inputMap.get(index);
           axios.post(
@@ -130,7 +130,7 @@ export default function QuizContainer() {
   // Handles submission of quiz; posts score to the backend
   const handleSubmit = event => {
     event.preventDefault();
-    if (!data.quiz.review_required) {
+    if (!quiz.review_required) {
       inputMap.forEach(compareAnsToInput);
     }
 
@@ -145,9 +145,9 @@ export default function QuizContainer() {
         {
           score: score,
           related_quiz: {
-            id: data.quiz.id,
-            title: data.quiz.title,
-            group: data.quiz.group
+            id: quiz.id,
+            title: quiz.title,
+            group: quiz.group
           },
           is_completed: true
         },
@@ -167,17 +167,17 @@ export default function QuizContainer() {
   const createAnsArr = arr => {
     let newArr = [];
     arr.map((question, index) => {
-      if (data.questions[index].type === "TF") {
+      if (questions[index].type === "TF") {
         newArr.push({
           id: index,
           answer: question.true_or_false
         });
-      } else if (data.questions[index].type === "MC") {
+      } else if (questions[index].type === "MC") {
         newArr.push({
           id: index,
           answer: question.multiple_choice
         });
-      } else if (data.questions[index].type === "SA") {
+      } else if (questions[index].type === "SA") {
         newArr.push({
           id: index,
           answer: question.short_answer
