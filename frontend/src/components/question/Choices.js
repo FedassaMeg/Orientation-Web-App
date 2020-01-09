@@ -7,10 +7,10 @@ import SAChoices from "./SAChoices";
 import TFChoices from "./TFChoices";
 
 export default function Choices(props) {
-  const { data } = useQuiz();
+  const { questions } = useQuiz();
 
-  const qstType = data.questions[props.activeIndex].type;
-  const qstChoices = data.questions[props.activeIndex].choices;
+  const qstType = questions[props.activeIndex].type;
+  const qstChoices = questions[props.activeIndex].choices;
 
   if (qstType === "TF") {
     return (

@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import { Fragment, useState } from "react";
+import { forwardRef, Fragment, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -13,56 +13,128 @@ import {
   ModalBody
 } from "reactstrap";
 
+import { withStyles } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import IconButton from "@material-ui/core/IconButton";
+import Grow from "@material-ui/core/Grow";
+
+import { MdClear } from "react-icons/md";
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Grow ref={ref} {...props} />;
+});
+
+const styles = theme => ({
+  root: {
+    margin: 0,
+    width: 500,
+    padding: theme.spacing(2),
+    backgroundColor: "#26a69a"
+  },
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[50]
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: 500,
+    color: "#ffffff"
+  }
+});
+
+const DialogTitle = withStyles(styles)(props => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <div className={classes.header}>{children}</div>
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onClose}
+        >
+          <MdClear />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
 export default function Module(props) {
   const { title, subtitle, list, handleOnClick, type } = props;
   const [modal, setModal] = useState(false);
 
-  const toggle = () => {
-    setModal(!modal);
+  const handleClickOpen = () => {
+    setModal(true);
+  };
+
+  const handleClose = () => {
+    setModal(false);
   };
 
   let moduleList = list.map((item, index) => (
     <Fragment key={index}>
       {type === "slide" ? (
         <a href={item.url} target="blank" css={link}>
-          <ListGroupItem id={item.id} url={item.url} onClick={handleOnClick}>
+          <ListItem id={item.id} url={item.url} onClick={handleOnClick}>
             {item.title}
-          </ListGroupItem>
+          </ListItem>
         </a>
       ) : (
-        <Link to={`${type}/${item.url}`} css={link}>
-          <ListGroupItem>{item.title}</ListGroupItem>
+        <Link to={`${type}/${item.url_value}`} css={link}>
+          <ListItem>
+            <ListItemText>{item.title}</ListItemText>
+          </ListItem>
         </Link>
       )}
     </Fragment>
   ));
-  return (
+  return [
     <div css={shell}>
       <div css={topBar} />
       <div css={cardContainer}>
-        <button onClick={toggle} css={buttonCard}>
+        <button onClick={handleClickOpen} css={buttonCard}>
           <div css={cardContent}>
             <div css={cardBody}>
               <div css={moduleTitle}>{title}</div>
               <br />
               <div css={moduleSubtitle}>{subtitle}</div>
-              <Modal isOpen={modal} toggle={toggle}>
-                <ModalHeader toggle={toggle} css={modalHeader}>
-                  <div css={modalTitle}>{title}</div>
-                </ModalHeader>
-                <ModalBody css={modalBody}>
-                  <ListGroup flush>{moduleList}</ListGroup>
-                </ModalBody>
-              </Modal>
             </div>
           </div>
         </button>
       </div>
-    </div>
-  );
+    </div>,
+    <Dialog
+      open={modal}
+      onClose={handleClose}
+      TransitionComponent={Transition}
+      keepMounted
+    >
+      <DialogTitle onClose={handleClose}>{title}</DialogTitle>
+      <List>{moduleList}</List>
+    </Dialog>
+  ];
+}
+
+{
+  /* <Modal isOpen={modal} toggle={toggle}>
+<ModalHeader toggle={toggle} css={modalHeader}>
+  <div css={modalTitle}>{title}</div>
+</ModalHeader>
+<ModalBody css={modalBody}>
+  <ListGroup flush>{moduleList}</ListGroup>
+</ModalBody>
+</Modal> */
 }
 
 const link = css`
+  font-size: 16px;
   text-decoration: none;
   color: grey;
   &:link {
@@ -88,7 +160,7 @@ const shell = css`
   height: 200px;
   background-color: white;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
-  transition-duration: 0.7s;
+  transition-duration: 0.5s;
 
   &:hover {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
@@ -98,7 +170,7 @@ const shell = css`
 const topBar = css`
   width: 100%;
   height: 8px;
-  background-color: #289086;
+  background: linear-gradient(to right, #00ccaf 20%, #26a69a 90%);
 `;
 
 const cardContainer = css`
@@ -128,37 +200,20 @@ const cardContent = css`
 
 const cardBody = css`
   padding: 0;
-  margin-top: 15px;
-  margin-bottom: 15px;
 `;
 
 const moduleTitle = css`
   font-size: 20px;
-  font-family: "Noto Sans JP", sans-serif;
-  font-weight: 700;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
   text-align: left;
+  color: rgba(0, 0, 0, 0.6);
 `;
+
 const moduleSubtitle = css`
-  font-size: 30px;
-  font-family: "Noto Sans JP", sans-serif;
-  font-style: italic;
+  font-size: 22px;
+  font-family: "Open Sans", sans-serif;
   text-align: left;
-`;
-
-const modalHeader = css`
-  background-color: teal;
-`;
-
-const modalTitle = css`
-  font-size: 20px;
-  font-family: "Noto Sans JP", sans-serif;
-  font-weight: 700;
-  text-align: left;
-  color: white;
-`;
-
-const modalBody = css`
-  padding: 0;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  //color: rgba(0, 0, 0, 0.87);
+  color: #333333;
 `;

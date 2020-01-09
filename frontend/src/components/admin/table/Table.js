@@ -1,15 +1,17 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-export default function Table(props) {
-  return <div css={container}>{props.children}</div>;
+export default function Table({ header, children }) {
+  return <div css={[container, header && stickyHeader]}>{children}</div>;
 }
 
 const container = css`
-  display: flex;
-  flex-direction: column;
+  display: table;
   width: 100%;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-bottom: 16px;
+  border-collapse: collapse;
+  border-spacing: 0;
+`;
+
+const stickyHeader = css`
+  border-collapse: separate;
 `;

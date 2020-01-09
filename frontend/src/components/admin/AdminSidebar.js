@@ -18,14 +18,6 @@ export default function AdminSidebar() {
         <div css={sectionHead}>NAVIGATION</div>
         <div css={sectionRow}>
           <div css={linkRow}>
-            <MdDashboard />
-            {"  "}
-            <span css={disabledlink}>Dashboard</span>
-            {/* <Link to="/admin/dashboard" css={link}>
-            Dashboard
-            </Link> */}
-          </div>
-          <div css={linkRow}>
             <MdAssignmentTurnedIn />
             {"  "}
             <Link to="/site-admin/review-scores" css={link}>
@@ -38,28 +30,6 @@ export default function AdminSidebar() {
             <Link to="/site-admin/reports" css={link}>
               Reports
             </Link>
-          </div>
-        </div>
-      </div>
-      <hr css={divider} />
-      <div css={sectionContainer}>
-        <div css={sectionHead}>COMPONENTS</div>
-        <div css={sectionRow}>
-          <div css={linkRow}>
-            <MdGroup />
-            {"  "}
-            <span css={disabledlink}>Administer Users</span>
-            {/* <Link to="/admin/administer-users" css={link}>
-              Administer Users
-            </Link> */}
-          </div>
-          <div css={linkRow}>
-            <MdDescription />
-            {"  "}
-            <span css={disabledlink}>Edit Content</span>
-            {/* <Link to="/admin/edit-content" css={link}>
-              Edit Content
-            </Link> */}
           </div>
         </div>
       </div>

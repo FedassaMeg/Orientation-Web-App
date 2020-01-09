@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
 //Utility hook for data fetching and promise resolution
 import { useAsync } from "react-async";
@@ -16,26 +16,30 @@ function QuizProvider(props) {
 
   let quizId;
 
-  const { data, isSettled, isPending, isRejected, run } = useAsync({
+  const { data, error, isPending, isRejected, isInitial, run } = useAsync({
     deferFn: bootstrapData,
     quizId
   });
 
-  const fetchQuestion = id => {
-    run(id);
-  };
+  useEffect(() => {
+    if (quizzes.length > 0) {
+      const currQuiz = quizzes.filter(item => {
+        return item.url_value === quizUrl;
+      });
+      run(currQuiz[0].id);
+    }
+  }, [quizzes, quizUrl]);
 
-  const currQuiz = quizzes.data.filter(item => {
-    return item.url_value === quizUrl;
-  });
-
-  fetchQuestion(currQuiz[0].id);
-
-  return (
-    <QuizContext.Provider value={data} {...props}>
-      {props.children}
-    </QuizContext.Provider>
-  );
+  if (isPending) return null;
+  if (isRejected) return <pre>{error.message}</pre>;
+  if (data) {
+    return (
+      <QuizContext.Provider value={data} {...props}>
+        {props.children}
+      </QuizContext.Provider>
+    );
+  }
+  return null;
 }
 
 function useQuiz() {

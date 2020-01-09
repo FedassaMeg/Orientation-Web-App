@@ -11,6 +11,7 @@ import { ROOT_URL } from "../utils/constants";
 
 //Local components
 import ReviewScores from "./ReviewScores";
+import MuiReviewScoresTable from "../unused/MuiReviewScoresTable";
 
 const rowdata = (scoreArr, userArr) => {
   let newTable = [];
@@ -83,6 +84,9 @@ export default function AdminReviewScores(props) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(new Map());
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerRage] = useState(10);
+
   const getInitialDataState = useAsync({
     promiseFn: getInitialData
   });
@@ -153,6 +157,15 @@ export default function AdminReviewScores(props) {
     }
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = event => {
+    setRowsPerRage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
     let config = {
@@ -208,10 +221,11 @@ export default function AdminReviewScores(props) {
       isSubmitted={isSubmitted}
       isCorrect={isCorrect}
       fetchState={getUserAnsDataState}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      handleChangePage={handleChangePage}
+      handleChangeRowsPerPage={handleChangeRowsPerPage}
     />
   );
 }
-
-// <Card>
-//   <MuiReviewScoresTable tableData={tableData} />
-// </Card>
+//<MuiReviewScoresTable tableData={tableData} />

@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 //Utility hook for data fetching and promise resolution
 import { useAsync } from "react-async";
@@ -6,6 +6,19 @@ import { useAsync } from "react-async";
 //Local components
 import * as apiClient from "../home/api-home";
 import { useUser } from "./UserContext";
+import FullPageSpinner from "../components/FullPageSpinner";
+
+const filterActive = arr => {
+  return arr.filter(item => {
+    return item.is_active === true;
+  });
+};
+
+const filterByUserRole = (arr, role) => {
+  return arr.filter(item => {
+    return item.group.indexOf(role) !== -1;
+  });
+};
 
 const getData = async () => {
   let quizzes;
@@ -23,14 +36,34 @@ const getData = async () => {
 const ContentContext = createContext();
 
 function ContentProvider(props) {
-  const { user } = useUser();
+  const { user, isAuthenticated } = useUser();
 
-  const { data, error, isPending, isRejected } = useAsync({
-    promiseFn: getData
+  const [slides, setSlides] = useState([]);
+  const [quizzes, setQuizzes] = useState([]);
+
+  const { data, error, isPending, isFulfilled, isRejected, run } = useAsync({
+    deferFn: getData
   });
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      run();
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (isFulfilled) {
+      const activeQuizzes = filterActive(data.quizzes.data);
+      //const activeSlides = filterActive(data.slides.data);
+      const userQuizzes = filterByUserRole(activeQuizzes, user.role);
+      const userSlides = filterByUserRole(data.slides.data, user.role);
+      setQuizzes(userQuizzes);
+      setSlides(userSlides);
+    }
+  }, [isFulfilled, data, user]);
+
   if (isPending) {
-    return null;
+    return <FullPageSpinner />;
   }
   if (isRejected) {
     return (
@@ -39,7 +72,8 @@ function ContentProvider(props) {
       </div>
     );
   }
-  return <ContentContext.Provider value={data} {...props} />;
+
+  return <ContentContext.Provider value={{ slides, quizzes }} {...props} />;
 }
 
 function useContent() {

@@ -1,6 +1,8 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
+import Checkbox from "@material-ui/core/Checkbox";
+
 //Local components
 import Button from "../components/Button";
 import Card from "../components/Card";
@@ -10,6 +12,7 @@ import TableHead from "./table/TableHead";
 import TableBody from "./table/TableBody";
 import TableRow from "./table/TableRow";
 import TableCell from "./table/TableCell";
+import TablePagination from "./table/TablePagination";
 
 const headCells = [
   {
@@ -41,7 +44,11 @@ export default function ReviewScores(props) {
     handleSubmit,
     isSubmitted,
     isCorrect,
-    fetchState
+    fetchState,
+    page,
+    rowsPerPage,
+    handleChangePage,
+    handleChangeRowsPerPage
   } = props;
 
   const cqArr = scoreArray.filter(quiz => {
@@ -52,11 +59,14 @@ export default function ReviewScores(props) {
     <div css={container}>
       {!isClicked ? (
         <Card header="EMPLOYEE QUIZ SCORES">
-          <Table>
+          <Table header>
             <TableHead>
               <TableRow>
+                <TableCell padding="checkbox">
+                  <Checkbox />
+                </TableCell>
                 {headCells.map(headCell => (
-                  <TableCell key={headCell.id} header>
+                  <TableCell key={headCell.id} variant="head" align="left">
                     {headCell.label}
                   </TableCell>
                 ))}
@@ -67,6 +77,10 @@ export default function ReviewScores(props) {
                 let date = new Date(rowdata.signed_date);
                 return (
                   <TableRow key={index}>
+                    <TableCell padding="checkbox">
+                      <Checkbox />
+                    </TableCell>
+
                     {userArray.map((user, index) => {
                       const userFullName =
                         user.last_name + ", " + user.first_name;
@@ -103,6 +117,13 @@ export default function ReviewScores(props) {
               })}
             </TableBody>
           </Table>
+          <TablePagination
+            page={page}
+            count={cqArr.length}
+            rowsPerPage={rowsPerPage}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
         </Card>
       ) : (
         fetchState.isSettled && (

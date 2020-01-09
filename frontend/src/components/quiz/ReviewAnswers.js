@@ -31,9 +31,9 @@ const useStyles = makeStyles(theme => ({
 export default function ReviewAnswers(props) {
   const classes = useStyles();
 
-  const { data } = useQuiz();
+  const { quiz, questions } = useQuiz();
 
-  const qstArr = data.questions.map((question, index) => {
+  const qstArr = questions.map((question, index) => {
     const userAnswer = props.answers.get(index) + "";
     return (
       <div key={index} css={container}>
@@ -58,7 +58,7 @@ export default function ReviewAnswers(props) {
       mb={8}
     >
       <Paper className={classes.paper}>
-        <div css={title}>{data.quiz.title.toUpperCase()}</div>
+        <div css={title}>{quiz.title.toUpperCase()}</div>
         <div css={main}>{qstArr}</div>
       </Paper>
       <div css={actionBar}>

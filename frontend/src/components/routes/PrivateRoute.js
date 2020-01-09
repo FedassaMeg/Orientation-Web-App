@@ -1,16 +1,16 @@
 import React from "react";
+
 import { Redirect, Route } from "react-router-dom";
 
-import { useAuth } from "../context/AuthContext";
+import { useUser } from "../context/UserContext";
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { data } = useAuth();
-  console.log(data.isAuthenticated);
+  const { isAuthenticated } = useUser();
   return (
     <Route
       {...rest}
       render={props =>
-        data.isAuthenticated ? (
+        isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect

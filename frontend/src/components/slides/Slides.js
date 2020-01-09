@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/core";
 
 //Local components
+import { useContent } from "../context/ContentContext";
 import Modules from "../components/Modules";
 import Container from "../components/Container";
 
@@ -20,17 +21,17 @@ const mdn = [
   { id: 9, title: "Module 9", subtitle: "On Call is a Partnership" }
 ];
 
-export default function Slides(props) {
-  const { slidesArr, handleOnClick } = props;
+export default function Slides({ handleOnClick }) {
+  const { slides } = useContent();
 
-  const modulesList = mdn.map((module, index) => {
-    const moduleSlides = slidesArr.filter(slide => {
+  const modulesList = mdn.map(module => {
+    const moduleSlides = slides.filter(slide => {
       return slide.module === module.id;
     });
     return (
-      <div key={index} css={moduleCard}>
+      <div key={module.id} css={moduleCard}>
         <Modules
-          key={index}
+          key={`modules-${module.id}`}
           title={module.title}
           subtitle={module.subtitle}
           list={moduleSlides}

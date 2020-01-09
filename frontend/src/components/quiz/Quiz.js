@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 //React-Icons Components
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
+import { useTransition, animated } from "react-spring";
+
 //Local Components
 import { useQuiz } from "./QuizContext";
 import Question from "../question/Question";
@@ -25,6 +27,18 @@ const useStyles = makeStyles(theme => ({
 export default function Quiz(props) {
   const classes = useStyles();
   const { quiz, questions } = useQuiz();
+
+  const transitions = useTransition(questions, question => question.id, {
+    unique: true,
+    from: { opacity: 0 },
+    enter: [
+      { opacity: 1 },
+      { transform: "translate3d(0, -50px, 0)" },
+      { color: "#26a69a" }
+    ],
+    leave: [{ opacity: 1 }, { transform: "translate3d(0, -60px, 0)" }]
+  });
+
   return (
     <>
       {!props.isCompleted ? (

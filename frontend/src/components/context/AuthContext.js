@@ -11,6 +11,7 @@ import { useAsync } from "react-async";
 //Local components
 import * as authClient from "../utils/auth-client";
 import { bootstrapData } from "../utils/bootstrap-data";
+import FullPageSpinner from "../components/FullPageSpinner";
 
 const AuthContext = createContext();
 
@@ -35,7 +36,7 @@ function AuthProvider(props) {
 
   if (!firstAttemptFinished) {
     if (isPending) {
-      return null;
+      return <FullPageSpinner />;
     }
     if (isRejected) {
       return (

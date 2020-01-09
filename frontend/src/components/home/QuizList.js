@@ -19,6 +19,7 @@ import { MdExpandMore } from "react-icons/md";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 //Local components
+import ChangingProgressProvider from "../components/ChangingProgressProvider";
 import HomeListItem from "./HomeListItem";
 
 const useStyles = makeStyles(theme => ({
@@ -94,15 +95,22 @@ export default function QuizList(props) {
         >
           <div css={tempCard}>
             <div css={progressCir}>
-              <CircularProgressbar
-                value={prcnt1}
-                strokeWidth={16}
-                styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${prcnt1 / 100})`,
-                  trailColor: "#e4e4e4",
-                  strokeLinecap: "butt"
-                })}
-              />
+              <ChangingProgressProvider values={[0, prcnt1]} interval={100}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>VIDEOS</Typography>
@@ -133,15 +141,22 @@ export default function QuizList(props) {
         >
           <div css={tempCard}>
             <div css={progressCir}>
-              <CircularProgressbar
-                value={prcnt3}
-                strokeWidth={16}
-                styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${prcnt3 / 100})`,
-                  trailColor: "#e4e4e4",
-                  strokeLinecap: "butt"
-                })}
-              />
+              <ChangingProgressProvider values={[0, prcnt3]} interval={200}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>SLIDES</Typography>
@@ -172,15 +187,22 @@ export default function QuizList(props) {
         >
           <div css={tempCard}>
             <div css={progressCir}>
-              <CircularProgressbar
-                value={prcnt4}
-                strokeWidth={16}
-                styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${prcnt4 / 100})`,
-                  trailColor: "#e4e4e4",
-                  strokeLinecap: "butt"
-                })}
-              />
+              <ChangingProgressProvider values={[0, prcnt4]} interval={300}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>HANDOUTS</Typography>

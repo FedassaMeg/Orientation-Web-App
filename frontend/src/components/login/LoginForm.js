@@ -56,7 +56,7 @@ export default function LoginForm(props) {
                 Incorrect username password combination!
               </div>
             ) : (
-              <div></div>
+              <div css={errorPlaceHolder}></div>
             )}
 
             <button type="submit" css={button}>
@@ -172,6 +172,7 @@ const button = css`
   justify-content: center;
   justify-self: flex-end;
   width: 100%;
+  height: 40px;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-right: 15px;
@@ -200,4 +201,8 @@ const altLinks = css`
   color: rgba(0, 0, 0, 0.6);
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
+`;
+
+const errorPlaceHolder = css`
+  height: 52px;
 `;

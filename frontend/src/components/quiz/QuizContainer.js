@@ -26,6 +26,7 @@ export default function QuizContainer() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [currInput, setCurrInput] = useState(null);
 
+  //Pose animation direction
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function QuizContainer() {
   const next = () => {
     if (activeIndex < questions.length - 1) {
       setActiveIndex(activeIndex + 1);
-      setAnimate(!animate);
+      setAnimate(false);
     } else if (activeIndex + 1 === questions.length) {
       setIsCompleted(true);
       createAnsArr(answers);
@@ -49,7 +50,7 @@ export default function QuizContainer() {
   const prev = () => {
     if (activeIndex > 0) {
       setActiveIndex(activeIndex - 1);
-      setAnimate(!animate);
+      setAnimate(true);
     } else {
       return;
     }

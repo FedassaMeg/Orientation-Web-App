@@ -17,6 +17,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 import { MdExpandMore } from "react-icons/md";
 
+//Local components
+import ChangingProgressProvider from "../components/ChangingProgressProvider";
 import HomeListItem from "./HomeListItem";
 
 const useStyles = makeStyles(theme => ({
@@ -85,15 +87,25 @@ export default function SlideList(props) {
         >
           <div css={tempCard}>
             <div css={progressCir}>
-              <CircularProgressbar
-                value={percentage1}
-                strokeWidth={16}
-                styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage1 / 100})`,
-                  trailColor: "#e4e4e4",
-                  strokeLinecap: "butt"
-                })}
-              />
+              <ChangingProgressProvider
+                values={[0, percentage1]}
+                interval={100}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>MODULE 1</Typography>
@@ -131,15 +143,25 @@ export default function SlideList(props) {
         >
           <div css={tempCard}>
             <div css={progressCir}>
-              <CircularProgressbar
-                value={percentage3}
-                strokeWidth={16}
-                styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage3 / 100})`,
-                  trailColor: "#e4e4e4",
-                  strokeLinecap: "butt"
-                })}
-              />
+              <ChangingProgressProvider
+                values={[0, percentage3]}
+                interval={200}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.1s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>MODULE 3</Typography>
@@ -177,15 +199,25 @@ export default function SlideList(props) {
         >
           <div css={tempCard}>
             <div css={progressCir}>
-              <CircularProgressbar
-                value={percentage4}
-                strokeWidth={16}
-                styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage4 / 100})`,
-                  trailColor: "#e4e4e4",
-                  strokeLinecap: "butt"
-                })}
-              />
+              <ChangingProgressProvider
+                values={[0, percentage4]}
+                interval={300}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.2s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>MODULE 4</Typography>
@@ -223,15 +255,25 @@ export default function SlideList(props) {
         >
           <div css={tempCard}>
             <div css={progressCir}>
-              <CircularProgressbar
-                value={percentage5}
-                strokeWidth={16}
-                styles={buildStyles({
-                  pathColor: `rgba(62, 152, 199, ${percentage5 / 100})`,
-                  trailColor: "#e4e4e4",
-                  strokeLinecap: "butt"
-                })}
-              />
+              <ChangingProgressProvider
+                values={[0, percentage5]}
+                interval={400}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.3s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
             </div>
             <div css={progressText}>
               <Typography className={classes.heading}>MODULE 5</Typography>

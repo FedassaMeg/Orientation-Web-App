@@ -4,12 +4,12 @@ import { css, jsx } from "@emotion/core";
 //Local component
 import { useQuiz } from "../quiz/QuizContext";
 
-export default function QuestionContent({ activeIndex }) {
-  const { data } = useQuiz();
+export default function QuestionContent({ activeIndex, question }) {
+  const { questions } = useQuiz();
   return (
     <div css={container}>
       <div css={number}>{activeIndex + 1}.</div>
-      <div css={question}>{data.questions[activeIndex].question} </div>
+      <div css={question}>{questions[activeIndex].question} </div>
     </div>
   );
 }

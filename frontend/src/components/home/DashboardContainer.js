@@ -8,7 +8,6 @@ import axios from "axios";
 import * as apiClient from "./api-home";
 import { ROOT_URL } from "../utils/constants";
 import { useUser } from "../context/UserContext";
-import { useContent } from "../context/ContentContext";
 import Dashboard from "./Dashboard";
 
 const getData = async ({ user_id }) => {
@@ -25,35 +24,36 @@ const getData = async ({ user_id }) => {
 
 export default function DashboardContainer() {
   const { user } = useUser();
-  const { data } = useContent();
+  const user_id = user.id;
 
-  const [quizArray, setQuizArray] = useState([]);
   const [compltArray, setCompltArray] = useState([]);
-  const [slideArray, setSlideArray] = useState([]);
   const [comArray, setComArray] = useState([]);
   const [toggle, setToggle] = useState(false);
 
-  const user_id = user.id;
-
-  const getDataState = useAsync({
+  const {
+    data,
+    error,
+    isSettled,
+    isPending,
+    isRejected,
+    isFulfilled
+  } = useAsync({
     watch: toggle,
     promiseFn: getData,
     user_id
   });
 
   useEffect(() => {
-    if (getDataState.isSettled) {
-      setQuizArray(data.quizzes.data);
-      setSlideArray(data.slides.data);
-      setCompltArray(getDataState.data.completedQuizzes.data);
+    if (isSettled) {
+      setCompltArray(data.completedQuizzes.data);
     }
-  }, [getDataState.isSettled]);
+  }, [isSettled]);
 
   useEffect(() => {
-    if (getDataState.isSettled) {
-      setComArray(getDataState.data.completedSlides.data);
+    if (isSettled) {
+      setComArray(data.completedSlides.data);
     }
-  }, [getDataState.isSettled, toggle]);
+  }, [isSettled, toggle]);
 
   //Handle api post request for slide links that have been clicked on
   const handleOnClick = event => {
@@ -81,18 +81,14 @@ export default function DashboardContainer() {
       });
   };
 
-  if (getDataState.isPending) return null;
-  if (getDataState.error) return null;
-  if (getDataState.isFulfilled) {
-    return (
-      <Dashboard
-        quizArray={quizArray}
-        compltArray={compltArray}
-        slideArray={slideArray}
-        comArray={comArray}
-        handleOnClick={handleOnClick}
-      />
-    );
-  }
-  return null;
+  if (isPending) return null;
+  if (isRejected) return <pre>{error.message}</pre>;
+
+  return (
+    <Dashboard
+      compltArray={compltArray}
+      comArray={comArray}
+      handleOnClick={handleOnClick}
+    />
+  );
 }

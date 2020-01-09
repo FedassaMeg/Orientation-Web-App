@@ -9,13 +9,13 @@ import Modules from "../components/Modules";
 export default function Quizzes() {
   const { quizzes } = useContent();
 
-  const videoBased = quizzes.data.filter(quiz => {
+  const videoBased = quizzes.filter(quiz => {
     return quiz.type === "VD";
   });
-  const slideBased = quizzes.data.filter(quiz => {
+  const slideBased = quizzes.filter(quiz => {
     return quiz.type === "SL";
   });
-  const handoutBased = quizzes.data.filter(quiz => {
+  const handoutBased = quizzes.filter(quiz => {
     return quiz.type === "HD";
   });
 

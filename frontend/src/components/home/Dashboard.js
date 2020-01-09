@@ -1,17 +1,31 @@
 /**@jsx jsx */
-import { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
+import { useState, useEffect } from "react";
 
 //Local components
-import { useUser } from "../context/UserContext";
+import { useContent } from "../context/ContentContext";
 import HandoutList from "./HandoutList";
 import QuizList from "./QuizList";
 import SlideList from "./SlideList";
 
-export default function Dashboard(props) {
-  const { user } = useUser();
+const filterByModule = (arr, module) => {
+  return arr.filter(item => {
+    return item.module === module;
+  });
+};
 
-  const initialState = {
+const filterByType = (arr, type) => {
+  return arr.filter(item => {
+    return item.type === type;
+  });
+};
+
+export default function Dashboard(props) {
+  const { compltArray, comArray, handleOnClick } = props;
+
+  const { slides, quizzes } = useContent();
+
+  const initialSlide = {
     md1: [],
     md3: [],
     md4: [],
@@ -19,57 +33,37 @@ export default function Dashboard(props) {
   };
 
   const initialQuiz = {
-    qz1: [],
-    qz3: [],
-    qz4: []
+    vds: [],
+    slds: [],
+    hnd: []
   };
 
-  const [state, setstate] = useState(initialState);
-  const [quizzes, setQuizzes] = useState(initialQuiz);
+  const [slideModules, setSlideModules] = useState(initialSlide);
+  const [quizModules, setQuizModules] = useState(initialQuiz);
+  const [completedQzsArr, setCompletedQzsArr] = useState([]);
+  const [completedSldsArr, setCompletedSldsArr] = useState([]);
 
   useEffect(() => {
-    setstate({ md1: md1Arr, md3: md3Arr, md4: md4Arr, md5: md5Arr });
-    setQuizzes({ qz1: qz1Arr, qz3: qz3Arr, qz4: qz4Arr });
-  }, [props.slideArray, props.quizArray]);
+    const md1Arr = filterByModule(slides, 1);
+    const md3Arr = filterByModule(slides, 3);
+    const md4Arr = filterByModule(slides, 4);
+    const md5Arr = filterByModule(slides, 5);
+    const vdsArr = filterByType(quizzes, "VD");
+    const sldsArr = filterByType(quizzes, "SL");
+    const hndArr = filterByType(quizzes, "HD");
 
-  const sldArr = props.slideArray.filter(slide => {
-    return slide.group.indexOf(user.role) !== -1;
-  });
+    setSlideModules({ md1: md1Arr, md3: md3Arr, md4: md4Arr, md5: md5Arr });
+    setQuizModules({ vds: vdsArr, slds: sldsArr, hnd: hndArr });
+  }, [slides, quizzes]);
 
-  const temp = props.quizArray.filter(quiz => {
-    return quiz.group.indexOf(user.role) !== -1;
-  });
+  useEffect(() => {
+    const cqArr = compltArray.filter(quiz => {
+      return quiz.is_completed;
+    });
 
-  const qzArr = temp.filter(quiz => {
-    return quiz.is_active === true;
-  });
-
-  const md1Arr = sldArr.filter(slide => {
-    return slide.module === 1;
-  });
-  const md3Arr = sldArr.filter(slide => {
-    return slide.module === 3;
-  });
-  const md4Arr = sldArr.filter(slide => {
-    return slide.module === 4;
-  });
-  const md5Arr = sldArr.filter(slide => {
-    return slide.module === 5;
-  });
-
-  const qz1Arr = qzArr.filter(quiz => {
-    return quiz.type === "VD";
-  });
-  const qz3Arr = qzArr.filter(quiz => {
-    return quiz.type === "SL";
-  });
-  const qz4Arr = qzArr.filter(quiz => {
-    return quiz.type === "HD";
-  });
-
-  const cqArr = props.compltArray.filter(quiz => {
-    return quiz.is_completed;
-  });
+    setCompletedQzsArr(cqArr);
+    setCompletedSldsArr(comArray);
+  }, [compltArray, comArray]);
 
   return (
     <div css={container}>
@@ -79,26 +73,24 @@ export default function Dashboard(props) {
         <div css={cardGroup}>
           <div css={cardTitle}>SLIDES</div>
           <SlideList
-            md1={state.md1}
-            md3={state.md3}
-            md4={state.md4}
-            md5={state.md5}
-            comArray={props.comArray}
-            handleOnClick={props.handleOnClick}
+            md1={slideModules.md1}
+            md3={slideModules.md3}
+            md4={slideModules.md4}
+            md5={slideModules.md5}
+            comArray={completedSldsArr}
+            handleOnClick={handleOnClick}
           />
         </div>
-
         <br />
         <div css={cardGroup}>
           <div css={cardTitle}>QUIZZES</div>
           <QuizList
-            qzs1Arr={quizzes.qz1}
-            qzs3Arr={quizzes.qz3}
-            qzs4Arr={quizzes.qz4}
-            compltArray={cqArr}
+            qzs1Arr={quizModules.vds}
+            qzs3Arr={quizModules.slds}
+            qzs4Arr={quizModules.hnd}
+            compltArray={completedQzsArr}
           />
         </div>
-
         <br />
         <div css={cardGroup}>
           <div css={cardTitle}>DOCUMENTS</div>
