@@ -26,7 +26,7 @@ export default function ReviewQuiz(props) {
       if (question.id == ans.question) {
         const corrected = isCorrect.get(question.id);
         return (
-          <div css={row}>
+          <div key={index} css={row}>
             <div css={content}>
               <div css={question}>
                 <span css={qstSpan}>Question {index + 1}: </span>

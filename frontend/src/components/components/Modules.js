@@ -5,14 +5,6 @@ import { forwardRef, Fragment, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import {
-  ListGroup,
-  ListGroupItem,
-  Modal,
-  ModalHeader,
-  ModalBody
-} from "reactstrap";
-
 import { withStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import List from "@material-ui/core/List";
@@ -45,6 +37,10 @@ const styles = theme => ({
     fontSize: 20,
     fontWeight: 500,
     color: "#ffffff"
+  },
+  linkText: {
+    fontSize: 16,
+    fontFamily: "Open Sans"
   }
 });
 
@@ -83,7 +79,7 @@ export default function Module(props) {
       {type === "slide" ? (
         <a href={item.url} target="blank" css={link}>
           <ListItem id={item.id} url={item.url} onClick={handleOnClick}>
-            {item.title}
+            <ListItemText>{item.title}</ListItemText>
           </ListItem>
         </a>
       ) : (
@@ -96,7 +92,7 @@ export default function Module(props) {
     </Fragment>
   ));
   return [
-    <div css={shell}>
+    <div key="modules" css={shell}>
       <div css={topBar} />
       <div css={cardContainer}>
         <button onClick={handleClickOpen} css={buttonCard}>
@@ -111,6 +107,7 @@ export default function Module(props) {
       </div>
     </div>,
     <Dialog
+      key="modal"
       open={modal}
       onClose={handleClose}
       TransitionComponent={Transition}
@@ -122,19 +119,8 @@ export default function Module(props) {
   ];
 }
 
-{
-  /* <Modal isOpen={modal} toggle={toggle}>
-<ModalHeader toggle={toggle} css={modalHeader}>
-  <div css={modalTitle}>{title}</div>
-</ModalHeader>
-<ModalBody css={modalBody}>
-  <ListGroup flush>{moduleList}</ListGroup>
-</ModalBody>
-</Modal> */
-}
-
 const link = css`
-  font-size: 16px;
+  padding-top: 16px;
   text-decoration: none;
   color: grey;
   &:link {
@@ -147,12 +133,16 @@ const link = css`
   }
   &:hover {
     text-decoration: none;
-    color: black;
+    color: #289086;
   }
   &:active {
     text-decoration: none;
     color: grey;
   }
+`;
+
+const linkText = css`
+  font: 16px "Open Sans", san-serif;
 `;
 
 const shell = css`

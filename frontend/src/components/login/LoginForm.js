@@ -24,39 +24,46 @@ export default function LoginForm(props) {
         <hr css={divider} />
         <div css={content}>
           <form onSubmit={handleOnSubmit} css={form}>
-            <input
-              id="username"
-              name="username"
-              placeholder="Username"
-              onChange={handleOnChange}
-              css={inputStyle}
-            />
-            {isSubmitted ? (
-              <div css={{ color: "#B00020" }}>
-                {formErrors.username ? formErrors.username : null}
-              </div>
-            ) : null}
-
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              onChange={handleOnChange}
-              css={inputStyle}
-            />
-            {isSubmitted ? (
-              <div css={{ color: "#B00020" }}>
-                {formErrors.password ? formErrors.password : null}
-              </div>
-            ) : null}
+            <div>
+              <input
+                id="username"
+                name="username"
+                placeholder="Username"
+                onChange={handleOnChange}
+                css={inputStyle}
+              />
+              {isSubmitted ? (
+                <div css={errorMsg}>
+                  {formErrors.username ? formErrors.username : null}
+                </div>
+              ) : (
+                <div />
+              )}
+            </div>
+            <div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                onChange={handleOnChange}
+                css={inputStyle}
+              />
+              {isSubmitted ? (
+                <div css={errorMsg}>
+                  {formErrors.password ? formErrors.password : null}
+                </div>
+              ) : (
+                <div />
+              )}
+            </div>
 
             {isRejected ? (
-              <div css={{ color: "#B00020" }}>
+              <div css={mainErrorMsg}>
                 Incorrect username password combination!
               </div>
             ) : (
-              <div css={errorPlaceHolder}></div>
+              <div css={errorPlaceHolder} />
             )}
 
             <button type="submit" css={button}>
@@ -86,6 +93,20 @@ const container = css`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+`;
+
+const errorMsg = css`
+  padding-left: 8px;
+  padding-top: 4px;
+  font: 12px "Roboto", san-serif;
+  color: #b00020;
+`;
+
+const mainErrorMsg = css`
+  padding-left: 8px;
+  font: 14px "Roboto", san-serif;
+  font-style: italic;
+  color: #b00020;
 `;
 
 // login card styles
@@ -204,5 +225,5 @@ const altLinks = css`
 `;
 
 const errorPlaceHolder = css`
-  height: 52px;
+  height: 8px;
 `;

@@ -11,6 +11,7 @@ import * as jsPDF from "jspdf";
 //Local components
 import * as apiClient from "./api-admin";
 import { ROOT_URL } from "../utils/constants";
+import PageSpinner from "../components/PageSpinner";
 import Reports from "./Reports";
 
 // Async wrapper function to fetch all users
@@ -156,6 +157,7 @@ export default function ReportsContainer() {
 
   return (
     <div>
+      {getScoreDataState.isPending && <PageSpinner />}
       <Reports
         userArray={userArray}
         scoreArray={scoreArray}

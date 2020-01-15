@@ -113,7 +113,7 @@ export default function QuizList(props) {
               </ChangingProgressProvider>
             </div>
             <div css={progressText}>
-              <Typography className={classes.heading}>VIDEOS</Typography>
+              <Typography className={classes.heading}>Module 1 Quiz</Typography>
               <Typography className={classes.heading}>
                 {prcnt1 === "Not Applicable" ? prcnt1 : `${prcnt1}%`}
               </Typography>
@@ -159,7 +159,9 @@ export default function QuizList(props) {
               </ChangingProgressProvider>
             </div>
             <div css={progressText}>
-              <Typography className={classes.heading}>SLIDES</Typography>
+              <Typography className={classes.heading}>
+                Module 2 Quizzes (Part 1)
+              </Typography>
               <Typography className={classes.heading}>
                 {prcnt3 === "Not Applicable" ? prcnt3 : `${prcnt3}%`}
               </Typography>
@@ -205,7 +207,345 @@ export default function QuizList(props) {
               </ChangingProgressProvider>
             </div>
             <div css={progressText}>
-              <Typography className={classes.heading}>HANDOUTS</Typography>
+              <Typography className={classes.heading}>
+                Module 2 Quizzes (Part 2)
+              </Typography>
+              <Typography className={classes.heading}>
+                {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem arr={qzs4Arr} comArray={compltArray} type="quiz" />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider values={[0, prcnt4]} interval={300}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                Module 3 Quizzes
+              </Typography>
+              <Typography className={classes.heading}>
+                {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem arr={qzs4Arr} comArray={compltArray} type="quiz" />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider values={[0, prcnt4]} interval={300}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                Module 4 Quizzes
+              </Typography>
+              <Typography className={classes.heading}>
+                {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem arr={qzs4Arr} comArray={compltArray} type="quiz" />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider values={[0, prcnt4]} interval={300}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                Module 5 Quizzes
+              </Typography>
+              <Typography className={classes.heading}>
+                {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem arr={qzs4Arr} comArray={compltArray} type="quiz" />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider values={[0, prcnt4]} interval={300}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                Module 6 Quizzes
+              </Typography>
+              <Typography className={classes.heading}>
+                {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem arr={qzs4Arr} comArray={compltArray} type="quiz" />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider values={[0, prcnt4]} interval={300}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                Module 7 Quizzes
+              </Typography>
+              <Typography className={classes.heading}>
+                {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem arr={qzs4Arr} comArray={compltArray} type="quiz" />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider values={[0, prcnt4]} interval={300}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                Module 8 Quizzes
+              </Typography>
+              <Typography className={classes.heading}>
+                {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem arr={qzs4Arr} comArray={compltArray} type="quiz" />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider values={[0, prcnt4]} interval={300}>
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                Module 9 Quizzes
+              </Typography>
               <Typography className={classes.heading}>
                 {prcnt4 === "Not Applicable" ? prcnt4 : `${prcnt4}%`}
               </Typography>

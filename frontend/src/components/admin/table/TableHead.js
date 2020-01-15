@@ -6,5 +6,5 @@ export default function TableHead({ children }) {
 }
 
 const container = css`
-  display: table-head-group;
+  display: table-header-group;
 `;

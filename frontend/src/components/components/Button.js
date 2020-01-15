@@ -24,9 +24,6 @@ const button = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-top: 8px;
-  padding-bottom: 8px;
-
   border: none;
   margin: 0;
   background: none;

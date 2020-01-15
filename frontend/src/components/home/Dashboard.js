@@ -71,7 +71,7 @@ export default function Dashboard(props) {
       <hr css={divider} />
       <div css={cardscontainer}>
         <div css={cardGroup}>
-          <div css={cardTitle}>SLIDES</div>
+          <div css={cardTitle}>PowerPoints/Videos/Handouts</div>
           <SlideList
             md1={slideModules.md1}
             md3={slideModules.md3}
@@ -83,18 +83,13 @@ export default function Dashboard(props) {
         </div>
         <br />
         <div css={cardGroup}>
-          <div css={cardTitle}>QUIZZES</div>
+          <div css={cardTitle}>Module Quizzes</div>
           <QuizList
             qzs1Arr={quizModules.vds}
             qzs3Arr={quizModules.slds}
             qzs4Arr={quizModules.hnd}
             compltArray={completedQzsArr}
           />
-        </div>
-        <br />
-        <div css={cardGroup}>
-          <div css={cardTitle}>DOCUMENTS</div>
-          <HandoutList />
         </div>
       </div>
     </div>
@@ -130,10 +125,9 @@ const cardscontainer = css`
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
-  padding: 16px;
   margin-left: 120px;
   margin-right: 120px;
-  margin-top: 64px;
+  margin-top: 16px;
 `;
 
 const cardGroup = css`
@@ -147,8 +141,8 @@ const cardGroup = css`
 
 const cardTitle = css`
   align-self: flex-start;
-  color: rgb(78, 78, 78);
-  font: 24px "Roboto", san-serif;
+  color: rgb(0, 0, 0, 0.6);
+  font: 24px "Roboto Condensed", san-serif;
   font-weight: 500;
   margin-bottom: 20px;
   margin-top: 20px;

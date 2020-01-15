@@ -23,7 +23,7 @@ import HomeListItem from "./HomeListItem";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "80%"
+    width: 560
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -108,7 +108,9 @@ export default function SlideList(props) {
               </ChangingProgressProvider>
             </div>
             <div css={progressText}>
-              <Typography className={classes.heading}>MODULE 1</Typography>
+              <Typography className={classes.heading}>
+                MODULE 1 Introduction to First Call
+              </Typography>
               <Typography className={classes.heading}>
                 {percentage1 === "Not Applicable"
                   ? percentage1
@@ -164,7 +166,9 @@ export default function SlideList(props) {
               </ChangingProgressProvider>
             </div>
             <div css={progressText}>
-              <Typography className={classes.heading}>MODULE 3</Typography>
+              <Typography className={classes.heading}>
+                MODULE 2 New Hire/Annual Competencies (All Employees)
+              </Typography>
               <Typography className={classes.heading}>
                 {percentage3 === "Not Applicable"
                   ? percentage3
@@ -220,7 +224,9 @@ export default function SlideList(props) {
               </ChangingProgressProvider>
             </div>
             <div css={progressText}>
-              <Typography className={classes.heading}>MODULE 4</Typography>
+              <Typography className={classes.heading}>
+                MODULE 2 New Hire/Annual Competencies (Nurses Only)
+              </Typography>
               <Typography className={classes.heading}>
                 {percentage4 === "Not Applicable"
                   ? percentage4
@@ -276,7 +282,357 @@ export default function SlideList(props) {
               </ChangingProgressProvider>
             </div>
             <div css={progressText}>
-              <Typography className={classes.heading}>MODULE 5</Typography>
+              <Typography className={classes.heading}>
+                MODULE 3 Electronic Medical Record
+              </Typography>
+              <Typography className={classes.heading}>
+                {percentage5 === "Not Applicable"
+                  ? percentage5
+                  : `${percentage5}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem
+              arr={props.md5}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider
+                values={[0, percentage5]}
+                interval={400}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.3s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                MODULE 4 Introduction to Hospice
+              </Typography>
+              <Typography className={classes.heading}>
+                {percentage5 === "Not Applicable"
+                  ? percentage5
+                  : `${percentage5}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem
+              arr={props.md5}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider
+                values={[0, percentage5]}
+                interval={400}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.3s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                MODULE 5 Documentation
+              </Typography>
+              <Typography className={classes.heading}>
+                {percentage5 === "Not Applicable"
+                  ? percentage5
+                  : `${percentage5}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem
+              arr={props.md5}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider
+                values={[0, percentage5]}
+                interval={400}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.3s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                MODULE 6 Documenting Decline
+              </Typography>
+              <Typography className={classes.heading}>
+                {percentage5 === "Not Applicable"
+                  ? percentage5
+                  : `${percentage5}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem
+              arr={props.md5}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider
+                values={[0, percentage5]}
+                interval={400}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.3s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                MODULE 7 Symptom Management
+              </Typography>
+              <Typography className={classes.heading}>
+                {percentage5 === "Not Applicable"
+                  ? percentage5
+                  : `${percentage5}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem
+              arr={props.md5}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider
+                values={[0, percentage5]}
+                interval={400}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.3s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                MODULE 8 Plan of Care
+              </Typography>
+              <Typography className={classes.heading}>
+                {percentage5 === "Not Applicable"
+                  ? percentage5
+                  : `${percentage5}%`}
+              </Typography>
+            </div>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div"></ListSubheader>}
+            className={classes.root}
+          >
+            <HomeListItem
+              arr={props.md5}
+              comArray={props.comArray}
+              slide
+              handleOnClick={props.handleOnClick}
+            />
+          </List>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+      <ExpansionPanel
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <div css={tempCard}>
+            <div css={progressCir}>
+              <ChangingProgressProvider
+                values={[0, percentage5]}
+                interval={400}
+              >
+                {percentage => (
+                  <CircularProgressbar
+                    value={percentage}
+                    strokeWidth={16}
+                    styles={buildStyles({
+                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                      trailColor: "#e4e4e4",
+                      pathTransition:
+                        percentage === 0
+                          ? "none"
+                          : "stroke-dashoffset 1s ease 0.3s"
+                    })}
+                  />
+                )}
+              </ChangingProgressProvider>
+            </div>
+            <div css={progressText}>
+              <Typography className={classes.heading}>
+                MODULE 9 Special Programs
+              </Typography>
               <Typography className={classes.heading}>
                 {percentage5 === "Not Applicable"
                   ? percentage5

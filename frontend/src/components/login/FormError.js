@@ -7,9 +7,9 @@ export default function FormError({ formErrors }) {
       {Object.keys(formErrors).map((field, index) => {
         if (formErrors[field].length > 0) {
           return (
-            <p key={index} css={error}>
-              {field} {formErrors[field]}
-            </p>
+            <div key={index} css={error}>
+              {formErrors[field]}
+            </div>
           );
         } else {
           return "";
@@ -20,5 +20,9 @@ export default function FormError({ formErrors }) {
 }
 
 const error = css`
+  padding-left: 8px;
+  padding-top: 4px;
+  font: 14px "Roboto", san-serif;
+  font-style: italic;
   color: #b00020;
 `;

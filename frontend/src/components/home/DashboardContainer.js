@@ -9,6 +9,7 @@ import * as apiClient from "./api-home";
 import { ROOT_URL } from "../utils/constants";
 import { useUser } from "../context/UserContext";
 import Dashboard from "./Dashboard";
+import PageSpinner from "../components/PageSpinner";
 
 const getData = async ({ user_id }) => {
   let completedQuizzes;
@@ -81,7 +82,7 @@ export default function DashboardContainer() {
       });
   };
 
-  if (isPending) return null;
+  if (isPending) return <PageSpinner />;
   if (isRejected) return <pre>{error.message}</pre>;
 
   return (

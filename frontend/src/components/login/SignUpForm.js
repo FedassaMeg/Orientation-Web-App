@@ -16,6 +16,7 @@ export default function SignUpForm(props) {
     formErrors,
     isPending
   } = props;
+
   return (
     <div css={container}>
       <div css={card}>
@@ -49,7 +50,9 @@ export default function SignUpForm(props) {
                 value={state.role}
                 css={selectStyle}
               >
-                <option>Select Role</option>
+                <option value="" disabled hidden>
+                  Select Role
+                </option>
                 <option value={21}>Nurse - RN</option>
                 <option value={24}>Nurse - LVN</option>
                 <option value={27}>Hospice Aide</option>
@@ -165,6 +168,9 @@ const selectStyle = css`
   border: 0.5px solid;
   border-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+  padding-left: 6px;
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
 
   &:focus {
     outline: none;

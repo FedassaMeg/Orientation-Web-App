@@ -11,23 +11,31 @@ import { ROOT_URL } from "../utils/constants";
 
 //Local components
 import ReviewScores from "./ReviewScores";
-import MuiReviewScoresTable from "../unused/MuiReviewScoresTable";
+import PageSpinner from "../components/PageSpinner";
 
 const rowdata = (scoreArr, userArr) => {
   let newTable = [];
+  // const srted = scoreArr.filter(score => {
+  //   return score.is_completed === true;
+  // });
   const srted = scoreArr.reverse();
   srted.map(score => {
+    const scoreId = score.id;
     const date = new Date(score.signed_date);
+    const quizId = score.related_quiz.id;
     const quizTitle = score.related_quiz.title;
     const quizScore = score.score + "/" + score.related_quiz.num_questions;
     const isReviewRequired = score.related_quiz.review_required;
     let userData;
     userArr.map(user => {
-      userData =
-        score.signed_by === user.id && user.last_name + ", " + user.first_name;
+      if (score.signed_by === user.id) {
+        userData = user.last_name + ", " + user.first_name;
+      }
     });
     newTable.push({
+      scoreId: scoreId,
       userData: userData,
+      quizId: quizId,
       quizTitle: quizTitle,
       quizScore: quizScore,
       date: date.toDateString(),
@@ -70,7 +78,6 @@ const getUserAnsData = async ([input]) => {
 export default function AdminReviewScores(props) {
   const [userArray, setUserArray] = useState([]);
   const [scoreArray, setScoreArray] = useState([]);
-  const [quizArray, setQuizArray] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [input, setInput] = useState({
@@ -97,7 +104,6 @@ export default function AdminReviewScores(props) {
 
   useEffect(() => {
     if (getInitialDataState.isSettled) {
-      setQuizArray(getInitialDataState.data.quizzes.data);
       setUserArray(getInitialDataState.data.users.data);
       setScoreArray(getInitialDataState.data.scores.data);
     }
@@ -121,9 +127,9 @@ export default function AdminReviewScores(props) {
     }
   }, [getUserAnsDataState.isFulfilled]);
 
-  const handleOnClick = e => {
-    const sid = e.target.name;
-    const qid = e.target.id;
+  const handleOnClick = event => {
+    const sid = event.target.name;
+    const qid = event.target.id;
     setInput({
       scoreId: parseInt(sid),
       quizId: parseInt(qid)
@@ -137,20 +143,20 @@ export default function AdminReviewScores(props) {
     setIsSubmitted(false);
   };
 
-  const handleCorrect = e => {
+  const handleCorrect = event => {
     if (score <= questions.length) {
       setScore(score + 1);
-      const key = e.currentTarget.id;
+      const key = event.currentTarget.id;
       const value = true;
       const add = isCorrect.set(key, value);
       setIsCorrect(add);
     }
   };
 
-  const handleWrong = e => {
+  const handleWrong = event => {
     if (score > 0) {
       setScore(score - 1);
-      const key = e.currentTarget.id;
+      const key = event.currentTarget.id;
       const value = false;
       const add = isCorrect.set(key, value);
       setIsCorrect(add);
@@ -165,6 +171,9 @@ export default function AdminReviewScores(props) {
     setRowsPerRage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -194,7 +203,7 @@ export default function AdminReviewScores(props) {
   };
 
   if (getInitialDataState.isPending) {
-    return null;
+    return <PageSpinner />;
   }
   if (getInitialDataState.isRejected) {
     return (
@@ -225,6 +234,8 @@ export default function AdminReviewScores(props) {
       rowsPerPage={rowsPerPage}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
+      emptyRows={emptyRows}
+      tableData={tableData}
     />
   );
 }

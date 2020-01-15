@@ -5,6 +5,8 @@ import IconButton from "@material-ui/core/IconButton";
 
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
+import TableCell from "./TableCell";
+
 const defaultRowsPerPageOptions = [10, 25, 50, 100];
 
 export default function TablePagination(props) {
@@ -34,7 +36,11 @@ export default function TablePagination(props) {
       <div css={toolbar}>
         <div css={spacer} />
         <div css={caption}>Rows per page:</div>
-        <select css={select} value={rowsPerPage} onChange={onChangeRowsPerPage}>
+        <select
+          css={dropDown}
+          value={rowsPerPage}
+          onChange={onChangeRowsPerPage}
+        >
           {rowsPerPageOptions.map(rowsPerPageOption => {
             return (
               <option
@@ -64,28 +70,35 @@ export default function TablePagination(props) {
 }
 
 const container = css`
+  font: 1rem "Roboto Condensed", sans-serif;
   color: rgba(0, 0, 0, 0.87);
   font-size: 14px;
   overflow: auto;
-  padding: 0;
+  &:last-child {
+    padding: 0;
+  }
 `;
 
 const toolbar = css`
   min-height: 52px;
   padding-right: 2px;
+  position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const spacer = css`
   flex: 1 1 100%;
+  background-color: dodgerblue;
 `;
 
 const caption = css`
   flex-shrink: 0;
 `;
 
-const select = css`
-  padding-left: 8px;
-  padding-right: 24px;
+const dropDown = css`
+  margin-left: 8px;
+  margin-right: 24px;
   text-align: right;
   text-align-last: right;
 `;

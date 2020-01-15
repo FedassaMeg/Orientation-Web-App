@@ -30,100 +30,93 @@ const headCells = [
 
 export default function ReviewScores(props) {
   const {
-    isClicked,
-    scoreArray,
-    userArray,
-    quizId,
-    scoreId,
-    handleOnClick,
     back,
-    questions,
-    userAns,
+    emptyRows,
+    fetchState,
     handleCorrect,
     handleWrong,
     handleSubmit,
+    handleChangePage,
+    handleChangeRowsPerPage,
+    handleOnClick,
+    isClicked,
     isSubmitted,
     isCorrect,
-    fetchState,
     page,
+    quizId,
+    questions,
     rowsPerPage,
-    handleChangePage,
-    handleChangeRowsPerPage
+    scoreId,
+    tableData,
+    userAns
   } = props;
 
-  const cqArr = scoreArray.filter(quiz => {
-    return quiz.is_completed;
-  });
+  const emptyRow = css`
+    height: ${53 * emptyRows}px;
+  `;
 
   return (
     <div css={container}>
       {!isClicked ? (
         <Card header="EMPLOYEE QUIZ SCORES">
-          <Table header>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox />
-                </TableCell>
-                {headCells.map(headCell => (
-                  <TableCell key={headCell.id} variant="head" align="left">
-                    {headCell.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cqArr.map((rowdata, index) => {
-                let date = new Date(rowdata.signed_date);
-                return (
-                  <TableRow key={index}>
-                    <TableCell padding="checkbox">
-                      <Checkbox />
-                    </TableCell>
-
-                    {userArray.map((user, index) => {
-                      const userFullName =
-                        user.last_name + ", " + user.first_name;
+          <div css={main}>
+            <div css={tableWrapper}>
+              <Table header>
+                <TableHead>
+                  <TableRow>
+                    {headCells.map(headCell => (
+                      <TableCell key={headCell.id} variant="head">
+                        {headCell.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {tableData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((rowdata, index) => {
                       return (
-                        rowdata.signed_by == user.id && (
+                        <TableRow key={index}>
                           <TableCell key={index} align="left">
-                            {userFullName}
+                            {rowdata.userData}
                           </TableCell>
-                        )
+                          <TableCell>{rowdata.quizTitle}</TableCell>
+                          <TableCell>{rowdata.quizScore}</TableCell>
+                          <TableCell>{rowdata.date}</TableCell>
+                          <TableCell>
+                            {rowdata.isReviewRequired ? (
+                              <Button
+                                id={rowdata.quizId}
+                                name={rowdata.scoreId}
+                                onClick={handleOnClick}
+                                css={reqBtn}
+                              >
+                                Review Quiz
+                              </Button>
+                            ) : (
+                              <span css={notReqSpan}>Not Required</span>
+                            )}
+                          </TableCell>
+                        </TableRow>
                       );
                     })}
-
-                    <TableCell>{rowdata.related_quiz.title}</TableCell>
-                    <TableCell>
-                      {rowdata.score}/{rowdata.related_quiz.num_questions}
-                    </TableCell>
-                    <TableCell>{date.toDateString()}</TableCell>
-                    <TableCell>
-                      {rowdata.related_quiz.review_required ? (
-                        <Button
-                          id={rowdata.related_quiz.id}
-                          name={rowdata.id}
-                          onClick={handleOnClick}
-                          css={reqBtn}
-                        >
-                          Review Quiz
-                        </Button>
-                      ) : (
-                        <span css={notReqSpan}>Not Required</span>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          <TablePagination
-            page={page}
-            count={cqArr.length}
-            rowsPerPage={rowsPerPage}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
+                  {emptyRows > 0 && (
+                    <TableRow css={emptyRow}>
+                      <TableCell css={emptyCell} />
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+            <TablePagination
+              page={page}
+              count={tableData.length}
+              rowsPerPage={rowsPerPage}
+              rowsPerPageOptions={[5, 10, 25]}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </div>
         </Card>
       ) : (
         fetchState.isSettled && (
@@ -149,6 +142,12 @@ const container = css`
   padding: 16px;
 `;
 
+const main = css`
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-bottom: 32px;
+`;
+
 const reqBtn = css`
   border-radius: 2px;
   color: #b00020;
@@ -162,7 +161,15 @@ const reqBtn = css`
 
 const notReqSpan = css`
   font: 14px "Roboto Condensed", san-serif;
-  font-style: italic;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.6);
+`;
+
+const tableWrapper = css`
+  padding: 16px;
+  overflow-x: auto;
+`;
+
+const emptyCell = css`
+  column-span: all;
 `;
