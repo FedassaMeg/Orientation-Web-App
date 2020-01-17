@@ -1,12 +1,12 @@
 import React from "react";
 
-import VideosContainer from "../components/video/VideosContainer";
+import Videos from "../components/video/Videos";
 import ViewWrapper from "../components/components/ViewWrapper";
 
 export default function VideosPage() {
   return (
     <ViewWrapper>
-      <VideosContainer />
+      <Videos />
     </ViewWrapper>
   );
 }

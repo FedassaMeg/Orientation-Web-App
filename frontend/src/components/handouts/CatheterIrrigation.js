@@ -8,9 +8,9 @@ export default function CatheterIrrigation() {
     <div>
       <div css={title}>Irrigation of Indwelling Urinary Catheter</div>
       <hr css={divider} />
-      <Card>
+      <div css={container}>
         <div css={content}>
-          <h4>Policy:</h4>
+          <h4 css={header}>Policy:</h4>
           <p>
             Hospice nurses will perform irrigation of indwelling urinary
             catheters according to physician orders. Caregivers will be
@@ -18,8 +18,8 @@ export default function CatheterIrrigation() {
             3-way urinary catheters may be placed to allow for closed system
             irrigation.
           </p>
-          <h4>Purpose:</h4>
-          <ol>
+          <h4 css={header}>Purpose:</h4>
+          <ol css={unordered}>
             <li>
               To maintain catheter patency and urinary drainage by flushing
               sediment through tubing.
@@ -32,7 +32,7 @@ export default function CatheterIrrigation() {
               bladder.
             </li>
           </ol>
-          <h4>Procedure:</h4>
+          <h4 css={header}>Procedure:</h4>
           <p>Equipment required:</p>
           <ul>
             <li>
@@ -43,7 +43,7 @@ export default function CatheterIrrigation() {
             <li>sterile gloves</li>
             <li>waterproof pad</li>
           </ul>
-          <ol>
+          <ol css={unordered}>
             <li>
               Verify physician’s order for irrigation of indwelling catheter,
               including specific orders for type of irrigant, amount of irrigant
@@ -123,12 +123,16 @@ export default function CatheterIrrigation() {
             Information: Bard Urological Division, Covington, GA 1-800-526-4455
           </p>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }
 
-const container = css``;
+const container = css`
+  margin: auto;
+  max-width: 120vmin;
+  width: 100%;
+`;
 
 // Handout Title [div]
 const title = css`
@@ -149,3 +153,15 @@ const divider = css`
 `;
 
 const content = css``;
+
+const header = css`
+  font: 24px "Merriweather", serif;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+`;
+
+const unordered = css`
+  font: 20px "Merriweather", serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
+`;

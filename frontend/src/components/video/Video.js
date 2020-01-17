@@ -1,95 +1,55 @@
-import React, { useState } from "react";
+/**@jsx jsx */
+import { css, jsx } from "@emotion/core";
 
-//Material UI components
-import { makeStyles } from "@material-ui/core/styles";
-import { ListItemText } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Modal from "@material-ui/core/Modal";
-import Typography from "@material-ui/core/Typography";
+//Local components
+import Container from "../components/Container";
 
-//React-icon components
-import { MdClose } from "react-icons/md";
-import { MdPlayArrow } from "react-icons/md";
-
-const useStyles = makeStyles(theme => ({
-  title: {
-    margin: 0,
-    padding: theme.spacing(2)
-  },
-  content: {
-    margin: 0,
-    paddingTop: 0,
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1)
-  },
-  modal: {
-    width: "100%"
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500]
-  },
-  playButton: {
-    "&:focus": {
-      outline: 0
-    }
-  }
-}));
-
-export default function Video({ name }) {
-  const classes = useStyles();
-
-  const [open, setOpen] = useState(false);
-
-  function handleOpen() {
-    setOpen(true);
-  }
-
-  function handleClose() {
-    setOpen(false);
-  }
-
+export default function Video({ video }) {
   return (
-    <ListItem button>
-      <ListItemText primary={name.replace(/-/g, " ").toUpperCase()} />
-
-      <Dialog open={open} maxWidth="md" transitionDuration={400}>
-        <DialogTitle className={classes.title} disableTypography>
-          <Typography variant="h6">
-            {name.replace(/-/g, " ").toUpperCase()}
-          </Typography>
-          <IconButton onClick={handleClose} className={classes.closeButton}>
-            <MdClose />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent className={classes.content}>
-          <video
-            controls
-            autoPlay
-            //poster={require("../../images/videoLoad.png")}
-          >
-            <source src={require(`../../videos/videos/English/${name}.mkv`)} />
-          </video>
-        </DialogContent>
-      </Dialog>
-      <ListItemSecondaryAction>
-        <IconButton
-          onClick={handleOpen}
-          color="primary"
-          className={classes.playButton}
+    <Container>
+      <div css={pageHeader}>{video.title}</div>
+      <hr css={divider} />
+      <div css={flexContainer}>
+        <video
+          controls
+          autoPlay
+          //poster={require("../../images/videoLoad.png")}
+          css={videoTag}
         >
-          <MdPlayArrow size={18} />
-        </IconButton>
-      </ListItemSecondaryAction>
-    </ListItem>
+          <source
+            src={require(`../../videos/videos/English/${video.url}.mkv`)}
+          />
+        </video>
+      </div>
+    </Container>
   );
 }
+
+// Video Title [div]
+const pageHeader = css`
+  font-family: "Raleway", sans-serif;
+  font-size: 45px;
+  padding-left: 90px;
+  padding-top: 10px;
+  color: rgb(78, 78, 78);
+  width: 100%;
+  padding-bottom: 10px;
+  background-color: white;
+`;
+
+// Horizontal Divider [hr]
+const divider = css`
+  margin: 0;
+  border: 0.5px solid lightgrey;
+`;
+
+const flexContainer = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const videoTag = css`
+  margin-top: 36px;
+`;

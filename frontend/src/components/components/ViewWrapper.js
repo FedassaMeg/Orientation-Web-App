@@ -19,6 +19,7 @@ const container = css`
   display: flex;
   flex-direction: column;
   margin: 0;
+  padding-top: 50px;
   min-height: 100vh;
   background-color: whitesmoke;
 `;

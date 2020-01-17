@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 //Local components
 import { useContent } from "../context/ContentContext";
-import HandoutList from "./HandoutList";
 import QuizList from "./QuizList";
 import SlideList from "./SlideList";
 
@@ -29,7 +28,11 @@ export default function Dashboard(props) {
     md1: [],
     md3: [],
     md4: [],
-    md5: []
+    md5: [],
+    md6: [],
+    md7: [],
+    md8: [],
+    md9: []
   };
 
   const initialQuiz = {
@@ -48,11 +51,24 @@ export default function Dashboard(props) {
     const md3Arr = filterByModule(slides, 3);
     const md4Arr = filterByModule(slides, 4);
     const md5Arr = filterByModule(slides, 5);
+    const md6Arr = filterByModule(slides, 6);
+    const md7Arr = filterByModule(slides, 7);
+    const md8Arr = filterByModule(slides, 8);
+    const md9Arr = filterByModule(slides, 9);
     const vdsArr = filterByType(quizzes, "VD");
     const sldsArr = filterByType(quizzes, "SL");
     const hndArr = filterByType(quizzes, "HD");
 
-    setSlideModules({ md1: md1Arr, md3: md3Arr, md4: md4Arr, md5: md5Arr });
+    setSlideModules({
+      md1: md1Arr,
+      md3: md3Arr,
+      md4: md4Arr,
+      md5: md5Arr,
+      md6: md6Arr,
+      md7: md7Arr,
+      md8: md8Arr,
+      md9: md9Arr
+    });
     setQuizModules({ vds: vdsArr, slds: sldsArr, hnd: hndArr });
   }, [slides, quizzes]);
 
@@ -77,6 +93,10 @@ export default function Dashboard(props) {
             md3={slideModules.md3}
             md4={slideModules.md4}
             md5={slideModules.md5}
+            md6={slideModules.md6}
+            md7={slideModules.md7}
+            md8={slideModules.md8}
+            md9={slideModules.md9}
             comArray={completedSldsArr}
             handleOnClick={handleOnClick}
           />

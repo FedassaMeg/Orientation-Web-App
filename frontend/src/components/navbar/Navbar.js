@@ -8,6 +8,9 @@ export default function Navbar(props) {
 // emotion styles
 // Navbar main container
 const navbar = css`
+  position: fixed;
+  top: 0;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

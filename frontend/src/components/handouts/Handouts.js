@@ -4,6 +4,19 @@ import { css, jsx } from "@emotion/core";
 import Container from "../components/Container";
 import Modules from "../components/Modules";
 
+const handoutsArr = [
+  {
+    title: "Catheter Insertion and Care HO",
+    url_value: "catheter-insertion-and-care-ho"
+  },
+  { title: "Catheter Irrigation", url_value: "catheter-irrigation" },
+  { title: "Oximetry", url_value: "oximetry" },
+  {
+    title: "Routine Venipuncture Procedure",
+    url_value: "routine-venipuncture-procedure"
+  }
+];
+
 export default function Handouts() {
   return (
     <Container>
@@ -14,12 +27,7 @@ export default function Handouts() {
           <Modules
             title="Handouts"
             subtitle="Competencies"
-            list={[
-              "Catheter Insertion and Care HO",
-              "Catheter Irrigation",
-              "Oximetry",
-              "Routine Venipuncture Procedure"
-            ]}
+            list={handoutsArr}
             key="handouts"
             type="handout"
           />

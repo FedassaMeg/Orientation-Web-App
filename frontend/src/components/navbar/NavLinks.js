@@ -16,7 +16,7 @@ export default function NavLinks({ admin, isAuthenticated, isAdmin }) {
           <img src={require("../../images/logo.png")} alt="logo" css={logo} />
         </div>
       ) : (
-        <div css={nologo}></div>
+        <div css={nologo}>ADMIN PANEL</div>
       )}
       {isAuthenticated ? (
         <div>
@@ -71,7 +71,14 @@ const logo = css`
 
 //Logo placeholder for admin view
 const nologo = css`
-  height: 48.5px;
+  height: 50px;
+  width: 259px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 36px;
+  font: 20px "Open Sans", san-serif;
+  color: white;
+  background-color: #353538;
 `;
 
 //Container for Sign out and Login buttons

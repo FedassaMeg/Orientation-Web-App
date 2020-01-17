@@ -3,12 +3,12 @@
 import { css, jsx } from "@emotion/core";
 import { Link } from "react-router-dom";
 
-export default function HomeListItem(props) {
+export default function VideoListItem(props) {
   const lists = props.arr.map((item, index) => {
     return (
       <div key={index} css={listSection}>
         <div css={listRight}>
-          <Link to={`handout/${item.url}`} css={list}>
+          <Link to={`video/${item.url}`} css={list}>
             {item.title}
           </Link>
         </div>

@@ -11,8 +11,8 @@ export default function TableCell({ align, padding, variant, ...other }) {
         align === "center" && alignCenter,
         align === "right" && alignRight,
         align === "justify" && alignJustify,
-        variant === "head" && stickyHeader,
-        padding === "checkbox" && paddingCheckbox
+        padding === "checkbox" && paddingCheckbox,
+        variant === "empty" && empty
       ]}
       {...other}
     />
@@ -26,6 +26,10 @@ const container = css`
   border-bottom: 0.5px solid #dcdcdc;
   text-align: left;
   padding: 16px;
+`;
+
+const empty = css`
+  border: none;
 `;
 
 const head = css`

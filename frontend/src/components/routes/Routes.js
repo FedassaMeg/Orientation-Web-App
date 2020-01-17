@@ -14,6 +14,7 @@ import HomePage from "../../views/HomePage";
 import SlidesPage from "../../views/SlidesPage";
 import AdminPage from "../../views/AdminPage";
 import VideosPage from "../../views/VideosPage";
+import VideoPage from "../../views/VideoPage";
 import HandoutsPage from "../../views/HandoutsPage";
 import HandoutPage from "../../views/HandoutPage";
 import TablePagination from "../../components/admin/table/TablePagination";
@@ -29,6 +30,7 @@ export default function Routes() {
         <PrivateRoute path="/quizs" component={QuizzesPage} />
         <PrivateRoute path="/slides" component={SlidesPage} />
         <PrivateRoute path="/videos" component={VideosPage} />
+        <PrivateRoute path="/video/:id" component={VideoPage} />
         <PrivateRoute path="/handouts" component={HandoutsPage} />
         <PrivateRoute path="/handout/:id" component={HandoutPage} />
         <AdminRoute path="/site-admin" component={AdminPage} />

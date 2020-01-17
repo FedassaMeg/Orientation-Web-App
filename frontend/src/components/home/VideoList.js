@@ -1,8 +1,6 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import { useState } from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -13,9 +11,7 @@ import Typography from "@material-ui/core/Typography";
 
 import { MdExpandMore } from "react-icons/md";
 
-//Local components
-import { useUser } from "../context/UserContext";
-import HandoutListItem from "./HandoutListItem";
+import VideoListItem from "./VideoListItem";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,56 +35,62 @@ const useStyles = makeStyles(theme => ({
 
 const handoutsLookup = [
   {
-    title: "Catheter Insertion and Care HO",
-    url: "catheter-insertion-and-care-ho"
+    title: "Blood Borne Pathogens",
+    url: "blood-borne-pathogens"
   },
   {
-    title: "Catheter Irrigation",
-    url: "catheter-irrigation"
+    title: "Elder Abuse and Neglect",
+    url: "elder-abuse-and-neglect"
   },
   {
-    title: "Oximetry",
-    url: "oximetry"
+    title: "Infection Control Bag Technique",
+    url: "infection-control-bag-technique"
   },
   {
-    title: "Routine Venipuncture Procedure",
-    url: "routine-venipuncture-procedure"
+    title: "Proper Body Mechanics and Back Safety",
+    url: "proper-body-mechanics-and-back-safety"
+  },
+  {
+    title: "Driving Safety",
+    url: "driving-safety"
+  },
+  {
+    title: "Hippa",
+    url: "hippa"
+  },
+  {
+    title: "Personal Safety",
+    url: "personal-safety"
+  },
+  {
+    title: "Sexual Harassment",
+    url: "sexual-harassment"
   }
 ];
 
-export default function HandoutList(props) {
+export default function VideoList(props) {
   const { expanded, handleChange } = props;
 
   const classes = useStyles();
 
-  const { user } = useUser();
-
-  let applicable = "";
-
-  if (user.role === 21 || user.role === 24) {
-    applicable = "Please Review Handouts";
-  } else {
-    applicable = "Not Applicable";
-  }
-
   return (
     <ExpansionPanel
-      expanded={expanded === "panel3"}
-      onChange={handleChange("panel3")}
+      expanded={expanded === "panel2"}
+      onChange={handleChange("panel2")}
     >
       <ExpansionPanelSummary
         expandIcon={<MdExpandMore />}
-        aria-controls="panel3bh-content"
-        id="panel3bh-header"
+        aria-controls="panel2bh-content"
+        id="panel2bh-header"
       >
         <div css={tempCard}>
           <div css={placeholder} />
           <div css={progressText}>
             <Typography className={classes.heading}>
-              MODULE 2 New Hire/Annual Competencies 1-3 (Nurses)
+              MODULE 2 New Hire/Annual Competencies 1-8 (All Employees)
             </Typography>
             <Typography className={classes.heading}>
-              {`${applicable}`}
+              Please Watch Videos
             </Typography>
           </div>
         </div>
@@ -99,9 +101,7 @@ export default function HandoutList(props) {
           subheader={<ListSubheader component="div"></ListSubheader>}
           className={classes.root}
         >
-          {applicable === "Please Review Handouts" && (
-            <HandoutListItem arr={handoutsLookup} />
-          )}
+          <VideoListItem arr={handoutsLookup} />
         </List>
       </ExpansionPanelDetails>
     </ExpansionPanel>

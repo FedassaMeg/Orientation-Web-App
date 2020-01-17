@@ -5,672 +5,197 @@ import { useState } from "react";
 
 import { intersectionWith, cloneDeep, assign } from "lodash";
 
-import { makeStyles } from "@material-ui/core/styles";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Typography from "@material-ui/core/Typography";
-
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-
-import { MdExpandMore } from "react-icons/md";
-
 //Local components
-import ChangingProgressProvider from "../components/ChangingProgressProvider";
-import HomeListItem from "./HomeListItem";
+import HomePanel from "./HomePanel";
+import HandoutList from "./HandoutList";
+import VideoList from "./VideoList";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: 560
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: "33.33%",
-    flexShrink: 0
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary
-  },
-  progress: {
-    padding: 0,
-    width: "55%",
-    marginTop: theme.spacing(1)
+const calcPercentage = (num1, num2) => {
+  let newPercentage;
+  if (num2 === 0) {
+    newPercentage = "Not Applicable";
+  } else {
+    newPercentage = Math.round((num1 / num2) * 100);
   }
-}));
+  return newPercentage;
+};
 
 export default function SlideList(props) {
-  const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  let csm1 = intersectionWith(cloneDeep(props.md1), props.comArray, (i, j) => {
-    return i.id === j.slide && assign(i, { completed: j.completed });
-  });
-  let csm3 = intersectionWith(cloneDeep(props.md3), props.comArray, (i, j) => {
-    return i.id === j.slide && assign(i, { completed: j.completed });
-  });
-  let csm4 = intersectionWith(cloneDeep(props.md4), props.comArray, (i, j) => {
-    return i.id === j.slide && assign(i, { completed: j.completed });
-  });
-  let csm5 = intersectionWith(cloneDeep(props.md5), props.comArray, (i, j) => {
-    return i.id === j.slide && assign(i, { completed: j.completed });
-  });
-  const calcPercentage = (num1, num2) => {
-    let newPercentage;
-    if (num2 === 0) {
-      newPercentage = "Not Applicable";
-    } else {
-      newPercentage = Math.round((num1 / num2) * 100);
+  const csm1 = intersectionWith(
+    cloneDeep(props.md1),
+    props.comArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
     }
-    return newPercentage;
-  };
-  let percentage1 = calcPercentage(csm1.length, props.md1.length);
-  let percentage3 = calcPercentage(csm3.length, props.md3.length);
-  let percentage4 = calcPercentage(csm4.length, props.md4.length);
-  let percentage5 = calcPercentage(csm5.length, props.md5.length);
+  );
+
+  const csm3 = intersectionWith(
+    cloneDeep(props.md3),
+    props.comArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+
+  const csm4 = intersectionWith(
+    cloneDeep(props.md4),
+    props.comArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+
+  const csm5 = intersectionWith(
+    cloneDeep(props.md5),
+    props.comArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+
+  const csm6 = intersectionWith(
+    cloneDeep(props.md6),
+    props.comArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+
+  const csm7 = intersectionWith(
+    cloneDeep(props.md7),
+    props.comArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+
+  const csm8 = intersectionWith(
+    cloneDeep(props.md8),
+    props.comArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+
+  const csm9 = intersectionWith(
+    cloneDeep(props.md9),
+    props.comArray,
+    (i, j) => {
+      return i.id === j.slide && assign(i, { completed: j.completed });
+    }
+  );
+
+  const percentage1 = calcPercentage(csm1.length, props.md1.length);
+  const percentage3 = calcPercentage(csm3.length, props.md3.length);
+  const percentage4 = calcPercentage(csm4.length, props.md4.length);
+  const percentage5 = calcPercentage(csm5.length, props.md5.length);
+  const percentage6 = calcPercentage(csm6.length, props.md6.length);
+  const percentage7 = calcPercentage(csm7.length, props.md7.length);
+  const percentage8 = calcPercentage(csm8.length, props.md8.length);
+  const percentage9 = calcPercentage(csm9.length, props.md9.length);
+
   return (
-    <div className={classes.root}>
-      <ExpansionPanel
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage1]}
-                interval={100}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 1 Introduction to First Call
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage1 === "Not Applicable"
-                  ? percentage1
-                  : `${percentage1}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md1}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage3]}
-                interval={200}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.1s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 2 New Hire/Annual Competencies (All Employees)
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage3 === "Not Applicable"
-                  ? percentage3
-                  : `${percentage3}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md3}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel3"}
-        onChange={handleChange("panel3")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel3bh-content"
-          id="panel3bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage4]}
-                interval={300}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.2s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 2 New Hire/Annual Competencies (Nurses Only)
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage4 === "Not Applicable"
-                  ? percentage4
-                  : `${percentage4}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md4}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage5]}
-                interval={400}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.3s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 3 Electronic Medical Record
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage5 === "Not Applicable"
-                  ? percentage5
-                  : `${percentage5}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md5}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage5]}
-                interval={400}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.3s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 4 Introduction to Hospice
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage5 === "Not Applicable"
-                  ? percentage5
-                  : `${percentage5}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md5}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage5]}
-                interval={400}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.3s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 5 Documentation
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage5 === "Not Applicable"
-                  ? percentage5
-                  : `${percentage5}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md5}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage5]}
-                interval={400}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.3s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 6 Documenting Decline
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage5 === "Not Applicable"
-                  ? percentage5
-                  : `${percentage5}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md5}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage5]}
-                interval={400}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.3s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 7 Symptom Management
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage5 === "Not Applicable"
-                  ? percentage5
-                  : `${percentage5}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md5}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage5]}
-                interval={400}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.3s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 8 Plan of Care
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage5 === "Not Applicable"
-                  ? percentage5
-                  : `${percentage5}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md5}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <div css={tempCard}>
-            <div css={progressCir}>
-              <ChangingProgressProvider
-                values={[0, percentage5]}
-                interval={400}
-              >
-                {percentage => (
-                  <CircularProgressbar
-                    value={percentage}
-                    strokeWidth={16}
-                    styles={buildStyles({
-                      pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                      trailColor: "#e4e4e4",
-                      pathTransition:
-                        percentage === 0
-                          ? "none"
-                          : "stroke-dashoffset 1s ease 0.3s"
-                    })}
-                  />
-                )}
-              </ChangingProgressProvider>
-            </div>
-            <div css={progressText}>
-              <Typography className={classes.heading}>
-                MODULE 9 Special Programs
-              </Typography>
-              <Typography className={classes.heading}>
-                {percentage5 === "Not Applicable"
-                  ? percentage5
-                  : `${percentage5}%`}
-              </Typography>
-            </div>
-          </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List
-            component="nav"
-            subheader={<ListSubheader component="div"></ListSubheader>}
-            className={classes.root}
-          >
-            <HomeListItem
-              arr={props.md5}
-              comArray={props.comArray}
-              slide
-              handleOnClick={props.handleOnClick}
-            />
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+    <div css={container}>
+      <HomePanel
+        panelNumber={1}
+        expanded={expanded}
+        percentage={percentage1}
+        handleChange={handleChange}
+        title={"MODULE 1 Introduction to First Call"}
+        interval={100}
+        handleOnClick={props.handleOnClick}
+        arr={props.md1}
+        comArray={props.comArray}
+      />
+      <VideoList expanded={expanded} handleChange={handleChange} />
+      <HandoutList expanded={expanded} handleChange={handleChange} />
+      <HomePanel
+        panelNumber={4}
+        expanded={expanded}
+        percentage={percentage3}
+        handleChange={handleChange}
+        title={"MODULE 3 Electronic Medical Record"}
+        interval={100}
+        handleOnClick={props.handleOnClick}
+        arr={props.md3}
+        comArray={props.comArray}
+      />
+      <HomePanel
+        panelNumber={5}
+        expanded={expanded}
+        percentage={percentage4}
+        handleChange={handleChange}
+        title={"MODULE 4 Introduction to Hospice"}
+        interval={100}
+        handleOnClick={props.handleOnClick}
+        arr={props.md4}
+        comArray={props.comArray}
+      />
+      <HomePanel
+        panelNumber={6}
+        expanded={expanded}
+        percentage={percentage5}
+        handleChange={handleChange}
+        title={"MODULE 5 Documentation"}
+        interval={100}
+        handleOnClick={props.handleOnClick}
+        arr={props.md5}
+        comArray={props.comArray}
+      />
+      <HomePanel
+        panelNumber={7}
+        expanded={expanded}
+        percentage={percentage6}
+        handleChange={handleChange}
+        title={"MODULE 6 Documenting Decline"}
+        interval={100}
+        handleOnClick={props.handleOnClick}
+        arr={props.md6}
+        comArray={props.comArray}
+      />
+      <HomePanel
+        panelNumber={8}
+        expanded={expanded}
+        percentage={percentage7}
+        handleChange={handleChange}
+        title={"MODULE 7 Symptom Management"}
+        interval={100}
+        handleOnClick={props.handleOnClick}
+        arr={props.md7}
+        comArray={props.comArray}
+      />
+      <HomePanel
+        panelNumber={9}
+        expanded={expanded}
+        percentage={percentage8}
+        handleChange={handleChange}
+        title={"MODULE 8 Plan of Care"}
+        interval={100}
+        handleOnClick={props.handleOnClick}
+        arr={props.md8}
+        comArray={props.comArray}
+      />
+      <HomePanel
+        panelNumber={10}
+        expanded={expanded}
+        percentage={percentage9}
+        handleChange={handleChange}
+        title={"MODULE 9 Special Programs"}
+        interval={100}
+        handleOnClick={props.handleOnClick}
+        arr={props.md9}
+        comArray={props.comArray}
+      />
     </div>
   );
 }
 
-const progressCir = css`
-  width: 40px;
-  height: 40px;
-`;
-
-const tempCard = css`
-  display: flex;
-  flex-direction: row;
-  // background-color: #f4f4f4;
-`;
-
-const progressText = css`
-  margin-left: 12px;
+const container = css`
+  width: 540px;
 `;

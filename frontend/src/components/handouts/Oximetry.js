@@ -8,14 +8,14 @@ export default function Oximetry() {
     <div>
       <div css={title}>Practical Applications of Pulse Oximetry</div>
       <hr css={divider} />
-      <Card>
+      <div css={container}>
         <div css={content}>
-          <h4>Dr. E. Hill, Dr. MD Stoneham</h4>
-          <h6>
+          <h4 css={header}>Dr. E. Hill, Dr. MD Stoneham</h4>
+          <h6 css={header}>
             Nuffield Department of Anesthetics, Oxford Radcliffe NHS Hospitals
             Headington, Oxford OX3 9DU
           </h6>
-          <h4>Introduction</h4>
+          <h4 css={header}>Introduction</h4>
           <p>
             Pulse oximetry is a useful method of monitoring patients in many
             circumstances, and in the face of limited resources, the pulse
@@ -57,8 +57,8 @@ export default function Oximetry() {
             patient's cardio-respiratory system, which has undoubtedly improved
             patient safety in many circumstances.
           </p>
-          <h4>What does a pulse oximeter measure? </h4>
-          <ol>
+          <h4 css={header}>What does a pulse oximeter measure? </h4>
+          <ol css={unordered}>
             <li>
               The oxygen saturation of hemoglobin in arterial blood - which is a
               measure of the average amount of oxygen bound to each hemoglobin
@@ -79,7 +79,7 @@ export default function Oximetry() {
             <li>The respiratory rate or tidal volume i.e. ventilation </li>
             <li>The cardiac output or blood pressure </li>
           </ol>
-          <h4>Principles of Modern Pulse Oximetry</h4>
+          <h4 css={header}>Principles of Modern Pulse Oximetry</h4>
           <p>
             Oxygen is carried in the bloodstream mainly bound to hemoglobin. One
             molecule of hemoglobin can carry up to four molecules of oxygen,
@@ -106,7 +106,7 @@ export default function Oximetry() {
             depends on the degree of oxygenation of hemoglobin within the
             tissues.
           </p>
-          <h4>PRACTICAL APPLICATIONS OF PULSE OXIMETRY</h4>
+          <h4 css={header}>PRACTICAL APPLICATIONS OF PULSE OXIMETRY</h4>
           <p>
             The microprocessor can select out the absorbance of the pulsatile
             fraction of blood, i.e. that due to arterial blood, from constant
@@ -148,8 +148,10 @@ export default function Oximetry() {
             difficult to secure. Other than using specific reflection spectra,
             the principles are the same as for transmission oximetry.
           </p>
-          <h4>Practical tips to the successful use of pulse oximetry:</h4>
-          <ol>
+          <h4 css={header}>
+            Practical tips to the successful use of pulse oximetry:
+          </h4>
+          <ol css={unordered}>
             <li>
               Select the probe you require with particular attention to correct
               sizing and where it is going to go. The digit should be clean
@@ -187,7 +189,7 @@ export default function Oximetry() {
               </em>
             </li>
           </ol>
-          <h4>Limitations:</h4>
+          <h4 css={header}>Limitations:</h4>
           <p>
             The oximeter reading is a measure solely of oxygenation, not of
             ventilation, and is not a substitute for blood gases checked in a
@@ -213,19 +215,23 @@ export default function Oximetry() {
             bound hemoglobin. It can be bound to other gases such as carbon
             monoxide and still read high even thought the patient is hypoxic.
           </p>
-          <h4>MEDICARE REIMBURSEMENT:</h4>
+          <h4 css={header}>MEDICARE REIMBURSEMENT:</h4>
           <p>
             Medicare will approve the use and reimburse for oxygen when the
             arterial P02 is at or below 55 or the arterial saturation is at or
             below 88% taken at rest while awake.
           </p>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }
 
-const container = css``;
+const container = css`
+  margin: auto;
+  max-width: 120vmin;
+  width: 100%;
+`;
 
 // Handout Title [div]
 const title = css`
@@ -246,3 +252,15 @@ const divider = css`
 `;
 
 const content = css``;
+
+const header = css`
+  font: 24px "Merriweather", serif;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+`;
+
+const unordered = css`
+  font: 20px "Merriweather", serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
+`;

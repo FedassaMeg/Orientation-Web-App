@@ -8,10 +8,10 @@ export default function Venipuncture() {
     <div>
       <div css={title}>Routine Venipuncture Guidelines</div>
       <hr css={divider} />
-      <Card>
+      <div css={container}>
         <div css={content}>
-          <h4>Materials</h4>
-          <ol>
+          <h4 css={header}>Materials</h4>
+          <ol css={unordered}>
             <li>Safety Needles, 22g or less</li>
             <li>Butterfly needles. 21g or less</li>
             <li>Syringes</li>
@@ -34,8 +34,8 @@ export default function Venipuncture() {
             </li>
             <li>Bandages or tape</li>
           </ol>
-          <h4>Safety</h4>
-          <ol>
+          <h4 css={header}>Safety</h4>
+          <ol css={unordered}>
             <li>
               Observe universal (standard) safety precautions. Observe all
               applicable isolation procedures.
@@ -78,8 +78,8 @@ export default function Venipuncture() {
               contact your supervisor.
             </li>
           </ol>
-          <h4>Procedure</h4>
-          <ol>
+          <h4 css={header}>Procedure</h4>
+          <ol css={unordered}>
             <li>
               Identify the patient. Outpatients are called into the phlebotomy
               area and asked their name and date of birth. This information must
@@ -112,7 +112,7 @@ export default function Venipuncture() {
               perform venipuncture on an artery. At no time will blood be drawn
               from the feet unless there is a specific order in the computer.
               Factors to consider in site selection:
-              <ul>
+              <ul css={unordered}>
                 <li>
                   Extensive scarring or healed burn areas should be avoided
                 </li>
@@ -148,7 +148,7 @@ export default function Venipuncture() {
               Do not touch the puncture site after cleaning.
             </li>
             <li>
-              <ol type="a">
+              <ol type="a" css={unordered}>
                 <li>
                   Attach the appropriate needle to the hub by removing the
                   plastic cap over the small end of the needle and inserting
@@ -179,7 +179,7 @@ export default function Venipuncture() {
                   securely and pulling the tube off the needle. If multiple
                   tubes are needed, the proper order of draw to avoid cross
                   contamination and erroneous results is as follows:
-                  <ol>
+                  <ol css={unordered}>
                     <li>Blood culture vials or bottles, sterile tubes</li>
                     <li>
                       Coagulation tube (light blue top) (Routine PT/PTT may be
@@ -218,7 +218,7 @@ export default function Venipuncture() {
             </li>
             <li>
               Venipuncture procedure using a syringe:
-              <ol type="a">
+              <ol type="a" css={unordered}>
                 <li>Place a sheathed needle or butterfly on the syringe.</li>
                 <li>Remove the cap and turn the bevel up.</li>
                 <li>
@@ -276,8 +276,8 @@ export default function Venipuncture() {
             collected appropriately. Failure to collect the discard tube may
             result in specimen being rejected due to inappropriate volume.
           </p>
-          <h4>UAMS Clinical Laboratory Blood Draw Minimization</h4>
-          <ol>
+          <h4 css={header}>UAMS Clinical Laboratory Blood Draw Minimization</h4>
+          <ol css={unordered}>
             <li>
               Increasing the number of point of care glucose and electrolyte
               testing devices which use a fingerstick sample to perform test
@@ -328,7 +328,7 @@ export default function Venipuncture() {
               a specimen.
             </li>
           </ol>
-          <h4>TROUBLESHOOTING HINTS FOR BLOOD COLLECTION</h4>
+          <h4 css={header}>TROUBLESHOOTING HINTS FOR BLOOD COLLECTION</h4>
           <ul>
             If a blood sample is not attainable:
             <li>Reposition the needle. </li>
@@ -348,7 +348,7 @@ export default function Venipuncture() {
               patient.{" "}
             </li>
           </ul>
-          <h4>REFERENCES</h4>
+          <h4 css={header}>REFERENCES</h4>
           <p>
             NCCLS: Procedure for the Collection of Diagnostic Blood Specimens by
             Venipuncture; Approved Standard, Sixth Edition, Vol 27, No 26
@@ -361,12 +361,16 @@ export default function Venipuncture() {
             Contaminated Needles and Blood Tube Holders Used for Phlebotomy.
           </p>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }
 
-const container = css``;
+const container = css`
+  margin: auto;
+  max-width: 120vmin;
+  width: 100%;
+`;
 
 // Handout Title [div]
 const title = css`
@@ -387,3 +391,15 @@ const divider = css`
 `;
 
 const content = css``;
+
+const header = css`
+  font: 24px "Merriweather", serif;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+`;
+
+const unordered = css`
+  font: 20px "Merriweather", serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
+`;

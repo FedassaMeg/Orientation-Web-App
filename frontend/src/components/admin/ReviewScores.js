@@ -17,15 +17,18 @@ import TablePagination from "./table/TablePagination";
 const headCells = [
   {
     id: "name",
-    label: "Employee Name"
+    label: "Employee Name",
+    align: "left"
   },
-  { id: "quiz", label: "Quiz" },
-  { id: "score", label: "Quiz Score" },
+  { id: "quiz", label: "Quiz", align: "left" },
+  { id: "score", label: "Quiz Score", align: "right" },
+  { id: "scorePrcnt", label: "Quiz Score (%)", align: "right" },
   {
     id: "submit",
-    label: "Completed Date"
+    label: "Completed Date",
+    align: "center"
   },
-  { id: "review", label: "Admin Review" }
+  { id: "review", label: "Admin Review", align: "left" }
 ];
 
 export default function ReviewScores(props) {
@@ -65,7 +68,11 @@ export default function ReviewScores(props) {
                 <TableHead>
                   <TableRow>
                     {headCells.map(headCell => (
-                      <TableCell key={headCell.id} variant="head">
+                      <TableCell
+                        key={headCell.id}
+                        variant="head"
+                        align={headCell.align}
+                      >
                         {headCell.label}
                       </TableCell>
                     ))}
@@ -81,8 +88,13 @@ export default function ReviewScores(props) {
                             {rowdata.userData}
                           </TableCell>
                           <TableCell>{rowdata.quizTitle}</TableCell>
-                          <TableCell>{rowdata.quizScore}</TableCell>
-                          <TableCell>{rowdata.date}</TableCell>
+                          <TableCell align="right">
+                            {rowdata.quizScore}
+                          </TableCell>
+                          <TableCell align="right">
+                            {rowdata.quizScorePrcnt}
+                          </TableCell>
+                          <TableCell align="center">{rowdata.date}</TableCell>
                           <TableCell>
                             {rowdata.isReviewRequired ? (
                               <Button
@@ -102,7 +114,7 @@ export default function ReviewScores(props) {
                     })}
                   {emptyRows > 0 && (
                     <TableRow css={emptyRow}>
-                      <TableCell css={emptyCell} />
+                      <TableCell css={emptyCell} variant="empty" />
                     </TableRow>
                   )}
                 </TableBody>

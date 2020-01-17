@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import { useState } from "react";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -14,13 +14,10 @@ import Typography from "@material-ui/core/Typography";
 import { MdExpandMore } from "react-icons/md";
 
 //Local components
-import { useUser } from "../context/UserContext";
-import HandoutListItem from "./HandoutListItem";
+import ChangingProgressProvider from "../components/ChangingProgressProvider";
+import HomeListItem from "./HomeListItem";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: "80%"
-  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: "33.33%",
@@ -37,58 +34,54 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const handoutsLookup = [
-  {
-    title: "Catheter Insertion and Care HO",
-    url: "catheter-insertion-and-care-ho"
-  },
-  {
-    title: "Catheter Irrigation",
-    url: "catheter-irrigation"
-  },
-  {
-    title: "Oximetry",
-    url: "oximetry"
-  },
-  {
-    title: "Routine Venipuncture Procedure",
-    url: "routine-venipuncture-procedure"
-  }
-];
-
-export default function HandoutList(props) {
-  const { expanded, handleChange } = props;
-
+export default function HomePanel(props) {
+  const {
+    panelNumber,
+    expanded,
+    handleChange,
+    percentage,
+    interval,
+    title,
+    arr,
+    comArray,
+    handleOnClick,
+    type
+  } = props;
   const classes = useStyles();
-
-  const { user } = useUser();
-
-  let applicable = "";
-
-  if (user.role === 21 || user.role === 24) {
-    applicable = "Please Review Handouts";
-  } else {
-    applicable = "Not Applicable";
-  }
-
   return (
     <ExpansionPanel
-      expanded={expanded === "panel3"}
-      onChange={handleChange("panel3")}
+      expanded={expanded === `panel${panelNumber}`}
+      onChange={handleChange(`panel${panelNumber}`)}
     >
       <ExpansionPanelSummary
         expandIcon={<MdExpandMore />}
-        aria-controls="panel3bh-content"
-        id="panel3bh-header"
+        aria-controls={`panel${panelNumber}bh-content`}
+        id={`panel${panelNumber}bh-header`}
       >
         <div css={tempCard}>
-          <div css={placeholder} />
+          <div css={progressCir}>
+            <ChangingProgressProvider
+              values={[0, percentage]}
+              interval={interval}
+            >
+              {prcnt => (
+                <CircularProgressbar
+                  value={prcnt}
+                  strokeWidth={16}
+                  styles={buildStyles({
+                    pathColor: `rgba(62, 152, 199, ${prcnt / 100})`,
+                    trailColor: "#e4e4e4",
+                    pathTransition:
+                      prcnt === 0 ? "none" : "stroke-dashoffset 1s ease 0.1s"
+                  })}
+                />
+              )}
+            </ChangingProgressProvider>
+          </div>
           <div css={progressText}>
+            <Typography className={classes.heading}>{title}</Typography>
             <Typography className={classes.heading}>
-              MODULE 2 New Hire/Annual Competencies 1-3 (Nurses)
-            </Typography>
-            <Typography className={classes.heading}>
-              {`${applicable}`}
+              {percentage === "Not Applicable" ? percentage : `${percentage}%`}
             </Typography>
           </div>
         </div>
@@ -99,17 +92,21 @@ export default function HandoutList(props) {
           subheader={<ListSubheader component="div"></ListSubheader>}
           className={classes.root}
         >
-          {applicable === "Please Review Handouts" && (
-            <HandoutListItem arr={handoutsLookup} />
-          )}
+          <HomeListItem
+            arr={arr}
+            comArray={comArray}
+            type={type}
+            handleOnClick={handleOnClick}
+          />
         </List>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );
 }
 
-const placeholder = css`
+const progressCir = css`
   width: 40px;
+  height: 40px;
 `;
 
 const tempCard = css`

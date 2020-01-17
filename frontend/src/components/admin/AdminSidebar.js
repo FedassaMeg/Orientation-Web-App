@@ -39,13 +39,19 @@ export default function AdminSidebar() {
 
 //emotion styling
 const sidebar = css`
+  position: fixed;
   color: white;
+  width: 259px;
+  min-height: 929px;
+  background-color: #404045;
 `;
+
 const sectionContainer = css`
   margin-top: 48px;
   margin-left: 24px;
   margin-bottom: 48px;
 `;
+
 const sectionHead = css`
   font: 10px "Open Sans", san-serif;
   color: whitesmoke;
@@ -74,15 +80,4 @@ const link = css`
     text-decoration: none;
     color: #289086;
   }
-`;
-
-const disabledlink = css`
-  font: 14px "Open Sans", san-serif;
-  margin-left: 8px;
-  color: rgba(255, 255, 255, 0.3);
-`;
-
-const divider = css`
-  margin: 0;
-  border: 0.5px solid #606060;
 `;

@@ -36,7 +36,7 @@ export default function HomeListItem(props) {
               <MdCancel />
             </div>
           )}
-          {props.slide ? (
+          {props.type === "slide" ? (
             <a
               href={item.url}
               target="blank"

@@ -25,6 +25,8 @@ const rowdata = (scoreArr, userArr) => {
     const quizId = score.related_quiz.id;
     const quizTitle = score.related_quiz.title;
     const quizScore = score.score + "/" + score.related_quiz.num_questions;
+    const quizScorePrcnt =
+      Math.round((score.score / score.related_quiz.num_questions) * 100) + "%";
     const isReviewRequired = score.related_quiz.review_required;
     let userData;
     userArr.map(user => {
@@ -38,6 +40,7 @@ const rowdata = (scoreArr, userArr) => {
       quizId: quizId,
       quizTitle: quizTitle,
       quizScore: quizScore,
+      quizScorePrcnt: quizScorePrcnt,
       date: date.toDateString(),
       isReviewRequired: isReviewRequired
     });
