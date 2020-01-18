@@ -17,14 +17,16 @@ import VideosPage from "../../views/VideosPage";
 import VideoPage from "../../views/VideoPage";
 import HandoutsPage from "../../views/HandoutsPage";
 import HandoutPage from "../../views/HandoutPage";
-import TablePagination from "../../components/admin/table/TablePagination";
+import HomePageTest from "../../components/home/HomePanelTest";
+import HomePageTest2 from "../../components/home/HomePanelTest2";
 
 export default function Routes() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={LandingPage} />
-        <Route path="/test" component={TablePagination} />
+        <Route path="/test" component={HomePageTest} />
+        <Route path="/test2" component={HomePageTest2} />
         <PrivateRoute path="/home" component={HomePage} />
         <PrivateRoute path="/quiz/:id" component={QuizPage} />
         <PrivateRoute path="/quizs" component={QuizzesPage} />
