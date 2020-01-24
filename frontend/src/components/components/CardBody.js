@@ -5,5 +5,5 @@ export default function CardBody({ children }) {
   return <div css={container}>{children}</div>;
 }
 const container = css`
-  padding: 16px;
+  padding: 24px;
 `;

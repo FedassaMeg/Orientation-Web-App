@@ -81,6 +81,9 @@ export default function Dashboard(props) {
     setCompletedSldsArr(comArray);
   }, [compltArray, comArray]);
 
+  console.log(slides);
+  console.log(quizzes);
+
   return (
     <div css={container}>
       <div css={pageheader}>My Dashboard</div>

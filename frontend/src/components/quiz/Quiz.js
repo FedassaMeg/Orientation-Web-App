@@ -1,6 +1,7 @@
 /**@jsx jsx */
-import React from "react";
 import { css, jsx } from "@emotion/core";
+
+import { Fragment } from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,8 +9,6 @@ import Button from "@material-ui/core/Button";
 
 //React-Icons Components
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-
-import { useTransition, animated } from "react-spring";
 
 //Local Components
 import { useQuiz } from "./QuizContext";
@@ -25,23 +24,27 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Quiz(props) {
+  const {
+    activeIndex,
+    animate,
+    answer,
+    answers,
+    back,
+    handleOnChange,
+    handleOnClick,
+    handleSubmit,
+    isCompleted,
+    next,
+    prev
+  } = props;
+
   const classes = useStyles();
+
   const { quiz, questions } = useQuiz();
 
-  const transitions = useTransition(questions, question => question.id, {
-    unique: true,
-    from: { opacity: 0 },
-    enter: [
-      { opacity: 1 },
-      { transform: "translate3d(0, -50px, 0)" },
-      { color: "#26a69a" }
-    ],
-    leave: [{ opacity: 1 }, { transform: "translate3d(0, -60px, 0)" }]
-  });
-
   return (
-    <>
-      {!props.isCompleted ? (
+    <Fragment>
+      {!isCompleted ? (
         <Container>
           <div css={title}>{quiz.title}</div>
           <hr css={divider} />
@@ -49,22 +52,25 @@ export default function Quiz(props) {
             <div css={questionContainer}>
               <div css={qstNum}>
                 <span css={qstNumText}>
-                  {props.activeIndex + 1} OF {questions.length}
+                  {activeIndex + 1} OF {questions.length}
                 </span>
               </div>
               <Question
-                activeIndex={props.activeIndex}
-                answer={props.answer}
-                handleOnChange={props.handleOnChange}
-                animate={props.animate}
+                activeIndex={activeIndex}
+                answer={answer}
+                handleOnChange={handleOnChange}
+                animate={animate}
+                question={questions[activeIndex]}
+                type={questions[activeIndex].question_type}
+                choices={questions[activeIndex].choices}
               />
               <div css={btnGroup}>
-                {!props.activeIndex == 0 ? (
+                {!activeIndex == 0 ? (
                   <Button
                     size="small"
                     className={classes.button}
                     startIcon={<MdNavigateBefore />}
-                    onClick={props.prev}
+                    onClick={prev}
                   >
                     prev.
                   </Button>
@@ -82,7 +88,7 @@ export default function Quiz(props) {
                   size="small"
                   className={classes.button}
                   endIcon={<MdNavigateNext />}
-                  onClick={props.next}
+                  onClick={next}
                 >
                   next
                 </Button>
@@ -91,19 +97,19 @@ export default function Quiz(props) {
           </div>
         </Container>
       ) : (
-        <>
+        <Fragment>
           <div css={title}>Review Answers</div>
           <hr css={divider} />
           <ReviewAnswers
-            answers={props.answers}
-            handleOnClick={props.handleOnClick}
-            handleSubmit={props.handleSubmit}
-            back={props.back}
-            handleOnChange={props.handleOnChange}
+            answers={answers}
+            handleOnClick={handleOnClick}
+            handleSubmit={handleSubmit}
+            back={back}
+            handleOnChange={handleOnChange}
           />
-        </>
+        </Fragment>
       )}
-    </>
+    </Fragment>
   );
 }
 

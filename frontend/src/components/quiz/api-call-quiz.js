@@ -22,11 +22,25 @@ function getQuizQuestions(id) {
   return client(`/quizs/${id}/questions`);
 }
 
-function getQuizAnswers(id) {
+function getQuizTFAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/answers`);
+  return client(`/quizs/${id}/tfanswers`);
+}
+
+function getQuizMCAnswers(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/quizs/${id}/mcanswers`);
+}
+
+function getQuizSAAnswers(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/quizs/${id}/saanswers`);
 }
 
 function getAnswers(id) {
@@ -41,6 +55,8 @@ export {
   getQuizzes,
   getQuizScores,
   getQuizQuestions,
-  getQuizAnswers,
+  getQuizTFAnswers,
+  getQuizMCAnswers,
+  getQuizSAAnswers,
   getAnswers
 };

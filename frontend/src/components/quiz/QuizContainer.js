@@ -40,7 +40,7 @@ export default function QuizContainer() {
       setAnimate(false);
     } else if (activeIndex + 1 === questions.length) {
       setIsCompleted(true);
-      createAnsArr(answers);
+      setAnsArr(answers);
     } else {
       return;
     }
@@ -68,18 +68,18 @@ export default function QuizContainer() {
 
   // Handles user interaction with radio buttons
   const handleOnChange = event => {
-    const key = activeIndex;
+    const key = questions[activeIndex].id;
     let value;
     let added;
-    if (questions[activeIndex].type === "TF") {
+    if (questions[activeIndex].question_type === 3) {
       value = event.target.value === "true";
       added = inputMap.set(key, value);
     }
-    if (questions[activeIndex].type === "MC") {
+    if (questions[activeIndex].question_type === 2) {
       value = event.target.value;
       added = inputMap.set(key, value);
     }
-    if (questions[activeIndex].type === "SA") {
+    if (questions[activeIndex].question_type === 1) {
       value = event.target.value;
       added = inputMap.set(key, value);
     }
@@ -145,12 +145,9 @@ export default function QuizContainer() {
         `${ROOT_URL}/scores/`,
         {
           score: score,
-          related_quiz: {
-            id: quiz.id,
-            title: quiz.title,
-            group: quiz.group
-          },
-          is_completed: true
+          related_quiz: quiz,
+          is_completed: true,
+          is_active: true
         },
         config
       )
@@ -164,40 +161,18 @@ export default function QuizContainer() {
       });
   };
 
-  // Helper function to create an array with the answers to the questions
-  const createAnsArr = arr => {
-    let newArr = [];
-    arr.map((question, index) => {
-      if (questions[index].type === "TF") {
-        newArr.push({
-          id: index,
-          answer: question.true_or_false
-        });
-      } else if (questions[index].type === "MC") {
-        newArr.push({
-          id: index,
-          answer: question.multiple_choice
-        });
-      } else if (questions[index].type === "SA") {
-        newArr.push({
-          id: index,
-          answer: question.short_answer
-        });
-      }
-    });
-    setAnsArr(newArr);
-  };
-
   // Helper function to evaluate the user input against the answers and determine a score
   const compareAnsToInput = (value, key) => {
     let ansValue = ansArr.find(elm => {
-      return elm.id === key;
+      return elm.question === key;
     });
     if (value == ansValue.answer) {
       score = score + 1;
     }
   };
-
+  console.log(ansArr);
+  console.log(score);
+  console.log(inputMap);
   return (
     <Quiz
       activeIndex={activeIndex}

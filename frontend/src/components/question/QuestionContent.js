@@ -1,15 +1,11 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-//Local component
-import { useQuiz } from "../quiz/QuizContext";
-
 export default function QuestionContent({ activeIndex, question }) {
-  const { questions } = useQuiz();
   return (
     <div css={container}>
       <div css={number}>{activeIndex + 1}.</div>
-      <div css={question}>{questions[activeIndex].question} </div>
+      <div css={questionStyle}>{question.question} </div>
     </div>
   );
 }
@@ -32,7 +28,7 @@ const number = css`
   ${font};
 `;
 
-const question = css`
+const questionStyle = css`
   padding-bottom: 16px;
   ${font};
 `;

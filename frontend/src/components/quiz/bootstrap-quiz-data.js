@@ -1,4 +1,10 @@
-import { getQuiz, getQuizQuestions, getQuizAnswers } from "./api-call-quiz";
+import {
+  getQuiz,
+  getQuizQuestions,
+  getQuizTFAnswers,
+  getQuizMCAnswers,
+  getQuizSAAnswers
+} from "./api-call-quiz";
 
 async function bootstrapData(quizId) {
   const res = await getQuiz(quizId);
@@ -13,11 +19,13 @@ async function bootstrapData(quizId) {
   }
   const questions = questionsRes.data;
 
-  const answersRes = await getQuizAnswers(quizId);
-  if (!answersRes) {
-    return { answers: null };
-  }
-  const answers = answersRes.data;
+  const tfanswersRes = await getQuizTFAnswers(quizId);
+  const mcanswersRes = await getQuizMCAnswers(quizId);
+  const saanswersRes = await getQuizSAAnswers(quizId);
+
+  const answers = tfanswersRes.data.concat(
+    mcanswersRes.data.concat(saanswersRes.data)
+  );
 
   return { quiz, questions, answers };
 }

@@ -53,13 +53,13 @@ export default function SignUpForm(props) {
                 <option value="" disabled hidden>
                   Select Role
                 </option>
-                <option value={21}>Nurse - RN</option>
-                <option value={24}>Nurse - LVN</option>
-                <option value={27}>Hospice Aide</option>
-                <option value={29}>Spiritual Care Provider</option>
-                <option value={31}>Social Worker</option>
-                <option value={17}>Office Staff</option>
-                <option value={18}>Office Staff - Clinical</option>
+                <option value={5}>Nurse - RN</option>
+                <option value={8}>Nurse - LVN</option>
+                <option value={11}>Hospice Aide</option>
+                <option value={13}>Spiritual Care Provider</option>
+                <option value={15}>Social Worker</option>
+                <option value={1}>Office Staff</option>
+                <option value={2}>Office Staff - Clinical</option>
               </select>
             </div>
             <div>

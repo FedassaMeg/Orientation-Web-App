@@ -22,15 +22,15 @@ const filterByUserRole = (arr, role) => {
 
 const getData = async () => {
   let quizzes;
-  let slides;
+  let content;
 
   try {
     quizzes = await apiClient.getQuizzes();
-    slides = await apiClient.getSlides();
+    content = await apiClient.getContent();
   } catch (e) {
     throw new Error(e);
   }
-  return { quizzes, slides };
+  return { quizzes, content };
 };
 
 const ContentContext = createContext();
@@ -38,7 +38,7 @@ const ContentContext = createContext();
 function ContentProvider(props) {
   const { user, isAuthenticated } = useUser();
 
-  const [slides, setSlides] = useState([]);
+  const [content, setContent] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
 
   const { data, error, isPending, isFulfilled, isRejected, run } = useAsync({
@@ -56,9 +56,9 @@ function ContentProvider(props) {
       const activeQuizzes = filterActive(data.quizzes.data);
       //const activeSlides = filterActive(data.slides.data);
       const userQuizzes = filterByUserRole(activeQuizzes, user.role);
-      const userSlides = filterByUserRole(data.slides.data, user.role);
+      const userContent = filterByUserRole(data.content.data, user.role);
       setQuizzes(userQuizzes);
-      setSlides(userSlides);
+      setContent(userContent);
     }
   }, [isFulfilled, data, user]);
 
@@ -73,9 +73,10 @@ function ContentProvider(props) {
     );
   }
 
-  return <ContentContext.Provider value={{ slides, quizzes }} {...props} />;
-}
+  console.log(quizzes);
 
+  return <ContentContext.Provider value={{ content, quizzes }} {...props} />;
+}
 function useContent() {
   const context = useContext(ContentContext);
   if (context === undefined) {

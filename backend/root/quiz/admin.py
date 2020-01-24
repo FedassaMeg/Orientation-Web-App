@@ -1,11 +1,17 @@
 from django.contrib import admin
-from .models import Quiz, QuizScore, Question, Choice, Answer, UserAnswer, Slide, CompletedSlide
-
+from .models import Modules, ContentTypes, Content, CompletedContent, Quiz, QuizScore, QuestionTypes, Question, Choice, TFAnswer, MCAnswer, SAAnswer, TFUserAnswer, MCUserAnswer, SAUserAnswer
+admin.site.register(Modules)
+admin.site.register(ContentTypes)
+admin.site.register(Content)
+admin.site.register(CompletedContent)
 admin.site.register(Quiz)
 admin.site.register(QuizScore)
+admin.site.register(QuestionTypes)
 admin.site.register(Question)
 admin.site.register(Choice)
-admin.site.register(Answer)
-admin.site.register(UserAnswer)
-admin.site.register(Slide)
-admin.site.register(CompletedSlide)
+admin.site.register(TFAnswer)
+admin.site.register(MCAnswer)
+admin.site.register(SAAnswer)
+admin.site.register(TFUserAnswer)
+admin.site.register(MCUserAnswer)
+admin.site.register(SAUserAnswer)

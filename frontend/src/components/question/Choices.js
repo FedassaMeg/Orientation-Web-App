@@ -1,40 +1,35 @@
 import React from "react";
 
 //Local components
-import { useQuiz } from "../quiz/QuizContext";
 import MCChoices from "./MCChoices";
 import SAChoices from "./SAChoices";
 import TFChoices from "./TFChoices";
 
 export default function Choices(props) {
-  const { questions } = useQuiz();
-
-  const qstType = questions[props.activeIndex].type;
-  const qstChoices = questions[props.activeIndex].choices;
-
-  if (qstType === "TF") {
+  const { activeIndex, handleOnChange, answer, type, choices } = props;
+  if (type === 3) {
     return (
       <TFChoices
-        activeIndex={props.activeIndex}
-        handleOnChange={props.handleOnChange}
-        answer={props.answer}
+        activeIndex={activeIndex}
+        handleOnChange={handleOnChange}
+        answer={answer}
       />
     );
-  } else if (qstType === "MC") {
+  } else if (type === 2) {
     return (
       <MCChoices
-        activeIndex={props.activeIndex}
-        handleOnChange={props.handleOnChange}
-        qstChoices={qstChoices}
-        answer={props.answer}
+        activeIndex={activeIndex}
+        handleOnChange={handleOnChange}
+        qstChoices={choices}
+        answer={answer}
       />
     );
-  } else if (qstType === "SA") {
+  } else if (type === 1) {
     return (
       <SAChoices
-        activeIndex={props.activeIndex}
-        handleOnChange={props.handleOnChange}
-        answer={props.answer}
+        activeIndex={activeIndex}
+        handleOnChange={handleOnChange}
+        answer={answer}
       />
     );
   }

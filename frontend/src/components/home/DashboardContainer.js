@@ -16,7 +16,7 @@ const getData = async ({ user_id }) => {
   let completedSlides;
   try {
     completedQuizzes = await apiClient.getCompletedQuizzes(user_id);
-    completedSlides = await apiClient.getCompletedSlides(user_id);
+    completedSlides = await apiClient.getCompletedContent(user_id);
   } catch (e) {
     throw new Error(e);
   }
@@ -55,6 +55,9 @@ export default function DashboardContainer() {
       setComArray(data.completedSlides.data);
     }
   }, [isSettled, toggle]);
+
+  console.log(compltArray);
+  console.log(comArray);
 
   //Handle api post request for slide links that have been clicked on
   const handleOnClick = event => {

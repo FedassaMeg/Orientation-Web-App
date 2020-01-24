@@ -34,7 +34,7 @@ export default function ReviewAnswers(props) {
   const { quiz, questions } = useQuiz();
 
   const qstArr = questions.map((question, index) => {
-    const userAnswer = props.answers.get(index) + "";
+    const userAnswer = props.answers.get(question.id) + "";
     return (
       <div key={index} css={container}>
         <div css={list}>

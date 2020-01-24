@@ -10,13 +10,13 @@ export default function Quizzes() {
   const { quizzes } = useContent();
 
   const videoBased = quizzes.filter(quiz => {
-    return quiz.type === "VD";
+    return quiz.content.content_type === 2;
   });
   const slideBased = quizzes.filter(quiz => {
-    return quiz.type === "SL";
+    return quiz.content.content_type === 1;
   });
   const handoutBased = quizzes.filter(quiz => {
-    return quiz.type === "HD";
+    return quiz.content.content_type === 3;
   });
 
   return (

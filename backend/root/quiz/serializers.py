@@ -1,24 +1,55 @@
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-from .models import Quiz, QuizScore, Question, Choice, Answer, UserAnswer, Slide, CompletedSlide
+from .models import Modules, ContentTypes, Content, CompletedContent, Quiz, QuizScore, QuestionTypes, Question, Choice, TFAnswer, MCAnswer, SAAnswer, TFUserAnswer, MCUserAnswer, SAUserAnswer
+
+class ModulesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Modules
+        fields = ('id', 'number', 'title')
 
 
-class QuizSerializer(serializers.ModelSerializer):
+class ContentTypesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ContentTypes
+        fields = ('id', 'name')
+
+
+class ContentSerializer(serializers.ModelSerializer):
+    module = serializers.ReadOnlyField(source='module.id')
+    content_type = serializers.ReadOnlyField(source='content_type.id')
+
+    class Meta:
+        model = Content
+        fields = ('id', 'title', 'module', 'url_value', 'content_type', 'group', 'is_active', 'is_deleted')
+
+
+class CompletedContentSerializer(WritableNestedModelSerializer):
+    completed_by = serializers.ReadOnlyField(source='completed_by.id')
+    content = ContentSerializer(allow_null=True, required=False)
+
+    class Meta:
+        model = CompletedContent
+        fields = ('id', 'content', 'completed_by', 'completed_at', 'is_completed', 'is_active', 'is_deleted')
+
+
+class QuizSerializer(WritableNestedModelSerializer):
     created_by = serializers.ReadOnlyField(source='created_by.id')
+    content = ContentSerializer(allow_null=True, required=False)
 
     class Meta:
         model = Quiz
-        fields = ('id', 'type', 'title', 'url_value', 'group', 'num_questions', 'is_active', 'review_required', 'created_by', 'created_at', 'updated_at')
+        fields = ('id', 'content', 'title', 'url_value', 'num_questions', 'group', 'created_by', 'created_at', 'updated_at', 'review_required', 'is_active', 'is_deleted')
 
 
 class QuizScoreSerializer(WritableNestedModelSerializer):
-    signed_by = serializers.ReadOnlyField(source='signed_by.id')
     related_quiz = QuizSerializer(allow_null=True, required=False)
+    signed_by = serializers.ReadOnlyField(source='signed_by.id')
 
     class Meta:
         model = QuizScore
-        fields = ('id', 'score', 'signed_by', 'signed_date',
-                  'related_quiz', 'is_reviewed', 'reviewed_by', 'is_completed')
+        fields = ('id', 'score', 'related_quiz', 'signed_date', 'signed_by', 'reviewed_by', 'is_reviewed', 'is_completed', 'is_active', 'is_deleted')
 
 
 class ChoiceSerializer(serializers.ModelSerializer):
@@ -30,13 +61,20 @@ class ChoiceSerializer(serializers.ModelSerializer):
         read_only_fields = ('question',)
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+class QuestionTypesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = QuestionTypes
+        fields = ('id', 'name')
+
+
+class QuestionSerializer(WritableNestedModelSerializer):
     created_by = serializers.ReadOnlyField(source='created_by.id')
     choices = ChoiceSerializer(many=True)
 
     class Meta:
         model = Question
-        fields = ('id', 'type', 'question', 'choices', 'quiz', 'is_active', 'created_by', 'created_at', 'updated_at')
+        fields = ('id', 'question_type', 'question', 'choices', 'quiz', 'is_active', 'is_deleted', 'created_by', 'created_at', 'updated_at')
 
     def create(self, validated_data):
         choices = validated_data.pop('choices')
@@ -71,27 +109,43 @@ class QuestionSerializer(serializers.ModelSerializer):
         return instance
 
 
-
-
-class AnswerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Answer
-        fields = ('question', 'true_or_false', 'multiple_choice', 'short_answer')
-
-class UserAnswerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserAnswer
-        fields = ('question', 'true_or_false', 'multiple_choice', 'short_answer', 'quiz_score')
-
-class SlideSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Slide
-        fields = ('id', 'title', 'module', 'url', 'group')
-
-
-class CompletedSlideSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.id')
+class TFAnswerSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = CompletedSlide
-        fields = ('id', 'slide', 'user', 'completed', 'time')
+        model = TFAnswer
+        fields = ('question', 'answer')
+
+
+class MCAnswerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MCAnswer
+        fields = ('question', 'answer')
+
+
+class SAAnswerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SAAnswer
+        fields = ('question', 'answer')
+
+
+class TFUserAnswerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TFUserAnswer
+        fields = ('id', 'question', 'quiz_score', 'answer')
+
+
+class MCUserAnswerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MCUserAnswer
+        fields = ('id', 'question', 'quiz_score', 'answer')
+
+
+class SAUserAnswerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SAUserAnswer
+        fields = ('id', 'question', 'quiz_score', 'answer')

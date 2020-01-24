@@ -37,23 +37,35 @@ const CardAnimate = posed.div({
 });
 
 export default function Question(props) {
+  const {
+    activeIndex,
+    animate,
+    answer,
+    choices,
+    handleOnChange,
+    question,
+    type
+  } = props;
+
   return (
     <PoseGroup
-      preEnterPose={props.animate ? "leftSide" : "rightSide"}
-      exitPose={props.animate ? "rightSide" : "leftSide"}
+      preEnterPose={animate ? "leftSide" : "rightSide"}
+      exitPose={animate ? "rightSide" : "leftSide"}
     >
-      <CardAnimate key={props.activeIndex}>
+      <CardAnimate key={activeIndex}>
         <Card>
           <div css={content}>
             <div css={question}>
-              <QuestionContent activeIndex={props.activeIndex} />
+              <QuestionContent activeIndex={activeIndex} question={question} />
             </div>
           </div>
           <div css={actions}>
             <Choices
-              activeIndex={props.activeIndex}
-              handleOnChange={props.handleOnChange}
-              answer={props.answer}
+              activeIndex={activeIndex}
+              handleOnChange={handleOnChange}
+              type={type}
+              choices={choices}
+              answer={answer}
             />
           </div>
         </Card>
