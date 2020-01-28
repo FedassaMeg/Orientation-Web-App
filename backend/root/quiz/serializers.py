@@ -25,10 +25,9 @@ class ContentSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'module', 'url_value', 'content_type', 'group', 'is_active', 'is_deleted')
 
 
-class CompletedContentSerializer(WritableNestedModelSerializer):
+class CompletedContentSerializer(serializers.ModelSerializer):
     completed_by = serializers.ReadOnlyField(source='completed_by.id')
-    content = ContentSerializer(allow_null=True, required=False)
-
+    
     class Meta:
         model = CompletedContent
         fields = ('id', 'content', 'completed_by', 'completed_at', 'is_completed', 'is_active', 'is_deleted')

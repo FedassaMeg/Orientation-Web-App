@@ -27,7 +27,7 @@ const videoArr = [
     url: "proper-body-mechanics-and-back-safety"
   },
   { title: "Driving Safety", url: "driving-safety" },
-  { title: "Hippa", url: "hippa" },
+  { title: "Hipaa", url: "hipaa" },
   { title: "Personal Safety", url: "personal-safety" },
   { title: "Sexual Harassment", url: "sexual-harassment" }
 ];

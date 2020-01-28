@@ -23,14 +23,18 @@ const filterByUserRole = (arr, role) => {
 const getData = async () => {
   let quizzes;
   let content;
+  let modules;
+  let types;
 
   try {
     quizzes = await apiClient.getQuizzes();
     content = await apiClient.getContent();
+    modules = await apiClient.getModules();
+    types = await apiClient.getTypes();
   } catch (e) {
     throw new Error(e);
   }
-  return { quizzes, content };
+  return { quizzes, content, modules, types };
 };
 
 const ContentContext = createContext();
@@ -40,6 +44,8 @@ function ContentProvider(props) {
 
   const [content, setContent] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
+  const [modules, setModules] = useState([]);
+  const [types, setTypes] = useState([]);
 
   const { data, error, isPending, isFulfilled, isRejected, run } = useAsync({
     deferFn: getData
@@ -59,6 +65,8 @@ function ContentProvider(props) {
       const userContent = filterByUserRole(data.content.data, user.role);
       setQuizzes(userQuizzes);
       setContent(userContent);
+      setModules(data.modules.data);
+      setTypes(data.types.data);
     }
   }, [isFulfilled, data, user]);
 
@@ -75,7 +83,12 @@ function ContentProvider(props) {
 
   console.log(quizzes);
 
-  return <ContentContext.Provider value={{ content, quizzes }} {...props} />;
+  return (
+    <ContentContext.Provider
+      value={{ content, quizzes, modules, types }}
+      {...props}
+    />
+  );
 }
 function useContent() {
   const context = useContext(ContentContext);

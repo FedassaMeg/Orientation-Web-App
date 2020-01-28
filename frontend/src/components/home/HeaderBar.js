@@ -7,12 +7,12 @@ import accountImage from "../../images/badge.jpg";
 
 const determineUserRole = id => {
   let newUserRole;
-  if (id === 17 || id === 18) return (newUserRole = "Office Staff");
-  if (id === 21) return (newUserRole = "Nurse (RN)");
-  if (id === 24) return (newUserRole = "Nurse (LVN)");
-  if (id === 27) return (newUserRole = "Hospice Aide");
-  if (id === 29) return (newUserRole = "Spiritual Care Provider");
-  if (id === 31) return (newUserRole = "Medical Social Worker");
+  if (id === 1 || id === 2) return (newUserRole = "Office Staff");
+  if (id === 5) return (newUserRole = "Nurse (RN)");
+  if (id === 8) return (newUserRole = "Nurse (LVN)");
+  if (id === 11) return (newUserRole = "Hospice Aide");
+  if (id === 13) return (newUserRole = "Spiritual Care Provider");
+  if (id === 15) return (newUserRole = "Medical Social Worker");
   return newUserRole;
 };
 

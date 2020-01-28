@@ -3,34 +3,30 @@ import { css, jsx } from "@emotion/core";
 
 import { useState } from "react";
 
-import { MdExpandLess, MdExpandMore } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 import {
   FaCheck,
   FaFilePowerpoint,
   FaClipboardList,
-  FaClipboardCheck
+  FaClipboardCheck,
+  FaVideo,
+  FaFileAlt
 } from "react-icons/fa";
 
 import Collapse from "@material-ui/core/Collapse";
-
-import { useSpring, animated } from "react-spring";
 
 //Local components
 import PanelHead from "../components/PanelHead";
 import Card from "../components/Card";
 
-export default function HomePanelTest() {
+export default function HomePanelTest(props) {
+  const { header, number, moduleList, percentage, handleOnClick } = props;
   const [expand, setExpand] = useState(false);
   const [quiz, setQuiz] = useState(false);
   const [slide, setSlide] = useState(false);
 
-  const [spring, set] = useSpring(() => ({
-    transform: "perspective(600px) rotate(0turn)",
-    opacity: 1
-  }));
-
-  const handleOnClick = () => {
+  const handleExpand = () => {
     setExpand(!expand);
   };
   const handleQuiz = () => {
@@ -40,249 +36,102 @@ export default function HomePanelTest() {
     setSlide(!slide);
   };
 
-  return (
-    <div css={page}>
-      <Card>
-        <div css={container}>
-          <PanelHead
-            expand={expand}
-            header="Introduction to Hospice"
-            module={4}
-            percentage={60}
-            handleOnClick={handleOnClick}
-          />
-          <Collapse in={expand}>
-            <div css={content}>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Introduction to Hospice</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp} onClick={handleSlide}>
-                    {slide ? (
-                      <FaCheck size={18} color="green" />
-                    ) : (
-                      <FaFilePowerpoint size={18} color="coral" />
-                    )}
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2} onClick={handleQuiz}>
-                    {quiz ? (
-                      <FaClipboardCheck size={18} color="green" />
-                    ) : (
-                      <FaClipboardList size={18} color="dodgerblue" />
-                    )}
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Admission Handbook</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Hospice in Care Facilities</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Patient's Rights</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Case Study</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Fall Prevention and Post Fall Visit</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Communication Techniques</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Role of the IDG</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>IDG Experience Model</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Duties of the Hospice Aide</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Self Care and Care Assignment</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-              <div css={list}>
-                <div css={listHeading}>
-                  <div css={heading}>Discharges, Revocations and Transfers</div>
-                </div>
-                <div css={linkGrps}>
-                  <button css={itemGrp}>
-                    <FaFilePowerpoint size={18} color="coral" />
-                    <div css={items}>Slide</div>
-                  </button>
-                  <button css={itemGrp2}>
-                    <FaClipboardList size={18} color="dodgerblue" />
-                    <div css={items}>Quiz</div>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </Collapse>
+  const contentList = moduleList.map(item => {
+    return (
+      <div key={item.id} css={list}>
+        <div css={listHeading}>
+          <div css={heading}>{item.title}</div>
         </div>
-      </Card>
-    </div>
+        <div css={linkGrps}>
+          {item.content_type === 1 ? (
+            <a
+              id={item.id}
+              href={item.url_value}
+              target="blank"
+              css={itemGrp}
+              onClick={handleOnClick}
+            >
+              {slide ? (
+                <FaCheck size={18} color="green" />
+              ) : (
+                <FaFilePowerpoint size={18} color="coral" />
+              )}
+              <div css={items}>Slide</div>
+            </a>
+          ) : item.content_type === 2 ? (
+            <Link
+              to={`video/${item.url_value}`}
+              id={item.id}
+              css={itemGrp}
+              onClick={handleOnClick}
+            >
+              {slide ? (
+                <FaCheck size={18} color="green" />
+              ) : (
+                <FaVideo size={18} color="coral" />
+              )}
+              <div css={items}>Video</div>
+            </Link>
+          ) : (
+            <Link
+              to={`handout/${item.url_value}`}
+              id={item.id}
+              css={itemGrp}
+              onClick={handleOnClick}
+            >
+              {slide ? (
+                <FaCheck size={18} color="green" />
+              ) : (
+                <FaFileAlt size={18} color="coral" />
+              )}
+              <div css={items}>Handout</div>
+            </Link>
+          )}
+          {item.quiz ? (
+            <Link
+              to={`quiz/${item.quiz.url_value}`}
+              id={item.id}
+              css={itemGrp2}
+              onClick={handleQuiz}
+            >
+              {quiz ? (
+                <FaClipboardCheck size={18} color="green" />
+              ) : (
+                <FaClipboardList size={18} color="dodgerblue" />
+              )}
+              <div css={items}>Quiz</div>
+            </Link>
+          ) : (
+            <div css={placeholder} />
+          )}
+        </div>
+      </div>
+    );
+  });
+
+  return (
+    <Card>
+      <div css={container}>
+        <PanelHead
+          expand={expand}
+          header={header}
+          module={number}
+          percentage={percentage}
+          handleOnClick={handleExpand}
+        />
+        <Collapse in={expand}>
+          <div css={content}>{contentList}</div>
+        </Collapse>
+      </div>
+    </Card>
   );
 }
-
-const page = css`
-  padding: 64px;
-  background-color: whitesmoke;
-  display: flex;
-  flex-direction: row;
-`;
 const heading = css``;
 
 const container = css`
+width: 100%
   display: flex;
   flex-direction: column;
-  margin: 16px;
-`;
-
-const header = css`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const main = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-`;
-
-const expandIcon = css`
-  &: focus {
-    outline: none;
-  }
 `;
 
 const items = css`
@@ -292,40 +141,64 @@ const items = css`
 `;
 
 const itemGrp = css`
+  flex-basis: 90px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-right: 16px;
-  border: none;
-  background-color: white;
-
-  &: focus {
-    outline: none;
+  text-decoration: none;
+  color: grey;
+  &:link {
+    text-decoration: none;
+    color: grey;
   }
+  &:visited {
+    text-decoration: none;
+    color: grey;
+  }
+  &:hover {
+    text-decoration: none;
+    color: #289086;
+  }
+  &:active {
+    text-decoration: none;
+    color: grey;
+  }
+`;
+
+const placeholder = css`
+  width: 69px;
 `;
 
 const itemGrp2 = css`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: none;
-  background-color: white;
-
-  &: focus {
-    outline: none;
+  text-decoration: none;
+  color: grey;
+  &:link {
+    text-decoration: none;
+    color: grey;
+  }
+  &:visited {
+    text-decoration: none;
+    color: grey;
+  }
+  &:hover {
+    text-decoration: none;
+    color: #289086;
+  }
+  &:active {
+    text-decoration: none;
+    color: grey;
   }
 `;
 
 const linkGrps = css`
+  flex-basis: 164px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: baseline;
-`;
-
-const circularContainer = css`
-  width: 60px;
 `;
 
 const content = css`
@@ -336,19 +209,11 @@ const content = css`
   align-items: flex-start;
   width: 100%;
   margin-top: 24px;
-  padding: 8px;
-`;
-
-const contentHeader = css`
-  color: #777;
-  padding-left: 24px;
-  display: flex;
-  flex-direction: column;
 `;
 
 const listHeading = css`
-  padding: 4px;
   margin-right: 32px;
+  flex-basis: 210px;
 `;
 
 const list = css`
@@ -359,24 +224,4 @@ const list = css`
   font: 14px "Open Sans", sans-serif;
   padding: 8px;
   width: 100%;
-`;
-
-const check = css`
-  margin-left: 16px;
-  color: dodgerblue;
-`;
-
-const cancel = css`
-  margin-left: 16px;
-  color: coral;
-`;
-
-const moduleStyle = css`
-  font: 14px "Open Sans", sans-serif;
-  color: #777;
-`;
-
-const titleStyle = css`
-  font: 24px "Roboto Condensed", sans-serif;
-  color: rgba(0, 0, 0, 0.87);
 `;

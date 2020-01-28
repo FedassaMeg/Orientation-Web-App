@@ -31,17 +31,17 @@ const videosLookup = {
     title: "Driving Safety",
     url: "driving-safety"
   },
-  hippa: {
+  hipaa: {
     key: 6,
-    title: "Hippa",
-    url: "hippa"
+    title: "Hipaa",
+    url: "hipaa"
   },
   "personal-safety": {
     key: 7,
     title: "Personal Safety",
     url: "personal-safety"
   },
-  "sexual-harassment": {
+  "sexual-harassment-in-health-care": {
     key: 8,
     title: "Sexual Harassment",
     url: "sexual-harassment"

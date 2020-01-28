@@ -43,7 +43,7 @@ class CompletedContent(models.Model):
 
 
 class Quiz(models.Model):
-    content = models.ForeignKey(Content, on_delete=models.CASCADE, default=1)
+    content = models.OneToOneField(Content, on_delete=models.CASCADE, default=0)
     title = models.CharField(max_length=100)
     url_value = models.CharField(max_length=100, default='')
     num_questions = models.IntegerField(default=0)

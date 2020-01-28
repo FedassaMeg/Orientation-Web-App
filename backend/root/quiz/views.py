@@ -20,19 +20,20 @@ class ContentTypesViewSet(viewsets.ModelViewSet):
 
 class ContentViewSet(viewsets.ModelViewSet):
     serializer_class = ContentSerializer
-    queryset = Content.objects.all()
+    queryset = Content.objects.all().order_by('id')
 
 
 class CompletedContentViewSet(viewsets.ModelViewSet):
     serializer_class = CompletedContentSerializer
+    queryset = CompletedContent.objects.all()
     
     def perform_create(self, serializer):
         serializer.save(completed_by=self.request.user)
     
-    def get_queryset(self):
-        if self.request.user.is_staff:
-            return queryset.all()
-        return queryset.filter(completed_by=self.request.user)
+    # def get_queryset(self):
+    #     if self.request.user.is_staff:
+    #         return queryset.all()
+    #     return queryset.filter(completed_by=self.request.user)
 
 
 class QuizViewSet(viewsets.ModelViewSet):

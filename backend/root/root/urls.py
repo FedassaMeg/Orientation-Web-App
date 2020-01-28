@@ -44,5 +44,9 @@ urlpatterns = [
           SAAnswerViewSet.as_view({'get': 'list'})),
      path('api/roles/',
           RoleViewSet.as_view({'get': 'list', 'post': 'create'})),   
+     path('api/modules/',
+          ModulesViewSet.as_view({'get': 'list', 'post': 'create'})),   
+     path('api/contenttypes/',
+          ContentTypesViewSet.as_view({'get': 'list', 'post': 'create'})),   
 
 ]

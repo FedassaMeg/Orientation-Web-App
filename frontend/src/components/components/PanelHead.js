@@ -60,7 +60,7 @@ const main = css`
 `;
 
 const progress = css`
-  width: 60px;
+  min-width: 50px;
 `;
 
 const title = css`
@@ -75,7 +75,7 @@ const moduleStyle = css`
 `;
 
 const titleStyle = css`
-  font: 24px "Roboto Condensed", sans-serif;
+  font: 22px "Roboto Condensed", sans-serif;
   color: rgba(0, 0, 0, 0.87);
 `;
 

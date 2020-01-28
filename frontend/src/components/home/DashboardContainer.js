@@ -13,14 +13,14 @@ import PageSpinner from "../components/PageSpinner";
 
 const getData = async ({ user_id }) => {
   let completedQuizzes;
-  let completedSlides;
+  let completedContent;
   try {
     completedQuizzes = await apiClient.getCompletedQuizzes(user_id);
-    completedSlides = await apiClient.getCompletedContent(user_id);
+    completedContent = await apiClient.getCompletedContent(user_id);
   } catch (e) {
     throw new Error(e);
   }
-  return { completedQuizzes, completedSlides };
+  return { completedQuizzes, completedContent };
 };
 
 export default function DashboardContainer() {
@@ -52,16 +52,14 @@ export default function DashboardContainer() {
 
   useEffect(() => {
     if (isSettled) {
-      setComArray(data.completedSlides.data);
+      setComArray(data.completedContent.data);
     }
   }, [isSettled, toggle]);
 
-  console.log(compltArray);
-  console.log(comArray);
-
   //Handle api post request for slide links that have been clicked on
   const handleOnClick = event => {
-    const slideId = event.target.id;
+    const contentId = event.target.id;
+    console.log(event.target);
 
     setToggle(prevState => !prevState);
 
@@ -73,10 +71,11 @@ export default function DashboardContainer() {
 
     axios
       .post(
-        `${ROOT_URL}/completedslides/`,
+        `${ROOT_URL}/completedcontent/`,
         {
-          slide: slideId,
-          completed: true
+          content: contentId,
+          is_completed: true,
+          is_active: true
         },
         config
       )
