@@ -7,9 +7,6 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 
-//React-Icon component
-import { MdEdit } from "react-icons/md";
-
 //Local components
 import { useQuiz } from "./QuizContext";
 

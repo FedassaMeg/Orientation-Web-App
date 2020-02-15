@@ -59,12 +59,12 @@ const usrInfo = css`
 `;
 
 const name = css`
-  font: 24px "Ubuntu", sans-serif;
+  font: 24px "Open Sans", sans-serif;
   color: whitesmoke;
   text-transform: capitalize;
 `;
 
 const role = css`
-  font: 16px "Ubuntu", sans-serif;
+  font: 16px "Open Sans", sans-serif;
   color: whitesmoke;
 `;

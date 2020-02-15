@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import axios from "axios";
 
@@ -8,7 +8,8 @@ import Slides from "./Slides";
 
 export default function SlidesContainer() {
   const handleOnClick = event => {
-    const slideId = event.target.id;
+    const contentId = event.target.id;
+
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -17,10 +18,11 @@ export default function SlidesContainer() {
 
     axios
       .post(
-        `${ROOT_URL}/completedslides/`,
+        `${ROOT_URL}/completedcontent/`,
         {
-          slide: slideId,
-          completed: true
+          content: contentId,
+          is_completed: true,
+          is_active: true
         },
         config
       )

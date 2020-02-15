@@ -6,40 +6,28 @@ import { useContent } from "../context/ContentContext";
 import Modules from "../components/Modules";
 import Container from "../components/Container";
 
-const mdn = [
-  {
-    id: 1,
-    title: "Module 1",
-    subtitle: "Introduction to First Call"
-  },
-  { id: 3, title: "Module 3", subtitle: "Electronic Medical Record" },
-  { id: 4, title: "Module 4", subtitle: "Introduction to Hospice" },
-  { id: 5, title: "Module 5", subtitle: "Documentation" },
-  { id: 6, title: "Module 6", subtitle: "Documenting Decline" },
-  { id: 7, title: "Module 7", subtitle: "Symptom Management" },
-  { id: 8, title: "Module 8", subtitle: "Plan of Care" },
-  { id: 9, title: "Module 9", subtitle: "On Call is a Partnership" }
-];
-
 export default function Slides({ handleOnClick }) {
-  const { slides } = useContent();
+  const { content, modules } = useContent();
 
-  const modulesList = mdn.map(module => {
-    const moduleSlides = slides.filter(slide => {
-      return slide.module === module.id;
+  const modulesList = modules.map(module => {
+    const moduleSlides = content.filter(item => {
+      return item.module === module.id && item.content_type === 1;
     });
-    return (
-      <div key={module.id} css={moduleCard}>
-        <Modules
-          key={`modules-${module.id}`}
-          title={module.title}
-          subtitle={module.subtitle}
-          list={moduleSlides}
-          handleOnClick={handleOnClick}
-          type="slide"
-        />
-      </div>
-    );
+
+    if (moduleSlides.length !== 0) {
+      return (
+        <div key={module.id} css={moduleCard}>
+          <Modules
+            key={`modules-${module.id}`}
+            title={`Module ${module.number}`}
+            subtitle={module.title}
+            list={moduleSlides}
+            handleOnClick={handleOnClick}
+            type="slide"
+          />
+        </div>
+      );
+    }
   });
 
   return (
@@ -54,8 +42,9 @@ export default function Slides({ handleOnClick }) {
 }
 
 const pageheader = css`
-  font-family: "Raleway", sans-serif;
-  font-size: 45px;
+  font-family: "Fira Sans", sans-serif;
+  font-size: 48px;
+  font-weight: 200;
   padding-left: 90px;
   color: rgb(78, 78, 78);
   width: 100%;
@@ -67,13 +56,6 @@ const pageheader = css`
 const divider = css`
   margin: 0;
   border: 0.5px solid lightgrey;
-`;
-
-const content = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
 `;
 
 const cardscontainer = css`

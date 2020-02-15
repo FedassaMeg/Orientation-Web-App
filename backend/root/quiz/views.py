@@ -29,6 +29,11 @@ class CompletedContentViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(completed_by=self.request.user)
+
+    def list(self, request, pk):
+        queryset = CompletedContent.objects.filter(completed_by=pk)
+        serializer = CompletedContentSerializer(queryset, many=True)
+        return Response(serializer.data)
     
     # def get_queryset(self):
     #     if self.request.user.is_staff:
@@ -51,23 +56,18 @@ class QuizScoreViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(signed_by=self.request.user)
 
-    # def get_queryset(self):
-    #     assert self.queryset is not None, (
-    #         "'%s' should either include a `queryset` attribute, "
-    #         "or override the `get_queryset()` method."
-    #         % self.__class__.__name__
-    #     )
-    #     queryset = self.queryset
-    #     if isinstance(queryset, QuerySet):
-    #         # Ensure queryset is re-evaluated on each request.
-    #         if self.request.user.is_staff:
-    #             queryset = queryset.all()
-    #         else:
-    #             queryset = queryset.filter(created_by=self.request.user)
-    #     return queryset
+    def list(self, request, pk):
+        queryset = QuizScore.objects.filter(signed_by=pk)
+        serializer = QuizScoreSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-    # def perform_create(self, serializer):
-    #     serializer.save(signed_by=self.request.user)
+
+class AllQuizScoreViewSet(viewsets.ModelViewSet):
+    serializer_class = QuizScoreSerializer
+    queryset = QuizScore.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(signed_by=self.request.user)
 
 
 class QuestionTypesViewSet(viewsets.ModelViewSet):
@@ -77,7 +77,7 @@ class QuestionTypesViewSet(viewsets.ModelViewSet):
 
 class QuestionViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
-    queryset = Question.objects.all()
+    queryset = Question.objects.all().order_by('id')
     # filter_backends = [DjangoFilterBackend]
     # filterset_fields = ['user_role']
 

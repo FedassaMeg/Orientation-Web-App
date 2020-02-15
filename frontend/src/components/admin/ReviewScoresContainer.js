@@ -65,17 +65,21 @@ const getInitialData = async () => {
 
 // Async wrapper function for api calls
 const getUserAnsData = async ([input]) => {
-  let userAns;
+  let userTFAnswers;
+  let userMCAnswers;
+  let userSAAnswers;
   let questions;
   let quiz;
   try {
-    userAns = await apiClient.getUserAns(input.scoreId);
+    userTFAnswers = await apiClient.getUserTFAnswers(input.scoreId);
+    userMCAnswers = await apiClient.getUserMCAnswers(input.scoreId);
+    userSAAnswers = await apiClient.getUserSAAnswers(input.scoreId);
     questions = await apiClient.getQuizQuestions(input.quizId);
     quiz = await apiClient.getQuiz(input.quizId);
   } catch (e) {
     throw new Error(e);
   }
-  return { userAns, questions, quiz };
+  return { userTFAnswers, userMCAnswers, userSAAnswers, questions, quiz };
 };
 
 export default function AdminReviewScores(props) {
@@ -87,7 +91,9 @@ export default function AdminReviewScores(props) {
     quizId: 0,
     scoreId: 0
   });
-  const [userAns, setUserAns] = useState([]);
+  const [userTFAnswers, setUserTFAnswers] = useState([]);
+  const [userMCAnswers, setUserMCAnswers] = useState([]);
+  const [userSAAnswers, setUserSAAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [quiz, setQuiz] = useState([]);
   const [score, setScore] = useState(0);
@@ -110,7 +116,7 @@ export default function AdminReviewScores(props) {
       setUserArray(getInitialDataState.data.users.data);
       setScoreArray(getInitialDataState.data.scores.data);
     }
-  }, [getInitialDataState.isSettled]);
+  }, [getInitialDataState.isSettled, getInitialDataState.data]);
 
   useEffect(() => {
     setTableData(rowdata(scoreArray, userArray));
@@ -124,7 +130,9 @@ export default function AdminReviewScores(props) {
 
   useEffect(() => {
     if (getUserAnsDataState.isFulfilled) {
-      setUserAns(getUserAnsDataState.data.userAns.data);
+      setUserTFAnswers(getUserAnsDataState.data.userTFAnswers.data);
+      setUserMCAnswers(getUserAnsDataState.data.userMCAnswers.data);
+      setUserSAAnswers(getUserAnsDataState.data.userSAAnswers.data);
       setQuestions(getUserAnsDataState.data.questions.data);
       setQuiz(getUserAnsDataState.data.quiz.data);
     }
@@ -226,7 +234,9 @@ export default function AdminReviewScores(props) {
       handleOnClick={handleOnClick}
       back={back}
       questions={questions}
-      userAns={userAns}
+      userTFAnswers={userTFAnswers}
+      userMCAnswers={userMCAnswers}
+      userSAAnswers={userSAAnswers}
       handleCorrect={handleCorrect}
       handleWrong={handleWrong}
       handleSubmit={handleSubmit}

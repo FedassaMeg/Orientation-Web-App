@@ -16,7 +16,7 @@ function QuizProvider(props) {
 
   let quizId;
 
-  const { data, error, isPending, isRejected, isInitial, run } = useAsync({
+  const { data, error, isPending, isRejected, run } = useAsync({
     deferFn: bootstrapData,
     quizId
   });

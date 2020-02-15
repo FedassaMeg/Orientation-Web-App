@@ -16,16 +16,17 @@ export default function Reports(props) {
   } = props;
 
   const userList = userArray.map((user, index) => {
+    let userFullName;
     if (user.last_name !== "") {
-      const userFullName = user.last_name + ", " + user.first_name;
-      return (
-        <li>
-          <Button key={index} id={user.id} onClick={handleOnSubmit}>
-            {userFullName}
-          </Button>
-        </li>
-      );
+      userFullName = user.last_name + ", " + user.first_name;
     }
+    return (
+      <li>
+        <Button key={index} id={user.id} onClick={handleOnSubmit}>
+          {userFullName}
+        </Button>
+      </li>
+    );
   });
 
   const scoreList = scoreArray.map((rowdata, index) => {

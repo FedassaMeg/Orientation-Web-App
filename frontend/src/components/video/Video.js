@@ -27,8 +27,9 @@ export default function Video({ video }) {
 
 // Video Title [div]
 const pageHeader = css`
-  font-family: "Raleway", sans-serif;
-  font-size: 45px;
+  font-family: "Fira Sans", sans-serif;
+  font-size: 48px;
+  font-weight: 200;
   padding-left: 90px;
   padding-top: 10px;
   color: rgb(78, 78, 78);

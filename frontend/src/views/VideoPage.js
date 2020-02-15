@@ -21,10 +21,10 @@ const videosLookup = {
     title: "Infection Control Bag Technique",
     url: "infection-control-bag-technique"
   },
-  "proper-body-mechanics-and-back-safety": {
+  "proper-body-mechanics": {
     key: 4,
     title: "Proper Body Mechanics and Back Safety",
-    url: "proper-body-mechanics-and-back-safety"
+    url: "proper-body-mechanics"
   },
   "driving-safety": {
     key: 5,
@@ -36,10 +36,10 @@ const videosLookup = {
     title: "Hipaa",
     url: "hipaa"
   },
-  "personal-safety": {
+  "personal-safety-for-home-health-caregivers": {
     key: 7,
     title: "Personal Safety",
-    url: "personal-safety"
+    url: "personal-safety-for-home-health-caregivers"
   },
   "sexual-harassment-in-health-care": {
     key: 8,

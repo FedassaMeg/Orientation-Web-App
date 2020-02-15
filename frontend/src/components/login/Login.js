@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 //Local components
 import { useAuth } from "../context/AuthContext";

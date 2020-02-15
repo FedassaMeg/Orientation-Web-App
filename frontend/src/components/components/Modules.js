@@ -141,10 +141,6 @@ const link = css`
   }
 `;
 
-const linkText = css`
-  font: 16px "Open Sans", san-serif;
-`;
-
 const shell = css`
   width: 300px;
   height: 200px;

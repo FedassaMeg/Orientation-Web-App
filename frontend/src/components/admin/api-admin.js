@@ -26,11 +26,25 @@ function getUserScores(id) {
   return client(`/users/${id}/scores`);
 }
 
-function getUserAns(id) {
+function getUserTFAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/scores/${id}/useranswers`);
+  return client(`/scores/${id}/tfanswers`);
+}
+
+function getUserMCAnswers(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/scores/${id}/mcanswers`);
+}
+
+function getUserSAAnswers(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/scores/${id}/saanswers`);
 }
 
 function getQuizQuestions(id) {
@@ -40,18 +54,25 @@ function getQuizQuestions(id) {
   return client(`/quizs/${id}/questions`);
 }
 
-function getQuizAnswers(id) {
+function getQuizTFAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/answers`);
+  return client(`/quizs/${id}/tfanswers`);
 }
 
-function getAnswers(id) {
+function getQuizMCAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/answers/${id}`);
+  return client(`/quizs/${id}/mcanswers`);
+}
+
+function getQuizSAAnswers(id) {
+  if (!id) {
+    return Promise.resolve(null);
+  }
+  return client(`/quizs/${id}/saanswers`);
 }
 
 export {
@@ -60,8 +81,11 @@ export {
   getQuizzes,
   getScores,
   getUserScores,
-  getUserAns,
+  getUserTFAnswers,
+  getUserMCAnswers,
+  getUserSAAnswers,
   getQuizQuestions,
-  getQuizAnswers,
-  getAnswers
+  getQuizTFAnswers,
+  getQuizMCAnswers,
+  getQuizSAAnswers
 };

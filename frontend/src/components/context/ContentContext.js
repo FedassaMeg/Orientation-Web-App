@@ -81,8 +81,6 @@ function ContentProvider(props) {
     );
   }
 
-  console.log(quizzes);
-
   return (
     <ContentContext.Provider
       value={{ content, quizzes, modules, types }}

@@ -11,15 +11,15 @@ const handoutsLookup = {
     key: 1,
     title: "Catheter Insertion and Care HO"
   },
-  "catheter-irrigation": {
+  "foley-catheters": {
     key: 2,
     title: "Catheter Irrigation"
   },
-  oximetry: {
+  "pulse-oximetry": {
     key: 3,
     title: "Oximetry"
   },
-  "routine-venipuncture-procedure": {
+  venipuncture: {
     key: 4,
     title: "Routine Venipuncture Procedure"
   }

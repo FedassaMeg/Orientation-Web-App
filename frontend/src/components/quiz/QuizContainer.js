@@ -66,23 +66,28 @@ export default function QuizContainer() {
     }
   };
 
-  // Handles user interaction with radio buttons
+  // Handles user interaction with radio buttons ***Change Comment make it more explicit and focused on the function***
   const handleOnChange = event => {
     const key = questions[activeIndex].id;
+
     let value;
     let added;
+
     if (questions[activeIndex].question_type === 3) {
       value = event.target.value === "true";
       added = inputMap.set(key, value);
     }
+
     if (questions[activeIndex].question_type === 2) {
       value = event.target.value;
       added = inputMap.set(key, value);
     }
+
     if (questions[activeIndex].question_type === 1) {
       value = event.target.value;
       added = inputMap.set(key, value);
     }
+
     setInputMap(added);
     setCurrInput(value);
   };
@@ -93,33 +98,33 @@ export default function QuizContainer() {
         if (question.type === "SA") {
           const value = inputMap.get(index);
           axios.post(
-            `${ROOT_URL}/useranswers`,
+            `${ROOT_URL}/sauseranswers`,
             {
               quiz_score: id,
               question: question.id,
-              short_answer: value
+              answer: value
             },
             config
           );
         } else if (question.type === "TF") {
           const value = inputMap.get(index);
           axios.post(
-            `${ROOT_URL}/useranswers`,
+            `${ROOT_URL}/tfuseranswers`,
             {
               quiz_score: id,
               question: question.id,
-              true_or_false: value
+              answer: value
             },
             config
           );
         } else if (question.type === "MC") {
           const value = inputMap.get(index);
           axios.post(
-            `${ROOT_URL}/useranswers`,
+            `${ROOT_URL}/mcuseranswers`,
             {
               quiz_score: id,
               question: question.id,
-              multiple_choice: value
+              answer: value
             },
             config
           );

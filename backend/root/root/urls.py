@@ -3,7 +3,7 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt import views as jwt_views
 
-from quiz.views import  ModulesViewSet, ContentTypesViewSet, ContentViewSet, CompletedContentViewSet, QuizViewSet, QuizScoreViewSet, QuestionTypesViewSet, QuestionViewSet, ChoiceViewSet, TFAnswerViewSet, MCAnswerViewSet, SAAnswerViewSet, TFUserAnswerViewSet, MCUserAnswerViewSet, SAUserAnswerViewSet
+from quiz.views import  ModulesViewSet, ContentTypesViewSet, ContentViewSet, CompletedContentViewSet, QuizViewSet, QuizScoreViewSet, AllQuizScoreViewSet, QuestionTypesViewSet, QuestionViewSet, ChoiceViewSet, TFAnswerViewSet, MCAnswerViewSet, SAAnswerViewSet, TFUserAnswerViewSet, MCUserAnswerViewSet, SAUserAnswerViewSet
 from users.views import UserViewSet, RoleViewSet
 
 urlpatterns = [
@@ -27,7 +27,7 @@ urlpatterns = [
      path('api/quizs/<int:pk>/questions',
           QuestionViewSet.as_view({'get': 'list', 'post': 'create'})),
      path('api/scores/',
-          QuizScoreViewSet.as_view({'get': 'list', 'post': 'create'})),
+          AllQuizScoreViewSet.as_view({'get': 'list', 'post': 'create'})),
      path('api/scores/<int:pk>',
           QuizScoreViewSet.as_view({'get': 'retrieve', 'post': 'create', 'put': 'update'})),
      path('api/users/<int:pk>/completedcontent/',
@@ -42,6 +42,12 @@ urlpatterns = [
           MCAnswerViewSet.as_view({'get': 'list'})),
      path('api/quizs/<int:pk>/saanswers/',
           SAAnswerViewSet.as_view({'get': 'list'})),
+     path('api/scores/<int:pk>/tfuseranswers/',
+          TFUserAnswerViewSet.as_view({'get': 'list'})),
+     path('api/scores/<int:pk>/mcuseranswers/',
+          MCUserAnswerViewSet.as_view({'get': 'list'})),
+     path('api/scores/<int:pk>/sauseranswers/',
+          SAUserAnswerViewSet.as_view({'get': 'list'})),
      path('api/roles/',
           RoleViewSet.as_view({'get': 'list', 'post': 'create'})),   
      path('api/modules/',
