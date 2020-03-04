@@ -50,7 +50,7 @@ const pageheader = css`
   width: 100%;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: white;
+  background-color: #fdfdfd;
 `;
 
 const divider = css`
@@ -63,7 +63,7 @@ const cardscontainer = css`
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  width: 80%;
+  width: 100%;
   padding: 20px;
   background-color: whitesmoke;
   box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.15);

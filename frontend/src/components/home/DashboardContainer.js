@@ -12,7 +12,6 @@ import { ROOT_URL } from "../utils/constants";
 import { useContent } from "../context/ContentContext";
 import { useUser } from "../context/UserContext";
 import Dashboard from "./Dashboard";
-import PageSpinner from "../components/PageSpinner";
 
 //Function to filter array by module number
 const filterByModule = (arr, module) => {
@@ -74,10 +73,12 @@ const getData = async ({ user_id }) => {
 };
 
 export default function DashboardContainer() {
-  const { content, quizzes } = useContent();
+  const { content, quizzes, modules } = useContent();
 
   const { user } = useUser();
   const user_id = user.id;
+
+  console.log(modules);
 
   const initialStateMd = {
     md1: [],

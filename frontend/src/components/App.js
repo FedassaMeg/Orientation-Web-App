@@ -8,13 +8,13 @@ import Routes from "./routes/Routes";
 export default function App() {
   return (
     <div css={body}>
-      {/* <Scrollbars
+      <Scrollbars
         style={{ width: "100vw", height: "100vh" }}
         hideTracksWhenNotNeeded
         autoHide
-      > */}
-      <Routes />
-      {/* </Scrollbars> */}
+      >
+        <Routes />
+      </Scrollbars>
     </div>
   );
 }

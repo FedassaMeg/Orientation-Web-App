@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 
 //Axios HTTP Client
 import axios from "axios";
@@ -175,9 +175,6 @@ export default function QuizContainer() {
       score = score + 1;
     }
   };
-  console.log(ansArr);
-  console.log(score);
-  console.log(inputMap);
   return (
     <Quiz
       activeIndex={activeIndex}

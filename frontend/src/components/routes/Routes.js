@@ -17,14 +17,12 @@ import VideosPage from "../../views/VideosPage";
 import VideoPage from "../../views/VideoPage";
 import HandoutsPage from "../../views/HandoutsPage";
 import HandoutPage from "../../views/HandoutPage";
-import OverlayTest from "../home/OverlayTest";
 
 export default function Routes() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={LandingPage} />
-        <Route exact path="/test" component={OverlayTest} />
         <PrivateRoute path="/home" component={HomePage} />
         <PrivateRoute path="/quiz/:id" component={QuizPage} />
         <PrivateRoute path="/quizs" component={QuizzesPage} />
