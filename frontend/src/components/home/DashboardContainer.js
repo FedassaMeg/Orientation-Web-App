@@ -78,8 +78,6 @@ export default function DashboardContainer() {
   const { user } = useUser();
   const user_id = user.id;
 
-  console.log(modules);
-
   const initialStateMd = {
     md1: [],
     md2: [],

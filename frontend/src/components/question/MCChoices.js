@@ -4,47 +4,24 @@ import { css, jsx } from "@emotion/core";
 // Material UI Components
 import Radio from "@material-ui/core/Radio";
 
-export default function MCChoices({ answer, handleOnChange, qstChoices }) {
-  return (
-    <div css={container}>
-      <label css={choice}>
+export default function MCChoices({ answer, handleOnChange, choices }) {
+  const radioButtons = choices.map((choice, index) => {
+    const letter =
+      index === 0 ? "a" : index === 1 ? "b" : index === 2 ? "c" : "d";
+    return (
+      <label key={`radio-btn-${choice.id}`} css={label}>
         <Radio
           color="default"
-          checked={answer === "a"}
+          checked={answer === letter}
           onChange={handleOnChange}
-          value="a"
+          value={letter}
         />
-        <span>{qstChoices[0].choice}</span>
+        <span>{choice.choice}</span>
       </label>
-      <label css={choice}>
-        <Radio
-          color="default"
-          checked={answer === "b"}
-          onChange={handleOnChange}
-          value="b"
-        />
-        <span>{qstChoices[1].choice}</span>
-      </label>
-      <label css={choice}>
-        <Radio
-          color="default"
-          checked={answer === "c"}
-          onChange={handleOnChange}
-          value="c"
-        />
-        <span>{qstChoices[2].choice}</span>
-      </label>
-      <label css={choice}>
-        <Radio
-          color="default"
-          checked={answer === "d"}
-          onChange={handleOnChange}
-          value="d"
-        />
-        <span>{qstChoices[3].choice}</span>
-      </label>
-    </div>
-  );
+    );
+  });
+
+  return <div css={container}>{radioButtons}</div>;
 }
 
 const container = css`
@@ -52,7 +29,7 @@ const container = css`
   flex-direction: column;
 `;
 
-const choice = css`
+const label = css`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

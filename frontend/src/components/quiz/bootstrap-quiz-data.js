@@ -7,27 +7,31 @@ import {
 } from "./api-call-quiz";
 
 async function bootstrapData(quizId) {
-  const res = await getQuiz(quizId);
-  if (!res) {
-    return { quiz: null };
+  try {
+    const quizData = await getQuiz(quizId);
+    const questionsData = await getQuizQuestions(quizId);
+    const tfanswersData = await getQuizTFAnswers(quizId);
+    const mcanswersData = await getQuizMCAnswers(quizId);
+    const saanswersData = await getQuizSAAnswers(quizId);
+    const answers = [
+      ...tfanswersData.data,
+      ...mcanswersData.data,
+      ...saanswersData.data
+    ];
+    const data = Object.freeze(
+      Object.assign(
+        {},
+        { quiz: quizData.data },
+        { questions: questionsData.data },
+        {
+          answers
+        }
+      )
+    );
+    return data;
+  } catch (e) {
+    console.log(e);
   }
-  const quiz = res.data;
-
-  const questionsRes = await getQuizQuestions(quizId);
-  if (!questionsRes) {
-    return { questions: null };
-  }
-  const questions = questionsRes.data;
-
-  const tfanswersRes = await getQuizTFAnswers(quizId);
-  const mcanswersRes = await getQuizMCAnswers(quizId);
-  const saanswersRes = await getQuizSAAnswers(quizId);
-
-  const answers = tfanswersRes.data.concat(
-    mcanswersRes.data.concat(saanswersRes.data)
-  );
-
-  return { quiz, questions, answers };
 }
 
 export { bootstrapData };

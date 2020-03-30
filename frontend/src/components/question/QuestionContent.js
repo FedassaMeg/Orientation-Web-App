@@ -5,7 +5,7 @@ export default function QuestionContent({ activeIndex, question }) {
   return (
     <div css={container}>
       <div css={number}>{activeIndex + 1}.</div>
-      <div css={questionStyle}>{question.question} </div>
+      <div css={questionStyle}>{question} </div>
     </div>
   );
 }

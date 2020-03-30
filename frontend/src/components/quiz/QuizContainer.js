@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-
-// import ReactDOM from "react-dom";
+import React, { useEffect, useState, useReducer } from "react";
 
 //Axios HTTP Client
+//TODO: Add post functionality to api-client
 import axios from "axios";
 
 // React Router DOM history hook
@@ -20,49 +19,76 @@ export default function QuizContainer() {
 
   let score = 0;
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [inputMap, setInputMap] = useState(new Map());
-  const [ansArr, setAnsArr] = useState([]);
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [currInput, setCurrInput] = useState(null);
+  const initialState = {
+    activeIndex: 0,
+    currInput: null,
+    inputMap: new Map(),
+    isCompleted: false
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "next":
+        return { ...state, activeIndex: state.activeIndex + 1 };
+      case "prev":
+        return { ...state, activeIndex: state.activeIndex - 1 };
+      case "complete":
+        return { ...state, isCompleted: true };
+      case "back":
+        return {
+          ...state,
+          activeIndex: 0,
+          isCompleted: false
+        };
+      case "addInput":
+        return { ...state, inputMap: action.inputMap };
+      case "setCurrInput":
+        return { ...state, currInput: action.currInput };
+      default:
+        return state;
+    }
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { activeIndex, currInput, inputMap, isCompleted } = state;
+
+  // const [activeIndex, setActiveIndex] = useState(0);
+  // const [inputMap, setInputMap] = useState(new Map());
+  // const [isCompleted, setIsCompleted] = useState(false);
+  // const [currInput, setCurrInput] = useState(null);
 
   //Pose animation direction
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    setCurrInput(inputMap.get(activeIndex));
+    dispatch({
+      type: "setCurrInput",
+      currInput: inputMap.get(questions[activeIndex].id)
+    });
   }, [activeIndex, inputMap]);
 
   // Handles click event on next button
   const next = () => {
     if (activeIndex < questions.length - 1) {
-      setActiveIndex(activeIndex + 1);
+      dispatch({ type: "next" });
       setAnimate(false);
     } else if (activeIndex + 1 === questions.length) {
-      setIsCompleted(true);
-      setAnsArr(answers);
-    } else {
-      return;
+      dispatch({ type: "complete" });
+      console.log(inputMap);
     }
   };
 
   // Handles click event on prev button
   const prev = () => {
     if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-      setAnimate(true);
-    } else {
-      return;
+      dispatch({ type: "prev" });
     }
   };
 
   // Handles click event on back button
   const back = () => {
     if (activeIndex > 0) {
-      setActiveIndex(0);
-      setIsCompleted(false);
-    } else {
-      return;
+      dispatch({ type: "back" });
     }
   };
 
@@ -70,35 +96,32 @@ export default function QuizContainer() {
   const handleOnChange = event => {
     const key = questions[activeIndex].id;
 
-    let value;
-    let added;
-
     if (questions[activeIndex].question_type === 3) {
-      value = event.target.value === "true";
-      added = inputMap.set(key, value);
+      const value = event.target.value === "true";
+      const added = inputMap.set(key, value);
+      dispatch({ type: "setCurrInput", currInput: value });
+      dispatch({ type: "addInput", inputMap: added });
+    } else if (questions[activeIndex].question_type === 2) {
+      const value = event.target.value;
+      const added = inputMap.set(key, value);
+      dispatch({ type: "setCurrInput", currInput: value });
+      dispatch({ type: "addInput", inputMap: added });
+    } else if (questions[activeIndex].question_type === 1) {
+      const value = event.target.value;
+      const added = inputMap.set(key, value);
+      dispatch({ type: "setCurrInput", currInput: value });
+      dispatch({ type: "addInput", inputMap: added });
     }
-
-    if (questions[activeIndex].question_type === 2) {
-      value = event.target.value;
-      added = inputMap.set(key, value);
-    }
-
-    if (questions[activeIndex].question_type === 1) {
-      value = event.target.value;
-      added = inputMap.set(key, value);
-    }
-
-    setInputMap(added);
-    setCurrInput(value);
   };
 
   const sendQuestionAns = (id, config) => {
     if (quiz.review_required) {
       questions.map((question, index) => {
-        if (question.type === "SA") {
-          const value = inputMap.get(index);
+        console.log(questions);
+        if (question.question_type === 1) {
+          const value = inputMap.get(question.id);
           axios.post(
-            `${ROOT_URL}/sauseranswers`,
+            `${ROOT_URL}/sauseranswers/`,
             {
               quiz_score: id,
               question: question.id,
@@ -106,10 +129,10 @@ export default function QuizContainer() {
             },
             config
           );
-        } else if (question.type === "TF") {
-          const value = inputMap.get(index);
+        } else if (question.question_type === 3) {
+          const value = inputMap.get(question.id);
           axios.post(
-            `${ROOT_URL}/tfuseranswers`,
+            `${ROOT_URL}/tfuseranswers/`,
             {
               quiz_score: id,
               question: question.id,
@@ -117,10 +140,10 @@ export default function QuizContainer() {
             },
             config
           );
-        } else if (question.type === "MC") {
-          const value = inputMap.get(index);
+        } else if (question.question_type === 2) {
+          const value = inputMap.get(question.id);
           axios.post(
-            `${ROOT_URL}/mcuseranswers`,
+            `${ROOT_URL}/mcuseranswers/`,
             {
               quiz_score: id,
               question: question.id,
@@ -159,7 +182,7 @@ export default function QuizContainer() {
       .then(res => {
         alert("Quiz Submitted!");
         history.push("/home");
-        return sendQuestionAns(res.data.id, config);
+        sendQuestionAns(res.data.id, config);
       })
       .catch(err => {
         console.log(err);
@@ -168,7 +191,7 @@ export default function QuizContainer() {
 
   // Helper function to evaluate the user input against the answers and determine a score
   const compareAnsToInput = (value, key) => {
-    let ansValue = ansArr.find(elm => {
+    let ansValue = answers.find(elm => {
       return elm.question === key;
     });
     if (value == ansValue.answer) {
@@ -178,15 +201,15 @@ export default function QuizContainer() {
   return (
     <Quiz
       activeIndex={activeIndex}
-      isCompleted={isCompleted}
-      next={next}
-      prev={prev}
+      animate={animate}
+      answer={currInput}
+      answers={inputMap}
       back={back}
       handleOnChange={handleOnChange}
       handleSubmit={handleSubmit}
-      answers={inputMap}
-      answer={currInput}
-      animate={animate}
+      isCompleted={isCompleted}
+      next={next}
+      prev={prev}
     />
   );
 }

@@ -1,9 +1,11 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Link } from "react-router-dom";
+
+import Collapse from "@material-ui/core/Collapse";
 
 import {
   FaCheck,
@@ -13,8 +15,6 @@ import {
   FaVideo,
   FaFileAlt
 } from "react-icons/fa";
-
-import Collapse from "@material-ui/core/Collapse";
 
 //Local components
 import PanelHead from "../components/PanelHead";
@@ -101,8 +101,7 @@ export default function HomePanel(props) {
     );
   });
 
-  return [
-    <>{expand && <div css={overlay} />}</>,
+  return (
     <Card>
       <div css={container}>
         <PanelHead
@@ -117,7 +116,7 @@ export default function HomePanel(props) {
         </Collapse>
       </div>
     </Card>
-  ];
+  );
 }
 const heading = css``;
 
@@ -222,18 +221,4 @@ const list = css`
   font: 14px "Open Sans", sans-serif;
   padding: 8px;
   width: 100%;
-`;
-
-const overlay = css`
-  position: fixed;
-  display: none;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 3;
-  cursor: pointer;
 `;

@@ -21,7 +21,7 @@ export default function Reports(props) {
       userFullName = user.last_name + ", " + user.first_name;
     }
     return (
-      <li>
+      <li key={index}>
         <Button key={index} id={user.id} onClick={handleOnSubmit}>
           {userFullName}
         </Button>

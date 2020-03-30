@@ -14,7 +14,7 @@ SECRET_KEY = 'to74ucp6@c_azau4ypz16#u=pr6p^7yy=d32$&x#@jbxu*to%s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.2.7.66', 'localhost']
+ALLOWED_HOSTS = ['10.2.7.147', 'localhost']
 
 
 # Application definition
@@ -135,23 +135,4 @@ SIMPLE_JWT = {
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180)
-}
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': './debug.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
 }

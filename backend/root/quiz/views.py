@@ -127,7 +127,7 @@ class SAAnswerViewSet(viewsets.ModelViewSet):
 class TFUserAnswerViewSet(viewsets.ModelViewSet):
     serializer_class = TFUserAnswerSerializer
     queryset = TFUserAnswer.objects.all()
-
+    
     def list(self, request, pk):
         queryset = TFUserAnswer.objects.filter(quiz_score=pk)
         serializer = TFUserAnswerSerializer(queryset, many=True)

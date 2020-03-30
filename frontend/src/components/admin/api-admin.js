@@ -30,21 +30,21 @@ function getUserTFAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/scores/${id}/tfanswers`);
+  return client(`/scores/${id}/tfuseranswers`);
 }
 
 function getUserMCAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/scores/${id}/mcanswers`);
+  return client(`/scores/${id}/mcuseranswers`);
 }
 
 function getUserSAAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/scores/${id}/saanswers`);
+  return client(`/scores/${id}/sauseranswers`);
 }
 
 function getQuizQuestions(id) {

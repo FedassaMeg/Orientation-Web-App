@@ -20,6 +20,7 @@ export default function TFChoices({ answer, handleOnChange }) {
       <label css={choice}>
         <Radio
           color="default"
+          //If answer is null false will not be checked
           checked={answer === false}
           onChange={handleOnChange}
           value={false}

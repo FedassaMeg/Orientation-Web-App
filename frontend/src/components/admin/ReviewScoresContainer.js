@@ -50,36 +50,28 @@ const rowdata = (scoreArr, userArr) => {
 
 // Async wrapper function for api calls
 const getInitialData = async () => {
-  let quizzes;
-  let users;
-  let scores;
   try {
-    quizzes = await apiClient.getQuizzes();
-    users = await apiClient.getUsers();
-    scores = await apiClient.getScores();
+    const quizzes = await apiClient.getQuizzes();
+    const users = await apiClient.getUsers();
+    const scores = await apiClient.getScores();
+    return { quizzes, users, scores };
   } catch (e) {
     throw new Error(e);
   }
-  return { quizzes, users, scores };
 };
 
 // Async wrapper function for api calls
 const getUserAnsData = async ([input]) => {
-  let userTFAnswers;
-  let userMCAnswers;
-  let userSAAnswers;
-  let questions;
-  let quiz;
   try {
-    userTFAnswers = await apiClient.getUserTFAnswers(input.scoreId);
-    userMCAnswers = await apiClient.getUserMCAnswers(input.scoreId);
-    userSAAnswers = await apiClient.getUserSAAnswers(input.scoreId);
-    questions = await apiClient.getQuizQuestions(input.quizId);
-    quiz = await apiClient.getQuiz(input.quizId);
+    const userTFAnswers = await apiClient.getUserTFAnswers(input.scoreId);
+    const userMCAnswers = await apiClient.getUserMCAnswers(input.scoreId);
+    const userSAAnswers = await apiClient.getUserSAAnswers(input.scoreId);
+    const questions = await apiClient.getQuizQuestions(input.quizId);
+    const quiz = await apiClient.getQuiz(input.quizId);
+    return { userTFAnswers, userMCAnswers, userSAAnswers, questions, quiz };
   } catch (e) {
     throw new Error(e);
   }
-  return { userTFAnswers, userMCAnswers, userSAAnswers, questions, quiz };
 };
 
 export default function AdminReviewScores(props) {
@@ -119,7 +111,7 @@ export default function AdminReviewScores(props) {
   }, [getInitialDataState.isSettled, getInitialDataState.data]);
 
   useEffect(() => {
-    setTableData(rowdata(scoreArray, userArray));
+    setTableData(rowdata(scoreArray.reverse(), userArray));
   }, [scoreArray, userArray]);
 
   useEffect(() => {

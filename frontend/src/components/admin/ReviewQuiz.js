@@ -26,7 +26,7 @@ export default function ReviewQuiz(props) {
       if (question.id == ans.question) {
         const corrected = isCorrect.get(question.id);
         return (
-          <div key={index} css={row}>
+          <div key={`question-${index}`} css={row}>
             <div css={content}>
               <div css={question}>
                 <span css={qstSpan}>Question {index + 1}: </span>
@@ -34,12 +34,9 @@ export default function ReviewQuiz(props) {
               </div>
               <div css={answer}>
                 <span css={ansSpan}>User Answer: </span>
-                {question.type === "SA"
-                  ? ans.short_answer
-                  : question.type === "TF"
-                  ? ans.true_or_false.toString()
-                  : question.type === "MC"
-                  ? ans.multiple_choice
+                {console.log(ans)}
+                {ans.answer !== null && ans.answer !== undefined
+                  ? ans.answer.toString()
                   : "Invalid Answer!"}
               </div>
             </div>

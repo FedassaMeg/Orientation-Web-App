@@ -61,8 +61,6 @@ export default function Quiz(props) {
                 handleOnChange={handleOnChange}
                 animate={animate}
                 question={questions[activeIndex]}
-                type={questions[activeIndex].question_type}
-                choices={questions[activeIndex].choices}
               />
               <div css={btnGroup}>
                 {!activeIndex == 0 ? (

@@ -51,7 +51,9 @@ export default function ReviewScores(props) {
     rowsPerPage,
     scoreId,
     tableData,
-    userAns
+    userTFAnswers,
+    userMCAnswers,
+    userSAAnswers
   } = props;
 
   const emptyRow = css`
@@ -137,7 +139,7 @@ export default function ReviewScores(props) {
             scoreId={scoreId}
             back={back}
             questions={questions}
-            userAns={userAns}
+            userAns={[...userMCAnswers, ...userSAAnswers, ...userTFAnswers]}
             handleCorrect={handleCorrect}
             handleWrong={handleWrong}
             handleSubmit={handleSubmit}

@@ -10,7 +10,7 @@ export default function Dashboard(props) {
 
   const { modules } = useContent();
 
-  const homePanels = modules.map(module => {
+  const homePanels = modules.map((module, index) => {
     let moduleList;
     let percentage;
 
@@ -56,7 +56,7 @@ export default function Dashboard(props) {
     }
 
     return (
-      <div key={module.id} css={cardGroup}>
+      <div key={`panel-cont-${index}`} css={cardGroup}>
         <HomePanel
           header={module.title}
           number={module.number}

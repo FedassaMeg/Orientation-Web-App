@@ -6,32 +6,21 @@ import SAChoices from "./SAChoices";
 import TFChoices from "./TFChoices";
 
 export default function Choices(props) {
-  const { activeIndex, handleOnChange, answer, type, choices } = props;
-  if (type === 3) {
-    return (
-      <TFChoices
-        activeIndex={activeIndex}
-        handleOnChange={handleOnChange}
-        answer={answer}
-      />
-    );
-  } else if (type === 2) {
-    return (
-      <MCChoices
-        activeIndex={activeIndex}
-        handleOnChange={handleOnChange}
-        qstChoices={choices}
-        answer={answer}
-      />
-    );
-  } else if (type === 1) {
-    return (
-      <SAChoices
-        activeIndex={activeIndex}
-        handleOnChange={handleOnChange}
-        answer={answer}
-      />
-    );
+  const { answer, choices, handleOnChange, type } = props;
+  switch (type) {
+    case 1:
+      return <SAChoices answer={answer} handleOnChange={handleOnChange} />;
+    case 2:
+      return (
+        <MCChoices
+          answer={answer}
+          choices={choices}
+          handleOnChange={handleOnChange}
+        />
+      );
+    case 3:
+      return <TFChoices answer={answer} handleOnChange={handleOnChange} />;
+    default:
+      return null;
   }
-  return null;
 }
