@@ -45,7 +45,6 @@ const ContentContext = createContext();
 
 function ContentProvider(props) {
   const { user, isAuthenticated } = useUser();
-  console.log(user);
 
   const [content, setContent] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
@@ -65,7 +64,6 @@ function ContentProvider(props) {
   useEffect(() => {
     if (isFulfilled) {
       const activeQuizzes = filterActive(data.quizzes.data);
-      //const activeSlides = filterActive(data.slides.data);
       const userQuizzes = filterByUserRole(activeQuizzes, user);
       const userContent = filterByUserRole(data.content.data, user);
       setQuizzes(userQuizzes);

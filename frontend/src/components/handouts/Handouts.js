@@ -9,11 +9,11 @@ const handoutsArr = [
     title: "Catheter Insertion and Care HO",
     url_value: "catheter-insertion-and-care-ho"
   },
-  { title: "Catheter Irrigation", url_value: "catheter-irrigation" },
-  { title: "Oximetry", url_value: "oximetry" },
+  { title: "Catheter Irrigation", url_value: "foley-catheters" },
+  { title: "Oximetry", url_value: "pulse-oximetry" },
   {
     title: "Routine Venipuncture Procedure",
-    url_value: "routine-venipuncture-procedure"
+    url_value: "venipuncture"
   }
 ];
 

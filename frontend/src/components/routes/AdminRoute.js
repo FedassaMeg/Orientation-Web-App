@@ -13,7 +13,10 @@ export const AdminRoute = ({ component: Component, ...rest }) => {
           <Component {...props} />
         ) : (
           <Redirect
-            to={{ pathname: "/home", state: { from: props.location } }}
+            to={{
+              pathname: "/orientation/home",
+              state: { from: props.location }
+            }}
           />
         )
       }

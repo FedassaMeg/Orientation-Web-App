@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect } from "react";
 
+import { useParams } from "react-router-dom";
+
 //Utility hook for data fetching and promise resolution
 import { useAsync } from "react-async";
 
@@ -12,7 +14,7 @@ const QuizContext = createContext();
 function QuizProvider(props) {
   const { quizzes } = useContent();
 
-  const quizUrl = props.match.params.id;
+  let params = useParams();
 
   let quizId;
 
@@ -24,11 +26,11 @@ function QuizProvider(props) {
   useEffect(() => {
     if (quizzes.length > 0) {
       const currQuiz = quizzes.filter(item => {
-        return item.url_value === quizUrl;
+        return item.url_value === params.id;
       });
       run(currQuiz[0].id);
     }
-  }, [quizzes, quizUrl]);
+  }, [quizzes, params.id]);
 
   if (isPending) return null;
   if (isRejected) return <pre>{error.message}</pre>;

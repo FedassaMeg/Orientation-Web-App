@@ -9,6 +9,7 @@ import NavLink from "./NavLink";
 import SignoutButton from "../components/SignoutButton";
 
 export default function NavLinks({ admin, isAuthenticated, isAdmin }) {
+  const url = "/orientation";
   return (
     <Navbar>
       {!admin ? (
@@ -22,23 +23,23 @@ export default function NavLinks({ admin, isAuthenticated, isAdmin }) {
         <div>
           <Nav>
             <NavItem>
-              <NavLink href="/home">Home</NavLink>
+              <NavLink href={`${url}/home`}>Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/slides">Slides</NavLink>
+              <NavLink href={`${url}/slides`}>Slides</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/quizs">Quizzes</NavLink>
+              <NavLink href={`${url}/quizs`}>Quizzes</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/videos">Videos</NavLink>
+              <NavLink href={`${url}/videos`}>Videos</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/handouts">Handouts</NavLink>
+              <NavLink href={`${url}/handouts`}>Handouts</NavLink>
             </NavItem>
             {isAdmin && (
               <NavItem>
-                <NavLink href="/site-admin">Admin</NavLink>
+                <NavLink href={`${url}/site-admin`}>Admin</NavLink>
               </NavItem>
             )}
 
@@ -51,7 +52,7 @@ export default function NavLinks({ admin, isAuthenticated, isAdmin }) {
         <div>
           <Nav>
             <div css={navBtn}>
-              <NavLink href="/login">
+              <NavLink href={`${url}/login`}>
                 <button css={loginBtn}>Login</button>
               </NavLink>
             </div>

@@ -11,7 +11,7 @@ import {
   MdDescription
 } from "react-icons/md";
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ url }) {
   return (
     <div css={sidebar}>
       <div css={sectionContainer}>
@@ -20,14 +20,14 @@ export default function AdminSidebar() {
           <div css={linkRow}>
             <MdAssignmentTurnedIn />
             {"  "}
-            <Link to="/site-admin/review-scores" css={link}>
+            <Link to={`${url}/review-scores`} css={link}>
               Review Scores
             </Link>
           </div>
           <div css={linkRow}>
             <MdAssessment />
             {"  "}
-            <Link to="/site-admin/reports" css={link}>
+            <Link to={`${url}/reports`} css={link}>
               Reports
             </Link>
           </div>
