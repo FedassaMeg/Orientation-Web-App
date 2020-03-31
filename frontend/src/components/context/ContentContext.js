@@ -14,10 +14,14 @@ const filterActive = arr => {
   });
 };
 
-const filterByUserRole = (arr, role) => {
-  return arr.filter(item => {
-    return item.group.indexOf(role) !== -1;
-  });
+const filterByUserRole = (arr, user) => {
+  if (!user.is_staff)
+    return arr.filter(item => {
+      return item.group.indexOf(user.role) !== -1;
+    });
+  else if (user.is_staff) {
+    return arr;
+  }
 };
 
 const getData = async () => {
@@ -41,6 +45,7 @@ const ContentContext = createContext();
 
 function ContentProvider(props) {
   const { user, isAuthenticated } = useUser();
+  console.log(user);
 
   const [content, setContent] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
@@ -61,8 +66,8 @@ function ContentProvider(props) {
     if (isFulfilled) {
       const activeQuizzes = filterActive(data.quizzes.data);
       //const activeSlides = filterActive(data.slides.data);
-      const userQuizzes = filterByUserRole(activeQuizzes, user.role);
-      const userContent = filterByUserRole(data.content.data, user.role);
+      const userQuizzes = filterByUserRole(activeQuizzes, user);
+      const userContent = filterByUserRole(data.content.data, user);
       setQuizzes(userQuizzes);
       setContent(userContent);
       setModules(data.modules.data);
