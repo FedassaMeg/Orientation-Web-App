@@ -50,6 +50,7 @@ export default function QuizContainer() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const { activeIndex, currInput, inputMap, isCompleted } = state;
 
   // const [activeIndex, setActiveIndex] = useState(0);
