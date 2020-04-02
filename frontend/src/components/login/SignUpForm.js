@@ -92,7 +92,7 @@ export default function SignUpForm(props) {
             </button>
           </form>
           <div css={link}>
-            <Link to="/orientation/login">
+            <Link to="/login">
               <span css={altLinks}>Already have an account?</span>
             </Link>
           </div>

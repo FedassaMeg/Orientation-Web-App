@@ -10,7 +10,7 @@ function SignoutButton(props) {
     logout();
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("userIsStaff");
-    props.history.push("/orientation/login");
+    props.history.push("/login");
   };
 
   return (

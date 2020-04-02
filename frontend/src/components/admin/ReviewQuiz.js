@@ -34,7 +34,6 @@ export default function ReviewQuiz(props) {
               </div>
               <div css={answer}>
                 <span css={ansSpan}>User Answer: </span>
-                {console.log(ans)}
                 {ans.answer !== null && ans.answer !== undefined
                   ? ans.answer.toString()
                   : "Invalid Answer!"}

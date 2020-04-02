@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useRouteMatch
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Util Components
 import { PrivateRoute } from "../routes/PrivateRoute";
@@ -24,20 +19,19 @@ import HandoutsPage from "../../views/HandoutsPage";
 import HandoutPage from "../../views/HandoutPage";
 
 export default function Routes() {
-  const url = "/orientation";
   return (
-    <Router>
+    <Router basename={"/orientation"}>
       <Switch>
-        <Route exact path={url} component={LandingPage} />
-        <PrivateRoute path={`${url}/home`} component={HomePage} />
-        <PrivateRoute path={`${url}/quiz/:id`} component={QuizPage} />
-        <PrivateRoute path={`${url}/quizs`} component={QuizzesPage} />
-        <PrivateRoute path={`${url}/slides`} component={SlidesPage} />
-        <PrivateRoute path={`${url}/videos`} component={VideosPage} />
-        <PrivateRoute path={`${url}/video/:id`} component={VideoPage} />
-        <PrivateRoute path={`${url}/handouts`} component={HandoutsPage} />
-        <PrivateRoute path={`${url}/handout/:id`} component={HandoutPage} />
-        <AdminRoute path={`${url}/site-admin`} component={AdminPage} />
+        <Route exact path="/" component={LandingPage} />
+        <PrivateRoute path="/home" component={HomePage} />
+        <PrivateRoute path="/quiz/:id" component={QuizPage} />
+        <PrivateRoute path="/quizs" component={QuizzesPage} />
+        <PrivateRoute path="/slides" component={SlidesPage} />
+        <PrivateRoute path="/videos" component={VideosPage} />
+        <PrivateRoute path="/video/:id" component={VideoPage} />
+        <PrivateRoute path="/handouts" component={HandoutsPage} />
+        <PrivateRoute path="/handout/:id" component={HandoutPage} />
+        <AdminRoute path="/site-admin" component={AdminPage} />
         <LoginRoute />
       </Switch>
     </Router>

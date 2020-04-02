@@ -78,7 +78,7 @@ export default function LoginForm(props) {
           </form>
 
           <div css={link}>
-            <Link to="/orientation/signup">
+            <Link to="/signup">
               <span css={altLinks}>Register a new account.</span>
             </Link>
           </div>

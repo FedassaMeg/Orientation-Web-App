@@ -1,27 +1,27 @@
 import client from "../utils/api-client";
 
 function getQuizzes() {
-  return client(`/quizs`);
+  return client(`/quizs/`);
 }
 
 function getContent() {
-  return client(`/content`);
+  return client(`/content/`);
 }
 
 function getModules() {
-  return client(`/modules`);
+  return client(`/modules/`);
 }
 
 function getTypes() {
-  return client(`/contenttypes`);
+  return client(`/contenttypes/`);
 }
 
 function getCompletedQuizzes(user_id) {
-  return client(`/users/${user_id}/scores`);
+  return client(`/users/${user_id}/scores/`);
 }
 
 function getCompletedContent(user_id) {
-  return client(`/users/${user_id}/completedcontent`);
+  return client(`/users/${user_id}/completedcontent/`);
 }
 
 export {

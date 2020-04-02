@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Orientation Web App for First Call Hospice",
   "private": true,
+  "homepage": "https://www.fchosp.com/orientation",
   "dependencies": {
     "@emotion/core": "^10.0.15",
     "@material-ui/core": "^4.5.1",

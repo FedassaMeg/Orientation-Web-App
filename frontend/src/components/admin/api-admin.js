@@ -1,7 +1,7 @@
 import client from "../utils/api-client";
 
 function getUsers() {
-  return client(`/users`);
+  return client(`/users/`);
 }
 
 function getQuiz(id) {
@@ -12,39 +12,39 @@ function getQuiz(id) {
 }
 
 function getQuizzes() {
-  return client(`/quizs`);
+  return client(`/quizs/`);
 }
 
 function getScores() {
-  return client(`/scores`);
+  return client(`/scores/`);
 }
 
 function getUserScores(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/users/${id}/scores`);
+  return client(`/users/${id}/scores/`);
 }
 
 function getUserTFAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/scores/${id}/tfuseranswers`);
+  return client(`/scores/${id}/tfuseranswers/`);
 }
 
 function getUserMCAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/scores/${id}/mcuseranswers`);
+  return client(`/scores/${id}/mcuseranswers/`);
 }
 
 function getUserSAAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/scores/${id}/sauseranswers`);
+  return client(`/scores/${id}/sauseranswers/`);
 }
 
 function getQuizQuestions(id) {
@@ -58,21 +58,21 @@ function getQuizTFAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/tfanswers`);
+  return client(`/quizs/${id}/tfanswers/`);
 }
 
 function getQuizMCAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/mcanswers`);
+  return client(`/quizs/${id}/mcanswers/`);
 }
 
 function getQuizSAAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/saanswers`);
+  return client(`/quizs/${id}/saanswers/`);
 }
 
 export {

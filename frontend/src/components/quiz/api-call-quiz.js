@@ -8,11 +8,11 @@ function getQuiz(id) {
 }
 
 function getQuizzes() {
-  return client(`/quizs`);
+  return client(`/quizs/`);
 }
 
 function getQuizScores() {
-  return client(`/scores`);
+  return client(`/scores/`);
 }
 
 function getQuizQuestions(id) {
@@ -26,21 +26,21 @@ function getQuizTFAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/tfanswers`);
+  return client(`/quizs/${id}/tfanswers/`);
 }
 
 function getQuizMCAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/mcanswers`);
+  return client(`/quizs/${id}/mcanswers/`);
 }
 
 function getQuizSAAnswers(id) {
   if (!id) {
     return Promise.resolve(null);
   }
-  return client(`/quizs/${id}/saanswers`);
+  return client(`/quizs/${id}/saanswers/`);
 }
 
 function getAnswers(id) {

@@ -16,14 +16,13 @@ export default function LoginRoute() {
   // Is current user authenticated
   const loggedIn = user.isAuthenticated;
 
-  const url = "/orientation";
   return (
     <TransitionSwitch location={location}>
-      <Route path={`${url}/login`} key="login">
-        {loggedIn ? <Redirect to={`${url}/home`} /> : <Login />}
+      <Route path="/login" key="login">
+        {loggedIn ? <Redirect to="/home" /> : <Login />}
       </Route>
-      <Route path={`${url}/signup`} key="signup">
-        {loggedIn ? <Redirect to={`${url}/home`} /> : <SignUp />}
+      <Route path="/signup" key="signup">
+        {loggedIn ? <Redirect to="/home" /> : <SignUp />}
       </Route>
     </TransitionSwitch>
   );

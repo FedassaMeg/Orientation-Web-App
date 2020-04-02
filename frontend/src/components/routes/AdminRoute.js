@@ -14,7 +14,7 @@ export const AdminRoute = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/orientation/home",
+              pathname: "/home",
               state: { from: props.location }
             }}
           />
