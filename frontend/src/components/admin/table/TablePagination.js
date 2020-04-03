@@ -5,8 +5,6 @@ import IconButton from "@material-ui/core/IconButton";
 
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
-import TableCell from "./TableCell";
-
 const defaultRowsPerPageOptions = [10, 25, 50, 100];
 
 export default function TablePagination(props) {

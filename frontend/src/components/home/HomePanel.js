@@ -40,7 +40,7 @@ export default function HomePanel(props) {
             <a
               id={item.id}
               href={item.url_value}
-              target="blank"
+              target="_blank"
               css={itemGrp}
               onClick={handleOnClick}
             >

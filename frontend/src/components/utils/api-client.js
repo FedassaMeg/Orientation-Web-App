@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { AUTH_TOKEN, ROOT_URL } from "./constants";
 
-function client(endpoint, { data, ...customConfig } = {}) {
+function client(endpoint, { data, method, ...customConfig } = {}) {
   const token = window.localStorage.getItem(AUTH_TOKEN);
   const headers = { "content-type": "application/json" };
   if (token) {
@@ -10,8 +10,7 @@ function client(endpoint, { data, ...customConfig } = {}) {
   }
   const config = {
     url: `${ROOT_URL}${endpoint}`,
-    method: data ? "POST" : "GET",
-    baseUrl: ROOT_URL,
+    method,
     responseType: "json",
     ...customConfig,
     headers: {

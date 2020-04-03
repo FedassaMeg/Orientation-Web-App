@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 
 import axios from "axios";
 
@@ -6,7 +6,16 @@ import axios from "axios";
 import { useAsync } from "react-async";
 
 //Local components
-import * as apiClient from "./api-admin";
+import {
+  getQuiz,
+  getQuizQuestions,
+  getScores,
+  getUsers,
+  getUserMCAnswers,
+  getUserSAAnswers,
+  getUserTFAnswers,
+  putScoreReview
+} from "./api-admin";
 import { ROOT_URL } from "../utils/constants";
 
 //Local components
@@ -51,10 +60,8 @@ const rowdata = (scoreArr, userArr) => {
 // Async wrapper function for api calls
 const getInitialData = async () => {
   try {
-    const quizzes = await apiClient.getQuizzes();
-    const users = await apiClient.getUsers();
-    const scores = await apiClient.getScores();
-    return { quizzes, users, scores };
+    const [users, scores] = await Promise.all([getUsers(), getScores()]);
+    return { users: users.data, scores: scores.data };
   } catch (e) {
     throw new Error(e);
   }
@@ -62,38 +69,85 @@ const getInitialData = async () => {
 
 // Async wrapper function for api calls
 const getUserAnsData = async ([input]) => {
+  const { quizId, scoreId } = input;
   try {
-    const userTFAnswers = await apiClient.getUserTFAnswers(input.scoreId);
-    const userMCAnswers = await apiClient.getUserMCAnswers(input.scoreId);
-    const userSAAnswers = await apiClient.getUserSAAnswers(input.scoreId);
-    const questions = await apiClient.getQuizQuestions(input.quizId);
-    const quiz = await apiClient.getQuiz(input.quizId);
-    return { userTFAnswers, userMCAnswers, userSAAnswers, questions, quiz };
+    const [tfAns, mcAns, saAns, questions, quiz] = await Promise.all([
+      getUserTFAnswers(scoreId),
+      getUserMCAnswers(scoreId),
+      getUserSAAnswers(scoreId),
+      getQuizQuestions(quizId),
+      getQuiz(quizId)
+    ]);
+    return {
+      answers: [...tfAns.data, ...mcAns.data, ...saAns.data],
+      questions: questions.data,
+      quiz: quiz.data
+    };
   } catch (e) {
     throw new Error(e);
   }
 };
 
-export default function AdminReviewScores(props) {
-  const [userArray, setUserArray] = useState([]);
-  const [scoreArray, setScoreArray] = useState([]);
-  const [tableData, setTableData] = useState([]);
-  const [isClicked, setIsClicked] = useState(false);
-  const [input, setInput] = useState({
+const initialState = {
+  input: {
     quizId: 0,
     scoreId: 0
-  });
-  const [userTFAnswers, setUserTFAnswers] = useState([]);
-  const [userMCAnswers, setUserMCAnswers] = useState([]);
-  const [userSAAnswers, setUserSAAnswers] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  const [quiz, setQuiz] = useState([]);
-  const [score, setScore] = useState(0);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(new Map());
+  },
+  isClicked: false,
+  tableData: [],
+  userAnswers: {
+    quiz: {},
+    questions: [],
+    answers: []
+  },
+  isSubmitted: false,
+  review: new Map()
+};
 
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerRage] = useState(10);
+export default function AdminReviewScores() {
+  //State reducer
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "setTableData":
+        return {
+          ...state,
+          tableData: action.tableData
+        };
+      case "setInput":
+        return {
+          ...state,
+          input: { quizId: action.quizId, scoreId: action.scoreId }
+        };
+      case "toggleClicked":
+        return { ...state, isClicked: !state.isClicked };
+      case "setUserAnswers":
+        return {
+          ...state,
+          userAnswers: {
+            quiz: action.quiz,
+            questions: action.questions,
+            answers: action.answers
+          }
+        };
+      case "toggleSubmitted":
+        return { ...state, isSubmitted: !state.isSubmitted };
+      case "addReview":
+        return { ...state, review: action.review };
+      default:
+        return state;
+    }
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  //State variables
+  const {
+    input,
+    isClicked,
+    tableData,
+    userAnswers,
+    isSubmitted,
+    review
+  } = state;
 
   const getInitialDataState = useAsync({
     promiseFn: getInitialData
@@ -104,15 +158,15 @@ export default function AdminReviewScores(props) {
   });
 
   useEffect(() => {
-    if (getInitialDataState.isSettled) {
-      setUserArray(getInitialDataState.data.users.data);
-      setScoreArray(getInitialDataState.data.scores.data);
+    const { isSettled, data } = getInitialDataState;
+    if (isSettled) {
+      const tableData = rowdata(data.scores.reverse(), data.users);
+      dispatch({
+        type: "setTableData",
+        tableData
+      });
     }
   }, [getInitialDataState.isSettled, getInitialDataState.data]);
-
-  useEffect(() => {
-    setTableData(rowdata(scoreArray.reverse(), userArray));
-  }, [scoreArray, userArray]);
 
   useEffect(() => {
     if (input.quizId !== 0 || input.scoreId !== 0) {
@@ -121,84 +175,79 @@ export default function AdminReviewScores(props) {
   }, [input]);
 
   useEffect(() => {
-    if (getUserAnsDataState.isFulfilled) {
-      setUserTFAnswers(getUserAnsDataState.data.userTFAnswers.data);
-      setUserMCAnswers(getUserAnsDataState.data.userMCAnswers.data);
-      setUserSAAnswers(getUserAnsDataState.data.userSAAnswers.data);
-      setQuestions(getUserAnsDataState.data.questions.data);
-      setQuiz(getUserAnsDataState.data.quiz.data);
+    const { isFulfilled, data } = getUserAnsDataState;
+    if (isFulfilled) {
+      dispatch({
+        type: "setUserAnswers",
+        quiz: data.quiz,
+        questions: data.questions,
+        answers: data.answers
+      });
     }
   }, [getUserAnsDataState.isFulfilled]);
 
+  //Handle review quiz button click
   const handleOnClick = event => {
     const sid = event.target.name;
     const qid = event.target.id;
-    setInput({
+    dispatch({
+      type: "setInput",
       scoreId: parseInt(sid),
       quizId: parseInt(qid)
     });
-    setIsClicked(true);
+    dispatch({ type: "toggleClicked" });
   };
 
   const back = () => {
-    setIsClicked(false);
     getInitialDataState.reload();
-    setIsSubmitted(false);
+    dispatch({ type: "toggleClicked" });
+    dispatch({ type: "toggleSubmitted" });
+    dispatch({ type: "addReview", review: new Map() });
   };
 
   const handleCorrect = event => {
-    if (score <= questions.length) {
-      setScore(score + 1);
-      const key = event.currentTarget.id;
-      const value = true;
-      const add = isCorrect.set(key, value);
-      setIsCorrect(add);
-    }
+    const key = event.currentTarget.id;
+    const value = true;
+    const add = review.set(key, value);
+    dispatch({ type: "addReview", review: add });
   };
 
   const handleWrong = event => {
-    if (score > 0) {
-      setScore(score - 1);
-      const key = event.currentTarget.id;
-      const value = false;
-      const add = isCorrect.set(key, value);
-      setIsCorrect(add);
-    }
+    const key = event.currentTarget.id;
+    const value = false;
+    const add = review.set(key, value);
+    dispatch({ type: "addReview", review: add });
   };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = event => {
-    setRowsPerRage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    let arr = [];
+    review.forEach((value, key) => arr.push({ key, value }));
+    const score = arr.reduce((acc, item) => {
+      return item.value ? acc + 1 : acc;
+    }, 0);
+
     let config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }
     };
-    axios
-      .put(
-        `${ROOT_URL}/scores/${input.scoreId}`,
-        {
-          id: input.scoreId,
-          score: score,
-          is_completed: true,
-          is_reviewed: true
-        },
-        config
-      )
-      .then(res => {
-        setIsSubmitted(true);
-        alert(`You scored this quiz ${score}/${questions.length}!`);
+
+    //Call to update/create (PUT) new manually determined score
+    putScoreReview(
+      input.scoreId,
+      {
+        id: input.scoreId,
+        score: score,
+        is_completed: true,
+        is_reviewed: true
+      },
+      config
+    )
+      .then(() => {
+        dispatch({ type: "toggleSubmitted" });
+        alert(`You scored this quiz ${score}/${userAnswers.questions.length}!`);
       })
       .catch(err => {
         console.log(err);
@@ -218,30 +267,19 @@ export default function AdminReviewScores(props) {
 
   return (
     <ReviewScores
+      back={back}
+      fetchState={getUserAnsDataState}
+      handleCorrect={handleCorrect}
+      handleOnClick={handleOnClick}
+      handleSubmit={handleSubmit}
+      handleWrong={handleWrong}
       isClicked={isClicked}
-      scoreArray={scoreArray}
-      userArray={userArray}
+      isSubmitted={isSubmitted}
+      questions={userAnswers.questions}
       quizId={input.quizId}
       scoreId={input.scoreId}
-      handleOnClick={handleOnClick}
-      back={back}
-      questions={questions}
-      userTFAnswers={userTFAnswers}
-      userMCAnswers={userMCAnswers}
-      userSAAnswers={userSAAnswers}
-      handleCorrect={handleCorrect}
-      handleWrong={handleWrong}
-      handleSubmit={handleSubmit}
-      isSubmitted={isSubmitted}
-      isCorrect={isCorrect}
-      fetchState={getUserAnsDataState}
-      page={page}
-      rowsPerPage={rowsPerPage}
-      handleChangePage={handleChangePage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      emptyRows={emptyRows}
       tableData={tableData}
+      userAnswers={userAnswers.answers}
     />
   );
 }
-//<MuiReviewScoresTable tableData={tableData} />

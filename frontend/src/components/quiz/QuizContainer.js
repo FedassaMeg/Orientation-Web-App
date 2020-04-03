@@ -12,19 +12,20 @@ import { useQuiz } from "./QuizContext";
 import { ROOT_URL } from "../utils/constants";
 import Quiz from "./Quiz";
 
+const initialState = {
+  activeIndex: 0,
+  currInput: null,
+  inputMap: new Map(),
+  isCompleted: false,
+  score: 0
+};
+
 export default function QuizContainer() {
   const { quiz, questions, answers } = useQuiz();
 
   let history = useHistory();
 
   let score = 0;
-
-  const initialState = {
-    activeIndex: 0,
-    currInput: null,
-    inputMap: new Map(),
-    isCompleted: false
-  };
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -53,11 +54,6 @@ export default function QuizContainer() {
 
   const { activeIndex, currInput, inputMap, isCompleted } = state;
 
-  // const [activeIndex, setActiveIndex] = useState(0);
-  // const [inputMap, setInputMap] = useState(new Map());
-  // const [isCompleted, setIsCompleted] = useState(false);
-  // const [currInput, setCurrInput] = useState(null);
-
   //Pose animation direction
   const [animate, setAnimate] = useState(false);
 
@@ -75,7 +71,6 @@ export default function QuizContainer() {
       setAnimate(false);
     } else if (activeIndex + 1 === questions.length) {
       dispatch({ type: "complete" });
-      console.log(inputMap);
     }
   };
 
@@ -117,8 +112,7 @@ export default function QuizContainer() {
 
   const sendQuestionAns = (id, config) => {
     if (quiz.review_required) {
-      questions.map((question, index) => {
-        console.log(questions);
+      questions.map(question => {
         if (question.question_type === 1) {
           const value = inputMap.get(question.id);
           axios.post(
@@ -160,6 +154,7 @@ export default function QuizContainer() {
   // Handles submission of quiz; posts score to the backend
   const handleSubmit = event => {
     event.preventDefault();
+
     if (!quiz.review_required) {
       inputMap.forEach(compareAnsToInput);
     }
@@ -169,6 +164,7 @@ export default function QuizContainer() {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }
     };
+
     axios
       .post(
         `${ROOT_URL}/scores/`,

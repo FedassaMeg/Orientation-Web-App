@@ -75,6 +75,14 @@ function getQuizSAAnswers(id) {
   return client(`/quizs/${id}/saanswers/`);
 }
 
+function putScoreReview(id, data, config) {
+  return client(`/scores/${id}`, {
+    data,
+    method: "put",
+    config
+  });
+}
+
 export {
   getUsers,
   getQuiz,
@@ -87,5 +95,6 @@ export {
   getQuizQuestions,
   getQuizTFAnswers,
   getQuizMCAnswers,
-  getQuizSAAnswers
+  getQuizSAAnswers,
+  putScoreReview
 };

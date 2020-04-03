@@ -12,19 +12,17 @@ import Button from "../components/Button";
 export default function ReviewQuiz(props) {
   const {
     back,
-    questions,
-    userAns,
     handleCorrect,
-    handleWrong,
     handleSubmit,
+    handleWrong,
     isSubmitted,
-    isCorrect
+    questions,
+    userAnswers
   } = props;
 
   const list = questions.map((question, index) => {
-    return userAns.map(ans => {
+    return userAnswers.map(ans => {
       if (question.id == ans.question) {
-        const corrected = isCorrect.get(question.id);
         return (
           <div key={`question-${index}`} css={row}>
             <div css={content}>

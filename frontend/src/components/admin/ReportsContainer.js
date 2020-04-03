@@ -9,7 +9,7 @@ import axios from "axios";
 import * as jsPDF from "jspdf";
 
 //Local components
-import * as apiClient from "./api-admin";
+import { getUsers, getUserScores } from "./api-admin";
 import { ROOT_URL } from "../utils/constants";
 import PageSpinner from "../components/PageSpinner";
 import Reports from "./Reports";
@@ -18,7 +18,7 @@ import Reports from "./Reports";
 const getUsersData = async () => {
   let users;
   try {
-    users = await apiClient.getUsers();
+    users = await getUsers();
   } catch (e) {
     throw new Error(e);
   }
@@ -29,7 +29,7 @@ const getUsersData = async () => {
 const getScoreData = async userId => {
   let scores;
   try {
-    scores = await apiClient.getUserScores(userId);
+    scores = await getUserScores(userId);
   } catch (e) {
     throw new Error(e);
   }
