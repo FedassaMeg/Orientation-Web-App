@@ -11,7 +11,7 @@
     "clsx": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
     "jspdf": "^1.5.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pdfjs-dist": "^2.2.228",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",
