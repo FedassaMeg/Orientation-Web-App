@@ -10,7 +10,7 @@
     "axios": "^0.19.0",
     "clsx": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "lodash": "^4.17.15",
     "pdfjs-dist": "^2.2.228",
     "prop-types": "^15.7.2",
